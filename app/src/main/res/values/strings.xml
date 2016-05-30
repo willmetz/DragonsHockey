@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Dragons Hockey</string>
+    <string name="action_settings">Settings</string>
+    <string name="dragons_hockey">Dragons Hockey</string>
+    <string name="last_game">Last Game</string>
+    <string name="next_game">Next Game</string>
+</resources>
