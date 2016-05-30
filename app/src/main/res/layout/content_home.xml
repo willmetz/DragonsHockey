@@ -8,86 +8,59 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_home"
-    tools:context="com.slapshotapps.dragonshockey.HomeActivity"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="81dp">
+    tools:context="com.slapshotapps.dragonshockey.HomeActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dragons_hockey"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="72dp"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
-        android:id="@+id/textView2"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        tools:layout_constraintLeft_creator="0"
-        app:layout_constraintTop_toTopOf="@+id/content_home"
+        android:id="@+id/dragons_hockey"
         android:layout_marginTop="72dp"
-        tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        tools:layout_constraintRight_creator="0"/>
+        app:layout_constraintLeft_toLeftOf="@+id/content_home"
+        app:layout_constraintTop_toTopOf="@+id/content_home"
+        app:layout_constraintRight_toRightOf="@+id/content_home"/>
 
     <TextView
+        android:id="@+id/last_game_header"
         android:text="@string/last_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="202dp"
-        android:id="@+id/textView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        tools:layout_constraintLeft_creator="0"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
         android:layout_marginTop="104dp"
-        tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        tools:layout_constraintRight_creator="0"/>
+        app:layout_constraintLeft_toLeftOf="@+id/content_home"
+        app:layout_constraintTop_toBottomOf="@+id/dragons_hockey"
+        app:layout_constraintRight_toRightOf="@+id/content_home"/>
 
     <TextView
+        android:id="@+id/next_game_header"
         android:text="@string/next_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="319dp"
-        android:id="@+id/textView4"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        tools:layout_constraintLeft_creator="0"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
         android:layout_marginTop="40dp"
-        tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        tools:layout_constraintRight_creator="0"/>
+        app:layout_constraintLeft_toLeftOf="@+id/content_home"
+        app:layout_constraintTop_toBottomOf="@+id/last_game_score"
+        app:layout_constraintRight_toRightOf="@+id/content_home"/>
 
     <TextView
+        android:id="@+id/last_game_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="263dp"
-        android:id="@+id/textView3"
         tools:text="Dragons 8  Oranges 5"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        tools:layout_constraintLeft_creator="0"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:layout_marginTop="40dp"
-        tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        tools:layout_constraintRight_creator="0"/>
+        app:layout_constraintTop_toBottomOf="@+id/last_game_header"
+        app:layout_constraintRight_toRightOf="@+id/content_home"/>
 
     <TextView
+        android:id="@+id/next_game_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="380dp"
-        android:id="@+id/textView5"
-        tools:text="Dragons 8  Oranges 5"
+        tools:text="12/24/16 8:00pm"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        tools:layout_constraintLeft_creator="0"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        android:layout_marginTop="40dp"
-        tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        tools:layout_constraintRight_creator="0"/>
+        app:layout_constraintTop_toBottomOf="@+id/next_game_header"
+        app:layout_constraintRight_toRightOf="@+id/content_home"/>
 
 </android.support.constraint.ConstraintLayout>

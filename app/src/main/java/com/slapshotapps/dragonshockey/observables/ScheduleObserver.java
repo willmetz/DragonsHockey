@@ -1,6 +1,5 @@
 package com.slapshotapps.dragonshockey.observables;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -8,14 +7,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.slapshotapps.dragonshockey.Config;
-import com.slapshotapps.dragonshockey.dataobjects.Game;
+import com.slapshotapps.dragonshockey.Utils.ScheduleHelpers;
+import com.slapshotapps.dragonshockey.models.Game;
+import com.slapshotapps.dragonshockey.models.HomeContents;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
 
 import rx.Observable;
@@ -72,6 +70,27 @@ public class ScheduleObserver
                     subscriber.onCompleted();
                 }
 
+            }
+        });
+    }
+
+    public static Observable<HomeContents> getHomeScreenContents( final List<Game> schedule )
+    {
+        return Observable.create(new Observable.OnSubscribe<HomeContents>()
+        {
+            @Override
+            public void call(Subscriber<? super HomeContents> subscriber) {
+
+                HomeContents homeContents = new HomeContents();
+
+                Date currentDate = new Date();
+                homeContents.lastGame = ScheduleHelpers.getGameBeforeDate(currentDate, schedule);
+                homeContents.nextGame = ScheduleHelpers.getGameAfterDate(currentDate, schedule);
+
+                if(!subscriber.isUnsubscribed()) {
+                    subscriber.onNext( homeContents );
+                    subscriber.onCompleted();
+                }
             }
         });
     }

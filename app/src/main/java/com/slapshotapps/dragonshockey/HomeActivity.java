@@ -3,26 +3,19 @@ package com.slapshotapps.dragonshockey;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.slapshotapps.dragonshockey.dataobjects.Game;
+import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
+import butterknife.BindView;
 import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -31,6 +24,14 @@ import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class HomeActivity extends AppCompatActivity {
+
+
+    @BindView(R.id.last_game_score)
+    TextView lastGameScore;
+
+    @BindView(R.id.next_game_date)
+    TextView nextGameDate;
+
 
     FirebaseDatabase database;
     Subscription data;
@@ -66,29 +67,6 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
 
-//        database.getReference(Config.GAMES).addListenerForSingleValueEvent(new ValueEventListener()
-//        {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot)
-//            {
-//                Log.d("tag", "i am here");
-//
-//                ArrayList<Game> schedule = new ArrayList<Game>();
-//
-//                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-//                    schedule.add(snapshot.getValue(Game.class));
-//                }
-//
-//
-//                Log.d("tag", "i am here");
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError)
-//            {
-//                Log.d("tag", "i am here poop");
-//            }
-//        });
     }
 
     @Override

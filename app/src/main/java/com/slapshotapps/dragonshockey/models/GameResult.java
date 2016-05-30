@@ -1,7 +1,7 @@
-package com.slapshotapps.dragonshockey.dataobjects;
+package com.slapshotapps.dragonshockey.models;
 
 /**
- * Created by willmetz on 5/27/16.
+ * A custom object for a game result
  */
 
 public class GameResult
