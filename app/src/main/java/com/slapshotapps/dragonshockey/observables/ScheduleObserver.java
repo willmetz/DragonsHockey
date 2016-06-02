@@ -32,7 +32,7 @@ public class ScheduleObserver
             {
                 DatabaseReference ref = firebaseDatabase.getReference(Config.GAMES);
 
-                ref.addListenerForSingleValueEvent(new ValueEventListener()
+                ref.addValueEventListener(new ValueEventListener()
                 {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)

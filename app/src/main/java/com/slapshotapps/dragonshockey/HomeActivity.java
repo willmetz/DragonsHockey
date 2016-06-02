@@ -16,6 +16,7 @@ import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,8 +34,6 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.next_game_date)
     TextView nextGameDate;
 
-
-    FirebaseDatabase database;
     Subscription data;
 
     @Override
@@ -45,10 +44,15 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ButterKnife.bind(this);
 
-        database = FirebaseDatabase.getInstance();
+    }
 
-        data = ScheduleObserver.getGamesObservable( database )
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        data = ScheduleObserver.getGamesObservable( FirebaseDatabase.getInstance() )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Func1<DataSnapshot, Observable<List<Game>>>()
@@ -72,9 +76,28 @@ public class HomeActivity extends AppCompatActivity {
                     public void call(HomeContents homeContents)
                     {
                         Timber.d("Yay the rx stuff worked");
+
+                        Game lastGame = homeContents.lastGame;
+                        if( lastGame != null && lastGame.gameResult != null) {
+                            String score = "Dragons " + lastGame.gameResult.dragonsScore + " "  + lastGame.opponent + " " + lastGame.gameResult.opponentScore;
+                            lastGameScore.setText(score);
+                        }
+
+                        Game nextGame = homeContents.nextGame;
+                        if(nextGame != null){
+                            nextGameDate.setText( nextGame.gameTime );
+                        }
                     }
                 });
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if( data != null ){
+            data.unsubscribe();
+        }
     }
 
     @Override
