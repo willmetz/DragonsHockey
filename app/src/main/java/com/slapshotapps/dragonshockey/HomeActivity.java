@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.models.Game;
+import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
 import java.util.List;
@@ -58,10 +59,17 @@ public class HomeActivity extends AppCompatActivity {
                         return ScheduleObserver.getScheduleFromSnapshot(dataSnapshot);
                     }
                 })
-                .subscribe(new Action1<List<Game>>()
+                .flatMap(new Func1<List<Game>, Observable<HomeContents>>()
                 {
                     @Override
-                    public void call(List<Game> games)
+                    public Observable<HomeContents> call(List<Game> games) {
+                        return ScheduleObserver.getHomeScreenContents(games);
+                    }
+                })
+                .subscribe(new Action1<HomeContents>()
+                {
+                    @Override
+                    public void call(HomeContents homeContents)
                     {
                         Timber.d("Yay the rx stuff worked");
                     }
