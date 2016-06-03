@@ -12,6 +12,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
+import com.trello.rxlifecycle.ActivityEvent;
+import com.trello.rxlifecycle.RxLifecycle;
 
 import java.util.List;
 
@@ -28,10 +30,10 @@ import timber.log.Timber;
 public class HomeActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.last_game_score)
+//    @BindView(R.id.last_game_score)
     TextView lastGameScore;
 
-    @BindView(R.id.next_game_date)
+//    @BindView(R.id.next_game_date)
     TextView nextGameDate;
 
     Subscription data;
@@ -44,8 +46,9 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ButterKnife.bind(this);
-
+        //butterknife injection doesn't appear to be working in a constraint layout at this time...
+        nextGameDate = (TextView)findViewById(R.id.next_game_date );
+        lastGameScore = (TextView)findViewById(R.id.last_game_score);
     }
 
     @Override

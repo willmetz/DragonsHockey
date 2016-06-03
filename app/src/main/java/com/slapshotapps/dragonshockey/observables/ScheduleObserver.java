@@ -11,6 +11,7 @@ import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.Utils.ScheduleHelpers;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.HomeContents;
+import com.trello.rxlifecycle.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.Date;
