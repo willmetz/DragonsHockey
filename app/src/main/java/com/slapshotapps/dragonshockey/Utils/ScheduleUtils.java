@@ -13,7 +13,7 @@ import java.util.List;
  * Created by willmetz on 5/30/16.
  */
 
-public class ScheduleHelpers
+public class ScheduleUtils
 {
     /**
      * Gets the game before the date given.

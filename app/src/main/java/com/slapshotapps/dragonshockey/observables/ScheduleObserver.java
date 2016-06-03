@@ -8,15 +8,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.slapshotapps.dragonshockey.Config;
-import com.slapshotapps.dragonshockey.Utils.ScheduleHelpers;
+import com.slapshotapps.dragonshockey.Utils.ScheduleUtils;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.HockeySchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
-import com.trello.rxlifecycle.ActivityEvent;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -71,8 +68,8 @@ public class ScheduleObserver
                 HomeContents homeContents = new HomeContents();
 
                 Date currentDate = new Date();
-                homeContents.lastGame = ScheduleHelpers.getGameBeforeDate(currentDate, schedule.getAllGames());
-                homeContents.nextGame = ScheduleHelpers.getGameAfterDate(currentDate, schedule.getAllGames());
+                homeContents.lastGame = ScheduleUtils.getGameBeforeDate(currentDate, schedule.getAllGames());
+                homeContents.nextGame = ScheduleUtils.getGameAfterDate(currentDate, schedule.getAllGames());
 
                 if(!subscriber.isUnsubscribed()) {
                     subscriber.onNext( homeContents );

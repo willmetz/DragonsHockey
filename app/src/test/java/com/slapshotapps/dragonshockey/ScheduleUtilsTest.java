@@ -1,6 +1,6 @@
 package com.slapshotapps.dragonshockey;
 
-import com.slapshotapps.dragonshockey.Utils.ScheduleHelpers;
+import com.slapshotapps.dragonshockey.Utils.ScheduleUtils;
 import com.slapshotapps.dragonshockey.models.Game;
 
 import junit.framework.Assert;
@@ -9,13 +9,11 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /**
  * A test for the schedule methods
  */
-public class ScheduleTest
+public class ScheduleUtilsTest
 {
     @Test
     public void testGameBeforeDate_dateInList()
@@ -25,7 +23,7 @@ public class ScheduleTest
         Calendar time = Calendar.getInstance();
         time.set(2016, Calendar.JUNE, 3);
 
-        Game foundGame = ScheduleHelpers.getGameBeforeDate( time.getTime(), games );
+        Game foundGame = ScheduleUtils.getGameBeforeDate( time.getTime(), games );
 
         Assert.assertEquals( foundGame, games.get(1) );
     }
@@ -38,7 +36,7 @@ public class ScheduleTest
         Calendar time = Calendar.getInstance();
         time.set(2016, Calendar.JUNE, 4);
 
-        Game foundGame = ScheduleHelpers.getGameBeforeDate( time.getTime(), games );
+        Game foundGame = ScheduleUtils.getGameBeforeDate( time.getTime(), games );
 
         Assert.assertEquals( foundGame, games.get(2) );
     }
@@ -51,7 +49,7 @@ public class ScheduleTest
         Calendar time = Calendar.getInstance();
         time.set(2016, Calendar.JUNE, 6);
 
-        Game foundGame = ScheduleHelpers.getGameBeforeDate( time.getTime(), games );
+        Game foundGame = ScheduleUtils.getGameBeforeDate( time.getTime(), games );
 
         Assert.assertEquals( foundGame, games.get(2) );
     }
@@ -64,7 +62,7 @@ public class ScheduleTest
         Calendar time = Calendar.getInstance();
         time.set(2016, Calendar.JUNE, 1);
 
-        Game foundGame = ScheduleHelpers.getGameBeforeDate( time.getTime(), games );
+        Game foundGame = ScheduleUtils.getGameBeforeDate( time.getTime(), games );
 
         Assert.assertNull(foundGame);
     }
@@ -78,7 +76,7 @@ public class ScheduleTest
         Calendar time = Calendar.getInstance();
         time.set(2016, Calendar.JUNE, 1);
 
-        Game foundGame = ScheduleHelpers.getGameAfterDate( time.getTime(), games );
+        Game foundGame = ScheduleUtils.getGameAfterDate( time.getTime(), games );
 
         Assert.assertEquals( foundGame, games.get(0) );
     }
@@ -91,7 +89,7 @@ public class ScheduleTest
         Calendar time = Calendar.getInstance();
         time.set(2016, Calendar.JUNE, 5);
 
-        Game foundGame = ScheduleHelpers.getGameAfterDate( time.getTime(), games );
+        Game foundGame = ScheduleUtils.getGameAfterDate( time.getTime(), games );
 
         Assert.assertNull(foundGame);
     }
@@ -104,7 +102,7 @@ public class ScheduleTest
         Calendar time = Calendar.getInstance();
         time.set(2016, Calendar.JUNE, 2);
 
-        Game foundGame = ScheduleHelpers.getGameAfterDate( time.getTime(), games );
+        Game foundGame = ScheduleUtils.getGameAfterDate( time.getTime(), games );
 
         Assert.assertEquals( foundGame, games.get(1) );
     }
