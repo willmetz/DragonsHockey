@@ -11,6 +11,7 @@ import java.util.Date;
 public class DateFormaters
 {
     private static final SimpleDateFormat ISO_8601_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat GAME_TIME = new SimpleDateFormat("K:mm a");
 
 
     public static Date getDateFromGameTime(String gameTime){
@@ -23,5 +24,10 @@ public class DateFormaters
         }
 
         return gameDate;
+    }
+
+    public static String getGameTime(Date gameTime){
+
+       return GAME_TIME.format(gameTime);
     }
 }

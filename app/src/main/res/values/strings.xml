@@ -4,4 +4,5 @@
     <string name="dragons_hockey">Dragons Hockey</string>
     <string name="last_game">Last Game</string>
     <string name="next_game">Next Game</string>
+    <string name="last_game_score"><b>Dragons</b> %1$d   <b>%2$s</b> %3$d  (%4$s)</string>
 </resources>

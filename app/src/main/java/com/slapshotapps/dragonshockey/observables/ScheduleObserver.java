@@ -10,6 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.Utils.ScheduleHelpers;
 import com.slapshotapps.dragonshockey.models.Game;
+import com.slapshotapps.dragonshockey.models.HockeySchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.trello.rxlifecycle.ActivityEvent;
 
@@ -25,11 +26,11 @@ import rx.Subscriber;
  */
 public class ScheduleObserver
 {
-    public static Observable<DataSnapshot> getGamesObservable(final FirebaseDatabase firebaseDatabase)
+    public static Observable<HockeySchedule> getHockeySchedule(final FirebaseDatabase firebaseDatabase)
     {
-        return Observable.create( new Observable.OnSubscribe<DataSnapshot>(){
+        return Observable.create( new Observable.OnSubscribe<HockeySchedule>(){
             @Override
-            public void call(final Subscriber<? super DataSnapshot> subscriber)
+            public void call(final Subscriber<? super HockeySchedule> subscriber)
             {
                 DatabaseReference ref = firebaseDatabase.getReference(Config.GAMES);
 
@@ -38,8 +39,14 @@ public class ScheduleObserver
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
+                        HockeySchedule schedule = new HockeySchedule();
+
+                        for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                            schedule.addGame(snapshot.getValue(Game.class));
+                        }
+
                         if(!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(dataSnapshot);
+                            subscriber.onNext( schedule );
                             subscriber.onCompleted();
                         }
                     }
@@ -54,28 +61,7 @@ public class ScheduleObserver
         });
     }
 
-    public static Observable<List<Game>> getScheduleFromSnapshot( final DataSnapshot dataSnapshot)
-    {
-        return Observable.create( new Observable.OnSubscribe<List<Game>>(){
-            @Override
-            public void call(Subscriber<? super List<Game>> subscriber)
-            {
-                ArrayList<Game> schedule = new ArrayList<Game>();
-
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    schedule.add(snapshot.getValue(Game.class));
-                }
-
-                if(!subscriber.isUnsubscribed()) {
-                    subscriber.onNext( schedule );
-                    subscriber.onCompleted();
-                }
-
-            }
-        });
-    }
-
-    public static Observable<HomeContents> getHomeScreenContents( final List<Game> schedule )
+    public static Observable<HomeContents> getHomeScreenContents( final HockeySchedule schedule )
     {
         return Observable.create(new Observable.OnSubscribe<HomeContents>()
         {
@@ -85,8 +71,8 @@ public class ScheduleObserver
                 HomeContents homeContents = new HomeContents();
 
                 Date currentDate = new Date();
-                homeContents.lastGame = ScheduleHelpers.getGameBeforeDate(currentDate, schedule);
-                homeContents.nextGame = ScheduleHelpers.getGameAfterDate(currentDate, schedule);
+                homeContents.lastGame = ScheduleHelpers.getGameBeforeDate(currentDate, schedule.getAllGames());
+                homeContents.nextGame = ScheduleHelpers.getGameAfterDate(currentDate, schedule.getAllGames());
 
                 if(!subscriber.isUnsubscribed()) {
                     subscriber.onNext( homeContents );

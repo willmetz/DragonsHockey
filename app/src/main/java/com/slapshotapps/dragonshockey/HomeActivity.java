@@ -7,18 +7,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+import com.slapshotapps.dragonshockey.Utils.DateFormaters;
+import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.models.Game;
+import com.slapshotapps.dragonshockey.models.HockeySchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
-import com.trello.rxlifecycle.ActivityEvent;
-import com.trello.rxlifecycle.RxLifecycle;
 
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
 //    @BindView(R.id.next_game_date)
     TextView nextGameDate;
 
-    Subscription data;
+    Subscription hockeyScheduleSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,21 +55,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        data = ScheduleObserver.getGamesObservable( FirebaseDatabase.getInstance() )
+        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule( FirebaseDatabase.getInstance() )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1<DataSnapshot, Observable<List<Game>>>()
+                .flatMap(new Func1<HockeySchedule, Observable<HomeContents>>()
                 {
                     @Override
-                    public Observable<List<Game>> call(DataSnapshot dataSnapshot)
-                    {
-                        return ScheduleObserver.getScheduleFromSnapshot(dataSnapshot);
-                    }
-                })
-                .flatMap(new Func1<List<Game>, Observable<HomeContents>>()
-                {
-                    @Override
-                    public Observable<HomeContents> call(List<Game> games) {
+                    public Observable<HomeContents> call(HockeySchedule games) {
                         return ScheduleObserver.getHomeScreenContents(games);
                     }
                 })
@@ -80,16 +72,9 @@ public class HomeActivity extends AppCompatActivity {
                     {
                         Timber.d("Yay the rx stuff worked");
 
-                        Game lastGame = homeContents.lastGame;
-                        if( lastGame != null && lastGame.gameResult != null) {
-                            String score = "Dragons " + lastGame.gameResult.dragonsScore + " "  + lastGame.opponent + " " + lastGame.gameResult.opponentScore;
-                            lastGameScore.setText(score);
-                        }
+                        setLastGameScore(homeContents.lastGame);
 
-                        Game nextGame = homeContents.nextGame;
-                        if(nextGame != null){
-                            nextGameDate.setText( nextGame.gameTime );
-                        }
+                        setNextGameDate(homeContents.nextGame);
                     }
                 });
     }
@@ -98,8 +83,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if( data != null ){
-            data.unsubscribe();
+        if( hockeyScheduleSubscription != null ){
+            hockeyScheduleSubscription.unsubscribe();
+            hockeyScheduleSubscription = null;
         }
     }
 
@@ -124,4 +110,40 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    protected void setLastGameScore(Game lastGame)
+    {
+        if( lastGame != null && lastGame.gameResult != null) {
+
+            String winOrLoss = lastGame.gameResult.dragonsScore > lastGame.gameResult.opponentScore ? "W" : "L";
+            String gameScore = String.format(getString(R.string.last_game_score), lastGame.gameResult.dragonsScore,
+                    lastGame.opponent,
+                    lastGame.gameResult.opponentScore,
+                    winOrLoss);
+            lastGameScore.setText(gameScore);
+        }
+    }
+
+    protected void setNextGameDate(Game nextGame)
+    {
+        if( nextGame == null){
+            nextGameDate.setText("Wait till next season");
+        }
+
+        Date date = nextGame.gameTimeToDate();
+
+        if(date != null){
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            String gametime = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " +
+                    FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)) +
+                    " " + DateFormaters.getGameTime(date);
+
+            nextGameDate.setText(gametime);
+        }
+    }
+
+
 }
