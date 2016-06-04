@@ -1,17 +1,21 @@
-package com.slapshotapps.dragonshockey;
+package com.slapshotapps.dragonshockey.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.models.Game;
-import com.slapshotapps.dragonshockey.models.HockeySchedule;
+import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
@@ -49,6 +53,17 @@ public class HomeActivity extends AppCompatActivity {
         //butterknife injection doesn't appear to be working in a constraint layout at this time...
         nextGameDate = (TextView)findViewById(R.id.next_game_date );
         lastGameScore = (TextView)findViewById(R.id.last_game_score);
+
+        //would be nice if butterknife worked...
+        Button viewSchedule = (Button)findViewById(R.id.schedule_button);
+
+        viewSchedule.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent(HomeActivity.this, ScheduleActivity.class));
+            }
+        });
     }
 
     @Override
@@ -58,10 +73,10 @@ public class HomeActivity extends AppCompatActivity {
         hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule( FirebaseDatabase.getInstance() )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1<HockeySchedule, Observable<HomeContents>>()
+                .flatMap(new Func1<SeasonSchedule, Observable<HomeContents>>()
                 {
                     @Override
-                    public Observable<HomeContents> call(HockeySchedule games) {
+                    public Observable<HomeContents> call(SeasonSchedule games) {
                         return ScheduleObserver.getHomeScreenContents(games);
                     }
                 })

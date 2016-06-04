@@ -10,7 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.Utils.ScheduleUtils;
 import com.slapshotapps.dragonshockey.models.Game;
-import com.slapshotapps.dragonshockey.models.HockeySchedule;
+import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 
 import java.util.Date;
@@ -23,11 +23,11 @@ import rx.Subscriber;
  */
 public class ScheduleObserver
 {
-    public static Observable<HockeySchedule> getHockeySchedule(final FirebaseDatabase firebaseDatabase)
+    public static Observable<SeasonSchedule> getHockeySchedule(final FirebaseDatabase firebaseDatabase)
     {
-        return Observable.create( new Observable.OnSubscribe<HockeySchedule>(){
+        return Observable.create( new Observable.OnSubscribe<SeasonSchedule>(){
             @Override
-            public void call(final Subscriber<? super HockeySchedule> subscriber)
+            public void call(final Subscriber<? super SeasonSchedule> subscriber)
             {
                 DatabaseReference ref = firebaseDatabase.getReference(Config.GAMES);
 
@@ -36,7 +36,7 @@ public class ScheduleObserver
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
-                        HockeySchedule schedule = new HockeySchedule();
+                        SeasonSchedule schedule = new SeasonSchedule();
 
                         for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                             schedule.addGame(snapshot.getValue(Game.class));
@@ -58,7 +58,7 @@ public class ScheduleObserver
         });
     }
 
-    public static Observable<HomeContents> getHomeScreenContents( final HockeySchedule schedule )
+    public static Observable<HomeContents> getHomeScreenContents( final SeasonSchedule schedule )
     {
         return Observable.create(new Observable.OnSubscribe<HomeContents>()
         {

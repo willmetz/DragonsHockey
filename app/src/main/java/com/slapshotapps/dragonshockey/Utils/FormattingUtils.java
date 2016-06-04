@@ -17,9 +17,9 @@ public class FormattingUtils
     {
 
         int lastDigit = value % 10;
-        String formatted = "";
+        String formatted = String.valueOf(value);
 
-        if( value == 11 || value == 12 || value == 13 || lastDigit > 3 ){
+        if( value == 11 || value == 12 || value == 13 || lastDigit > 3 || lastDigit == 0){
             formatted = value + "th";
         }
         else if( lastDigit == 1){

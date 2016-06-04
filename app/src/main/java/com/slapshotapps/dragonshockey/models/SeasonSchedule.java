@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by willmetz on 6/2/16.
+ * A class that will hold the schedule for the season
  */
-
-public class HockeySchedule
+public class SeasonSchedule
 {
     public List<Game> games;
 
-    public HockeySchedule()
+    public SeasonSchedule()
     {
         games = new ArrayList<>();
     }
