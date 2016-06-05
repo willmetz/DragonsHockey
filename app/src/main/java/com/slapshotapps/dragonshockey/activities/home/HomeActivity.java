@@ -1,4 +1,4 @@
-package com.slapshotapps.dragonshockey.activities;
+package com.slapshotapps.dragonshockey.activities.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
+import com.slapshotapps.dragonshockey.activities.schedule.ScheduleActivity;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;

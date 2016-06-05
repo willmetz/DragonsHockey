@@ -1,4 +1,4 @@
-package com.slapshotapps.dragonshockey.activities;
+package com.slapshotapps.dragonshockey.activities.schedule;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

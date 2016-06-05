@@ -1,17 +1,14 @@
-package com.slapshotapps.dragonshockey.adapters;
+package com.slapshotapps.dragonshockey.activities.schedule.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.slapshotapps.dragonshockey.R;
 
 import java.util.Date;
-import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  *
