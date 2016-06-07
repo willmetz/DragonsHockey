@@ -7,41 +7,60 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.DateFormaters;
+import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
+import com.slapshotapps.dragonshockey.models.Game;
+import com.slapshotapps.dragonshockey.models.GameResult;
+import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
  */
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.GameViewHolder>
 {
+    private SeasonSchedule schedule;
 
-    @Override
-    public int getItemCount() {
-        return 0;
+    public ScheduleAdapter(SeasonSchedule schedule)
+    {
+        this.schedule = schedule;
     }
 
     @Override
-    public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public int getItemCount()
+    {
+        return schedule.numberOfGames();
+    }
+
+    @Override
+    public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
 
         View gameView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_game_details, parent, false);
 
-        GameViewHolder viewHolder = new GameViewHolder(gameView);
-
-        return viewHolder;
+        return new GameViewHolder(gameView);
     }
 
     @Override
-    public void onBindViewHolder(GameViewHolder holder, int position) {
+    public void onBindViewHolder(GameViewHolder holder, int position)
+    {
+        Game game = schedule.getAllGames().get(position);
+
+        holder.setGameDate(game.gameTimeToDate());
+        holder.setGameOpponent(game.opponent);
+        holder.setGameResult( FormattingUtils.getGameScore(game.gameResult, game.opponent));
 
     }
 
     public static class GameViewHolder extends RecyclerView.ViewHolder
     {
-        TextView gameDay;
-        TextView gameTime;
-        TextView opponent;
-        TextView gameResult;
+        private TextView gameDay;
+        private TextView gameTime;
+        private TextView opponent;
+        private TextView gameResult;
 
         public GameViewHolder(View itemView) {
             super(itemView);
@@ -54,8 +73,15 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.GameVi
 
         public void setGameDate(Date gameDate)
         {
-            gameDay.setText("");
-            gameTime.setText("");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(gameDate);
+
+            final String gameDayStr = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US) +
+                    " " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) +
+                    " " + calendar.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.LONG, Locale.US);
+
+            gameDay.setText(gameDayStr);
+            gameTime.setText(DateFormaters.getGameTime(gameDate));
         }
 
         public void setGameOpponent(String opponent)
@@ -63,9 +89,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.GameVi
             this.opponent.setText(opponent);
         }
 
-        public void setGameResult()
+        public void setGameResult(String result)
         {
-            gameResult.setText("");
+            gameResult.setText(result);
         }
 
     }

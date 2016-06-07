@@ -1,5 +1,7 @@
 package com.slapshotapps.dragonshockey.Utils;
 
+import com.slapshotapps.dragonshockey.models.GameResult;
+
 /**
  * Created by willmetz on 6/2/16.
  */
@@ -33,6 +35,40 @@ public class FormattingUtils
         }
 
         return formatted;
+    }
+
+    public static String getGameScore(GameResult gameResult, String opponent)
+    {
+        String gameScore = "TBD";
+
+        if(gameResult != null){
+
+            gameScore = "Dragons " + gameResult.dragonsScore + " " + opponent + " " +
+                    gameResult.opponentScore + "(" + didDragonsWin(gameResult) + ")";
+        }
+
+        return gameScore;
+    }
+
+
+    public static String didDragonsWin(GameResult gameResult)
+    {
+        String winLossTie = "N/A";
+
+        if(gameResult !=null){
+            if(gameResult.dragonsScore > gameResult.opponentScore){
+                winLossTie = "W";
+            }
+            else if( gameResult.opponentScore > gameResult.dragonsScore){
+                winLossTie = "L";
+            }
+            else{
+                winLossTie = "T";
+            }
+
+        }
+
+        return winLossTie;
     }
 
 }

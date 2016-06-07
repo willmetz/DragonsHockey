@@ -24,4 +24,10 @@ public class SeasonSchedule
     {
         return games;
     }
+
+    public int numberOfGames()
+    {
+        return games.size();
+    }
+
 }
