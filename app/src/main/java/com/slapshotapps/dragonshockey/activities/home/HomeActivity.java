@@ -20,6 +20,8 @@ import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -41,6 +43,8 @@ public class HomeActivity extends AppCompatActivity {
 //    @BindView(R.id.next_game_date)
     TextView nextGameDate;
 
+    TextView lastGameHeader;
+
     Subscription hockeyScheduleSubscription;
 
     @Override
@@ -54,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         //butterknife injection doesn't appear to be working in a constraint layout at this time...
         nextGameDate = (TextView)findViewById(R.id.next_game_date );
         lastGameScore = (TextView)findViewById(R.id.last_game_score);
+        lastGameHeader = (TextView)findViewById(R.id.last_game_header);
 
         //would be nice if butterknife worked...
         Button viewSchedule = (Button)findViewById(R.id.schedule_button);
@@ -86,7 +91,6 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void call(HomeContents homeContents)
                     {
-                        Timber.d("Yay the rx stuff worked");
 
                         setLastGameScore(homeContents.lastGame);
 
@@ -137,13 +141,17 @@ public class HomeActivity extends AppCompatActivity {
                     lastGame.gameResult.opponentScore,
                     winOrLoss);
             lastGameScore.setText(gameScore);
+        }else{
+            lastGameScore.setVisibility(View.INVISIBLE);
+            lastGameHeader.setVisibility(View.INVISIBLE);
         }
     }
 
     protected void setNextGameDate(Game nextGame)
     {
-        if( nextGame == null){
+        if( nextGame == null || nextGame.gameResult == null){
             nextGameDate.setText("Wait till next season");
+            return;
         }
 
         Date date = nextGame.gameTimeToDate();

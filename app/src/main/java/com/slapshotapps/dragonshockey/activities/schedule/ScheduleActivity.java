@@ -10,17 +10,14 @@ import android.support.v7.widget.Toolbar;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.activities.schedule.adapters.ScheduleAdapter;
-import com.slapshotapps.dragonshockey.models.HomeContents;
+import com.slapshotapps.dragonshockey.activities.schedule.itemdecoration.RecyclerViewDivider;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
-import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * An activity to display the season schedule
@@ -44,8 +41,10 @@ public class ScheduleActivity extends AppCompatActivity
 
         recyclerView = (RecyclerView)findViewById(R.id.schedule_recycler_view);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ScheduleActivity.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ScheduleActivity.this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new RecyclerViewDivider(this, R.drawable.schedule_divider));
     }
 
 

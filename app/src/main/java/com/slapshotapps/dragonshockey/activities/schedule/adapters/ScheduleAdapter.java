@@ -76,9 +76,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.GameVi
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(gameDate);
 
-            final String gameDayStr = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US) +
+            final String gameDayStr = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US) +
                     " " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) +
-                    " " + calendar.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.LONG, Locale.US);
+                    " " + FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH));
 
             gameDay.setText(gameDayStr);
             gameTime.setText(DateFormaters.getGameTime(gameDate));
