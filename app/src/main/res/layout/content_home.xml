@@ -8,26 +8,20 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_home"
-    tools:context=".activities.home.HomeActivity"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="81dp">
+    tools:context=".activities.home.HomeActivity">
 
     <!--change this to an imageview -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dragons_hockey"
+    <ImageView
+        android:layout_width="185dp"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_dragon_eye_red"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:id="@+id/dragons_hockey"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="72dp"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        tools:layout_constraintLeft_creator="1"
         app:layout_constraintTop_toTopOf="@+id/content_home"
-        android:layout_marginTop="72dp"
-        tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        tools:layout_constraintRight_creator="1"/>
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toRightOf="@+id/content_home"/>
 
     <TextView
         android:id="@+id/last_game_header"
@@ -35,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
         app:layout_constraintTop_toBottomOf="@+id/dragons_hockey"
         app:layout_constraintRight_toRightOf="@+id/content_home"/>
@@ -49,7 +43,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintTop_toBottomOf="@+id/last_game_score"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         tools:layout_constraintTop_creator="0"
         app:layout_constraintRight_toRightOf="@+id/content_home"
         tools:layout_constraintRight_creator="1"/>
