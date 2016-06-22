@@ -10,7 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
@@ -97,6 +101,21 @@ public class HomeActivity extends AppCompatActivity {
                         setNextGameDate(homeContents.nextGame);
                     }
                 });
+
+        Query query = FirebaseDatabase.getInstance().getReference("results/gameResults").orderByChild("gameID").equalTo("two");
+
+        query.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Timber.d("looks like we got data");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Timber.e("poop");
+            }
+        });
     }
 
     @Override
