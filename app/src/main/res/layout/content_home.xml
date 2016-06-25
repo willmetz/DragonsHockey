@@ -77,6 +77,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
+        android:background="@drawable/borderless_button_ripple"
         style="@style/Widget.AppCompat.Button.Borderless"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
         app:layout_constraintRight_toRightOf="@+id/content_home"
