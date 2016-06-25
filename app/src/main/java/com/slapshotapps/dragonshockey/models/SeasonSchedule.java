@@ -30,4 +30,14 @@ public class SeasonSchedule
         return games.size();
     }
 
+    public Game getGame(int gameID){
+        for(Game game:games){
+            if(game.gameID == gameID){
+                return game;
+            }
+        }
+
+        return null;
+    }
+
 }

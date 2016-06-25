@@ -14,9 +14,11 @@ import com.slapshotapps.dragonshockey.activities.schedule.itemdecoration.Recycle
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -53,9 +55,17 @@ public class ScheduleActivity extends AppCompatActivity
     {
         super.onResume();
 
-        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule( FirebaseDatabase.getInstance() )
+        final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule( firebaseDatabase )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(new Func1<SeasonSchedule, Observable<SeasonSchedule>>()
+                {
+                    @Override
+                    public Observable<SeasonSchedule> call(SeasonSchedule schedule) {
+                        return ScheduleObserver.getScheduleWithResults(firebaseDatabase, schedule);
+                    }
+                })
                 .subscribe(new Action1<SeasonSchedule>()
                 {
                     @Override

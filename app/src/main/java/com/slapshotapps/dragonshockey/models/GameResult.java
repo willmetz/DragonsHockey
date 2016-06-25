@@ -6,6 +6,7 @@ package com.slapshotapps.dragonshockey.models;
 
 public class GameResult
 {
+    public int gameID;
     public int dragonsScore;
     public int opponentScore;
 }

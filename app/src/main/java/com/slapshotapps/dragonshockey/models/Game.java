@@ -12,6 +12,7 @@ public class Game
 {
     public String gameTime;
     public String opponent;
+    public int gameID;
     public GameResult gameResult;
 
     public Date gameTimeToDate()

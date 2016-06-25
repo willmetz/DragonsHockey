@@ -43,9 +43,9 @@ public class FormattingUtils
 
         if(gameResult != null){
 
-            gameScore = gameResult.dragonsScore + " " +
+            gameScore = gameResult.dragonsScore + "-" +
                     gameResult.opponentScore +
-                    "(" + didDragonsWin(gameResult) + ")";
+                    " (" + didDragonsWin(gameResult) + ")";
         }
 
         return gameScore;

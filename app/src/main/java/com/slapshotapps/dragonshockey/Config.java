@@ -7,4 +7,5 @@ package com.slapshotapps.dragonshockey;
 public class Config
 {
     public static final String GAMES = "games";
+    public static final String GAME_RESULTS = "gameResults";
 }

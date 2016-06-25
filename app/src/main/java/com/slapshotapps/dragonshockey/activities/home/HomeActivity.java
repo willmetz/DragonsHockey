@@ -80,14 +80,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule( FirebaseDatabase.getInstance() )
+        final FirebaseDatabase db = FirebaseDatabase.getInstance();
+        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(db)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Func1<SeasonSchedule, Observable<HomeContents>>()
                 {
                     @Override
                     public Observable<HomeContents> call(SeasonSchedule games) {
-                        return ScheduleObserver.getHomeScreenContents(games);
+                        return ScheduleObserver.getHomeScreen(db,games, new Date());
                     }
                 })
                 .subscribe(new Action1<HomeContents>()
@@ -95,27 +96,17 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void call(HomeContents homeContents)
                     {
-
                         setLastGameScore(homeContents.lastGame);
-
                         setNextGameDate(homeContents.nextGame);
                     }
+                }, new Action1<Throwable>()
+                {
+                    @Override
+                    public void call(Throwable throwable) {
+                        setLastGameScore(null);
+                        setNextGameDate(null);
+                    }
                 });
-
-        Query query = FirebaseDatabase.getInstance().getReference("results/gameResults").orderByChild("gameID").equalTo("two");
-
-        query.addListenerForSingleValueEvent(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Timber.d("looks like we got data");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Timber.e("poop");
-            }
-        });
     }
 
     @Override
