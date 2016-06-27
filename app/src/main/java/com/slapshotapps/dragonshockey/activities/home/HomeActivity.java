@@ -1,7 +1,9 @@
 package com.slapshotapps.dragonshockey.activities.home;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.animation.AnimatorCompatHelper;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -48,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
 //    @BindView(R.id.next_game_date)
     TextView nextGameDate;
 
-    TextView lastGameHeader;
+    TextView lastGameHeader, nextGameHeader;
 
     Subscription hockeyScheduleSubscription;
 
@@ -64,6 +66,8 @@ public class HomeActivity extends AppCompatActivity {
         nextGameDate = (TextView)findViewById(R.id.next_game_date );
         lastGameScore = (TextView)findViewById(R.id.last_game_score);
         lastGameHeader = (TextView)findViewById(R.id.last_game_header);
+        nextGameHeader = (TextView)findViewById(R.id.next_game_header);
+
 
         //would be nice if butterknife worked...
         Button viewSchedule = (Button)findViewById(R.id.schedule_button);
@@ -130,16 +134,21 @@ public class HomeActivity extends AppCompatActivity {
                     lastGame.gameResult.opponentScore,
                     winOrLoss);
             lastGameScore.setText(gameScore);
-        }else{
-            lastGameScore.setVisibility(View.INVISIBLE);
-            lastGameHeader.setVisibility(View.INVISIBLE);
+            lastGameScore.animate().alpha(1.0f);
+            lastGameHeader.animate().alpha(1.0f);
+        }else if( lastGame.gameResult == null ){
+                lastGameScore.setText(R.string.update_pending);
+                lastGameHeader.animate().alpha(1.0f);
+                lastGameScore.animate().alpha(1.0f);
         }
     }
 
     protected void setNextGameDate(Game nextGame)
     {
         if( nextGame == null ){
-            nextGameDate.setText("Wait till next season");
+            nextGameDate.setText(R.string.no_more_games);
+            nextGameHeader.animate().alpha(1.0f);
+            nextGameDate.animate().alpha(1.0f);
             return;
         }
 
@@ -156,7 +165,11 @@ public class HomeActivity extends AppCompatActivity {
 
             nextGameDate.setText(gametime);
         }
+
+        nextGameHeader.animate().alpha(1.0f);
+        nextGameDate.animate().alpha(1.0f);
     }
+
 
 
 }

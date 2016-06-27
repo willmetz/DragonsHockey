@@ -6,4 +6,6 @@
     <string name="next_game">Next Game</string>
     <string name="last_game_score"><b>Dragons</b> %1$d   <b>%2$s</b> %3$d  (%4$s)</string>
     <string name="schedule">View Schedule</string>
+    <string name="no_more_games">Wait till next season</string>
+    <string name="update_pending">Game update pending</string>
 </resources>
