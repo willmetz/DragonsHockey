@@ -45,137 +45,117 @@ import timber.log.Timber;
 
 public class HomeActivity extends AppCompatActivity {
 
+  //    @BindView(R.id.last_game_score)
+  TextView lastGameScore;
 
-//    @BindView(R.id.last_game_score)
-    TextView lastGameScore;
+  //    @BindView(R.id.next_game_date)
+  TextView nextGameDate;
 
-//    @BindView(R.id.next_game_date)
-    TextView nextGameDate;
+  TextView lastGameHeader, nextGameHeader;
 
-    TextView lastGameHeader, nextGameHeader;
+  Subscription hockeyScheduleSubscription;
 
-    Subscription hockeyScheduleSubscription;
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Fabric.with(this, new Crashlytics());
+    setContentView(R.layout.activity_home);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    //butterknife injection doesn't appear to be working in a constraint layout at this time...
+    nextGameDate = (TextView) findViewById(R.id.next_game_date);
+    lastGameScore = (TextView) findViewById(R.id.last_game_score);
+    lastGameHeader = (TextView) findViewById(R.id.last_game_header);
+    nextGameHeader = (TextView) findViewById(R.id.next_game_header);
 
-        //butterknife injection doesn't appear to be working in a constraint layout at this time...
-        nextGameDate = (TextView)findViewById(R.id.next_game_date );
-        lastGameScore = (TextView)findViewById(R.id.last_game_score);
-        lastGameHeader = (TextView)findViewById(R.id.last_game_header);
-        nextGameHeader = (TextView)findViewById(R.id.next_game_header);
+    //would be nice if butterknife worked...
+    Button viewSchedule = (Button) findViewById(R.id.schedule_button);
 
+    viewSchedule.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        startActivity(new Intent(HomeActivity.this, ScheduleActivity.class));
+      }
+    });
 
-        //would be nice if butterknife worked...
-        Button viewSchedule = (Button)findViewById(R.id.schedule_button);
+    //enable firebase offline mode
+    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+  }
 
-        viewSchedule.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                startActivity( new Intent(HomeActivity.this, ScheduleActivity.class));
-            }
+  @Override protected void onResume() {
+    super.onResume();
+
+    final FirebaseDatabase db = FirebaseDatabase.getInstance();
+    hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(db)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .flatMap(new Func1<SeasonSchedule, Observable<HomeContents>>() {
+          @Override public Observable<HomeContents> call(SeasonSchedule games) {
+            return ScheduleObserver.getHomeScreen(db, games, new Date());
+          }
+        })
+        .subscribe(new Action1<HomeContents>() {
+          @Override public void call(HomeContents homeContents) {
+            setLastGameScore(homeContents.lastGame);
+            setNextGameDate(homeContents.nextGame);
+          }
+        }, new Action1<Throwable>() {
+          @Override public void call(Throwable throwable) {
+            setLastGameScore(null);
+            setNextGameDate(null);
+          }
         });
+  }
 
-        //enable firebase offline mode
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+  @Override protected void onPause() {
+    super.onPause();
+
+    if (hockeyScheduleSubscription != null) {
+      hockeyScheduleSubscription.unsubscribe();
+      hockeyScheduleSubscription = null;
+    }
+  }
+
+  protected void setLastGameScore(Game lastGame) {
+    if (lastGame != null && lastGame.gameResult != null) {
+
+      String winOrLoss =
+          lastGame.gameResult.dragonsScore > lastGame.gameResult.opponentScore ? "W" : "L";
+      String gameScore =
+          String.format(getString(R.string.last_game_score), lastGame.gameResult.dragonsScore,
+              lastGame.opponent, lastGame.gameResult.opponentScore, winOrLoss);
+      lastGameScore.setText(gameScore);
+      lastGameScore.animate().alpha(1.0f);
+      lastGameHeader.animate().alpha(1.0f);
+    } else if (lastGame.gameResult == null) {
+      lastGameScore.setText(R.string.update_pending);
+      lastGameHeader.animate().alpha(1.0f);
+      lastGameScore.animate().alpha(1.0f);
+    }
+  }
+
+  protected void setNextGameDate(Game nextGame) {
+    if (nextGame == null) {
+      nextGameDate.setText(R.string.no_more_games);
+      nextGameHeader.animate().alpha(1.0f);
+      nextGameDate.animate().alpha(1.0f);
+      return;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    Date date = nextGame.gameTimeToDate();
 
-        final FirebaseDatabase db = FirebaseDatabase.getInstance();
-        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(db)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1<SeasonSchedule, Observable<HomeContents>>()
-                {
-                    @Override
-                    public Observable<HomeContents> call(SeasonSchedule games) {
-                        return ScheduleObserver.getHomeScreen(db,games, new Date());
-                    }
-                })
-                .subscribe(new Action1<HomeContents>()
-                {
-                    @Override
-                    public void call(HomeContents homeContents)
-                    {
-                        setLastGameScore(homeContents.lastGame);
-                        setNextGameDate(homeContents.nextGame);
-                    }
-                }, new Action1<Throwable>()
-                {
-                    @Override
-                    public void call(Throwable throwable) {
-                        setLastGameScore(null);
-                        setNextGameDate(null);
-                    }
-                });
+    if (date != null) {
+
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(date);
+
+      String gametime = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " +
+          FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)) +
+          " " + DateFormaters.getGameTime(date);
+
+      nextGameDate.setText(gametime);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        if( hockeyScheduleSubscription != null ){
-            hockeyScheduleSubscription.unsubscribe();
-            hockeyScheduleSubscription = null;
-        }
-    }
-
-    protected void setLastGameScore(Game lastGame)
-    {
-        if( lastGame != null && lastGame.gameResult != null) {
-
-            String winOrLoss = lastGame.gameResult.dragonsScore > lastGame.gameResult.opponentScore ? "W" : "L";
-            String gameScore = String.format(getString(R.string.last_game_score), lastGame.gameResult.dragonsScore,
-                    lastGame.opponent,
-                    lastGame.gameResult.opponentScore,
-                    winOrLoss);
-            lastGameScore.setText(gameScore);
-            lastGameScore.animate().alpha(1.0f);
-            lastGameHeader.animate().alpha(1.0f);
-        }else if( lastGame.gameResult == null ){
-                lastGameScore.setText(R.string.update_pending);
-                lastGameHeader.animate().alpha(1.0f);
-                lastGameScore.animate().alpha(1.0f);
-        }
-    }
-
-    protected void setNextGameDate(Game nextGame)
-    {
-        if( nextGame == null ){
-            nextGameDate.setText(R.string.no_more_games);
-            nextGameHeader.animate().alpha(1.0f);
-            nextGameDate.animate().alpha(1.0f);
-            return;
-        }
-
-        Date date = nextGame.gameTimeToDate();
-
-        if(date != null){
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-
-            String gametime = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " +
-                    FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)) +
-                    " " + DateFormaters.getGameTime(date);
-
-            nextGameDate.setText(gametime);
-        }
-
-        nextGameHeader.animate().alpha(1.0f);
-        nextGameDate.animate().alpha(1.0f);
-    }
-
-
-
+    nextGameHeader.animate().alpha(1.0f);
+    nextGameDate.animate().alpha(1.0f);
+  }
 }

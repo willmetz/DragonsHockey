@@ -24,65 +24,52 @@ import rx.schedulers.Schedulers;
 /**
  * An activity to display the season schedule
  */
-public class ScheduleActivity extends AppCompatActivity
-{
+public class ScheduleActivity extends AppCompatActivity {
 
-    Subscription hockeyScheduleSubscription;
+  Subscription hockeyScheduleSubscription;
 
-    RecyclerView recyclerView;
+  RecyclerView recyclerView;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_schedule);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    setContentView(R.layout.activity_schedule);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
 
+    recyclerView = (RecyclerView) findViewById(R.id.schedule_recycler_view);
 
-        recyclerView = (RecyclerView)findViewById(R.id.schedule_recycler_view);
+    LinearLayoutManager layoutManager = new LinearLayoutManager(ScheduleActivity.this);
+    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    recyclerView.setLayoutManager(layoutManager);
+    recyclerView.addItemDecoration(new RecyclerViewDivider(this, R.drawable.schedule_divider));
+  }
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ScheduleActivity.this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new RecyclerViewDivider(this, R.drawable.schedule_divider));
+  @Override protected void onResume() {
+    super.onResume();
+
+    final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .flatMap(new Func1<SeasonSchedule, Observable<SeasonSchedule>>() {
+          @Override public Observable<SeasonSchedule> call(SeasonSchedule schedule) {
+            return ScheduleObserver.getScheduleWithResults(firebaseDatabase, schedule);
+          }
+        })
+        .subscribe(new Action1<SeasonSchedule>() {
+          @Override public void call(SeasonSchedule schedule) {
+            recyclerView.setAdapter(new ScheduleAdapter(schedule));
+          }
+        });
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+
+    if (hockeyScheduleSubscription != null) {
+      hockeyScheduleSubscription.unsubscribe();
+      hockeyScheduleSubscription = null;
     }
-
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-
-        final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule( firebaseDatabase )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1<SeasonSchedule, Observable<SeasonSchedule>>()
-                {
-                    @Override
-                    public Observable<SeasonSchedule> call(SeasonSchedule schedule) {
-                        return ScheduleObserver.getScheduleWithResults(firebaseDatabase, schedule);
-                    }
-                })
-                .subscribe(new Action1<SeasonSchedule>()
-                {
-                    @Override
-                    public void call(SeasonSchedule schedule) {
-                        recyclerView.setAdapter(new ScheduleAdapter(schedule));
-                    }
-                });
-    }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-
-        if( hockeyScheduleSubscription != null ){
-            hockeyScheduleSubscription.unsubscribe();
-            hockeyScheduleSubscription = null;
-        }
-    }
+  }
 }
