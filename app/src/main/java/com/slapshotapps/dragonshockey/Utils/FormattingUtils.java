@@ -8,6 +8,11 @@ import com.slapshotapps.dragonshockey.models.GameResult;
 
 public class FormattingUtils {
 
+  public static final String OVERTIME_LOSS = "OTL";
+  public static final String WIN = "W";
+  public static final String LOSS = "L";
+  public static final String TIE = "T";
+
   /**
    * Will return the numerical value with appropriate suffix
    *
@@ -39,25 +44,27 @@ public class FormattingUtils {
 
       gameScore = gameResult.dragonsScore + "-" +
           gameResult.opponentScore +
-          " (" + didDragonsWin(gameResult) + ")";
+          " (" + getGameResultAsString(gameResult) + ")";
     }
 
     return gameScore;
   }
 
-  public static String didDragonsWin(GameResult gameResult) {
-    String winLossTie = "N/A";
+  public static String getGameResultAsString(GameResult gameResult) {
+    String gameResultText = "N/A";
 
     if (gameResult != null) {
-      if (gameResult.dragonsScore > gameResult.opponentScore) {
-        winLossTie = "W";
+      if (gameResult.overtimeLoss) {
+        gameResultText = OVERTIME_LOSS;
+      } else if (gameResult.dragonsScore > gameResult.opponentScore) {
+        gameResultText = WIN;
       } else if (gameResult.opponentScore > gameResult.dragonsScore) {
-        winLossTie = "L";
+        gameResultText = LOSS;
       } else {
-        winLossTie = "T";
+        gameResultText = TIE;
       }
     }
 
-    return winLossTie;
+    return gameResultText;
   }
 }

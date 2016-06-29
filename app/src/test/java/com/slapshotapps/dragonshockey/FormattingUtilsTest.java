@@ -2,6 +2,7 @@ package com.slapshotapps.dragonshockey;
 
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 
+import com.slapshotapps.dragonshockey.models.GameResult;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -53,5 +54,37 @@ public class FormattingUtilsTest {
 
   @Test public void testNumberSuffix_thirty_one() {
     Assert.assertEquals("31st", FormattingUtils.getValueWithSuffix(31));
+  }
+
+  @Test public void testGameResult_Win() {
+    GameResult gameResult = new GameResult();
+    gameResult.dragonsScore = 5;
+    gameResult.opponentScore = 4;
+    gameResult.overtimeLoss = false;
+    Assert.assertEquals(FormattingUtils.WIN, FormattingUtils.getGameResultAsString(gameResult));
+  }
+
+  @Test public void testGameResult_OTL() {
+    GameResult gameResult = new GameResult();
+    gameResult.dragonsScore = 5;
+    gameResult.opponentScore = 4;
+    gameResult.overtimeLoss = true;
+    Assert.assertEquals(FormattingUtils.OVERTIME_LOSS, FormattingUtils.getGameResultAsString(gameResult));
+  }
+
+  @Test public void testGameResult_Loss() {
+    GameResult gameResult = new GameResult();
+    gameResult.dragonsScore = 4;
+    gameResult.opponentScore = 5;
+    gameResult.overtimeLoss = false;
+    Assert.assertEquals(FormattingUtils.LOSS, FormattingUtils.getGameResultAsString(gameResult));
+  }
+
+  @Test public void testGameResult_Tie() {
+    GameResult gameResult = new GameResult();
+    gameResult.dragonsScore = 4;
+    gameResult.opponentScore = 4;
+    gameResult.overtimeLoss = false;
+    Assert.assertEquals(FormattingUtils.TIE, FormattingUtils.getGameResultAsString(gameResult));
   }
 }

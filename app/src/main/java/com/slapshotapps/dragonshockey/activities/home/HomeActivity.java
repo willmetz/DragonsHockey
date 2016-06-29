@@ -118,11 +118,10 @@ public class HomeActivity extends AppCompatActivity {
   protected void setLastGameScore(Game lastGame) {
     if (lastGame != null && lastGame.gameResult != null) {
 
-      String winOrLoss =
-          lastGame.gameResult.dragonsScore > lastGame.gameResult.opponentScore ? "W" : "L";
+      String gameResultString = FormattingUtils.getGameResultAsString(lastGame.gameResult);
       String gameScore =
           String.format(getString(R.string.last_game_score), lastGame.gameResult.dragonsScore,
-              lastGame.opponent, lastGame.gameResult.opponentScore, winOrLoss);
+              lastGame.opponent, lastGame.gameResult.opponentScore, gameResultString);
       lastGameScore.setText(gameScore);
       lastGameScore.animate().alpha(1.0f);
       lastGameHeader.animate().alpha(1.0f);

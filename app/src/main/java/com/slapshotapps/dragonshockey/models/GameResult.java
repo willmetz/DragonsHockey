@@ -8,4 +8,5 @@ public class GameResult {
   public int gameID;
   public int dragonsScore;
   public int opponentScore;
+  public boolean overtimeLoss;
 }
