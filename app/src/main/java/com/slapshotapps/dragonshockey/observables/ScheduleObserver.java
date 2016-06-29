@@ -42,7 +42,6 @@ public class ScheduleObserver {
 
             if (!subscriber.isUnsubscribed()) {
               subscriber.onNext(schedule);
-              subscriber.onCompleted();
             }
           }
 
@@ -95,7 +94,6 @@ public class ScheduleObserver {
 
             if (!subscriber.isUnsubscribed()) {
               subscriber.onNext(homeContents);
-              subscriber.unsubscribe();
             }
           }
 
@@ -130,7 +128,6 @@ public class ScheduleObserver {
 
             if (!subscriber.isUnsubscribed()) {
               subscriber.onNext(schedule);
-              subscriber.unsubscribe();
             }
           }
 
