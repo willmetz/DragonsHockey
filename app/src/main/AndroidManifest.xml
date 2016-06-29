@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.slapshotapps.dragonshockey" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,5 +31,5 @@
             android:value="8a5cf4b5065a706373b9bdf3d4140816e1d522b1" />
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

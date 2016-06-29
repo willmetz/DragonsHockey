@@ -35,7 +35,7 @@ public class ScheduleObserver
             {
                 Query query = firebaseDatabase.getReference(Config.GAMES).orderByChild("gameID");
 
-                query.addListenerForSingleValueEvent(new ValueEventListener()
+                query.addValueEventListener(new ValueEventListener()
                 {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
@@ -86,7 +86,7 @@ public class ScheduleObserver
                 }
 
 
-                query.addListenerForSingleValueEvent(new ValueEventListener()
+                query.addValueEventListener(new ValueEventListener()
                 {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -130,7 +130,7 @@ public class ScheduleObserver
             public void call(final Subscriber<? super SeasonSchedule> subscriber) {
                 Query query = firebaseDatabase.getReference(Config.GAME_RESULTS).orderByChild("gameID");
 
-                query.addListenerForSingleValueEvent(new ValueEventListener()
+                query.addValueEventListener(new ValueEventListener()
                 {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

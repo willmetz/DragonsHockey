@@ -82,6 +82,9 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity( new Intent(HomeActivity.this, ScheduleActivity.class));
             }
         });
+
+        //enable firebase offline mode
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
     @Override
