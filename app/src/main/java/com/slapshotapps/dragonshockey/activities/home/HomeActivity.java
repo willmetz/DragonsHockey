@@ -81,7 +81,9 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         //enable firebase offline mode
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        if(savedInstanceState==null) {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }
     }
 
     @Override
