@@ -26,10 +26,6 @@
             android:name=".activities.schedule.ScheduleActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="8a5cf4b5065a706373b9bdf3d4140816e1d522b1" />
     </application>
 
 

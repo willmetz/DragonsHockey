@@ -29,7 +29,6 @@ import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
 import io.fabric.sdk.android.Fabric;
-
 import org.w3c.dom.Text;
 
 import java.util.Calendar;
@@ -77,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this, ScheduleActivity.class));
+
             }
         });
 
@@ -89,6 +89,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
 
         final FirebaseDatabase db = FirebaseDatabase.getInstance();
         hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(db)
