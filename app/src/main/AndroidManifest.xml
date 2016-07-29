@@ -24,8 +24,14 @@
 
         <activity
             android:name=".activities.schedule.ScheduleActivity"
-            android:label="@string/app_name"
+            android:label="Dragons Schedule"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activities.roster.RosterActivity"
+            android:label="Dragons Roster"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 
