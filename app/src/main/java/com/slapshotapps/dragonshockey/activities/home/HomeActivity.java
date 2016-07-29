@@ -16,11 +16,13 @@ import android.widget.TextView;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
+import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.activities.schedule.ScheduleActivity;
 import com.slapshotapps.dragonshockey.models.Game;
@@ -28,6 +30,9 @@ import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.fabric.sdk.android.Fabric;
 import org.w3c.dom.Text;
 
@@ -46,14 +51,16 @@ import timber.log.Timber;
 public class HomeActivity extends AppCompatActivity {
 
     //    @BindView(R.id.last_game_score)
-    TextView lastGameScore;
+    private TextView lastGameScore;
 
     //    @BindView(R.id.next_game_date)
-    TextView nextGameDate;
+    private TextView nextGameDate;
 
-    TextView lastGameHeader, nextGameHeader;
+    private TextView lastGameHeader, nextGameHeader;
 
-    Subscription hockeyScheduleSubscription;
+    private Subscription hockeyScheduleSubscription;
+
+    private FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +78,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //would be nice if butterknife worked...
         Button viewSchedule = (Button) findViewById(R.id.schedule_button);
+        Button viewRoster = (Button) findViewById(R.id.roster_button);
 
         viewSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,9 +88,19 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        //enable firebase offline mode
-        if(savedInstanceState==null) {
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        viewRoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(DragonsHockeyIntents.createRosterIntent(HomeActivity.this));
+            }
+        });
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        try {
+            firebaseDatabase.setPersistenceEnabled(true);
+        }catch(DatabaseException exception){
+            Timber.e("Unable to set persistance for Firebase");
         }
     }
 
@@ -90,15 +108,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
-        final FirebaseDatabase db = FirebaseDatabase.getInstance();
-        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(db)
+        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Func1<SeasonSchedule, Observable<HomeContents>>() {
                     @Override
                     public Observable<HomeContents> call(SeasonSchedule games) {
-                        return ScheduleObserver.getHomeScreen(db, games, new Date());
+                        return ScheduleObserver.getHomeScreen(firebaseDatabase, games, new Date());
                     }
                 })
                 .subscribe(new Action1<HomeContents>() {
@@ -126,6 +142,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+
     protected void setLastGameScore(Game lastGame) {
         if (lastGame != null && lastGame.gameResult != null) {
 
@@ -136,7 +153,7 @@ public class HomeActivity extends AppCompatActivity {
             lastGameScore.setText(gameScore);
             lastGameScore.animate().alpha(1.0f);
             lastGameHeader.animate().alpha(1.0f);
-        } else if (lastGame.gameResult == null) {
+        } else if (lastGame != null) {
             lastGameScore.setText(R.string.update_pending);
             lastGameHeader.animate().alpha(1.0f);
             lastGameScore.animate().alpha(1.0f);
