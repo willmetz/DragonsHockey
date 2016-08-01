@@ -3,11 +3,14 @@ package com.slapshotapps.dragonshockey.activities.roster;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.observables.RosterObserver;
 
@@ -27,6 +30,7 @@ public class RosterActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private Subscription rosterSubscription;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +48,12 @@ public class RosterActivity extends AppCompatActivity {
         }catch(DatabaseException exception){
             Timber.e("Unable to set persistance for Firebase");
         }
+
+        recyclerView = (RecyclerView)findViewById(R.id.roster_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
     }
 
     @Override
@@ -62,7 +72,7 @@ public class RosterActivity extends AppCompatActivity {
                 .subscribe(new Action1<List<Player>>() {
                     @Override
                     public void call(List<Player> players) {
-                        Timber.d("yay, got my info");
+                        recyclerView.setAdapter(new RosterAdapter(RosterActivity.this, players));
                     }
                 });
     }

@@ -16,6 +16,7 @@ import com.slapshotapps.dragonshockey.models.Player;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.Inflater;
 
 /**
@@ -27,8 +28,8 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.RosterView
     private ArrayList<Player> roster;
     private final Context context;
 
-    public RosterAdapter(final Context context, ArrayList<Player> roster){
-        this.roster = roster;
+    public RosterAdapter(final Context context, List<Player> roster){
+        this.roster =  new ArrayList<>(roster);
         this.context = context;
     }
 
@@ -78,6 +79,11 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.RosterView
 
         public void setPlayer(Player player){
             this.player = player;
+
+            number.setText(String.valueOf(player.number));
+            name.setText(player.firstName + " " + player.lastName);
+            position.setText(player.position);
+            shot.setText(player.shot);
         }
 
         public void setBackgroundColor(int color){
