@@ -23,44 +23,76 @@ import java.util.zip.Inflater;
  * Created by willmetz on 7/31/16.
  */
 
-public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.RosterView>{
+public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private ArrayList<Player> roster;
+    private ArrayList<RosterListItem> rosterListItems;
     private final Context context;
 
     public RosterAdapter(final Context context, List<Player> roster){
-        this.roster =  new ArrayList<>(roster);
+
+        rosterListItems = new ArrayList<>();
+
+        //add in the header
+        rosterListItems.add(new RosterListItem());
+
+        //add in the players
+        for(Player player: roster){
+            rosterListItems.add(new RosterListItem(player));
+        }
+
         this.context = context;
     }
 
     @Override
-    public RosterView onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.view_roster_row,parent, false);
+        View view;
 
-        return new RosterView(view);
+        if(viewType == RosterListItem.HEADER_TYPE){
+            view = LayoutInflater.from(context).inflate(R.layout.view_header_roster, parent, false);
+            return new HeaderView(view);
+        }
+        else{
+            view = LayoutInflater.from(context).inflate(R.layout.view_roster_row,parent, false);
+            return new PlayerLineView(view);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(RosterView holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        final Resources resources = context.getResources();
-        if(position%2 == 0){
-            holder.setBackgroundColor(ContextCompat.getColor(context, R.color.lightGray));
-        }else{
-            holder.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white));
+        if(getItemViewType(position) == RosterListItem.ROSTER_TYPE){
+
+            PlayerLineView playerLineView = (PlayerLineView)holder;
+
+            final Resources resources = context.getResources();
+            if(position%2 == 0){
+                playerLineView.setBackgroundColor(ContextCompat.getColor(context, R.color.lightGray));
+            }else{
+                playerLineView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white));
+            }
+
+            playerLineView.setPlayer(rosterListItems.get(position).player);
         }
 
-        holder.setPlayer(roster.get(position));
 
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position==0){
+            return RosterListItem.HEADER_TYPE;
+        }
+        return RosterListItem.ROSTER_TYPE;
     }
 
     @Override
     public int getItemCount() {
-        return roster.size();
+        return rosterListItems.size();
     }
 
-    public static class RosterView extends RecyclerView.ViewHolder{
+    public static class PlayerLineView extends RecyclerView.ViewHolder{
 
         private Player player;
         private TextView name;
@@ -68,7 +100,7 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.RosterView
         private TextView position;
         private TextView shot;
 
-        public RosterView(View itemView) {
+        public PlayerLineView(View itemView) {
             super(itemView);
 
             name = (TextView)itemView.findViewById(R.id.player_name);
@@ -88,6 +120,12 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.RosterView
 
         public void setBackgroundColor(int color){
             itemView.setBackgroundColor(color);
+        }
+    }
+
+    public static class HeaderView extends RecyclerView.ViewHolder{
+        public HeaderView(View itemView) {
+            super(itemView);
         }
     }
 }

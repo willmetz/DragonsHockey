@@ -27,11 +27,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.GameVi
     this.schedule = schedule;
   }
 
-  @Override public int getItemCount() {
+  @Override
+  public int getItemCount() {
     return schedule.numberOfGames();
   }
 
-  @Override public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  @Override
+  public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
     View gameView =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.view_game_details, parent, false);
@@ -39,7 +41,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.GameVi
     return new GameViewHolder(gameView);
   }
 
-  @Override public void onBindViewHolder(GameViewHolder holder, int position) {
+  @Override
+  public void onBindViewHolder(GameViewHolder holder, int position) {
     Game game = schedule.getAllGames().get(position);
 
     holder.setGameDate(game.gameTimeToDate());
