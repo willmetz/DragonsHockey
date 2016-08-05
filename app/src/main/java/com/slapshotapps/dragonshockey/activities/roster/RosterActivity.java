@@ -72,7 +72,7 @@ public class RosterActivity extends AppCompatActivity {
                 .subscribe(new Action1<List<Player>>() {
                     @Override
                     public void call(List<Player> players) {
-                        recyclerView.setAdapter(new RosterAdapter(RosterActivity.this, players));
+                        recyclerView.setAdapter(new RosterAdapter(RosterActivity.this, players, recyclerView));
                     }
                 });
     }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.slapshotapps.dragonshockey.R;
@@ -27,21 +28,29 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private ArrayList<RosterListItem> rosterListItems;
     private final Context context;
+    private StickyHeaderHelper headerHelper;
 
-    public RosterAdapter(final Context context, List<Player> roster){
+    public RosterAdapter(final Context context, List<Player> roster, RecyclerView recyclerView){
 
         rosterListItems = new ArrayList<>();
 
         //add in the header
         rosterListItems.add(new RosterListItem());
 
-        //add in the players
-        for(Player player: roster){
-            rosterListItems.add(new RosterListItem(player));
+        for( int i = 0; i < 20; i++) {
+            //add in the players
+            for (Player player : roster) {
+                rosterListItems.add(new RosterListItem(player));
+            }
         }
 
         this.context = context;
+
+        headerHelper = new StickyHeaderHelper(this);
+        headerHelper.attach(recyclerView);
     }
+
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,7 +59,9 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if(viewType == RosterListItem.HEADER_TYPE){
             view = LayoutInflater.from(context).inflate(R.layout.view_header_roster, parent, false);
-            return new HeaderView(view);
+            HeaderView holder = new HeaderView(view);
+            holder.setIsRecyclable(false);
+            return holder;
         }
         else{
             view = LayoutInflater.from(context).inflate(R.layout.view_roster_row,parent, false);
@@ -92,13 +103,20 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return rosterListItems.size();
     }
 
+    public ViewGroup getStickyHeader(){
+        FrameLayout frameLayout = new FrameLayout(context);
+        frameLayout.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        return (ViewGroup) LayoutInflater.from(context).inflate(R.layout.view_header_roster, frameLayout, false);
+    }
+
     public static class PlayerLineView extends RecyclerView.ViewHolder{
 
         private Player player;
         private TextView name;
         private TextView number;
         private TextView position;
-        private TextView shot;
 
         public PlayerLineView(View itemView) {
             super(itemView);
@@ -106,7 +124,6 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             name = (TextView)itemView.findViewById(R.id.player_name);
             number = (TextView)itemView.findViewById(R.id.player_number);
             position = (TextView)itemView.findViewById(R.id.player_position);
-            shot = (TextView)itemView.findViewById(R.id.player_shot);
         }
 
         public void setPlayer(Player player){
@@ -115,7 +132,6 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             number.setText(String.valueOf(player.number));
             name.setText(player.firstName + " " + player.lastName);
             position.setText(player.position);
-            shot.setText(player.shot);
         }
 
         public void setBackgroundColor(int color){
@@ -127,5 +143,10 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public HeaderView(View itemView) {
             super(itemView);
         }
+
+        public View getContentView(){
+            return itemView;
+        }
+
     }
 }

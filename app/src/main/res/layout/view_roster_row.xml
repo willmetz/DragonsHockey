@@ -36,20 +36,8 @@
         style="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintTop_toTopOf="@id/roster_row"
         app:layout_constraintBottom_toBottomOf="@id/roster_row"
-        app:layout_constraintRight_toLeftOf="@+id/player_shot"
-        android:layout_marginRight="16dp"
-        tools:text="Forward"
-        />
-
-    <TextView
-        android:id="@+id/player_shot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintTop_toTopOf="@id/roster_row"
-        app:layout_constraintBottom_toBottomOf="@id/roster_row"
         app:layout_constraintRight_toRightOf="@id/roster_row"
-        tools:text="L"
-        />
+        android:layout_marginRight="16dp"
+        tools:text="Forward"/>
 
 </android.support.constraint.ConstraintLayout>
