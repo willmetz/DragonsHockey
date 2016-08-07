@@ -92,13 +92,8 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindHeaderViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder viewHolder) {
         //nothing to do here as the data doesn't change based on position
-    }
-
-    @Override
-    public boolean hasHeader(int position) {
-        return position == 0;
     }
 
     public static class PlayerLineView extends RecyclerView.ViewHolder{

@@ -25,11 +25,11 @@ public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int position = parent.getChildAdapterPosition(view);
+        int layoutPosition = parent.getChildLayoutPosition(view);
 
         int headerHeight = 0;
-        if (position != RecyclerView.NO_POSITION && adapter.hasHeader(position)) {
-            View header = getHeader(position).itemView;
+        if (layoutPosition != RecyclerView.NO_POSITION && layoutPosition == 0) {
+            View header = getHeader().itemView;
             headerHeight = header.getHeight();
         }
 
@@ -46,12 +46,13 @@ public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {
 
             final int adapterPosition = parent.getChildAdapterPosition(child);
 
-            if( adapterPosition != RecyclerView.NO_POSITION &&
-                    (layoutPosition == 0 || adapter.hasHeader(adapterPosition))){
+            if( adapterPosition != RecyclerView.NO_POSITION && layoutPosition == 0 ){
 
-                View headerView = getHeader(adapterPosition).itemView;
+                View headerView = getHeader().itemView;
                 c.save();
                 final int left = child.getLeft();
+
+                //as we aren't supporting multiple headers here, the top will always be the top of the view (which is 0)
                 final int top = 0;
                 c.translate(left, top);
                 headerView.setTranslationX(left);
@@ -63,12 +64,13 @@ public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
-    private RecyclerView.ViewHolder getHeader(int position){
+    private RecyclerView.ViewHolder getHeader(){
         if(header==null){
             header = adapter.onCreateHeaderViewHolder(recyclerView);
             final View headerView = header.itemView;
 
-            adapter.onBindHeaderViewHolder(header, position);
+
+            adapter.onBindHeaderViewHolder(header);
 
             //need to take some measurements here as without this the view has no size
             int widthSpec = View.MeasureSpec.makeMeasureSpec(recyclerView.getWidth(), View.MeasureSpec.EXACTLY);
