@@ -28,6 +28,9 @@ public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {
         int layoutPosition = parent.getChildLayoutPosition(view);
 
         int headerHeight = 0;
+
+        //as this method will determine how much to move the other views for the header we need to
+        //see if this is the correct position to offset
         if (layoutPosition != RecyclerView.NO_POSITION && layoutPosition == 0) {
             View header = getHeader().itemView;
             headerHeight = header.getHeight();
@@ -50,13 +53,6 @@ public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {
 
                 View headerView = getHeader().itemView;
                 c.save();
-                final int left = child.getLeft();
-
-                //as we aren't supporting multiple headers here, the top will always be the top of the view (which is 0)
-                final int top = 0;
-                c.translate(left, top);
-                headerView.setTranslationX(left);
-                headerView.setTranslationY(top);
                 headerView.draw(c);
                 c.restore();
 
