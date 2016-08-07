@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
+import com.slapshotapps.dragonshockey.activities.roster.views.RosterHeaderDecoration;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.observables.RosterObserver;
 
@@ -54,6 +55,7 @@ public class RosterActivity extends AppCompatActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
+
     }
 
     @Override
@@ -72,7 +74,10 @@ public class RosterActivity extends AppCompatActivity {
                 .subscribe(new Action1<List<Player>>() {
                     @Override
                     public void call(List<Player> players) {
-                        recyclerView.setAdapter(new RosterAdapter(RosterActivity.this, players, recyclerView));
+                        RosterAdapter adapter = new RosterAdapter(RosterActivity.this, players, recyclerView);
+                        recyclerView.setAdapter(adapter);
+
+                        recyclerView.addItemDecoration(new RosterHeaderDecoration(adapter, recyclerView));
                     }
                 });
     }

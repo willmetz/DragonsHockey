@@ -24,18 +24,15 @@ import java.util.zip.Inflater;
  * Created by willmetz on 7/31/16.
  */
 
-public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+        implements StickyHeaderAdapter<RecyclerView.ViewHolder>{
 
     private ArrayList<RosterListItem> rosterListItems;
     private final Context context;
-    private StickyHeaderHelper headerHelper;
 
     public RosterAdapter(final Context context, List<Player> roster, RecyclerView recyclerView){
 
         rosterListItems = new ArrayList<>();
-
-        //add in the header
-        rosterListItems.add(new RosterListItem());
 
         for( int i = 0; i < 20; i++) {
             //add in the players
@@ -45,9 +42,6 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
         this.context = context;
-
-        headerHelper = new StickyHeaderHelper(this);
-        headerHelper.attach(recyclerView);
     }
 
 
@@ -55,18 +49,8 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view;
-
-        if(viewType == RosterListItem.HEADER_TYPE){
-            view = LayoutInflater.from(context).inflate(R.layout.view_header_roster, parent, false);
-            HeaderView holder = new HeaderView(view);
-            holder.setIsRecyclable(false);
-            return holder;
-        }
-        else{
-            view = LayoutInflater.from(context).inflate(R.layout.view_roster_row,parent, false);
-            return new PlayerLineView(view);
-        }
+        View view = LayoutInflater.from(context).inflate(R.layout.view_roster_row,parent, false);
+        return new PlayerLineView(view);
 
     }
 
@@ -92,9 +76,6 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if(position==0){
-            return RosterListItem.HEADER_TYPE;
-        }
         return RosterListItem.ROSTER_TYPE;
     }
 
@@ -103,12 +84,21 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return rosterListItems.size();
     }
 
-    public ViewGroup getStickyHeader(){
-        FrameLayout frameLayout = new FrameLayout(context);
-        frameLayout.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        return (ViewGroup) LayoutInflater.from(context).inflate(R.layout.view_header_roster, frameLayout, false);
+
+    @Override
+    public RecyclerView.ViewHolder onCreateHeaderViewHolder(RecyclerView parent) {
+        View view = LayoutInflater.from(context).inflate(R.layout.view_header_roster, parent, false);
+        return new HeaderView(view);
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        //nothing to do here as the data doesn't change based on position
+    }
+
+    @Override
+    public boolean hasHeader(int position) {
+        return position == 0;
     }
 
     public static class PlayerLineView extends RecyclerView.ViewHolder{
