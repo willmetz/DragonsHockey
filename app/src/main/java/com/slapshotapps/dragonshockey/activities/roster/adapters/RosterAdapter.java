@@ -24,8 +24,8 @@ import java.util.zip.Inflater;
  * Created by willmetz on 7/31/16.
  */
 
-public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-        implements StickyHeaderAdapter<RecyclerView.ViewHolder>{
+public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLineView>
+        implements StickyHeaderAdapter<RosterAdapter.HeaderView>{
 
     private ArrayList<RosterListItem> rosterListItems;
     private final Context context;
@@ -47,7 +47,7 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RosterAdapter.PlayerLineView onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.view_roster_row,parent, false);
         return new PlayerLineView(view);
@@ -55,7 +55,7 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RosterAdapter.PlayerLineView holder, int position) {
 
         if(getItemViewType(position) == RosterListItem.ROSTER_TYPE){
 
@@ -86,13 +86,13 @@ public class RosterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 
     @Override
-    public RecyclerView.ViewHolder onCreateHeaderViewHolder(RecyclerView parent) {
+    public RosterAdapter.HeaderView onCreateHeaderViewHolder(RecyclerView parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.view_header_roster, parent, false);
         return new HeaderView(view);
     }
 
     @Override
-    public void onBindHeaderViewHolder(RecyclerView.ViewHolder viewHolder) {
+    public void onBindHeaderViewHolder(RosterAdapter.HeaderView viewHolder) {
         //nothing to do here as the data doesn't change based on position
     }
 
