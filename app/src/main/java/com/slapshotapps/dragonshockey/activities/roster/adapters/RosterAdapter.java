@@ -95,7 +95,7 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
     }
 
     private int getBackgroundColor(Player player, int position){
-        if(player.injuredReserve){
+        if(player.injuredReserved){
             return ContextCompat.getColor(context, R.color.lightRed);
         }
         else if(position%2 == 0){
