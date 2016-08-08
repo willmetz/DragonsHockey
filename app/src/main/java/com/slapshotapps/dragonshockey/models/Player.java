@@ -11,4 +11,5 @@ public class Player {
     public int playerID;
     public String position;
     public String shot;
+    public boolean injuredReserved;
 }

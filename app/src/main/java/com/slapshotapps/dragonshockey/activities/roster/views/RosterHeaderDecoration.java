@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.slapshotapps.dragonshockey.activities.roster.adapters.StickyHeaderAdapter;
 
 /**
- * An adapttion of the https://github.com/edubarr/header-decor to
+ * An adaption of the https://github.com/edubarr/header-decor to
  * handle just one header rather than a list of headers.
  */
 public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {

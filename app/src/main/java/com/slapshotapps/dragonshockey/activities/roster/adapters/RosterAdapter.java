@@ -62,13 +62,11 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
             PlayerLineView playerLineView = (PlayerLineView)holder;
 
             final Resources resources = context.getResources();
-            if(position%2 == 0){
-                playerLineView.setBackgroundColor(ContextCompat.getColor(context, R.color.lightGray));
-            }else{
-                playerLineView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white));
-            }
+            final Player player = rosterListItems.get(position).player;
 
-            playerLineView.setPlayer(rosterListItems.get(position).player);
+            playerLineView.setBackgroundColor(getBackgroundColor(player, position));
+
+            playerLineView.setPlayer(player);
         }
 
 
@@ -94,6 +92,17 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
     @Override
     public void onBindHeaderViewHolder(RosterAdapter.HeaderView viewHolder) {
         //nothing to do here as the data doesn't change based on position
+    }
+
+    private int getBackgroundColor(Player player, int position){
+        if(player.injuredReserve){
+            return ContextCompat.getColor(context, R.color.lightRed);
+        }
+        else if(position%2 == 0){
+            return ContextCompat.getColor(context, R.color.lightGray);
+        }else{
+            return ContextCompat.getColor(context, android.R.color.white);
+        }
     }
 
     public static class PlayerLineView extends RecyclerView.ViewHolder{
