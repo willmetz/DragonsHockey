@@ -1,4 +1,4 @@
-package com.slapshotapps.dragonshockey;
+package com.slapshotapps.dragonshockey.Utils;
 
 import com.slapshotapps.dragonshockey.Utils.ScheduleUtils;
 import com.slapshotapps.dragonshockey.models.Game;
