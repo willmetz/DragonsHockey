@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.RosterUtils;
 import com.slapshotapps.dragonshockey.models.Player;
 
 import org.w3c.dom.Text;
@@ -123,9 +124,9 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
         public void setPlayer(Player player){
             this.player = player;
 
-            number.setText(String.valueOf(player.number));
-            name.setText(player.firstName + " " + player.lastName);
-            position.setText(player.position);
+            number.setText(RosterUtils.getNumber(player));
+            name.setText(RosterUtils.getFullName(player));
+            position.setText(RosterUtils.getPosition(player));
         }
 
         public void setBackgroundColor(int color){
