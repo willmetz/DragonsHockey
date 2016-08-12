@@ -30,7 +30,7 @@ public class RosterObserver {
             @Override
             public void call(final Subscriber<? super List<Player>> subscriber) {
 
-                final Query query = database.getReference(Config.ROSTER);
+                final Query query = database.getReference(Config.ROSTER).orderByChild("number");
                 final ValueEventListener listener = query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

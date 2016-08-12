@@ -34,13 +34,23 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
     public RosterAdapter(final Context context, List<Player> roster, RecyclerView recyclerView){
 
         rosterListItems = new ArrayList<>();
+        ArrayList<RosterListItem> forwards = new ArrayList<>();
+        ArrayList<RosterListItem> defense = new ArrayList<>();
+        ArrayList<RosterListItem> goalie = new ArrayList<>();
 
-        for( int i = 0; i < 20; i++) {
-            //add in the players
-            for (Player player : roster) {
-                rosterListItems.add(new RosterListItem(player));
+        for( Player player: roster) {
+            if(player.position.equalsIgnoreCase("F")){
+                forwards.add(new RosterListItem(player));
+            }else if(player.position.equalsIgnoreCase("D")){
+                defense.add(new RosterListItem(player));
+            }else if(player.position.equalsIgnoreCase("G")){
+                goalie.add(new RosterListItem(player));
             }
         }
+
+        rosterListItems.addAll(forwards);
+        rosterListItems.addAll(defense);
+        rosterListItems.addAll(goalie);
 
         this.context = context;
     }
