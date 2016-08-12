@@ -6,6 +6,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
@@ -59,17 +61,38 @@ public class RosterUtilsTest {
 
         Assert.assertNotNull("empty player error", RosterUtils.getPosition(testPlayer));
 
-        testPlayer.position = "F";
+        testPlayer.position = Player.FORWARD;
         Assert.assertEquals("forward check", "Forward", RosterUtils.getPosition(testPlayer));
 
-        testPlayer.position = "D";
+        testPlayer.position = Player.DEFENSE;
         Assert.assertEquals("forward check", "Defense", RosterUtils.getPosition(testPlayer));
 
-        testPlayer.position = "G";
+        testPlayer.position = Player.GOALIE;
         Assert.assertEquals("forward check", "Goalie", RosterUtils.getPosition(testPlayer));
 
-        testPlayer.position = "ukef";
+        testPlayer.position = 0;
         Assert.assertEquals("Unknown check", "Unknown", RosterUtils.getPosition(testPlayer));
+    }
+
+
+    @Test
+    public void sortRoster(){
+
+        ArrayList<Player> roster = new ArrayList<>();
+
+        roster.add(new Player(Player.GOALIE));
+        roster.add(new Player(Player.FORWARD));
+        roster.add(new Player(Player.FORWARD));
+        roster.add(new Player(Player.GOALIE));
+        roster.add(new Player(Player.DEFENSE));
+        roster.add(new Player(Player.FORWARD));
+        roster.add(new Player(Player.DEFENSE));
+        roster.add(new Player(Player.DEFENSE));
+        roster.add(new Player(Player.FORWARD));
+
+        ArrayList<Player> sortedRoster = RosterUtils.sortRoster(roster);
+
+        
     }
 
 
