@@ -70,7 +70,7 @@ public class RosterUtilsTest {
         testPlayer.position = Player.GOALIE;
         Assert.assertEquals("forward check", "Goalie", RosterUtils.getPosition(testPlayer));
 
-        testPlayer.position = 0;
+        testPlayer.position = "serew";
         Assert.assertEquals("Unknown check", "Unknown", RosterUtils.getPosition(testPlayer));
     }
 
@@ -92,7 +92,16 @@ public class RosterUtilsTest {
 
         ArrayList<Player> sortedRoster = RosterUtils.sortRoster(roster);
 
-        
+        Assert.assertEquals(Player.FORWARD, sortedRoster.get(0).position);
+        Assert.assertEquals(Player.FORWARD, sortedRoster.get(1).position);
+        Assert.assertEquals(Player.FORWARD, sortedRoster.get(2).position);
+        Assert.assertEquals(Player.FORWARD, sortedRoster.get(3).position);
+        Assert.assertEquals(Player.DEFENSE, sortedRoster.get(4).position);
+        Assert.assertEquals(Player.DEFENSE, sortedRoster.get(5).position);
+        Assert.assertEquals(Player.DEFENSE, sortedRoster.get(6).position);
+        Assert.assertEquals(Player.GOALIE, sortedRoster.get(7).position);
+        Assert.assertEquals(Player.GOALIE, sortedRoster.get(8).position);
+
     }
 
 

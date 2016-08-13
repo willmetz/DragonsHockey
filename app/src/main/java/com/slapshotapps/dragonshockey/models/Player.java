@@ -6,15 +6,16 @@ package com.slapshotapps.dragonshockey.models;
 
 public class Player {
 
-    public static final int FORWARD = 1;
-    public static final int DEFENSE = 2;
-    public static final int GOALIE = 3;
+    public static final String FORWARD = "F";
+    public static final String DEFENSE = "D";
+    public static final String GOALIE = "G";
+    public static final String PLAYER_NUMBER = "number";
 
     public String firstName;
     public String lastName;
     public int number;
     public int playerID;
-    public int position;
+    public String position;
     public String shot;
     public boolean injuredReserved;
 
@@ -22,19 +23,21 @@ public class Player {
         //default constructor
     }
 
-    public Player(int position){
+    public Player(String position){
         this.position = position;
     }
 
+
+
     public boolean isForward(){
-        return position == FORWARD;
+        return FORWARD.equalsIgnoreCase(position);
     }
 
     public boolean isDefense(){
-        return position == DEFENSE;
+        return DEFENSE.equalsIgnoreCase(position);
     }
 
     public boolean isGoalie(){
-        return position == GOALIE;
+        return GOALIE.equalsIgnoreCase(position);
     }
 }

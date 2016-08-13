@@ -35,11 +35,26 @@
         android:id="@+id/ir_background_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Injured Reserve"
+        android:text="@string/injured_reserve"
         app:layout_constraintLeft_toRightOf="@id/roster_parent"
         app:layout_constraintRight_toLeftOf="@id/roster_parent"
         app:layout_constraintHorizontal_bias=".45"
         app:layout_constraintBottom_toBottomOf="@id/ir_background_color"
         />
+
+    <TextView
+        android:id="@+id/roster_unavailable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:alpha="0"
+        app:layout_constraintTop_toTopOf="@id/roster_parent"
+        app:layout_constraintBottom_toBottomOf="@id/roster_parent"
+        app:layout_constraintLeft_toLeftOf="@id/roster_parent"
+        app:layout_constraintRight_toRightOf="@id/roster_parent"
+        android:textColor="@android:color/black"
+        android:background="@color/standardBackground"
+        android:text="@string/roster_unavailable"
+        style="@style/TextAppearance.AppCompat.Large"/>
 
 </android.support.constraint.ConstraintLayout>

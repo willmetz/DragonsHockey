@@ -35,7 +35,11 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
 
         rosterListItems = new ArrayList<>();
 
+        ArrayList<Player> sortedRoster = RosterUtils.sortRoster(roster);
 
+        for(Player player: sortedRoster){
+            rosterListItems.add(new RosterListItem(player));
+        }
 
         this.context = context;
     }

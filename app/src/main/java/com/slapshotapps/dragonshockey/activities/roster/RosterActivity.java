@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,6 +33,7 @@ public class RosterActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private Subscription rosterSubscription;
     private RecyclerView recyclerView;
+    private TextView rosterUnavailable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class RosterActivity extends AppCompatActivity {
 
         Toolbar toolbar = ButterKnife.findById(this, R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        rosterUnavailable = ButterKnife.findById(this, R.id.roster_unavailable);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -69,11 +73,13 @@ public class RosterActivity extends AppCompatActivity {
                     @Override
                     public void call(Throwable throwable) {
                         Timber.e("Unable to get the roster...");
+                        rosterUnavailable.animate().alpha(1f);
                     }
                 })
                 .subscribe(new Action1<List<Player>>() {
                     @Override
                     public void call(List<Player> players) {
+                        rosterUnavailable.setAlpha(0);
                         RosterAdapter adapter = new RosterAdapter(RosterActivity.this, players, recyclerView);
                         recyclerView.setAdapter(adapter);
 
