@@ -16,6 +16,7 @@
         app:layout_constraintLeft_toLeftOf="@id/roster_row"
         app:layout_constraintTop_toTopOf="@id/roster_row"
         app:layout_constraintBottom_toBottomOf="@id/roster_row"
+        android:layout_marginStart="4dp"
         tools:text="56"/>
 
     <TextView
@@ -25,8 +26,8 @@
         style="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintTop_toTopOf="@id/roster_row"
         app:layout_constraintBottom_toBottomOf="@id/roster_row"
-        app:layout_constraintLeft_toRightOf="@id/player_number"
-        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="@id/roster_row"
+        android:layout_marginStart="@dimen/roster_name_left_margin"
         tools:text="Will Metz"/>
 
     <TextView
