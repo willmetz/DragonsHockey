@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/roster_header"
+    android:layout_width="match_parent"
+    android:layout_height="25dp"
+    android:paddingRight="8dp"
+    android:paddingLeft="8dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/number_column"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/roster_header"
+        app:layout_constraintBottom_toBottomOf="@id/roster_header"
+        app:layout_constraintLeft_toLeftOf="@id/roster_header"
+        android:text="Num"/>
+
+    <TextView
+        android:id="@+id/player_name_column"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/roster_header"
+        app:layout_constraintBottom_toBottomOf="@id/roster_header"
+        app:layout_constraintLeft_toLeftOf="@id/roster_header"
+        android:layout_marginStart="56dp"
+        android:text="Name"/>
+
+    <TextView
+        android:id="@+id/position_column"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/roster_header"
+        app:layout_constraintBottom_toBottomOf="@id/roster_header"
+        app:layout_constraintRight_toRightOf="@id/roster_header"
+        android:layout_marginEnd="12dp"
+        android:text="Position"
+        />
+
+    <!--<TextView-->
+        <!--android:id="@+id/shot_column"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintTop_toTopOf="@id/roster_header"-->
+        <!--app:layout_constraintBottom_toBottomOf="@id/roster_header"-->
+        <!--app:layout_constraintRight_toRightOf="@id/roster_header"-->
+        <!--android:layout_marginEnd="4dp"-->
+        <!--android:text="Shot"-->
+        <!--/>-->
+
+
+</android.support.constraint.ConstraintLayout>

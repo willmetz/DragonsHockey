@@ -82,7 +82,7 @@
     <Button
         android:id="@+id/schedule_button"
         android:text="@string/schedule"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
         android:background="@drawable/borderless_button_ripple"
@@ -91,7 +91,19 @@
         app:layout_constraintRight_toRightOf="@+id/content_home"
         app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintBottom_toBottomOf="@+id/content_home"
-        tools:layout_marginBottom="55dp"
         android:layout_marginBottom="5dp"/>
+
+    <Button
+        android:id="@+id/roster_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="ROSTER"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/borderless_button_ripple"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginRight="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
+        app:layout_constraintRight_toLeftOf="@+id/schedule_button"
+        />
 
 </android.support.constraint.ConstraintLayout>
