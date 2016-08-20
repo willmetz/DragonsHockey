@@ -9,4 +9,5 @@ public class Config
     public static final String GAMES = "games";
     public static final String GAME_RESULTS = "gameResults";
     public static final String ROSTER = "roster";
+    public static final String GAME_ID = "gameID";
 }

@@ -28,6 +28,7 @@ import com.slapshotapps.dragonshockey.activities.schedule.ScheduleActivity;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
+import com.slapshotapps.dragonshockey.observables.HomeScreenObserver;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
 import butterknife.BindView;
@@ -114,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
                 .flatMap(new Func1<SeasonSchedule, Observable<HomeContents>>() {
                     @Override
                     public Observable<HomeContents> call(SeasonSchedule games) {
-                        return ScheduleObserver.getHomeScreen(firebaseDatabase, games, new Date());
+                        return HomeScreenObserver.getHomeScreen(firebaseDatabase, games, new Date());
                     }
                 })
                 .subscribe(new Action1<HomeContents>() {

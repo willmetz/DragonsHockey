@@ -1,6 +1,7 @@
 package com.slapshotapps.dragonshockey.Utils;
 
 import com.slapshotapps.dragonshockey.models.GameResult;
+import com.slapshotapps.dragonshockey.models.SeasonRecord;
 
 /**
  * Created by willmetz on 6/2/16.
@@ -8,63 +9,65 @@ import com.slapshotapps.dragonshockey.models.GameResult;
 
 public class FormattingUtils {
 
-  public static final String OVERTIME_LOSS = "OTL";
-  public static final String WIN = "W";
-  public static final String LOSS = "L";
-  public static final String TIE = "T";
+    public static final String OVERTIME_LOSS = "OTL";
+    public static final String WIN = "W";
+    public static final String LOSS = "L";
+    public static final String TIE = "T";
 
-  /**
-   * Will return the numerical value with appropriate suffix
-   *
-   * @param value integer value to add a suffix to (should be < 100)
-   * @return value with suffix or empty string
-   */
-  public static String getValueWithSuffix(int value) {
+    /**
+     * Will return the numerical value with appropriate suffix
+     *
+     * @param value integer value to add a suffix to (should be < 100)
+     * @return value with suffix or empty string
+     */
+    public static String getValueWithSuffix(int value) {
 
-    int lastDigit = value % 10;
-    String formatted = String.valueOf(value);
+        int lastDigit = value % 10;
+        String formatted = String.valueOf(value);
 
-    if (value == 11 || value == 12 || value == 13 || lastDigit > 3 || lastDigit == 0) {
-      formatted = value + "th";
-    } else if (lastDigit == 1) {
-      formatted = value + "st";
-    } else if (lastDigit == 2) {
-      formatted = value + "nd";
-    } else if (lastDigit == 3) {
-      formatted = value + "rd";
+        if (value == 11 || value == 12 || value == 13 || lastDigit > 3 || lastDigit == 0) {
+            formatted = value + "th";
+        } else if (lastDigit == 1) {
+            formatted = value + "st";
+        } else if (lastDigit == 2) {
+            formatted = value + "nd";
+        } else if (lastDigit == 3) {
+            formatted = value + "rd";
+        }
+
+        return formatted;
     }
 
-    return formatted;
-  }
+    public static String getGameScore(GameResult gameResult, String opponent) {
+        String gameScore = "TBD";
 
-  public static String getGameScore(GameResult gameResult, String opponent) {
-    String gameScore = "TBD";
+        if (gameResult != null) {
 
-    if (gameResult != null) {
+            gameScore = gameResult.dragonsScore + "-" +
+                    gameResult.opponentScore +
+                    " (" + getGameResultAsString(gameResult) + ")";
+        }
 
-      gameScore = gameResult.dragonsScore + "-" +
-          gameResult.opponentScore +
-          " (" + getGameResultAsString(gameResult) + ")";
+        return gameScore;
     }
 
-    return gameScore;
-  }
+    public static String getGameResultAsString(GameResult gameResult) {
+        String gameResultText = "N/A";
 
-  public static String getGameResultAsString(GameResult gameResult) {
-    String gameResultText = "N/A";
+        if (gameResult != null) {
+            if (gameResult.overtimeLoss) {
+                gameResultText = OVERTIME_LOSS;
+            } else if (gameResult.dragonsScore > gameResult.opponentScore) {
+                gameResultText = WIN;
+            } else if (gameResult.opponentScore > gameResult.dragonsScore) {
+                gameResultText = LOSS;
+            } else {
+                gameResultText = TIE;
+            }
+        }
 
-    if (gameResult != null) {
-      if (gameResult.overtimeLoss) {
-        gameResultText = OVERTIME_LOSS;
-      } else if (gameResult.dragonsScore > gameResult.opponentScore) {
-        gameResultText = WIN;
-      } else if (gameResult.opponentScore > gameResult.dragonsScore) {
-        gameResultText = LOSS;
-      } else {
-        gameResultText = TIE;
-      }
+        return gameResultText;
     }
 
-    return gameResultText;
-  }
+
 }
