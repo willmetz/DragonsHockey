@@ -26,6 +26,7 @@ import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.activities.schedule.ScheduleActivity;
 import com.slapshotapps.dragonshockey.models.Game;
+import com.slapshotapps.dragonshockey.models.SeasonRecord;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.observables.HomeScreenObserver;
@@ -123,6 +124,7 @@ public class HomeActivity extends AppCompatActivity {
                     public void call(HomeContents homeContents) {
                         setLastGameScore(homeContents.lastGame);
                         setNextGameDate(homeContents.nextGame);
+                        setSeasonRecord(homeContents.seasonRecord);
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -185,5 +187,37 @@ public class HomeActivity extends AppCompatActivity {
 
         nextGameHeader.animate().alpha(1.0f);
         nextGameDate.animate().alpha(1.0f);
+    }
+
+    protected void setSeasonRecord(SeasonRecord record){
+
+        TextView winValue = (TextView)findViewById(R.id.record_win);
+        TextView lossValue = (TextView)findViewById(R.id.record_loss);
+        TextView otlValue = (TextView)findViewById(R.id.record_otl);
+        TextView tieValue = (TextView)findViewById(R.id.record_tie);
+
+
+        if(record==null){
+            winValue.animate().alpha(0f);
+            lossValue.animate().alpha(0f);
+            tieValue.animate().alpha(0f);
+            otlValue.animate().alpha(0f);
+
+            winValue.setText("");
+            lossValue.setText("");
+            tieValue.setText("");
+            otlValue.setText("");
+        }else{
+            winValue.setText(String.valueOf(record.wins));
+            lossValue.setText(String.valueOf(record.losses));
+            tieValue.setText(String.valueOf(record.ties));
+            otlValue.setText(String.valueOf(record.overtimeLosses));
+
+            winValue.animate().alpha(1f);
+            lossValue.animate().alpha(1f);
+            tieValue.animate().alpha(1f);
+            otlValue.animate().alpha(1f);
+        }
+
     }
 }
