@@ -23,6 +23,89 @@
         app:layout_constraintRight_toRightOf="@+id/content_home"/>
 
     <TextView
+        android:id="@+id/record_key_header_win"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/content_home"
+        app:layout_constraintTop_toBottomOf="@+id/dragons_hockey"
+        app:layout_constraintRight_toRightOf="@+id/content_home"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintHorizontal_bias=".42"
+        android:layout_marginTop="8dp"
+        android:text="W"/>
+
+    <TextView
+        android:id="@+id/record_key_header_loss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/record_key_header_win"
+        app:layout_constraintBottom_toBottomOf="@id/record_key_header_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginStart="8dp"
+        android:text="L"/>
+
+    <TextView
+        android:id="@+id/record_key_header_otl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/record_key_header_loss"
+        app:layout_constraintBottom_toBottomOf="@id/record_key_header_loss"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginStart="8dp"
+        android:text="OTL"/>
+
+    <TextView
+        android:id="@+id/record_key_header_tie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/record_key_header_otl"
+        app:layout_constraintBottom_toBottomOf="@id/record_key_header_otl"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginStart="8dp"
+        android:text="T"/>
+
+    <TextView
+        android:id="@+id/record_win"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/record_key_header_win"
+        app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
+        app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginTop="4dp"
+        tools:text="2"/>
+
+    <TextView
+        android:id="@+id/record_loss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
+        app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
+        app:layout_constraintBottom_toBottomOf="@id/record_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        tools:text="1"/>
+
+    <TextView
+        android:id="@+id/record_otl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
+        app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
+        app:layout_constraintBottom_toBottomOf="@id/record_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        tools:text="0"/>
+
+    <TextView
+        android:id="@+id/record_tie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
+        app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
+        app:layout_constraintBottom_toBottomOf="@id/record_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        tools:text="1"/>
+
+    <TextView
         android:id="@+id/last_game_header"
         android:text="@string/last_game"
         android:layout_width="wrap_content"
@@ -32,7 +115,7 @@
         android:alpha="0"
         tools:alpha="1"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        app:layout_constraintTop_toBottomOf="@+id/dragons_hockey"
+        app:layout_constraintTop_toBottomOf="@+id/record_win"
         app:layout_constraintRight_toRightOf="@+id/content_home"/>
 
     <TextView
@@ -42,12 +125,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        tools:layout_constraintLeft_creator="1"
         app:layout_constraintTop_toBottomOf="@+id/last_game_score"
         android:layout_marginTop="24dp"
-        tools:layout_constraintTop_creator="0"
         app:layout_constraintRight_toRightOf="@+id/content_home"
-        tools:layout_constraintRight_creator="1"
         android:alpha="0"
         tools:alpha="1"/>
 
