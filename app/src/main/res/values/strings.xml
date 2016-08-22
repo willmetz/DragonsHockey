@@ -10,4 +10,10 @@
     <string name="update_pending">Game update pending</string>
     <string name="roster_unavailable">Unable to retrieve roster at this time.</string>
     <string name="injured_reserve">Injured Reserve</string>
+    <string name="dragons_hockey_team_logo">Dragons Hockey Team Logo</string>
+    <string name="win_header">W</string>
+    <string name="loss_header">L</string>
+    <string name="otl_header">OTL</string>
+    <string name="tie_header">T</string>
+    <string name="roster_caps">ROSTER</string>
 </resources>

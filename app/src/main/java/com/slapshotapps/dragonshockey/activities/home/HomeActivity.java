@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.animation.AnimatorCompatHelper;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
@@ -125,14 +128,18 @@ public class HomeActivity extends AppCompatActivity {
                         setLastGameScore(homeContents.lastGame);
                         setNextGameDate(homeContents.nextGame);
                         setSeasonRecord(homeContents.seasonRecord);
+                        hideProgressBar();
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
                         setLastGameScore(null);
                         setNextGameDate(null);
+                        hideProgressBar();
                     }
                 });
+
+        displayProgressBar();
     }
 
     @Override
@@ -220,4 +227,18 @@ public class HomeActivity extends AppCompatActivity {
         }
 
     }
+
+    protected void displayProgressBar(){
+
+        View progressBarContainer = findViewById(R.id.progress_bar_container);
+        progressBarContainer.animate().alpha(1f).setDuration(1500);
+
+    }
+
+    protected void hideProgressBar(){
+        View progressBarContainer = findViewById(R.id.progress_bar_container);
+        progressBarContainer.clearAnimation();
+        progressBarContainer.animate().alpha(0f);
+    }
+
 }

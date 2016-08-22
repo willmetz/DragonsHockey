@@ -24,4 +24,31 @@
 
     <include layout="@layout/content_home"/>
 
+    <RelativeLayout
+        android:id="@+id/progress_bar_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            style="@android:style/Widget.Material.ProgressBar.Large"
+            android:indeterminate="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progress_bar"
+            android:layout_centerHorizontal="true"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorAccent"
+            android:text="Loading..."/>
+
+
+    </RelativeLayout>
+
+
 </android.support.design.widget.CoordinatorLayout>
