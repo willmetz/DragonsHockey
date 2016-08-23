@@ -16,4 +16,5 @@
     <string name="otl_header">OTL</string>
     <string name="tie_header">T</string>
     <string name="roster_caps">ROSTER</string>
+    <string name="today_gameday">"Today %1$s"</string>
 </resources>

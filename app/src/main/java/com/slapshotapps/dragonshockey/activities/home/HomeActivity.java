@@ -1,6 +1,8 @@
 package com.slapshotapps.dragonshockey.activities.home;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.animation.AnimatorCompatHelper;
@@ -9,9 +11,12 @@ import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -181,15 +186,26 @@ public class HomeActivity extends AppCompatActivity {
         Date date = nextGame.gameTimeToDate();
 
         if (date != null) {
-
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
 
-            String gametime = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " +
-                    FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)) +
-                    " " + DateFormaters.getGameTime(date);
+            if(DateUtils.isToday(date.getTime())){
 
-            nextGameDate.setText(gametime);
+                Animation animation = AnimationUtils.loadAnimation(this, R.anim.bubbles);
+
+                nextGameDate.setText( getString(R.string.today_gameday, DateFormaters.getGameTime(date)));
+
+                nextGameDate.startAnimation(animation);
+
+            } else {
+
+
+                String gametime = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " +
+                        FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)) +
+                        " " + DateFormaters.getGameTime(date);
+
+                nextGameDate.setText(gametime);
+            }
         }
 
         nextGameHeader.animate().alpha(1.0f);
@@ -231,7 +247,18 @@ public class HomeActivity extends AppCompatActivity {
     protected void displayProgressBar(){
 
         View progressBarContainer = findViewById(R.id.progress_bar_container);
-        progressBarContainer.animate().alpha(1f).setDuration(1500);
+        progressBarContainer.animate().alpha(1f).setDuration(1200).setInterpolator(new TimeInterpolator() {
+            @Override
+            public float getInterpolation(float v) {
+                if(v < 800){
+                    return 0;
+                }else{
+                    float val = (v - 800) / 200f;
+                    return val > 1f? 1f : val;
+                }
+
+            }
+        });
 
     }
 
