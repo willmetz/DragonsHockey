@@ -144,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
                         hideProgressBar();
                         Toast.makeText(HomeActivity.this,
                                 R.string.error_loading,
-                                Toast.LENGTH_LONG);
+                                Toast.LENGTH_LONG).show();
                     }
                 });
 
