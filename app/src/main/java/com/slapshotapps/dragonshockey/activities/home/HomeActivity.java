@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.database.DataSnapshot;
@@ -141,6 +142,9 @@ public class HomeActivity extends AppCompatActivity {
                         setLastGameScore(null);
                         setNextGameDate(null);
                         hideProgressBar();
+                        Toast.makeText(HomeActivity.this,
+                                R.string.error_loading,
+                                Toast.LENGTH_LONG);
                     }
                 });
 
