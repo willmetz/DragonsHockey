@@ -20,7 +20,91 @@
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
         app:layout_constraintTop_toTopOf="@+id/content_home"
         android:layout_marginTop="8dp"
-        app:layout_constraintRight_toRightOf="@+id/content_home"/>
+        app:layout_constraintRight_toRightOf="@+id/content_home"
+        android:contentDescription="@string/dragons_hockey_team_logo"/>
+
+    <TextView
+        android:id="@+id/record_key_header_win"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/content_home"
+        app:layout_constraintTop_toBottomOf="@+id/dragons_hockey"
+        app:layout_constraintRight_toRightOf="@+id/content_home"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintHorizontal_bias=".42"
+        android:layout_marginTop="8dp"
+        android:text="@string/win_header"/>
+
+    <TextView
+        android:id="@+id/record_key_header_loss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/record_key_header_win"
+        app:layout_constraintBottom_toBottomOf="@id/record_key_header_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginStart="8dp"
+        android:text="@string/loss_header"/>
+
+    <TextView
+        android:id="@+id/record_key_header_otl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/record_key_header_loss"
+        app:layout_constraintBottom_toBottomOf="@id/record_key_header_loss"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginStart="8dp"
+        android:text="@string/otl_header"/>
+
+    <TextView
+        android:id="@+id/record_key_header_tie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/record_key_header_otl"
+        app:layout_constraintBottom_toBottomOf="@id/record_key_header_otl"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginStart="8dp"
+        android:text="@string/tie_header"/>
+
+    <TextView
+        android:id="@+id/record_win"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/record_key_header_win"
+        app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
+        app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginTop="4dp"
+        tools:text="2"/>
+
+    <TextView
+        android:id="@+id/record_loss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
+        app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
+        app:layout_constraintBottom_toBottomOf="@id/record_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        tools:text="1"/>
+
+    <TextView
+        android:id="@+id/record_otl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
+        app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
+        app:layout_constraintBottom_toBottomOf="@id/record_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        tools:text="0"/>
+
+    <TextView
+        android:id="@+id/record_tie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
+        app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
+        app:layout_constraintBottom_toBottomOf="@id/record_win"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        tools:text="1"/>
 
     <TextView
         android:id="@+id/last_game_header"
@@ -28,11 +112,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:alpha="0"
         tools:alpha="1"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        app:layout_constraintTop_toBottomOf="@+id/dragons_hockey"
+        app:layout_constraintTop_toBottomOf="@+id/record_win"
         app:layout_constraintRight_toRightOf="@+id/content_home"/>
 
     <TextView
@@ -42,12 +126,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        tools:layout_constraintLeft_creator="1"
         app:layout_constraintTop_toBottomOf="@+id/last_game_score"
         android:layout_marginTop="24dp"
-        tools:layout_constraintTop_creator="0"
         app:layout_constraintRight_toRightOf="@+id/content_home"
-        tools:layout_constraintRight_creator="1"
         android:alpha="0"
         tools:alpha="1"/>
 
@@ -97,11 +178,11 @@
         android:id="@+id/roster_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="ROSTER"
+        android:text="@string/roster_caps"
         android:textColor="@color/colorPrimary"
         android:background="@drawable/borderless_button_ripple"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_marginRight="15dp"
+        android:layout_marginStart="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
         app:layout_constraintRight_toLeftOf="@+id/schedule_button"
         />

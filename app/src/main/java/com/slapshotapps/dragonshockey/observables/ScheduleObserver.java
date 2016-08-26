@@ -67,68 +67,6 @@ public class ScheduleObserver {
         });
     }
 
-    public static Observable<HomeContents> getHomeScreen(final FirebaseDatabase firebaseDatabase,
-                                                         final SeasonSchedule schedule, final Date referenceDate) {
-        return Observable.create(new Observable.OnSubscribe<HomeContents>() {
-            @Override
-            public void call(final Subscriber<? super HomeContents> subscriber) {
-
-                //find the next game and last game IDs
-                final Game nextGame = ScheduleUtils.getGameAfterDate(referenceDate, schedule.getAllGames());
-                final Game lastGame =
-                        ScheduleUtils.getGameBeforeDate(referenceDate, schedule.getAllGames());
-
-                final Query query = firebaseDatabase.getReference(Config.GAME_RESULTS).orderByChild("gameID");
-                if (nextGame != null && lastGame != null) {
-                    query.endAt(nextGame.gameID).startAt(lastGame.gameID);
-                } else if (nextGame != null) {
-                    query.equalTo(nextGame.gameID);
-                } else if (lastGame != null) {
-                    query.equalTo(lastGame.gameID);
-                } else {
-                    subscriber.onError(new Throwable("No games found"));
-                }
-
-                final ValueEventListener listener = query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        HomeContents homeContents = new HomeContents();
-                        homeContents.lastGame = lastGame;
-                        homeContents.nextGame = nextGame;
-
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                            GameResult gameResult = snapshot.getValue(GameResult.class);
-
-                            if (lastGame != null && lastGame.gameID == gameResult.gameID) {
-                                homeContents.lastGame.gameResult = gameResult;
-                            } else if (nextGame != null && nextGame.gameID == gameResult.gameID) {
-                                homeContents.nextGame.gameResult = gameResult;
-                            }
-                        }
-
-                        if (!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(homeContents);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                //when the subscription is cancelled remove the listener
-                subscriber.add(Subscriptions.create(new Action0() {
-                    @Override
-                    public void call() {
-                        query.removeEventListener(listener);
-                    }
-                }));
-            }
-        });
-    }
 
     public static Observable<SeasonSchedule> getScheduleWithResults(
             final FirebaseDatabase firebaseDatabase, final SeasonSchedule schedule) {
