@@ -251,14 +251,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void displayProgressBar(){
 
         View progressBarContainer = findViewById(R.id.progress_bar_container);
-        progressBarContainer.animate().alpha(1f).setDuration(1200).setInterpolator(new TimeInterpolator() {
+        progressBarContainer.animate().alpha(1f).setDuration(500).setInterpolator(new TimeInterpolator() {
             @Override
             public float getInterpolation(float v) {
-                if(v < 800){
+                if(v < 0.75){
                     return 0;
                 }else{
-                    float val = (v - 800) / 200f;
-                    return val > 1f? 1f : val;
+                    return v;
                 }
 
             }
