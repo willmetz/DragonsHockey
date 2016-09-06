@@ -18,4 +18,5 @@
     <string name="roster_caps">ROSTER</string>
     <string name="today_gameday">"Today %1$s"</string>
     <string name="error_loading">Error loading data, check internet and please try again</string>
+    <string name="title_activity_stats">StatsActivity</string>
 </resources>
