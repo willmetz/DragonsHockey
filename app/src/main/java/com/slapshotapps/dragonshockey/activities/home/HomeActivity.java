@@ -254,10 +254,10 @@ public class HomeActivity extends AppCompatActivity {
         progressBarContainer.animate().alpha(1f).setDuration(500).setInterpolator(new TimeInterpolator() {
             @Override
             public float getInterpolation(float v) {
-                if(v < 0.75){
+                if(v < 0.5){
                     return 0;
                 }else{
-                    return v;
+                    return (v-0.5f)/0.5f;
                 }
 
             }
