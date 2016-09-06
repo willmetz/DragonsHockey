@@ -10,7 +10,7 @@ import com.slapshotapps.dragonshockey.models.PlayerStats;
  * Created by willmetz on 9/5/16.
  */
 
-public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsViewHolder{
+public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsViewHolder>{
 
 
     @Override
@@ -28,7 +28,7 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
         return 0;
     }
 
-    public static class PlayerStatsViewHolder extends RecyclerView.ViewHolder{
+    protected static class PlayerStatsViewHolder extends RecyclerView.ViewHolder{
 
         PlayerStats stats;
 
