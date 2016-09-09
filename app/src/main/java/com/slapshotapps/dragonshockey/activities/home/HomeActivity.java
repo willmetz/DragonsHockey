@@ -61,10 +61,8 @@ import timber.log.Timber;
 
 public class HomeActivity extends AppCompatActivity {
 
-    //    @BindView(R.id.last_game_score)
     private TextView lastGameScore;
 
-    //    @BindView(R.id.next_game_date)
     private TextView nextGameDate;
 
     private TextView lastGameHeader, nextGameHeader;
@@ -90,11 +88,12 @@ public class HomeActivity extends AppCompatActivity {
         //would be nice if butterknife worked...
         Button viewSchedule = (Button) findViewById(R.id.schedule_button);
         Button viewRoster = (Button) findViewById(R.id.roster_button);
+        Button viewStats = (Button) findViewById(R.id.stats_button);
 
         viewSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, ScheduleActivity.class));
+                startActivity(DragonsHockeyIntents.createScheduleIntent(HomeActivity.this));
 
             }
         });
@@ -103,6 +102,13 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(DragonsHockeyIntents.createRosterIntent(HomeActivity.this));
+            }
+        });
+
+        viewStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(DragonsHockeyIntents.createStatsIntent(HomeActivity.this));
             }
         });
 
