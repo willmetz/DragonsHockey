@@ -13,4 +13,10 @@ public class PlayerStats {
     public int assists;
     public int gamesPlayed;
     public int points;
+
+    public PlayerStats ( int playerID, String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.playerID = playerID;
+    }
 }

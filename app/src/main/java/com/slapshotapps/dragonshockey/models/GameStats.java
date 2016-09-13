@@ -10,7 +10,7 @@ public class GameStats {
 
     public int gameID;
 
-    List<Stats> gameStats;
+    public List<Stats> gameStats;
 
     public class Stats{
 
