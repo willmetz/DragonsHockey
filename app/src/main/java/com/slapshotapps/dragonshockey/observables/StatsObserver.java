@@ -29,7 +29,7 @@ import timber.log.Timber;
  * Created by willmetz on 9/12/16.
  */
 
-public class StatsObservable {
+public class StatsObserver {
 
     public static Observable<List<PlayerStats>> getPlayerStats(final FirebaseDatabase database, final List<Player> players){
 
@@ -54,15 +54,20 @@ public class StatsObservable {
                         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                             GameStats stats = snapshot.getValue(GameStats.class);
 
-                            //iterate through all stats for the game
-                            for( GameStats.Stats s : stats.gameStats){
-                                PlayerStats currentStats = statMap.get(s.playerID);
+                            //populate the internal list of players details per game
+                            stats.gameStats = new ArrayList<GameStats.Stats>();
+                            for(DataSnapshot childListSnapshot : snapshot.child("stats").getChildren()){
+                                GameStats.Stats playerGameStats = childListSnapshot.getValue(GameStats.Stats.class);
 
+                                //get the players current stat info
+                                PlayerStats currentStats = statMap.get(playerGameStats.playerID);
+
+                                //update the stat info based on the game results
                                 if(currentStats != null){
-                                    currentStats.assists += s.assists;
-                                    currentStats.goals += s.goals;
+                                    currentStats.assists += playerGameStats.assists;
+                                    currentStats.goals += playerGameStats.goals;
                                     currentStats.points = currentStats.goals + currentStats.assists;
-                                    currentStats.gamesPlayed += s.present?1:0;
+                                    currentStats.gamesPlayed += playerGameStats.present?1:0;
                                 }
                             }
                         }

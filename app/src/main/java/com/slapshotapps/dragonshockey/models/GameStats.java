@@ -12,7 +12,7 @@ public class GameStats {
 
     public List<Stats> gameStats;
 
-    public class Stats{
+    public static class Stats{
 
         public int playerID;
         public int assists;

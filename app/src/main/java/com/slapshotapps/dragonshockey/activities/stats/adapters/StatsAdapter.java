@@ -1,6 +1,7 @@
 package com.slapshotapps.dragonshockey.activities.stats.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -19,13 +21,18 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
 
     private ArrayList<PlayerStats> playerStats;
 
-    public StatsAdapter(ArrayList<PlayerStats> playerStats){
-        this.playerStats = playerStats;
+    public StatsAdapter(List<PlayerStats> playerStats){
+        this.playerStats = new ArrayList<>(playerStats);
     }
 
     @Override
     public PlayerStatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        View view = inflater.inflate(R.layout.view_stats_player_row, parent, false);
+
+        return new PlayerStatsViewHolder(view);
     }
 
     @Override
@@ -41,13 +48,14 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
 
     protected static class PlayerStatsViewHolder extends RecyclerView.ViewHolder{
 
-        PlayerStats stats;
-        TextView playerName, goals, assists, points, gamesPlayed;
+        private PlayerStats stats;
+        private TextView playerName, goals, points, gamesPlayed;
+        private TextView assists;
 
         public PlayerStatsViewHolder(View itemView) {
             super(itemView);
 
-            playerName = ButterKnife.findById(itemView, R.id.player_name_stats);
+            playerName = (TextView)itemView.findViewById(R.id.player_name_stats);
             goals = ButterKnife.findById(itemView, R.id.goal_total);
             assists = ButterKnife.findById(itemView, R.id.assist_total);
             points = ButterKnife.findById(itemView, R.id.points_total);
@@ -58,10 +66,10 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
             stats = playerStats;
 
             playerName.setText(stats.lastName);
-            goals.setText(stats.goals);
-            assists.setText(stats.assists);
-            points.setText(stats.points);
-            gamesPlayed.setText(stats.gamesPlayed);
+            goals.setText(String.valueOf(stats.goals));
+            assists.setText(String.valueOf(stats.assists));
+            points.setText(String.valueOf(stats.points));
+            gamesPlayed.setText(String.valueOf(stats.gamesPlayed));
         }
     }
 
