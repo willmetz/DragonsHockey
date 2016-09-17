@@ -30,7 +30,7 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        View view = inflater.inflate(R.layout.view_stats_player_row, parent, false);
+        View view = inflater.inflate(R.layout.view_stats_player_card, parent, false);
 
         return new PlayerStatsViewHolder(view);
     }
@@ -55,10 +55,10 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
         public PlayerStatsViewHolder(View itemView) {
             super(itemView);
 
-            playerName = (TextView)itemView.findViewById(R.id.player_name_stats);
-            goals = ButterKnife.findById(itemView, R.id.goal_total);
-            assists = ButterKnife.findById(itemView, R.id.assist_total);
-            points = ButterKnife.findById(itemView, R.id.points_total);
+            playerName = (TextView)itemView.findViewById(R.id.player_name);
+            goals = ButterKnife.findById(itemView, R.id.goals);
+            assists = ButterKnife.findById(itemView, R.id.assists);
+            points = ButterKnife.findById(itemView, R.id.points);
             gamesPlayed = ButterKnife.findById(itemView, R.id.games_played);
         }
 
