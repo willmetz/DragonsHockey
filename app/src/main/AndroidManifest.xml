@@ -31,8 +31,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.stats.StatsActivity"
-            android:label="@string/title_activity_stats"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="Dragons Stats"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
