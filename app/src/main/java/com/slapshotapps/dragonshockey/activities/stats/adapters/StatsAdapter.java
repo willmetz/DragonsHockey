@@ -22,7 +22,9 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
     private ArrayList<PlayerStats> playerStats;
 
     public StatsAdapter(List<PlayerStats> playerStats){
-        this.playerStats = new ArrayList<>(playerStats);
+        if(playerStats!=null) {
+            this.playerStats = new ArrayList<>(playerStats);
+        }
     }
 
     @Override
