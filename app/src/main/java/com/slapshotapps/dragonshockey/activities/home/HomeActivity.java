@@ -34,6 +34,7 @@ import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
+import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
 import com.slapshotapps.dragonshockey.activities.schedule.ScheduleActivity;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.SeasonRecord;
@@ -146,21 +147,21 @@ public class HomeActivity extends AppCompatActivity {
                         setLastGameScore(homeContents.lastGame);
                         setNextGameDate(homeContents.nextGame);
                         setSeasonRecord(homeContents.seasonRecord);
-                        hideProgressBar();
+                        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar_container));
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
                         setLastGameScore(null);
                         setNextGameDate(null);
-                        hideProgressBar();
+                        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar_container));
                         Toast.makeText(HomeActivity.this,
                                 R.string.error_loading,
                                 Toast.LENGTH_LONG).show();
                     }
                 });
 
-        displayProgressBar();
+        ProgressBarUtils.displayProgressBar(findViewById(R.id.progress_bar_container));
     }
 
     @Override
@@ -258,29 +259,6 @@ public class HomeActivity extends AppCompatActivity {
             otlValue.animate().alpha(1f);
         }
 
-    }
-
-    protected void displayProgressBar(){
-
-        View progressBarContainer = findViewById(R.id.progress_bar_container);
-        progressBarContainer.animate().alpha(1f).setDuration(500).setInterpolator(new TimeInterpolator() {
-            @Override
-            public float getInterpolation(float v) {
-                if(v < 0.5){
-                    return 0;
-                }else{
-                    return (v-0.5f)/0.5f;
-                }
-
-            }
-        });
-
-    }
-
-    protected void hideProgressBar(){
-        View progressBarContainer = findViewById(R.id.progress_bar_container);
-        progressBarContainer.clearAnimation();
-        progressBarContainer.animate().alpha(0f);
     }
 
 }

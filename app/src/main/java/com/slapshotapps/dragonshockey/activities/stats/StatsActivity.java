@@ -5,10 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
 import com.slapshotapps.dragonshockey.activities.stats.adapters.StatsAdapter;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
@@ -18,6 +20,7 @@ import com.slapshotapps.dragonshockey.observables.StatsObserver;
 import java.util.List;
 import java.util.Observable;
 
+import butterknife.ButterKnife;
 import rx.Subscription;
 import rx.android.MainThreadSubscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -28,7 +31,8 @@ import timber.log.Timber;
 
 public class StatsActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private TextView errorLoading;
 
     private Subscription statsSubscription;
 
@@ -42,6 +46,9 @@ public class StatsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView)findViewById(R.id.stats_recycler_view);
+        errorLoading = ButterKnife.findById(this, R.id.unable_to_load);
+
+
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
@@ -72,15 +79,20 @@ public class StatsActivity extends AppCompatActivity {
                 .subscribe(new Action1<List<PlayerStats>>() {
                     @Override
                     public void call(List<PlayerStats> playerStats) {
+                        errorLoading.setAlpha(0);
+                        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
                         StatsAdapter adapter = new StatsAdapter(playerStats);
                         recyclerView.setAdapter(adapter);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        //TODO error handling here
+                        errorLoading.animate().alpha(1);
+                        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
                     }
                 });
+
+        ProgressBarUtils.displayProgressBar(findViewById(R.id.progress_bar));
 
     }
 
