@@ -1,6 +1,7 @@
 package com.slapshotapps.dragonshockey.activities.stats;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
+import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
 import com.slapshotapps.dragonshockey.activities.stats.adapters.StatsAdapter;
@@ -44,6 +46,11 @@ public class StatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(!Config.isRelease){
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("CERT Stats CERT");
+        }
 
         recyclerView = (RecyclerView)findViewById(R.id.stats_recycler_view);
         errorLoading = ButterKnife.findById(this, R.id.unable_to_load);

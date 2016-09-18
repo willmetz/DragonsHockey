@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.animation.AnimatorCompatHelper;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.text.TextUtilsCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -77,14 +78,16 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(Config.isRelease) {
-            Fabric.with(this, new Crashlytics());
-        }
-
-
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(Config.isRelease) {
+            Fabric.with(this, new Crashlytics());
+        }else{
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("CERT Dragons Hockey CERT");
+        }
 
         //butterknife injection doesn't appear to be working in a constraint layout at this time...
         nextGameDate = (TextView) findViewById(R.id.next_game_date);
