@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.StatsUtils;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -24,6 +26,8 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
     public StatsAdapter(List<PlayerStats> playerStats){
         if(playerStats!=null) {
             this.playerStats = new ArrayList<>(playerStats);
+
+            Collections.sort(this.playerStats);
         }
     }
 
@@ -39,7 +43,6 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
 
     @Override
     public void onBindViewHolder(PlayerStatsViewHolder holder, int position) {
-
         holder.setStats(playerStats.get(position));
     }
 
@@ -67,7 +70,7 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
         public void setStats(PlayerStats playerStats){
             stats = playerStats;
 
-            playerName.setText(stats.lastName);
+            playerName.setText(StatsUtils.fullPlayerName(playerStats));
             goals.setText(String.valueOf(stats.goals));
             assists.setText(String.valueOf(stats.assists));
             points.setText(String.valueOf(stats.points));
