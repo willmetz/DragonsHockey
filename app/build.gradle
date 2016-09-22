@@ -23,8 +23,8 @@ android {
         applicationId "com.slapshotapps.dragonshockey"
         minSdkVersion 21
         targetSdkVersion 24
-        versionCode 8
-        versionName "1.4"
+        versionCode 9
+        versionName "1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
