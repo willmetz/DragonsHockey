@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
@@ -73,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
     private Subscription hockeyScheduleSubscription;
 
     private FirebaseDatabase firebaseDatabase;
+    private FirebaseAnalytics firebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,14 +105,23 @@ public class HomeActivity extends AppCompatActivity {
         viewSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(DragonsHockeyIntents.createScheduleIntent(HomeActivity.this));
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Schedule");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "900");
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
+                startActivity(DragonsHockeyIntents.createScheduleIntent(HomeActivity.this));
             }
         });
 
         viewRoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Roster");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "901");
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
                 startActivity(DragonsHockeyIntents.createRosterIntent(HomeActivity.this));
             }
         });
@@ -118,11 +129,17 @@ public class HomeActivity extends AppCompatActivity {
         viewStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Stats");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "902");
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
                 startActivity(DragonsHockeyIntents.createStatsIntent(HomeActivity.this));
             }
         });
 
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
