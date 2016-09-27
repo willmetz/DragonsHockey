@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -37,6 +38,7 @@ import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
+import com.slapshotapps.dragonshockey.Utils.SharedPrefsUtils;
 import com.slapshotapps.dragonshockey.activities.schedule.ScheduleActivity;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.SeasonRecord;
@@ -182,6 +184,27 @@ public class HomeActivity extends AppCompatActivity {
                 });
 
         ProgressBarUtils.displayProgressBar(findViewById(R.id.progress_bar_container));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_admin:
+                startActivity(DragonsHockeyIntents.createAdminIntent(this));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
