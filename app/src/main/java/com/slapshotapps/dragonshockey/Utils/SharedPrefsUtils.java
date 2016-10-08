@@ -22,7 +22,25 @@ public class SharedPrefsUtils {
         return sharedPreferences.getBoolean(LOGGED_IN, false);
     }
 
+    public static void setUserLoggedIn(Context context){
+        SharedPreferences.Editor sharedPreferencesEdit = getAppPrefsEditor(context);
+
+        sharedPreferencesEdit.putBoolean(LOGGED_IN, true);
+        sharedPreferencesEdit.apply();
+    }
+
+    public static void clearPrefs(Context context){
+        SharedPreferences.Editor sharedPreferencesEdit = getAppPrefsEditor(context);
+
+        sharedPreferencesEdit.clear();
+        sharedPreferencesEdit.apply();
+    }
+
     private static SharedPreferences getAppSharedPrefs(Context context){
         return context.getSharedPreferences(Config.MAIN_PREFS, Context.MODE_PRIVATE);
+    }
+
+    private static SharedPreferences.Editor getAppPrefsEditor(Context context){
+        return getAppSharedPrefs(context).edit();
     }
 }
