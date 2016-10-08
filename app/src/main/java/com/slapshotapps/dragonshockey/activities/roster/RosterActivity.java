@@ -2,6 +2,7 @@ package com.slapshotapps.dragonshockey.activities.roster;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
+import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
 import com.slapshotapps.dragonshockey.activities.roster.views.RosterHeaderDecoration;
@@ -43,6 +45,11 @@ public class RosterActivity extends AppCompatActivity {
 
         Toolbar toolbar = ButterKnife.findById(this, R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(!Config.isRelease){
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("CERT Roster CERT");
+        }
 
         rosterUnavailable = ButterKnife.findById(this, R.id.roster_unavailable);
 

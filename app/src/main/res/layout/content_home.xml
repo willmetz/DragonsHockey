@@ -187,4 +187,17 @@
         app:layout_constraintRight_toLeftOf="@+id/schedule_button"
         />
 
+    <Button
+        android:id="@+id/stats_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="STATS"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/borderless_button_ripple"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
+        app:layout_constraintRight_toLeftOf="@+id/roster_button"
+        />
+
 </android.support.constraint.ConstraintLayout>

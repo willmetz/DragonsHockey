@@ -2,12 +2,14 @@ package com.slapshotapps.dragonshockey.activities.schedule;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.activities.schedule.adapters.ScheduleAdapter;
 import com.slapshotapps.dragonshockey.activities.schedule.itemdecoration.RecyclerViewDivider;
@@ -37,6 +39,11 @@ public class ScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_schedule);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(!Config.isRelease){
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("CERT Schedule CERT");
+        }
 
         recyclerView = (RecyclerView) findViewById(R.id.schedule_recycler_view);
 

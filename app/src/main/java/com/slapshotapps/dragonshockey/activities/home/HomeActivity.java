@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.animation.AnimatorCompatHelper;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.text.TextUtilsCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -23,16 +24,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
+import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
 import com.slapshotapps.dragonshockey.activities.schedule.ScheduleActivity;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.SeasonRecord;
@@ -61,10 +65,8 @@ import timber.log.Timber;
 
 public class HomeActivity extends AppCompatActivity {
 
-    //    @BindView(R.id.last_game_score)
     private TextView lastGameScore;
 
-    //    @BindView(R.id.next_game_date)
     private TextView nextGameDate;
 
     private TextView lastGameHeader, nextGameHeader;
@@ -72,14 +74,22 @@ public class HomeActivity extends AppCompatActivity {
     private Subscription hockeyScheduleSubscription;
 
     private FirebaseDatabase firebaseDatabase;
+    private FirebaseAnalytics firebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(Config.isRelease) {
+            Fabric.with(this, new Crashlytics());
+        }else{
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("CERT Dragons Hockey CERT");
+        }
 
         //butterknife injection doesn't appear to be working in a constraint layout at this time...
         nextGameDate = (TextView) findViewById(R.id.next_game_date);
@@ -90,23 +100,46 @@ public class HomeActivity extends AppCompatActivity {
         //would be nice if butterknife worked...
         Button viewSchedule = (Button) findViewById(R.id.schedule_button);
         Button viewRoster = (Button) findViewById(R.id.roster_button);
+        Button viewStats = (Button) findViewById(R.id.stats_button);
 
         viewSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, ScheduleActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Schedule");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "900");
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
+                startActivity(DragonsHockeyIntents.createScheduleIntent(HomeActivity.this));
             }
         });
 
         viewRoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Roster");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "901");
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
                 startActivity(DragonsHockeyIntents.createRosterIntent(HomeActivity.this));
             }
         });
 
+        viewStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Stats");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "902");
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
+                startActivity(DragonsHockeyIntents.createStatsIntent(HomeActivity.this));
+            }
+        });
+
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
@@ -134,21 +167,21 @@ public class HomeActivity extends AppCompatActivity {
                         setLastGameScore(homeContents.lastGame);
                         setNextGameDate(homeContents.nextGame);
                         setSeasonRecord(homeContents.seasonRecord);
-                        hideProgressBar();
+                        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar_container));
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
                         setLastGameScore(null);
                         setNextGameDate(null);
-                        hideProgressBar();
+                        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar_container));
                         Toast.makeText(HomeActivity.this,
                                 R.string.error_loading,
                                 Toast.LENGTH_LONG).show();
                     }
                 });
 
-        displayProgressBar();
+        ProgressBarUtils.displayProgressBar(findViewById(R.id.progress_bar_container));
     }
 
     @Override
@@ -204,7 +237,8 @@ public class HomeActivity extends AppCompatActivity {
             } else {
 
 
-                String gametime = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " +
+                String gametime = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US) + " " +
+                        calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " +
                         FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)) +
                         " " + DateFormaters.getGameTime(date);
 
@@ -246,29 +280,6 @@ public class HomeActivity extends AppCompatActivity {
             otlValue.animate().alpha(1f);
         }
 
-    }
-
-    protected void displayProgressBar(){
-
-        View progressBarContainer = findViewById(R.id.progress_bar_container);
-        progressBarContainer.animate().alpha(1f).setDuration(500).setInterpolator(new TimeInterpolator() {
-            @Override
-            public float getInterpolation(float v) {
-                if(v < 0.75){
-                    return 0;
-                }else{
-                    return v;
-                }
-
-            }
-        });
-
-    }
-
-    protected void hideProgressBar(){
-        View progressBarContainer = findViewById(R.id.progress_bar_container);
-        progressBarContainer.clearAnimation();
-        progressBarContainer.animate().alpha(0f);
     }
 
 }

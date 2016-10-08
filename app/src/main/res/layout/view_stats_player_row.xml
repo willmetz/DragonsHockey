@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="36dp"
+    android:id="@+id/stats_view_container"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/player_name_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintLeft_toLeftOf="@id/stats_view_container"
+        app:layout_constraintTop_toTopOf="@id/stats_view_container"
+        app:layout_constraintBottom_toBottomOf="@id/stats_view_container"
+        tools:text="John Doe"/>
+
+    <TextView
+        android:id="@+id/games_played"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintRight_toLeftOf="@+id/goal_total"
+        app:layout_constraintTop_toTopOf="@id/stats_view_container"
+        app:layout_constraintBottom_toBottomOf="@id/stats_view_container"
+        tools:text="2"/>
+
+    <TextView
+        android:id="@+id/goal_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintRight_toLeftOf="@+id/assist_total"
+        app:layout_constraintTop_toTopOf="@id/stats_view_container"
+        app:layout_constraintBottom_toBottomOf="@id/stats_view_container"
+        android:layout_marginEnd="20dp"
+        tools:text="3"/>
+
+    <TextView
+        android:id="@+id/assist_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintRight_toLeftOf="@+id/points_total"
+        app:layout_constraintTop_toTopOf="@id/stats_view_container"
+        app:layout_constraintBottom_toBottomOf="@id/stats_view_container"
+        android:layout_marginEnd="20dp"
+        tools:text="4"/>
+
+    <TextView
+        android:id="@+id/points_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintRight_toRightOf="@id/stats_view_container"
+        app:layout_constraintTop_toTopOf="@id/stats_view_container"
+        app:layout_constraintBottom_toBottomOf="@id/stats_view_container"
+        android:layout_marginEnd="12dp"
+        tools:text="7"/>
+
+
+
+</android.support.constraint.ConstraintLayout>
