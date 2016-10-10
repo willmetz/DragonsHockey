@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+
+        <TextView
+            android:id="@+id/game_id_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="4dp"
+            android:text="Game ID:"/>
+
+        <TextView
+            android:id="@+id/game_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/game_id_label"
+            app:layout_constraintBaseline_toBaselineOf="@id/game_id_label"
+            android:layout_marginStart="12dp"
+            tools:text="1"
+            />
+
+        <TextView
+            android:id="@+id/game_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game_id_label"
+            android:layout_margin="4dp"
+            android:text="Game Date:"/>
+
+        <TextView
+            android:id="@+id/game_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/game_date_label"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/game_date_label"
+            android:layout_margin="4dp"
+            tools:text="Game Date"/>
+
+
+        <TextView
+            android:id="@+id/game_opponent_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game_date_label"
+            android:layout_margin="4dp"
+            android:text="Opponent:"/>
+
+        <TextView
+            android:id="@+id/game_opponent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/game_opponent_label"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/game_opponent_label"
+            android:layout_margin="4dp"
+            tools:text="Founders"/>
+
+
+
+
+        <ImageView
+            android:id="@+id/chevron"
+            android:layout_width="36dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_right_arrow_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/game_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/chevron"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Dragons 6 Founders 2 (W)"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

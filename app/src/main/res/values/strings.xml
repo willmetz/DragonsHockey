@@ -24,7 +24,7 @@
     <string name="assists">Assists</string>
     <string name="points">Points</string>
     <string name="title_activity_admin">AdminActivity</string>
-    <string name="sign_in_with_google">This feature requires authentication to access\nplease sign in with Google.</string>
+    <string name="sign_in_with_google">This feature requires authentication to access</string>
     <string name="stats_title">Dragons Stats</string>
     <string name="roster_title">Dragons Roster</string>
     <string name="schedule_title">Dragons Schedule</string>
