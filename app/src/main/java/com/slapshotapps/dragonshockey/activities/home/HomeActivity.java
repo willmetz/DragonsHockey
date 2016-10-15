@@ -182,7 +182,8 @@ public class HomeActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.action_admin:
-                startActivity(DragonsHockeyIntents.createAdminAuthIntent(this, SharedPrefsUtils.isUserLoggedIn(this)));
+                //startActivity(DragonsHockeyIntents.createAdminAuthIntent(this, SharedPrefsUtils.isUserLoggedIn(this)));
+                startActivity(DragonsHockeyIntents.createAdminIntent(this));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

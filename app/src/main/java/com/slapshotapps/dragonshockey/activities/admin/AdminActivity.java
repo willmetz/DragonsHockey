@@ -12,6 +12,7 @@ import android.view.View;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.activities.admin.adapter.AdminScheduleAdapter;
 import com.slapshotapps.dragonshockey.activities.roster.RosterActivity;
 import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
 import com.slapshotapps.dragonshockey.activities.roster.views.RosterHeaderDecoration;
@@ -77,7 +78,7 @@ public class AdminActivity extends AppCompatActivity {
                 .subscribe(new Action1<SeasonSchedule>() {
                     @Override
                     public void call(SeasonSchedule schedule) {
-                        recyclerView.setAdapter(new ScheduleAdapter(schedule));
+                        recyclerView.setAdapter(new AdminScheduleAdapter(schedule));
                     }
                 });
     }
