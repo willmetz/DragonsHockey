@@ -33,15 +33,18 @@
             android:name=".activities.stats.StatsActivity"
             android:label="@string/stats_title"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".activities.admin.AdminAuthActivity"
+        <activity
+            android:name=".activities.admin.AdminAuthActivity"
             android:label="@string/auth_title"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.admin.AdminActivity"
             android:label="@string/title_activity_admin"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.EditGameAuthActivity"
+            android:label="@string/title_activity_edit_game_auth"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

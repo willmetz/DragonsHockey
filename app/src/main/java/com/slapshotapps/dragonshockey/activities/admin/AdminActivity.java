@@ -8,15 +8,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.activities.admin.adapter.AdminScheduleAdapter;
+import com.slapshotapps.dragonshockey.activities.admin.listeners.AdminClickListener;
 import com.slapshotapps.dragonshockey.activities.roster.RosterActivity;
 import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
 import com.slapshotapps.dragonshockey.activities.roster.views.RosterHeaderDecoration;
 import com.slapshotapps.dragonshockey.activities.schedule.adapters.ScheduleAdapter;
+import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.observables.RosterObserver;
@@ -32,7 +36,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class AdminActivity extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity implements AdminClickListener{
 
     private FirebaseDatabase firebaseDatabase;
     private RecyclerView recyclerView;
@@ -78,7 +82,7 @@ public class AdminActivity extends AppCompatActivity {
                 .subscribe(new Action1<SeasonSchedule>() {
                     @Override
                     public void call(SeasonSchedule schedule) {
-                        recyclerView.setAdapter(new AdminScheduleAdapter(schedule));
+                        recyclerView.setAdapter(new AdminScheduleAdapter(schedule, AdminActivity.this));
                     }
                 });
     }
@@ -93,4 +97,8 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onGameClick(Game game) {
+        startActivity(DragonsHockeyIntents.createAdminGameIntent(this, game));
+    }
 }

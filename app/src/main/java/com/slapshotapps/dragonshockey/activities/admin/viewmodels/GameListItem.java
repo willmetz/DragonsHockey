@@ -36,6 +36,10 @@ public class GameListItem extends ListItem{
         return FormattingUtils.getGameScore(game.gameResult, game.opponent);
     }
 
+    public Game getGame(){
+        return game;
+    }
+
     @Override
     public ItemType getItemType() {
         return ItemType.GAME;

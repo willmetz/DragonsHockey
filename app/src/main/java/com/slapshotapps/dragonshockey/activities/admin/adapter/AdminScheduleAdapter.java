@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.slapshotapps.dragonshockey.BR;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.activities.admin.listeners.AdminClickListener;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.GameListItem;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.ListItem;
 import com.slapshotapps.dragonshockey.models.Game;
@@ -23,8 +24,11 @@ import java.util.ArrayList;
 public class AdminScheduleAdapter extends RecyclerView.Adapter<AdminScheduleAdapter.ScheduleViewHolder> {
 
     ArrayList<ListItem> items;
+    private AdminClickListener listener;
 
-    public AdminScheduleAdapter(SeasonSchedule schedule){
+    public AdminScheduleAdapter(SeasonSchedule schedule, AdminClickListener listener){
+
+        this.listener = listener;
 
         items = new ArrayList<>();
         for (Game game: schedule.getAllGames()) {
@@ -48,8 +52,10 @@ public class AdminScheduleAdapter extends RecyclerView.Adapter<AdminScheduleAdap
 
         if(item.getItemType() == ListItem.ItemType.GAME){
             final GameListItem gameItem = (GameListItem)item;
-            holder.getBinding().setVariable(BR.game, gameItem);
-            holder.getBinding().executePendingBindings();
+            final ViewDataBinding binding = holder.getBinding();
+            binding.setVariable(BR.game, gameItem);
+            binding.setVariable(BR.listener, listener);
+            binding.executePendingBindings();
         }
 
 

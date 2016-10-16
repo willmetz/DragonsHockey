@@ -8,7 +8,9 @@
 
     <data>
         <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.GameListItem"/>
+        <import type="com.slapshotapps.dragonshockey.activities.admin.listeners.AdminClickListener"/>
         <variable name="game" type="GameListItem"/>
+        <variable name="listener" type="AdminClickListener"/>
     </data>
 
     <android.support.v7.widget.CardView
@@ -16,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:elevation="3dp">
+        android:elevation="3dp"
+        android:onClick="@{() -> listener.onGameClick(game.getGame())}">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
