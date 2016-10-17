@@ -42,7 +42,7 @@
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.EditGameAuthActivity"
+            android:name=".activities.admin.EditGameAuthActivity"
             android:label="@string/title_activity_edit_game_auth"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
