@@ -241,14 +241,7 @@ public class HomeActivity extends AppCompatActivity {
                 nextGameDate.startAnimation(animation);
 
             } else {
-
-
-                String gametime = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US) + " " +
-                        calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " +
-                        FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)) +
-                        " " + DateFormaters.getGameTime(date);
-
-                nextGameDate.setText(gametime);
+                nextGameDate.setText(DateFormaters.getGameDateTime(date));
             }
         }
 

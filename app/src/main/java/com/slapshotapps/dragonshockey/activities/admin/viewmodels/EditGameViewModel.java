@@ -5,8 +5,11 @@ import android.support.annotation.NonNull;
 
 import com.android.annotations.Nullable;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.models.Game;
+import com.slapshotapps.dragonshockey.models.GameResult;
 
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -32,19 +35,47 @@ public class EditGameViewModel {
         game.opponent = name;
     }
 
-    public int getOpponentScore(){
+    public void setOpponentScore(String score){
+        if(game.gameResult==null){
+            game.gameResult = new GameResult();
+        }
+
+        game.gameResult.opponentScore = Integer.valueOf(score);
+    }
+
+    public String getOpponentScore(){
         if(game.gameResult!=null){
-            return game.gameResult.opponentScore;
+            return String.valueOf(game.gameResult.opponentScore);
         }else{
-            return 0;
+            return "";
         }
     }
 
-    public int getDragonsScore(){
-        if(game.gameResult!=null){
-            return game.gameResult.dragonsScore;
-        }else{
-            return 0;
+    public void setDragonsScore(String score){
+        if(game.gameResult==null){
+            game.gameResult = new GameResult();
         }
+
+        game.gameResult.dragonsScore = Integer.valueOf(score);
+    }
+
+    public String getDragonsScore(){
+        if(game.gameResult!=null){
+            return String.valueOf(game.gameResult.dragonsScore);
+        }else{
+            return "";
+        }
+    }
+
+    public Date getGameDate(){
+        return game.gameTimeToDate();
+    }
+
+    public String getGameDateAsString(){
+        return DateFormaters.getGameDate(game.gameTimeToDate());
+    }
+
+    public String getGameTimeAsString(){
+        return DateFormaters.getGameTime(game.gameTimeToDate());
     }
 }
