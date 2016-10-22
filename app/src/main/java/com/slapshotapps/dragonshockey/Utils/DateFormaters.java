@@ -27,6 +27,10 @@ public class DateFormaters {
         return gameDate;
     }
 
+    public static String convertDateToGameTime(Date date){
+        return ISO_8601_format.format(date);
+    }
+
     public static String getGameTime(Date gameTime) {
 
         return GAME_TIME.format(gameTime);

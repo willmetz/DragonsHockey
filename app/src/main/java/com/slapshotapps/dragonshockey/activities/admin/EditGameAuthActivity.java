@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
@@ -32,26 +35,45 @@ public class EditGameAuthActivity extends AppCompatActivity implements
         TimePickerDialog.OnTimeSetListener
 {
 
+    private ActivityEditGameAuthBinding binding;
+    private DatabaseReference databaseReference;
+    private Game originalGame;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Game game = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
+        originalGame = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
 
-        ActivityEditGameAuthBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_game_auth);
-        binding.setData(new EditGameViewModel(game));
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_game_auth);
+        binding.setData(new EditGameViewModel(originalGame));
         binding.setListener(this);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        EditGameViewModel model = binding.getData();
+        if(!model.matches(originalGame)){
+            Game updatedGame = model.getGame();
+            databaseReference.child(Config.GAME_RESULTS).child(String.valueOf(originalGame.gameID)).setValue(updatedGame.gameResult);
+            databaseReference.child(Config.GAMES).child(String.valueOf(originalGame.gameID)).setValue(updatedGame);
+        }
+
+    }
 
     @Override
     public void onDateClick(Date gameDate) {
 
+        EditGameViewModel model = binding.getData();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(gameDate);
+        calendar.setTime(model.getGameDate());
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
@@ -62,8 +84,9 @@ public class EditGameAuthActivity extends AppCompatActivity implements
 
     @Override
     public void onTimeClick(Date gameDate) {
+        EditGameViewModel model = binding.getData();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(gameDate);
+        calendar.setTime(model.getGameDate());
 
         final int hour = calendar.get(Calendar.HOUR_OF_DAY);
         final int minute = calendar.get(Calendar.MINUTE);
@@ -74,12 +97,35 @@ public class EditGameAuthActivity extends AppCompatActivity implements
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        EditGameViewModel model = binding.getData();
+        Date originalGameDate = model.getGameDate();
 
+        Calendar newGameDate = Calendar.getInstance();
+        newGameDate.setTime(originalGameDate);
+
+        newGameDate.set(Calendar.YEAR, year);
+        newGameDate.set(Calendar.MONTH, month);
+        newGameDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        model.setGameDate(newGameDate.getTime());
+
+        binding.setData(model);
     }
 
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        EditGameViewModel model = binding.getData();
+        Date originalGameDate = model.getGameDate();
 
+        Calendar newGameDate = Calendar.getInstance();
+        newGameDate.setTime(originalGameDate);
+
+        newGameDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        newGameDate.set(Calendar.MINUTE, minute);
+
+        model.setGameDate(newGameDate.getTime());
+
+        binding.setData(model);
     }
 }

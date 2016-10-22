@@ -71,11 +71,23 @@ public class EditGameViewModel {
         return game.gameTimeToDate();
     }
 
+    public void setGameDate(Date gameDate){
+        game.gameTime = DateFormaters.convertDateToGameTime(gameDate);
+    }
+
     public String getGameDateAsString(){
         return DateFormaters.getGameDate(game.gameTimeToDate());
     }
 
     public String getGameTimeAsString(){
         return DateFormaters.getGameTime(game.gameTimeToDate());
+    }
+
+    public boolean matches(Game game){
+        return this.game.equals(game);
+    }
+
+    public Game getGame(){
+        return game;
     }
 }
