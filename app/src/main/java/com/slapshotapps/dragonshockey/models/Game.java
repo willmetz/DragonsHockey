@@ -12,7 +12,7 @@ import java.util.Date;
  * A custom object for a game
  */
 
-public class Game implements Parcelable {
+public class Game implements Parcelable, Cloneable {
     public String gameTime;
     public String opponent;
     public int gameID;
@@ -51,6 +51,22 @@ public class Game implements Parcelable {
         }
         return gameResult != null ? gameResult.equals(game.gameResult) : game.gameResult == null;
 
+    }
+
+    @Override
+    public Game clone() throws CloneNotSupportedException {
+        Game cloneGame = new Game();
+        cloneGame.gameTime = gameTime;
+        cloneGame.opponent = opponent;
+        cloneGame.gameID = gameID;
+        if(gameResult != null){
+            cloneGame.gameResult = new GameResult();
+            cloneGame.gameResult.dragonsScore = gameResult.dragonsScore;
+            cloneGame.gameResult.opponentScore = gameResult.opponentScore;
+            cloneGame.gameResult.overtimeLoss = gameResult.overtimeLoss;
+            cloneGame.gameResult.gameID = gameResult.gameID;
+        }
+        return cloneGame;
     }
 
     @Override

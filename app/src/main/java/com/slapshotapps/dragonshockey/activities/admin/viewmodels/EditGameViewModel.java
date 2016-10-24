@@ -18,9 +18,16 @@ import java.util.Locale;
 
 public class EditGameViewModel {
     private Game game;
+    private Game originalGame;
 
     public EditGameViewModel(@NonNull Game game){
         this.game = game;
+
+        try {
+            originalGame = game.clone();
+        }catch (CloneNotSupportedException e){
+            originalGame = new Game();
+        }
     }
 
     public String getGameID(Context context){
@@ -28,7 +35,7 @@ public class EditGameViewModel {
     }
 
     public String getOpponentName(){
-        return game.opponent;
+        return game.opponent == null?"":game.opponent;
     }
 
     public void setOpponentName(String name){
@@ -40,7 +47,11 @@ public class EditGameViewModel {
             game.gameResult = new GameResult();
         }
 
-        game.gameResult.opponentScore = Integer.valueOf(score);
+        if(score == null || score.isEmpty()){
+            game.gameResult.opponentScore = 0;
+        }else{
+            game.gameResult.opponentScore = Integer.valueOf(score);
+        }
     }
 
     public String getOpponentScore(){
@@ -56,7 +67,11 @@ public class EditGameViewModel {
             game.gameResult = new GameResult();
         }
 
-        game.gameResult.dragonsScore = Integer.valueOf(score);
+        if(score == null || score.isEmpty() ){
+            game.gameResult.dragonsScore = 0;
+        }else {
+            game.gameResult.dragonsScore = Integer.valueOf(score);
+        }
     }
 
     public String getDragonsScore(){
@@ -83,8 +98,8 @@ public class EditGameViewModel {
         return DateFormaters.getGameTime(game.gameTimeToDate());
     }
 
-    public boolean matches(Game game){
-        return this.game.equals(game);
+    public boolean hasChanged(){
+        return !originalGame.equals(game);
     }
 
     public Game getGame(){

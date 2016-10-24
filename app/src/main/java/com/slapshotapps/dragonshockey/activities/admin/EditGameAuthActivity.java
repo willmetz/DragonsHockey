@@ -37,12 +37,11 @@ public class EditGameAuthActivity extends AppCompatActivity implements
 
     private ActivityEditGameAuthBinding binding;
     private DatabaseReference databaseReference;
-    private Game originalGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        originalGame = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
+        Game originalGame = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_game_auth);
         binding.setData(new EditGameViewModel(originalGame));
@@ -60,10 +59,14 @@ public class EditGameAuthActivity extends AppCompatActivity implements
         super.onBackPressed();
 
         EditGameViewModel model = binding.getData();
-        if(!model.matches(originalGame)){
+        if(model.hasChanged()){
             Game updatedGame = model.getGame();
-            databaseReference.child(Config.GAME_RESULTS).child(String.valueOf(originalGame.gameID)).setValue(updatedGame.gameResult);
-            databaseReference.child(Config.GAMES).child(String.valueOf(originalGame.gameID)).setValue(updatedGame);
+            databaseReference.child(Config.GAME_RESULTS)
+                    .child(String.valueOf(updatedGame.gameID))
+                    .setValue(updatedGame.gameResult);
+            databaseReference.child(Config.GAMES)
+                    .child(String.valueOf(updatedGame.gameID))
+                    .setValue(updatedGame);
         }
 
     }
