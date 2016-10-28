@@ -35,4 +35,5 @@
     <string name="title_activity_edit_game_auth">Edit Game</string>
     <string name="opponent_hint">Opponent</string>
     <string name="edit_game_game_id">Game ID: %d</string>
+    <string name="title_activity_edit_stats_auth">EditStatsAuthActivity</string>
 </resources>

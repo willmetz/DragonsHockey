@@ -161,6 +161,7 @@
             android:textColor="@color/colorPrimary"
             android:background="@drawable/borderless_button_ripple"
             style="@style/Widget.AppCompat.Button.Borderless"
+            android:onClick="@{() -> listener.onClearGameClick()}"
             android:text="Clear Game Result"/>
 
         <Button
@@ -173,6 +174,7 @@
             android:textColor="@color/colorPrimary"
             android:background="@drawable/borderless_button_ripple"
             style="@style/Widget.AppCompat.Button.Borderless"
+            android:onClick="@{() -> listener.onEditStatsClick()}"
             android:text="Edit Stats"/>
 
 

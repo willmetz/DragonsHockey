@@ -10,5 +10,6 @@ public interface EditGameClickListener {
 
     void onDateClick(Date gameDate);
     void onTimeClick(Date gameDate);
-
+    void onEditStatsClick();
+    void onClearGameClick();
 }
