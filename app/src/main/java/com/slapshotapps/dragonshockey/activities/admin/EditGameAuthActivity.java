@@ -4,37 +4,30 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
-import com.slapshotapps.dragonshockey.activities.admin.listeners.AdminClickListener;
 import com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.EditGameViewModel;
 import com.slapshotapps.dragonshockey.databinding.ActivityEditGameAuthBinding;
 import com.slapshotapps.dragonshockey.models.Game;
+import com.slapshotapps.dragonshockey.models.GameUpdateKeys;
 import com.slapshotapps.dragonshockey.observables.AdminObserver;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.StringTokenizer;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class EditGameAuthActivity extends AppCompatActivity implements
         EditGameClickListener,
@@ -73,17 +66,14 @@ public class EditGameAuthActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
         EditGameViewModel model = binding.getData();
         if (model.hasChanged()) {
             Game updatedGame = model.getGame();
-            database.getReference().child(Config.GAME_RESULTS)
-                    .child(String.valueOf(updatedGame.gameID))
-                    .setValue(updatedGame.gameResult);
-            database.getReference().child(Config.GAMES)
-                    .child(String.valueOf(updatedGame.gameID))
-                    .setValue(updatedGame);
+
+            getDataKeys(updatedGame.gameID);
+        }else {
+            super.onBackPressed();
         }
 
     }
@@ -182,7 +172,7 @@ public class EditGameAuthActivity extends AppCompatActivity implements
                 .child(String.valueOf(gameID))
                 .removeValue();
 
-        if (gameID != AdminObserver.NO_STATS_FOUND) {
+        if (gameID != AdminObserver.NO_KEY_FOUND) {
             database.getReference().child(Config.GAME_STATS)
                     .child(String.valueOf(statsID))
                     .removeValue();
@@ -190,5 +180,34 @@ public class EditGameAuthActivity extends AppCompatActivity implements
 
         Toast.makeText(this, "Removed game", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private void getDataKeys(int gameID){
+
+        subscription = AdminObserver.getGameKeys(database, gameID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<GameUpdateKeys>() {
+                    @Override
+                    public void call(GameUpdateKeys gameUpdateKeys) {
+
+                        EditGameViewModel model = binding.getData();
+                        Game updatedGame = model.getGame();
+
+                        if(gameUpdateKeys.gameResultKey != AdminObserver.NO_KEY_FOUND) {
+                            database.getReference().child(Config.GAME_RESULTS)
+                                    .child(String.valueOf(gameUpdateKeys.gameResultKey))
+                                    .setValue(updatedGame.gameResult);
+                        }
+
+                        if(gameUpdateKeys.gameKey != AdminObserver.NO_KEY_FOUND) {
+                            database.getReference().child(Config.GAMES)
+                                    .child(String.valueOf(gameUpdateKeys.gameKey))
+                                    .setValue(updatedGame);
+                        }
+
+                        finish();
+                    }
+                });
     }
 }
