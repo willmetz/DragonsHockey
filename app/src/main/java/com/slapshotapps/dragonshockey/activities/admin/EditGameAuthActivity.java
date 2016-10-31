@@ -180,24 +180,7 @@ public class EditGameAuthActivity extends AppCompatActivity implements
 
     @Override
     public void onClearGameClick() {
-        EditGameViewModel model = binding.getData();
-
-        subscription = AdminObserver.getPlayerStatsKey(database, model.getGame().gameID)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Integer>() {
-                    @Override
-                    public void call(Integer gameStatsID) {
-                        deleteGameAndStats();
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Toast.makeText(EditGameAuthActivity.this, "Unable to delete game", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
+        deleteGameAndStats();
     }
 
     private void deleteGameAndStats() {

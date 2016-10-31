@@ -8,11 +8,11 @@ import com.slapshotapps.dragonshockey.observables.AdminObserver;
 
 public class GameUpdateKeys {
 
-    int gameResultKey;
-    int gameKey;
-    int gameStatsKey;
+    String gameResultKey;
+    String gameKey;
+    String gameStatsKey;
 
-    public GameUpdateKeys(int gameKey, int gameResultKey, int gameStatsKey) {
+    public GameUpdateKeys(String gameKey, String gameResultKey, String gameStatsKey) {
         this.gameKey = gameKey;
         this.gameResultKey = gameResultKey;
         this.gameStatsKey = gameStatsKey;
@@ -31,14 +31,14 @@ public class GameUpdateKeys {
     }
 
     public boolean gameResultKeyValid() {
-        return gameResultKey != AdminObserver.NO_KEY_FOUND;
+        return gameResultKey != null;
     }
 
     public boolean gameKeyValid() {
-        return gameKey != AdminObserver.NO_KEY_FOUND;
+        return gameKey != null;
     }
 
     public boolean gameStatsKeyValid() {
-        return gameStatsKey != AdminObserver.NO_KEY_FOUND;
+        return gameStatsKey != null;
     }
 }
