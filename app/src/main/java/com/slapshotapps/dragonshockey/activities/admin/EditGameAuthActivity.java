@@ -2,14 +2,17 @@ package com.slapshotapps.dragonshockey.activities.admin;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
@@ -37,11 +40,14 @@ public class EditGameAuthActivity extends AppCompatActivity implements
     private ActivityEditGameAuthBinding binding;
     private FirebaseDatabase database;
     private Subscription subscription;
+    private GameUpdateKeys keys;
+    private int gameID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Game originalGame = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
+        gameID = originalGame.gameID;
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_game_auth);
         binding.setData(new EditGameViewModel(originalGame));
@@ -52,6 +58,15 @@ public class EditGameAuthActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
         database = FirebaseDatabase.getInstance();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(keys == null){
+            getDataKeys(gameID);
+        }
     }
 
     @Override
@@ -69,9 +84,28 @@ public class EditGameAuthActivity extends AppCompatActivity implements
 
         EditGameViewModel model = binding.getData();
         if (model.hasChanged()) {
-            Game updatedGame = model.getGame();
+           if(keys != null){
 
-            getDataKeys(updatedGame.gameID);
+               if(keys.gameKeyValid()) {
+                   database.getReference().child(Config.GAMES)
+                           .child(keys.getGameKey())
+                           .setValue(model.getGame());
+               }
+
+               if(keys.gameResultKeyValid()) {
+                   database.getReference().child(Config.GAME_RESULTS)
+                           .child(keys.getGameResultKey())
+                           .setValue(model.getGame().gameResult);
+               }else{
+                   DatabaseReference newGameResultRef = database.getReference().child(Config.GAME_RESULTS).push();
+                   newGameResultRef.setValue(model.getGame().gameResult);
+               }
+
+               super.onBackPressed();
+           }else{
+               showKeysNotAvailableAlert();
+           }
+
         }else {
             super.onBackPressed();
         }
@@ -154,8 +188,7 @@ public class EditGameAuthActivity extends AppCompatActivity implements
                 .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer gameStatsID) {
-                        EditGameViewModel model = binding.getData();
-                        deleteGameAndStats(gameStatsID, model.getGame().gameID);
+                        deleteGameAndStats();
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -167,19 +200,27 @@ public class EditGameAuthActivity extends AppCompatActivity implements
 
     }
 
-    private void deleteGameAndStats(int statsID, int gameID) {
-        database.getReference().child(Config.GAME_RESULTS)
-                .child(String.valueOf(gameID))
-                .removeValue();
+    private void deleteGameAndStats() {
 
-        if (gameID != AdminObserver.NO_KEY_FOUND) {
-            database.getReference().child(Config.GAME_STATS)
-                    .child(String.valueOf(statsID))
-                    .removeValue();
+        if(keys != null){
+
+            if(keys.gameResultKeyValid()){
+                database.getReference().child(Config.GAME_RESULTS)
+                        .child(keys.getGameResultKey())
+                        .removeValue();
+            }
+
+            if(keys.gameStatsKeyValid()){
+                database.getReference().child(Config.GAME_STATS)
+                        .child(keys.getGameStatsKey())
+                        .removeValue();
+            }
+
+            Toast.makeText(this, "Removed game", Toast.LENGTH_SHORT).show();
+            finish();
+        }else{
+            Toast.makeText(this, "Unable to remove game, keys not available", Toast.LENGTH_SHORT).show();
         }
-
-        Toast.makeText(this, "Removed game", Toast.LENGTH_SHORT).show();
-        finish();
     }
 
     private void getDataKeys(int gameID){
@@ -190,24 +231,26 @@ public class EditGameAuthActivity extends AppCompatActivity implements
                 .subscribe(new Action1<GameUpdateKeys>() {
                     @Override
                     public void call(GameUpdateKeys gameUpdateKeys) {
-
-                        EditGameViewModel model = binding.getData();
-                        Game updatedGame = model.getGame();
-
-                        if(gameUpdateKeys.gameResultKey != AdminObserver.NO_KEY_FOUND) {
-                            database.getReference().child(Config.GAME_RESULTS)
-                                    .child(String.valueOf(gameUpdateKeys.gameResultKey))
-                                    .setValue(updatedGame.gameResult);
-                        }
-
-                        if(gameUpdateKeys.gameKey != AdminObserver.NO_KEY_FOUND) {
-                            database.getReference().child(Config.GAMES)
-                                    .child(String.valueOf(gameUpdateKeys.gameKey))
-                                    .setValue(updatedGame);
-                        }
-
-                        finish();
+                        keys = gameUpdateKeys;
                     }
                 });
+    }
+
+    private void showKeysNotAvailableAlert(){
+        new AlertDialog.Builder(this)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //no-op
+                    }
+                })
+                .setMessage("Keys for data not available yet, exit anyways?")
+                .show();
     }
 }

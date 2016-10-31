@@ -44,7 +44,7 @@ public class EditGameViewModel {
 
     public void setOpponentScore(String score){
         if(game.gameResult==null){
-            game.gameResult = new GameResult();
+            createGameResult();
         }
 
         if(score == null || score.isEmpty()){
@@ -64,7 +64,7 @@ public class EditGameViewModel {
 
     public void setDragonsScore(String score){
         if(game.gameResult==null){
-            game.gameResult = new GameResult();
+            createGameResult();
         }
 
         if(score == null || score.isEmpty() ){
@@ -104,5 +104,22 @@ public class EditGameViewModel {
 
     public Game getGame(){
         return game;
+    }
+
+    public boolean getOTL(){
+        return game.gameResult!=null && game.gameResult.overtimeLoss;
+    }
+
+    public void setOTL(boolean isOTL){
+        if(game.gameResult == null){
+            createGameResult();
+        }
+
+        game.gameResult.overtimeLoss = isOTL;
+    }
+
+    private void createGameResult(){
+        game.gameResult = new GameResult();
+        game.gameResult.gameID = originalGame.gameID;
     }
 }
