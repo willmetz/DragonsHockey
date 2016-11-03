@@ -13,6 +13,52 @@ public class PlayerStatsViewModel {
     private int goals, assists, playerID, playerNumber;
     private boolean isPresent;
 
+
+    public static class PlayerStatsVMBuilder{
+        private String playerName;
+        private int goals, assists, playerID, playerNumber;
+        private boolean isPresent;
+
+        public PlayerStatsVMBuilder(){
+
+        }
+
+        public PlayerStatsVMBuilder playerID(int playerID){
+            this.playerID = playerID;
+            return this;
+        }
+
+        public PlayerStatsVMBuilder playerName(String playerName){
+            this.playerName = playerName;
+            return this;
+        }
+
+        public PlayerStatsVMBuilder goals(int goals){
+            this.goals = goals;
+            return this;
+        }
+
+        public PlayerStatsVMBuilder assists(int assists){
+            this.assists = assists;
+            return this;
+        }
+
+        public PlayerStatsVMBuilder playerNumber(int playerNumber){
+            this.playerNumber = playerNumber;
+            return this;
+        }
+
+        public PlayerStatsVMBuilder present(boolean present){
+            this.isPresent = present;
+            return this;
+        }
+
+        public PlayerStatsViewModel build(){
+            return new PlayerStatsViewModel(this.playerName, this.goals, this.assists, this.playerID, this.playerNumber, this.isPresent);
+        }
+    }
+
+
     public PlayerStatsViewModel(String playerName, int goals, int assists,
                                 int playerID, int playerNumber, boolean isPresent){
         this.playerID = playerID;
@@ -24,7 +70,7 @@ public class PlayerStatsViewModel {
     }
 
     public String getPlayerName(){
-        return playerName;
+        return playerName!=null?playerName:"";
     }
 
     public int getPlayerNumber(){

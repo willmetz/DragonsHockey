@@ -21,6 +21,18 @@ public class GameStats {
 
     }
 
+    public Stats getPlayerStats(int playerID){
+        if(gameStats != null) {
+            for (Stats playerStats : gameStats) {
+                if (playerStats.playerID == playerID) {
+                    return playerStats;
+                }
+            }
+        }
+
+        return new Stats();
+    }
+
 
 
 }
