@@ -262,6 +262,6 @@ public class AdminObserver {
                         return playersGameStats;
                     }
                 }
-        )
+        );
     }
 }
