@@ -175,7 +175,7 @@ public class EditGameAuthActivity extends AppCompatActivity implements
 
     @Override
     public void onEditStatsClick() {
-        Toast.makeText(this, "Edit Stats!!", Toast.LENGTH_SHORT).show();
+        startActivity(DragonsHockeyIntents.createEditGameStatsIntent(this, gameID));
     }
 
     @Override

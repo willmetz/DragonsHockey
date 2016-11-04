@@ -73,8 +73,8 @@ public class PlayerStatsViewModel {
         return playerName!=null?playerName:"";
     }
 
-    public int getPlayerNumber(){
-        return playerNumber;
+    public String getPlayerNumber(){
+        return String.valueOf(playerNumber);
     }
 
     public boolean getPresence(){

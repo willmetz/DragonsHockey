@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.slapshotapps.dragonshockey.activities.admin.EditGameAuthActivity;
 import com.slapshotapps.dragonshockey.activities.admin.AdminActivity;
 import com.slapshotapps.dragonshockey.activities.admin.AdminAuthActivity;
+import com.slapshotapps.dragonshockey.activities.admin.EditStatsAuthActivity;
 import com.slapshotapps.dragonshockey.activities.roster.RosterActivity;
 import com.slapshotapps.dragonshockey.activities.schedule.ScheduleActivity;
 import com.slapshotapps.dragonshockey.activities.stats.StatsActivity;
@@ -15,6 +16,7 @@ import com.slapshotapps.dragonshockey.models.Game;
 public class DragonsHockeyIntents {
 
     public static final String EXTRA_GAME = "com.slapshotapps.dragonshockey.extragame";
+    public static final String EXTRA_GAME_ID = "com.slapshotapps.dragonshockey.extragameid";
 
     public static Intent createRosterIntent(Context context){
         return new Intent(context, RosterActivity.class);
@@ -45,6 +47,14 @@ public class DragonsHockeyIntents {
         Intent intent = new Intent(context, EditGameAuthActivity.class);
 
         intent.putExtra(EXTRA_GAME, game);
+
+        return intent;
+    }
+
+    public static Intent createEditGameStatsIntent(Context context, int gameID){
+        Intent intent = new Intent(context, EditStatsAuthActivity.class);
+
+        intent.putExtra(EXTRA_GAME_ID, gameID);
 
         return intent;
     }
