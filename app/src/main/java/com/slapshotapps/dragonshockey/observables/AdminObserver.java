@@ -12,6 +12,7 @@ import com.slapshotapps.dragonshockey.activities.admin.viewmodels.PlayerStatsVie
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.GameUpdateKeys;
 import com.slapshotapps.dragonshockey.models.Player;
+import com.slapshotapps.dragonshockey.models.PlayerStats;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -188,6 +189,12 @@ public class AdminObserver {
                         if(dataSnapshot.getChildrenCount() == 1){
                             for(DataSnapshot child: dataSnapshot.getChildren()){
                                 gameStats = child.getValue(GameStats.class);
+
+                                //populate the internal list of players details per game
+                                gameStats.gameStats = new ArrayList<GameStats.Stats>();
+                                for(DataSnapshot childListSnapshot : child.child("stats").getChildren()){
+                                    gameStats.gameStats.add(childListSnapshot.getValue(GameStats.Stats.class));
+                                }
                             }
                         }
 
