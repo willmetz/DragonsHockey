@@ -1,5 +1,8 @@
 package com.slapshotapps.dragonshockey.models;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
+
 import java.util.List;
 
 /**
@@ -8,8 +11,12 @@ import java.util.List;
 
 public class GameStats {
 
+    @Exclude
+    public String key;
+
     public int gameID;
 
+    @PropertyName("stats")
     public List<Stats> gameStats;
 
     public static class Stats{

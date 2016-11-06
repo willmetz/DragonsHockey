@@ -30,6 +30,16 @@ public class AdminEditsStatsAdapter extends RecyclerView.Adapter<AdminEditsStats
         return stats;
     }
 
+    public boolean statsChanged(){
+        for(PlayerStatsViewModel playerStatsViewModel : stats){
+            if(playerStatsViewModel.isDirty()){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public StatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())

@@ -11,7 +11,7 @@ public class PlayerStatsViewModel {
 
     private String playerName;
     private int goals, assists, playerID, playerNumber;
-    private boolean isPresent;
+    private boolean isPresent, isDirty;
 
 
     public static class PlayerStatsVMBuilder{
@@ -67,6 +67,7 @@ public class PlayerStatsViewModel {
         this.playerName = playerName;
         this.playerNumber = playerNumber;
         this.isPresent = isPresent;
+        isDirty = false;
     }
 
     public String getPlayerName(){
@@ -77,12 +78,19 @@ public class PlayerStatsViewModel {
         return String.valueOf(playerNumber);
     }
 
+    public int getPlayerID(){return playerID;}
+
     public boolean getPresence(){
         return isPresent;
     }
 
+    public boolean isDirty(){
+        return isDirty;
+    }
+
     public void setPresence(boolean isPresent){
         this.isPresent = isPresent;
+        isDirty = true;
     }
 
     public String getGoals(){
@@ -95,6 +103,8 @@ public class PlayerStatsViewModel {
         }else{
             this.goals = Integer.valueOf(goals);
         }
+
+        isDirty = true;
     }
 
     public String getAssists(){
@@ -107,6 +117,8 @@ public class PlayerStatsViewModel {
         }else{
             this.assists = Integer.valueOf(assists);
         }
+
+        isDirty = true;
     }
 
 }

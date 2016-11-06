@@ -12,6 +12,7 @@ import com.slapshotapps.dragonshockey.activities.admin.viewmodels.PlayerStatsVie
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.GameUpdateKeys;
 import com.slapshotapps.dragonshockey.models.Player;
+import com.slapshotapps.dragonshockey.models.PlayerGameStats;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 
 import java.util.ArrayList;
@@ -189,6 +190,7 @@ public class AdminObserver {
                         if(dataSnapshot.getChildrenCount() == 1){
                             for(DataSnapshot child: dataSnapshot.getChildren()){
                                 gameStats = child.getValue(GameStats.class);
+                                gameStats.key = child.getKey();
 
                                 //populate the internal list of players details per game
                                 gameStats.gameStats = new ArrayList<GameStats.Stats>();
@@ -236,37 +238,24 @@ public class AdminObserver {
         );
     }
 
-    public static Observable<ArrayList<PlayerStatsViewModel>> getPlayerStatsForGame(final FirebaseDatabase database, final int gameID){
+    public static Observable<PlayerGameStats> getPlayerStatsForGame(final FirebaseDatabase database, final int gameID){
 
         return Observable.zip(RosterObserver.GetRoster(database),
                 AdminObserver.getGameStats(database, gameID),
-                new Func2<List<Player>, GameStats, ArrayList<PlayerStatsViewModel>>() {
+                new Func2<List<Player>, GameStats, PlayerGameStats>() {
                     @Override
-                    public ArrayList<PlayerStatsViewModel> call(List<Player> players, GameStats gameStats) {
+                    public PlayerGameStats call(List<Player> players, GameStats gameStats) {
 
                         if(gameStats == null){
                             gameStats = new GameStats();
                         }
 
-                        ArrayList<PlayerStatsViewModel> playersGameStats = new ArrayList<PlayerStatsViewModel>();
+                        PlayerGameStats playerGameStats = new PlayerGameStats();
+                        playerGameStats.playerStatsKey = gameStats.key;
+                        playerGameStats.players = new ArrayList<Player>(players);
+                        playerGameStats.playerGameStats = gameStats;
 
-                        for( Player player : players){
-
-                            GameStats.Stats stats = gameStats.getPlayerStats(player.playerID);
-
-                            PlayerStatsViewModel mergedData = new PlayerStatsViewModel.PlayerStatsVMBuilder()
-                                    .playerName(RosterUtils.getFullName(player))
-                                    .playerID(player.playerID)
-                                    .playerNumber(player.number)
-                                    .goals(stats.goals)
-                                    .assists(stats.assists)
-                                    .present(stats.present)
-                                    .build();
-
-                            playersGameStats.add(mergedData);
-                        }
-
-                        return playersGameStats;
+                        return playerGameStats;
                     }
                 }
         );
