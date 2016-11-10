@@ -69,6 +69,7 @@
                     style="@style/TextAppearance.AppCompat.Medium"
                     android:inputType="number"
                     android:hint="Goals"
+                    android:selectAllOnFocus="true"
                     android:text="@={data.goals}"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -87,6 +88,7 @@
                     style="@style/TextAppearance.AppCompat.Medium"
                     android:inputType="number"
                     android:hint="Assists"
+                    android:selectAllOnFocus="true"
                     android:text="@={data.assists}"/>
 
             </android.support.design.widget.TextInputLayout>

@@ -123,6 +123,7 @@
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:text="@={data.dragonsScore}"
+                android:selectAllOnFocus="true"
                 android:inputType="number"
                 android:hint="Dragons Score"/>
 
@@ -146,6 +147,7 @@
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:text="@={data.opponentScore}"
                 android:inputType="number"
+                android:selectAllOnFocus="true"
                 android:hint="Opponents Score"/>
 
         </android.support.design.widget.TextInputLayout>
