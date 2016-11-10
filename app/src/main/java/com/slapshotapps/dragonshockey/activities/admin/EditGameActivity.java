@@ -41,16 +41,24 @@ public class EditGameActivity extends AppCompatActivity implements
     private FirebaseDatabase database;
     private Subscription subscription;
     private GameUpdateKeys keys;
-    private int gameID;
+    private Game originalGame;
+    private boolean refreshData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Game originalGame = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
-        gameID = originalGame.gameID;
+
+        if(savedInstanceState == null) {
+            originalGame = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
+            refreshData = false;
+        }else{
+            originalGame = null;
+            keys = null;
+            refreshData = true;
+        }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_game_auth);
-        binding.setData(new EditGameViewModel(originalGame));
         binding.setListener(this);
 
 
@@ -64,9 +72,32 @@ public class EditGameActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
 
-        if(keys == null){
-            getDataKeys(gameID);
+        if(!refreshData){
+            getDataKeys(originalGame.gameID);
+            binding.setData(new EditGameViewModel(originalGame));
+        }else{
+            //get the game ID
+            Game game = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
+
+            subscription = AdminObserver.getGameUpdateInfo(database, game.gameID)
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(Schedulers.io())
+                    .subscribe(new Action1<Game>() {
+                        @Override
+                        public void call(Game game) {
+                            originalGame = game;
+                            binding.setData(new EditGameViewModel(originalGame));
+
+                            getDataKeys(game.gameID);
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                            Toast.makeText(EditGameActivity.this, "Unable to get game data", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
+
     }
 
     @Override
@@ -77,39 +108,12 @@ public class EditGameActivity extends AppCompatActivity implements
             subscription.unsubscribe();
             subscription = null;
         }
-    }
-
-    @Override
-    public void onBackPressed() {
 
         EditGameViewModel model = binding.getData();
         if (model.hasChanged()) {
-           if(keys != null){
-
-               if(keys.gameKeyValid()) {
-                   database.getReference().child(Config.GAMES)
-                           .child(keys.getGameKey())
-                           .setValue(model.getGame());
-               }
-
-               if(keys.gameResultKeyValid()) {
-                   database.getReference().child(Config.GAME_RESULTS)
-                           .child(keys.getGameResultKey())
-                           .setValue(model.getGame().gameResult);
-               }else{
-                   DatabaseReference newGameResultRef = database.getReference().child(Config.GAME_RESULTS).push();
-                   newGameResultRef.setValue(model.getGame().gameResult);
-               }
-
-               super.onBackPressed();
-           }else{
-               showKeysNotAvailableAlert();
-           }
-
-        }else {
-            super.onBackPressed();
+            saveUpdates(model);
+            refreshData = true;
         }
-
     }
 
     @Override
@@ -175,12 +179,36 @@ public class EditGameActivity extends AppCompatActivity implements
 
     @Override
     public void onEditStatsClick() {
-        startActivity(DragonsHockeyIntents.createEditGameStatsIntent(this, gameID));
+        startActivity(DragonsHockeyIntents.createEditGameStatsIntent(this, originalGame.gameID));
     }
 
     @Override
     public void onClearGameClick() {
         deleteGameAndStats();
+    }
+
+    private void saveUpdates(EditGameViewModel model){
+        if(keys != null){
+
+            if(keys.gameKeyValid()) {
+                database.getReference().child(Config.GAMES)
+                        .child(keys.getGameKey())
+                        .setValue(model.getGame());
+            }
+
+            if(keys.gameResultKeyValid()) {
+                database.getReference().child(Config.GAME_RESULTS)
+                        .child(keys.getGameResultKey())
+                        .setValue(model.getGame().gameResult);
+            }else{
+                DatabaseReference newGameResultRef = database.getReference().child(Config.GAME_RESULTS).push();
+                newGameResultRef.setValue(model.getGame().gameResult);
+            }
+
+            super.onBackPressed();
+        }else{
+            showKeysNotAvailableAlert();
+        }
     }
 
     private void deleteGameAndStats() {
