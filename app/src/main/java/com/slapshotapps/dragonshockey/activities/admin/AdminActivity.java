@@ -3,6 +3,7 @@ package com.slapshotapps.dragonshockey.activities.admin;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
+import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.activities.admin.adapter.AdminScheduleAdapter;
@@ -50,6 +52,11 @@ public class AdminActivity extends AppCompatActivity implements AdminClickListen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        if(!Config.isRelease) {
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("CERT Admin CERT");
+        }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 

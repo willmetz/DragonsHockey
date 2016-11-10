@@ -32,7 +32,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class EditGameAuthActivity extends AppCompatActivity implements
+public class EditGameActivity extends AppCompatActivity implements
         EditGameClickListener,
         DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {

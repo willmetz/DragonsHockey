@@ -2,14 +2,11 @@ package com.slapshotapps.dragonshockey.activities.admin;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,9 +28,8 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
-public class EditStatsAuthActivity extends AppCompatActivity {
+public class EditStatsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private Subscription subscription;
@@ -76,7 +72,7 @@ public class EditStatsAuthActivity extends AppCompatActivity {
                     }, new Action1<Throwable>() {
                         @Override
                         public void call(Throwable throwable) {
-                            new AlertDialog.Builder(EditStatsAuthActivity.this).setMessage("Unable to retrieve stats information")
+                            new AlertDialog.Builder(EditStatsActivity.this).setMessage("Unable to retrieve stats information")
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {

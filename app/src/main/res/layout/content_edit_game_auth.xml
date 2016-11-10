@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.slapshotapps.dragonshockey.activities.admin.EditGameAuthActivity"
+    tools:context="com.slapshotapps.dragonshockey.activities.admin.EditGameActivity"
     tools:showIn="@layout/activity_edit_game_auth">
 
     <data>

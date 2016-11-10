@@ -11,7 +11,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.slapshotapps.dragonshockey.activities.admin.EditStatsAuthActivity"
+    tools:context="com.slapshotapps.dragonshockey.activities.admin.EditStatsActivity"
     tools:showIn="@layout/activity_edit_stats_auth">
 
 

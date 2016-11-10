@@ -11,3 +11,4 @@
 /app/src/prod/google-services.json
 fabric.properties
 runConfigurations.xml
+*.keystore
