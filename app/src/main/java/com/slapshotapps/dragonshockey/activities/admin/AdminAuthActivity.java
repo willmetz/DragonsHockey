@@ -13,9 +13,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
@@ -23,26 +22,22 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
-import com.slapshotapps.dragonshockey.Utils.SharedPrefsUtils;
 
 import java.util.Locale;
 
-import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 
 public class AdminAuthActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
-        FirebaseAuth.AuthStateListener{
+        FirebaseAuth.AuthStateListener {
 
     private static final int RC_SIGN_IN = 1;
 
@@ -61,18 +56,20 @@ public class AdminAuthActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-        if(!Config.isRelease) {
+        if (!Config.isRelease) {
             ActionBar actionBar = getSupportActionBar();
-            actionBar.setTitle("CERT Admin Auth CERT");
+            if (actionBar != null) {
+                actionBar.setTitle("CERT Admin Auth CERT");
+            }
         }
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if(doesUserHaveAdminAccess(firebaseAuth)){
+        if (doesUserHaveAdminAccess(firebaseAuth)) {
             launchAuthenticatedActivity();
-        }else{
+        } else {
             configureUnauthenticatedUser();
         }
 
@@ -111,11 +108,11 @@ public class AdminAuthActivity extends AppCompatActivity implements
         }
     }
 
-    private void configureUnauthenticatedUser(){
+    private void configureUnauthenticatedUser() {
 
         showProgressBar(true);
 
-        final SignInButton signInButton = (SignInButton)findViewById(R.id.sign_in_button);
+        final SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setEnabled(false);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,9 +139,9 @@ public class AdminAuthActivity extends AppCompatActivity implements
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
                     public void onConnected(@Nullable Bundle bundle) {
-                        if(!defaultAccountCleared) {
+                        if (!defaultAccountCleared) {
                             googleApiClient.clearDefaultAccountAndReconnect();
-                        }else{
+                        } else {
                             signInButton.setEnabled(true);
                             showProgressBar(false);
                         }
@@ -169,13 +166,13 @@ public class AdminAuthActivity extends AppCompatActivity implements
     }
 
 
-    protected void signIn(){
+    protected void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    protected void validateSignin(GoogleSignInResult result){
-        if(result.isSuccess() && result.getSignInAccount() != null){
+    protected void validateSignin(GoogleSignInResult result) {
+        if (result.isSuccess() && result.getSignInAccount() != null) {
 
             //get ID from google signin account
             AuthCredential credential = GoogleAuthProvider.getCredential(result.getSignInAccount().getIdToken(), null);
@@ -187,20 +184,20 @@ public class AdminAuthActivity extends AppCompatActivity implements
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             showProgressBar(false);
 
-                            if(!task.isSuccessful()){
+                            if (!task.isSuccessful()) {
                                 showUnauthorizedDialog("Your account");
                             }
                         }
                     });
-        }else{
+        } else {
             showInvalidLoginDialog();
             showProgressBar(false);
         }
     }
 
-    protected void showUnauthorizedDialog(String userEmail){
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setTitle("Unauthorized")
+    protected void showUnauthorizedDialog(String userEmail) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.unauthorized)
                 .setMessage(String.format(Locale.US, "%s is not authorized to use the admin features of this app", userEmail))
                 .setCancelable(false)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -211,10 +208,10 @@ public class AdminAuthActivity extends AppCompatActivity implements
                 }).show();
     }
 
-    protected void showInvalidLoginDialog(){
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setTitle("Invalid login")
-                .setMessage("Your login was incorrect, please try again")
+    protected void showInvalidLoginDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.invalid_login)
+                .setMessage(R.string.try_again)
                 .setCancelable(true)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
@@ -223,18 +220,18 @@ public class AdminAuthActivity extends AppCompatActivity implements
                 }).show();
     }
 
-    protected void launchAuthenticatedActivity(){
+    protected void launchAuthenticatedActivity() {
         startActivity(DragonsHockeyIntents.createAdminIntent(this));
         finish();
     }
 
-    protected boolean doesUserHaveAdminAccess(FirebaseAuth auth){
-        if( auth.getCurrentUser() != null ){
+    protected boolean doesUserHaveAdminAccess(FirebaseAuth auth) {
+        if (auth.getCurrentUser() != null) {
             String email = auth.getCurrentUser().getEmail() == null ? "" : auth.getCurrentUser().getEmail();
 
-            if(email.equals("slapshotapps2@gmail.com")){
+            if (email.equals(getString(R.string.admin_access_email))) {
                 return true;
-            }else{//user is signed in but doesn't have write access, sign them out
+            } else {//user is signed in but doesn't have write access, sign them out
                 Timber.d("%s is unauthorized for admin access, signing out", email);
                 auth.signOut();
             }
@@ -243,21 +240,21 @@ public class AdminAuthActivity extends AppCompatActivity implements
         return false;
     }
 
-    protected void showProgressBar(boolean show){
-        if(show){
+    protected void showProgressBar(boolean show) {
+        if (show) {
             progressBar.animate().alpha(1);
-        }else{
+        } else {
             progressBar.animate().alpha(0);
         }
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setTitle("Connection Failed")
-                .setMessage("Unable to connect to google services, please try later")
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.connection_failed)
+                .setMessage(R.string.google_services_unavailable)
                 .setCancelable(false)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -268,7 +265,7 @@ public class AdminAuthActivity extends AppCompatActivity implements
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-        if( firebaseAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             if (doesUserHaveAdminAccess(firebaseAuth)) {
                 launchAuthenticatedActivity();
             } else {
