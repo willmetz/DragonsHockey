@@ -23,4 +23,23 @@
     <string name="games">Games</string>
     <string name="assists">Assists</string>
     <string name="points">Points</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="sign_in_with_google">This feature requires authentication to access</string>
+    <string name="stats_title">Dragons Stats</string>
+    <string name="roster_title">Dragons Roster</string>
+    <string name="schedule_title">Dragons Schedule</string>
+    <string name="auth_title">Admin Auth</string>
+    <string name="game_id">Game ID:</string>
+    <string name="game_date">Game Date:</string>
+    <string name="opponent">Opponent:</string>
+    <string name="title_activity_edit_game_auth">Edit Game</string>
+    <string name="opponent_hint">Opponent</string>
+    <string name="edit_game_game_id">Game ID: %d</string>
+    <string name="title_activity_edit_stats_auth">EditStatsAuthActivity</string>
+    <string name="admin_access_email">slapshotapps2@gmail.com</string>
+    <string name="connection_failed">Connection Failed</string>
+    <string name="google_services_unavailable">Unable to connect to google services, please try later</string>
+    <string name="invalid_login">Invalid login</string>
+    <string name="try_again">Your login was incorrect, please try again</string>
+    <string name="unauthorized">Unauthorized</string>
 </resources>
