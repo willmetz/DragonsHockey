@@ -1,43 +1,31 @@
 package com.slapshotapps.dragonshockey.activities.home;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.animation.TimeInterpolator;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.animation.AnimatorCompatHelper;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
-import com.slapshotapps.dragonshockey.activities.schedule.ScheduleActivity;
+import com.slapshotapps.dragonshockey.Utils.SharedPrefsUtils;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.SeasonRecord;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
@@ -45,11 +33,7 @@ import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.observables.HomeScreenObserver;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.fabric.sdk.android.Fabric;
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -185,6 +169,28 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_admin:
+                startActivity(DragonsHockeyIntents.createAdminAuthIntent(this));
+                //startActivity(DragonsHockeyIntents.createAdminIntent(this));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
 
@@ -235,14 +241,7 @@ public class HomeActivity extends AppCompatActivity {
                 nextGameDate.startAnimation(animation);
 
             } else {
-
-
-                String gametime = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US) + " " +
-                        calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " +
-                        FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)) +
-                        " " + DateFormaters.getGameTime(date);
-
-                nextGameDate.setText(gametime);
+                nextGameDate.setText(DateFormaters.getGameDateTime(date));
             }
         }
 

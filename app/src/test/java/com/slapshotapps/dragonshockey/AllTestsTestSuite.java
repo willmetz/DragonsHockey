@@ -1,6 +1,8 @@
 package com.slapshotapps.dragonshockey;
 
 import com.slapshotapps.dragonshockey.Utils.UtilsTestSuite;
+import com.slapshotapps.dragonshockey.activities.admin.viewmodels.ViewModelTestSuite;
+import com.slapshotapps.dragonshockey.models.GameTest;
 import com.slapshotapps.dragonshockey.models.ModelsTestSuite;
 
 import org.junit.runner.RunWith;
@@ -12,7 +14,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         ModelsTestSuite.class,
-        UtilsTestSuite.class
+        UtilsTestSuite.class,
+        ViewModelTestSuite.class
 })
 public class AllTestsTestSuite {
 }
