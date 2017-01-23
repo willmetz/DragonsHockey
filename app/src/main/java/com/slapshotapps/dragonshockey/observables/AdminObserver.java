@@ -31,7 +31,7 @@ public class AdminObserver {
 
     public static final String NO_KEY_FOUND = null;
 
-    public static Observable<String> getPlayerStatsKey(final FirebaseDatabase database, final int gameID){
+    public static Observable<String> getPlayerStatsKey(final FirebaseDatabase database, final int gameID) {
 
 
         return Observable.create(new Observable.OnSubscribe<String>() {
@@ -47,13 +47,13 @@ public class AdminObserver {
                         String key = NO_KEY_FOUND;
 
                         //ensure there is only one
-                        if(dataSnapshot.getChildrenCount() == 1){
-                            for(DataSnapshot child: dataSnapshot.getChildren()){
+                        if (dataSnapshot.getChildrenCount() == 1) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 key = child.getKey();
                             }
                         }
 
-                        if(!subscriber.isUnsubscribed()){
+                        if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(key);
                         }
 
@@ -77,7 +77,7 @@ public class AdminObserver {
 
     }
 
-    public static Observable<String> getGameKey(final FirebaseDatabase database, final int gameID){
+    public static Observable<String> getGameKey(final FirebaseDatabase database, final int gameID) {
 
 
         return Observable.create(new Observable.OnSubscribe<String>() {
@@ -93,13 +93,13 @@ public class AdminObserver {
                         String key = NO_KEY_FOUND;
 
                         //ensure there is only one
-                        if(dataSnapshot.getChildrenCount() == 1){
-                            for(DataSnapshot child: dataSnapshot.getChildren()){
+                        if (dataSnapshot.getChildrenCount() == 1) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 key = child.getKey();
                             }
                         }
 
-                        if(!subscriber.isUnsubscribed()){
+                        if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(key);
                         }
 
@@ -123,7 +123,7 @@ public class AdminObserver {
 
     }
 
-    public static Observable<String> getGameResultKey(final FirebaseDatabase database, final int gameID){
+    public static Observable<String> getGameResultKey(final FirebaseDatabase database, final int gameID) {
 
 
         return Observable.create(new Observable.OnSubscribe<String>() {
@@ -139,13 +139,13 @@ public class AdminObserver {
                         String key = NO_KEY_FOUND;
 
                         //ensure there is only one
-                        if(dataSnapshot.getChildrenCount() == 1){
-                            for(DataSnapshot child: dataSnapshot.getChildren()){
+                        if (dataSnapshot.getChildrenCount() == 1) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 key = child.getKey();
                             }
                         }
 
-                        if(!subscriber.isUnsubscribed()){
+                        if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(key);
                         }
 
@@ -169,7 +169,7 @@ public class AdminObserver {
 
     }
 
-    public static Observable<GameStats> getGameStats(final FirebaseDatabase database, final int gameID){
+    public static Observable<GameStats> getGameStats(final FirebaseDatabase database, final int gameID) {
 
 
         return Observable.create(new Observable.OnSubscribe<GameStats>() {
@@ -185,20 +185,20 @@ public class AdminObserver {
                         GameStats gameStats = null;
 
                         //ensure there is only one
-                        if(dataSnapshot.getChildrenCount() == 1){
-                            for(DataSnapshot child: dataSnapshot.getChildren()){
+                        if (dataSnapshot.getChildrenCount() == 1) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 gameStats = child.getValue(GameStats.class);
                                 gameStats.key = child.getKey();
 
                                 //populate the internal list of players details per game
                                 gameStats.gameStats = new ArrayList<GameStats.Stats>();
-                                for(DataSnapshot childListSnapshot : child.child("stats").getChildren()){
+                                for (DataSnapshot childListSnapshot : child.child("stats").getChildren()) {
                                     gameStats.gameStats.add(childListSnapshot.getValue(GameStats.Stats.class));
                                 }
                             }
                         }
 
-                        if(!subscriber.isUnsubscribed()){
+                        if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(gameStats);
                         }
 
@@ -222,7 +222,7 @@ public class AdminObserver {
 
     }
 
-    public static Observable<Game> getGame(final FirebaseDatabase database, final int gameID){
+    public static Observable<Game> getGame(final FirebaseDatabase database, final int gameID) {
 
         return Observable.create(new Observable.OnSubscribe<Game>() {
             @Override
@@ -236,13 +236,13 @@ public class AdminObserver {
                         Game game = null;
 
                         //ensure there is only one
-                        if(dataSnapshot.getChildrenCount() == 1){
-                            for(DataSnapshot child: dataSnapshot.getChildren()){
+                        if (dataSnapshot.getChildrenCount() == 1) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 game = child.getValue(Game.class);
                             }
                         }
 
-                        if(!subscriber.isUnsubscribed()){
+                        if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(game);
                         }
 
@@ -265,7 +265,7 @@ public class AdminObserver {
         });
     }
 
-    public static Observable<GameResult> getGameResult(final FirebaseDatabase database, final int gameID){
+    public static Observable<GameResult> getGameResult(final FirebaseDatabase database, final int gameID) {
 
         return Observable.create(new Observable.OnSubscribe<GameResult>() {
             @Override
@@ -279,13 +279,13 @@ public class AdminObserver {
                         GameResult gameResult = null;
 
                         //ensure there is only one
-                        if(dataSnapshot.getChildrenCount() == 1){
-                            for(DataSnapshot child: dataSnapshot.getChildren()){
+                        if (dataSnapshot.getChildrenCount() == 1) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 gameResult = child.getValue(GameResult.class);
                             }
                         }
 
-                        if(!subscriber.isUnsubscribed()){
+                        if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(gameResult);
                         }
 
@@ -308,7 +308,7 @@ public class AdminObserver {
         });
     }
 
-    public static Observable<GameUpdateKeys> getGameKeys(final FirebaseDatabase database, final int gameID){
+    public static Observable<GameUpdateKeys> getGameKeys(final FirebaseDatabase database, final int gameID) {
 
         return Observable.zip(AdminObserver.getGameKey(database, gameID),
                 AdminObserver.getGameResultKey(database, gameID),
@@ -322,7 +322,7 @@ public class AdminObserver {
         );
     }
 
-    public static Observable<PlayerGameStats> getPlayerStatsForGame(final FirebaseDatabase database, final int gameID){
+    public static Observable<PlayerGameStats> getPlayerStatsForGame(final FirebaseDatabase database, final int gameID) {
 
         return Observable.zip(RosterObserver.GetRoster(database),
                 AdminObserver.getGameStats(database, gameID),
@@ -330,7 +330,7 @@ public class AdminObserver {
                     @Override
                     public PlayerGameStats call(List<Player> players, GameStats gameStats) {
 
-                        if(gameStats == null){
+                        if (gameStats == null) {
                             gameStats = new GameStats();
                         }
 
@@ -345,7 +345,7 @@ public class AdminObserver {
         );
     }
 
-    public static Observable<Game> getGameUpdateInfo(final FirebaseDatabase database, final int gameID){
+    public static Observable<Game> getGameUpdateInfo(final FirebaseDatabase database, final int gameID) {
         return Observable.zip(AdminObserver.getGame(database, gameID),
                 AdminObserver.getGameResult(database, gameID),
                 new Func2<Game, GameResult, Game>() {

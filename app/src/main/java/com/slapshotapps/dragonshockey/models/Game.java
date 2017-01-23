@@ -60,7 +60,7 @@ public class Game implements Parcelable, Cloneable {
         cloneGame.gameTime = gameTime;
         cloneGame.opponent = opponent;
         cloneGame.gameID = gameID;
-        if(gameResult != null){
+        if (gameResult != null) {
             cloneGame.gameResult = new GameResult();
             cloneGame.gameResult.dragonsScore = gameResult.dragonsScore;
             cloneGame.gameResult.opponentScore = gameResult.opponentScore;

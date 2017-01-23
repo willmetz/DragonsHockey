@@ -2,10 +2,18 @@
 <layout>
 
     <data>
-        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.EditGameViewModel"/>
-        <import type="com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener"/>
-        <variable name="data" type="EditGameViewModel"/>
-        <variable name="listener" type="EditGameClickListener"/>
+
+        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.EditGameViewModel" />
+
+        <import type="com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener" />
+
+        <variable
+            name="data"
+            type="EditGameViewModel" />
+
+        <variable
+            name="listener"
+            type="EditGameClickListener" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -30,9 +38,10 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/content_edit_game_auth"
+        <include
+            layout="@layout/content_edit_game_auth"
             app:listener="@{listener}"
-            app:data="@{data}"/>
+            app:data="@{data}" />
 
     </android.support.design.widget.CoordinatorLayout>
 

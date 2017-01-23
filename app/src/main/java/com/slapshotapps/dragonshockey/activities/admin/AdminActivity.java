@@ -39,7 +39,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class AdminActivity extends AppCompatActivity implements AdminClickListener{
+public class AdminActivity extends AppCompatActivity implements AdminClickListener {
 
     private FirebaseDatabase firebaseDatabase;
     private RecyclerView recyclerView;
@@ -53,7 +53,7 @@ public class AdminActivity extends AppCompatActivity implements AdminClickListen
         setSupportActionBar(toolbar);
 
 
-        if(!Config.isRelease) {
+        if (!Config.isRelease) {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle("CERT Admin CERT");
         }
@@ -62,11 +62,11 @@ public class AdminActivity extends AppCompatActivity implements AdminClickListen
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
-        }catch(DatabaseException exception){
+        } catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
         }
 
-        recyclerView = (RecyclerView)findViewById(R.id.schedule_list);
+        recyclerView = (RecyclerView) findViewById(R.id.schedule_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);

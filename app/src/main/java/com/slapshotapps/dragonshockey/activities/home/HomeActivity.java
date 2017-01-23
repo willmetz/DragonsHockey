@@ -68,9 +68,9 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(Config.isRelease) {
+        if (Config.isRelease) {
             Fabric.with(this, new Crashlytics());
-        }else{
+        } else {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle("CERT Dragons Hockey CERT");
         }
@@ -127,7 +127,7 @@ public class HomeActivity extends AppCompatActivity {
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
-        }catch(DatabaseException exception){
+        } catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
         }
     }
@@ -180,7 +180,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_admin:
                 startActivity(DragonsHockeyIntents.createAdminAuthIntent(this));
                 //startActivity(DragonsHockeyIntents.createAdminIntent(this));
@@ -232,11 +232,11 @@ public class HomeActivity extends AppCompatActivity {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
 
-            if(DateUtils.isToday(date.getTime())){
+            if (DateUtils.isToday(date.getTime())) {
 
                 Animation animation = AnimationUtils.loadAnimation(this, R.anim.bubbles);
 
-                nextGameDate.setText( getString(R.string.today_gameday, DateFormaters.getGameTime(date)));
+                nextGameDate.setText(getString(R.string.today_gameday, DateFormaters.getGameTime(date)));
 
                 nextGameDate.startAnimation(animation);
 
@@ -249,15 +249,15 @@ public class HomeActivity extends AppCompatActivity {
         nextGameDate.animate().alpha(1.0f);
     }
 
-    protected void setSeasonRecord(SeasonRecord record){
+    protected void setSeasonRecord(SeasonRecord record) {
 
-        TextView winValue = (TextView)findViewById(R.id.record_win);
-        TextView lossValue = (TextView)findViewById(R.id.record_loss);
-        TextView otlValue = (TextView)findViewById(R.id.record_otl);
-        TextView tieValue = (TextView)findViewById(R.id.record_tie);
+        TextView winValue = (TextView) findViewById(R.id.record_win);
+        TextView lossValue = (TextView) findViewById(R.id.record_loss);
+        TextView otlValue = (TextView) findViewById(R.id.record_otl);
+        TextView tieValue = (TextView) findViewById(R.id.record_tie);
 
 
-        if(record==null){
+        if (record == null) {
             winValue.animate().alpha(0f);
             lossValue.animate().alpha(0f);
             tieValue.animate().alpha(0f);
@@ -267,7 +267,7 @@ public class HomeActivity extends AppCompatActivity {
             lossValue.setText("");
             tieValue.setText("");
             otlValue.setText("");
-        }else{
+        } else {
             winValue.setText(String.valueOf(record.wins));
             lossValue.setText(String.valueOf(record.losses));
             tieValue.setText(String.valueOf(record.ties));

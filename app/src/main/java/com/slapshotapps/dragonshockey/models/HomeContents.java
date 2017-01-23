@@ -12,7 +12,7 @@ public class HomeContents {
     public Game nextGame;
     public SeasonRecord seasonRecord;
 
-    public HomeContents(){
+    public HomeContents() {
         seasonRecord = new SeasonRecord();
     }
 }

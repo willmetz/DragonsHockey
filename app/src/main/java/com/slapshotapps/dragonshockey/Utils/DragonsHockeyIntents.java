@@ -18,27 +18,27 @@ public class DragonsHockeyIntents {
     public static final String EXTRA_GAME = "com.slapshotapps.dragonshockey.extragame";
     public static final String EXTRA_GAME_ID = "com.slapshotapps.dragonshockey.extragameid";
 
-    public static Intent createRosterIntent(Context context){
+    public static Intent createRosterIntent(Context context) {
         return new Intent(context, RosterActivity.class);
     }
 
-    public static Intent createStatsIntent(Context context){
+    public static Intent createStatsIntent(Context context) {
         return new Intent(context, StatsActivity.class);
     }
 
-    public static Intent createScheduleIntent(Context context){
+    public static Intent createScheduleIntent(Context context) {
         return new Intent(context, ScheduleActivity.class);
     }
 
-    public static Intent createAdminAuthIntent(Context context){
-       return new Intent(context, AdminAuthActivity.class);
+    public static Intent createAdminAuthIntent(Context context) {
+        return new Intent(context, AdminAuthActivity.class);
     }
 
-    public static Intent createAdminIntent(Context context){
+    public static Intent createAdminIntent(Context context) {
         return new Intent(context, AdminActivity.class);
     }
 
-    public static Intent createAdminGameIntent(Context context, Game game){
+    public static Intent createAdminGameIntent(Context context, Game game) {
         Intent intent = new Intent(context, EditGameActivity.class);
 
         intent.putExtra(EXTRA_GAME, game);
@@ -46,7 +46,7 @@ public class DragonsHockeyIntents {
         return intent;
     }
 
-    public static Intent createEditGameStatsIntent(Context context, int gameID){
+    public static Intent createEditGameStatsIntent(Context context, int gameID) {
         Intent intent = new Intent(context, EditStatsActivity.class);
 
         intent.putExtra(EXTRA_GAME_ID, gameID);

@@ -21,25 +21,24 @@ public class Player {
     public String shot;
     public boolean injuredReserved;
 
-    public Player(){
+    public Player() {
         //default constructor
     }
 
-    public Player(String position){
+    public Player(String position) {
         this.position = position;
     }
 
 
-
-    public boolean isForward(){
+    public boolean isForward() {
         return FORWARD.equalsIgnoreCase(position);
     }
 
-    public boolean isDefense(){
+    public boolean isDefense() {
         return DEFENSE.equalsIgnoreCase(position);
     }
 
-    public boolean isGoalie(){
+    public boolean isGoalie() {
         return GOALIE.equalsIgnoreCase(position);
     }
 }

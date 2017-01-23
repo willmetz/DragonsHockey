@@ -21,7 +21,7 @@ public class GameStats {
     @PropertyName("stats")
     public List<Stats> gameStats;
 
-    public static class Stats{
+    public static class Stats {
 
         public int playerID;
         public int assists;
@@ -30,8 +30,8 @@ public class GameStats {
 
     }
 
-    public Stats getPlayerStats(int playerID){
-        if(gameStats != null) {
+    public Stats getPlayerStats(int playerID) {
+        if (gameStats != null) {
             for (Stats playerStats : gameStats) {
                 if (playerStats.playerID == playerID) {
                     return playerStats;
@@ -41,7 +41,6 @@ public class GameStats {
 
         return new Stats();
     }
-
 
 
 }

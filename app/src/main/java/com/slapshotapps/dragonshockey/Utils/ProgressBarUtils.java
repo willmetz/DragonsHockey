@@ -11,15 +11,15 @@ import com.slapshotapps.dragonshockey.R;
 
 public class ProgressBarUtils {
 
-    public static void displayProgressBar(View progressView){
+    public static void displayProgressBar(View progressView) {
 
         progressView.animate().alpha(1f).setDuration(500).setInterpolator(new TimeInterpolator() {
             @Override
             public float getInterpolation(float v) {
-                if(v < 0.5){
+                if (v < 0.5) {
                     return 0;
-                }else{
-                    return (v-0.5f)/0.5f;
+                } else {
+                    return (v - 0.5f) / 0.5f;
                 }
 
             }
@@ -27,7 +27,7 @@ public class ProgressBarUtils {
 
     }
 
-    public static void hideProgressBar(View progressView){
+    public static void hideProgressBar(View progressView) {
         progressView.clearAnimation();
         progressView.animate().alpha(0f);
     }

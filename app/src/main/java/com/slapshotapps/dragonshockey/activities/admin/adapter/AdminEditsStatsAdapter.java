@@ -17,22 +17,22 @@ import java.util.ArrayList;
  * Created on 11/1/16.
  */
 
-public class AdminEditsStatsAdapter extends RecyclerView.Adapter<AdminEditsStatsAdapter.StatsViewHolder>{
+public class AdminEditsStatsAdapter extends RecyclerView.Adapter<AdminEditsStatsAdapter.StatsViewHolder> {
 
     private ArrayList<PlayerStatsViewModel> stats;
 
-    public AdminEditsStatsAdapter(ArrayList<PlayerStatsViewModel> stats){
+    public AdminEditsStatsAdapter(ArrayList<PlayerStatsViewModel> stats) {
 
         this.stats = stats;
     }
 
-    public ArrayList<PlayerStatsViewModel> getStats(){
+    public ArrayList<PlayerStatsViewModel> getStats() {
         return stats;
     }
 
-    public boolean statsChanged(){
-        for(PlayerStatsViewModel playerStatsViewModel : stats){
-            if(playerStatsViewModel.isDirty()){
+    public boolean statsChanged() {
+        for (PlayerStatsViewModel playerStatsViewModel : stats) {
+            if (playerStatsViewModel.isDirty()) {
                 return true;
             }
         }
@@ -43,7 +43,7 @@ public class AdminEditsStatsAdapter extends RecyclerView.Adapter<AdminEditsStats
     @Override
     public StatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_admin_stats_player_card,parent, false);
+                .inflate(R.layout.view_admin_stats_player_card, parent, false);
 
         return new StatsViewHolder(view);
     }
@@ -61,7 +61,7 @@ public class AdminEditsStatsAdapter extends RecyclerView.Adapter<AdminEditsStats
         return stats.size();
     }
 
-    public static class StatsViewHolder extends RecyclerView.ViewHolder{
+    public static class StatsViewHolder extends RecyclerView.ViewHolder {
 
         private ViewDataBinding binding;
 
@@ -71,7 +71,7 @@ public class AdminEditsStatsAdapter extends RecyclerView.Adapter<AdminEditsStats
             binding = DataBindingUtil.bind(itemView);
         }
 
-        public ViewDataBinding getBinding(){
+        public ViewDataBinding getBinding() {
             return binding;
         }
     }

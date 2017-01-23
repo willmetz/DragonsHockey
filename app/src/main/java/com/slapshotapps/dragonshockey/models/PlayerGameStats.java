@@ -14,7 +14,7 @@ public class PlayerGameStats {
     public ArrayList<Player> players;
     public GameStats playerGameStats;
 
-    public boolean isKeyValid(){
+    public boolean isKeyValid() {
         return playerStatsKey != null;
     }
 

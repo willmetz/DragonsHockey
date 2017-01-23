@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -27,8 +26,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                />
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:id="@+id/games_played_header"
@@ -41,7 +39,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintVertical_bias="0.55"
                 app:layout_constraintHorizontal_bias="0.05"
-                android:text="@string/games"/>
+                android:text="@string/games" />
 
             <TextView
                 android:id="@+id/games_played"
@@ -52,7 +50,7 @@
                 app:layout_constraintLeft_toRightOf="@id/games_played_header"
                 app:layout_constraintRight_toLeftOf="@id/games_played_header"
                 android:layout_marginTop="4dp"
-                tools:text="7"/>
+                tools:text="7" />
 
             <TextView
                 android:id="@+id/goals_header"
@@ -65,7 +63,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintVertical_bias="0.55"
                 app:layout_constraintHorizontal_bias="0.25"
-                android:text="@string/goals"/>
+                android:text="@string/goals" />
 
             <TextView
                 android:id="@+id/goals"
@@ -75,7 +73,7 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/games_played"
                 app:layout_constraintLeft_toRightOf="@id/goals_header"
                 app:layout_constraintRight_toLeftOf="@id/goals_header"
-                tools:text="1"/>
+                tools:text="1" />
 
             <TextView
                 android:id="@+id/assists_header"
@@ -88,7 +86,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintVertical_bias="0.55"
                 app:layout_constraintHorizontal_bias="0.45"
-                android:text="@string/assists"/>
+                android:text="@string/assists" />
 
             <TextView
                 android:id="@+id/assists"
@@ -98,7 +96,7 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/games_played"
                 app:layout_constraintLeft_toRightOf="@id/assists_header"
                 app:layout_constraintRight_toLeftOf="@id/assists_header"
-                tools:text="2"/>
+                tools:text="2" />
 
             <TextView
                 android:id="@+id/points_header"
@@ -111,7 +109,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintVertical_bias="0.55"
                 app:layout_constraintHorizontal_bias="0.65"
-                android:text="@string/points"/>
+                android:text="@string/points" />
 
             <TextView
                 android:id="@+id/points"
@@ -121,10 +119,9 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/games_played"
                 app:layout_constraintLeft_toRightOf="@id/points_header"
                 app:layout_constraintRight_toLeftOf="@id/points_header"
-                tools:text="2"/>
+                tools:text="2" />
 
         </android.support.constraint.ConstraintLayout>
-
 
 
     </android.support.v7.widget.CardView>

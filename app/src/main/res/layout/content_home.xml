@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content_home"
@@ -21,7 +20,7 @@
         app:layout_constraintTop_toTopOf="@+id/content_home"
         android:layout_marginTop="8dp"
         app:layout_constraintRight_toRightOf="@+id/content_home"
-        android:contentDescription="@string/dragons_hockey_team_logo"/>
+        android:contentDescription="@string/dragons_hockey_team_logo" />
 
     <TextView
         android:id="@+id/record_key_header_win"
@@ -33,7 +32,7 @@
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintHorizontal_bias=".42"
         android:layout_marginTop="8dp"
-        android:text="@string/win_header"/>
+        android:text="@string/win_header" />
 
     <TextView
         android:id="@+id/record_key_header_loss"
@@ -43,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="@id/record_key_header_win"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:layout_marginStart="8dp"
-        android:text="@string/loss_header"/>
+        android:text="@string/loss_header" />
 
     <TextView
         android:id="@+id/record_key_header_otl"
@@ -53,7 +52,7 @@
         app:layout_constraintBottom_toBottomOf="@id/record_key_header_loss"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:layout_marginStart="8dp"
-        android:text="@string/otl_header"/>
+        android:text="@string/otl_header" />
 
     <TextView
         android:id="@+id/record_key_header_tie"
@@ -63,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="@id/record_key_header_otl"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:layout_marginStart="8dp"
-        android:text="@string/tie_header"/>
+        android:text="@string/tie_header" />
 
     <TextView
         android:id="@+id/record_win"
@@ -74,7 +73,7 @@
         app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:layout_marginTop="4dp"
-        tools:text="2"/>
+        tools:text="2" />
 
     <TextView
         android:id="@+id/record_loss"
@@ -84,7 +83,7 @@
         app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
         app:layout_constraintBottom_toBottomOf="@id/record_win"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
-        tools:text="1"/>
+        tools:text="1" />
 
     <TextView
         android:id="@+id/record_otl"
@@ -94,7 +93,7 @@
         app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
         app:layout_constraintBottom_toBottomOf="@id/record_win"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
-        tools:text="0"/>
+        tools:text="0" />
 
     <TextView
         android:id="@+id/record_tie"
@@ -104,7 +103,7 @@
         app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
         app:layout_constraintBottom_toBottomOf="@id/record_win"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
-        tools:text="1"/>
+        tools:text="1" />
 
     <TextView
         android:id="@+id/last_game_header"
@@ -117,7 +116,7 @@
         tools:alpha="1"
         app:layout_constraintLeft_toLeftOf="@+id/content_home"
         app:layout_constraintTop_toBottomOf="@+id/record_win"
-        app:layout_constraintRight_toRightOf="@+id/content_home"/>
+        app:layout_constraintRight_toRightOf="@+id/content_home" />
 
     <TextView
         android:id="@+id/next_game_header"
@@ -130,7 +129,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintRight_toRightOf="@+id/content_home"
         android:alpha="0"
-        tools:alpha="1"/>
+        tools:alpha="1" />
 
     <TextView
         android:id="@+id/next_game_date"
@@ -145,7 +144,7 @@
         app:layout_constraintRight_toRightOf="@+id/content_home"
         tools:layout_constraintRight_creator="1"
         android:alpha="0"
-        tools:alpha="1"/>
+        tools:alpha="1" />
 
 
     <TextView
@@ -158,7 +157,7 @@
         app:layout_constraintRight_toRightOf="@+id/content_home"
         android:layout_marginTop="8dp"
         android:alpha="0"
-        tools:alpha="1"/>
+        tools:alpha="1" />
 
     <Button
         android:id="@+id/schedule_button"
@@ -172,7 +171,7 @@
         app:layout_constraintRight_toRightOf="@+id/content_home"
         app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintBottom_toBottomOf="@+id/content_home"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp" />
 
     <Button
         android:id="@+id/roster_button"
@@ -184,8 +183,7 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_marginStart="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
-        app:layout_constraintRight_toLeftOf="@+id/schedule_button"
-        />
+        app:layout_constraintRight_toLeftOf="@+id/schedule_button" />
 
     <Button
         android:id="@+id/stats_button"
@@ -197,7 +195,6 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_marginStart="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
-        app:layout_constraintRight_toLeftOf="@+id/roster_button"
-        />
+        app:layout_constraintRight_toLeftOf="@+id/roster_button" />
 
 </android.support.constraint.ConstraintLayout>

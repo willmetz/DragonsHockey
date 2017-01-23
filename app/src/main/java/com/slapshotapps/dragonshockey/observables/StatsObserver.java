@@ -31,7 +31,7 @@ import timber.log.Timber;
 
 public class StatsObserver {
 
-    public static Observable<List<PlayerStats>> getPlayerStats(final FirebaseDatabase database, final List<Player> players){
+    public static Observable<List<PlayerStats>> getPlayerStats(final FirebaseDatabase database, final List<Player> players) {
 
         return Observable.create(new Observable.OnSubscribe<List<PlayerStats>>() {
             @Override
@@ -46,33 +46,33 @@ public class StatsObserver {
                         //create a list of playerStats first
                         SparseArray<PlayerStats> statMap = new SparseArray<PlayerStats>();
 
-                        for(Player player : players){
+                        for (Player player : players) {
                             statMap.put(player.playerID, new PlayerStats(player.playerID, player.firstName, player.lastName));
                         }
 
 
-                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             GameStats stats = snapshot.getValue(GameStats.class);
 
                             //populate the internal list of players details per game
                             stats.gameStats = new ArrayList<GameStats.Stats>();
-                            for(DataSnapshot childListSnapshot : snapshot.child("stats").getChildren()){
+                            for (DataSnapshot childListSnapshot : snapshot.child("stats").getChildren()) {
                                 GameStats.Stats playerGameStats = childListSnapshot.getValue(GameStats.Stats.class);
 
                                 //get the players current stat info
                                 PlayerStats currentStats = statMap.get(playerGameStats.playerID);
 
                                 //update the stat info based on the game results
-                                if(currentStats != null){
+                                if (currentStats != null) {
                                     currentStats.assists += playerGameStats.assists;
                                     currentStats.goals += playerGameStats.goals;
                                     currentStats.points = currentStats.goals + currentStats.assists;
-                                    currentStats.gamesPlayed += playerGameStats.present?1:0;
+                                    currentStats.gamesPlayed += playerGameStats.present ? 1 : 0;
                                 }
                             }
                         }
 
-                        if(!subscriber.isUnsubscribed()){
+                        if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(StatsUtils.toPlayerStats(statMap));
                         }
                     }

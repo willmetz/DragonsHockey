@@ -18,7 +18,7 @@ public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {
     private StickyHeaderAdapter adapter;
     private RecyclerView recyclerView;
 
-    public RosterHeaderDecoration(StickyHeaderAdapter adapter, RecyclerView recyclerView){
+    public RosterHeaderDecoration(StickyHeaderAdapter adapter, RecyclerView recyclerView) {
         this.adapter = adapter;
         this.recyclerView = recyclerView;
     }
@@ -44,12 +44,12 @@ public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {
 
         final int childCount = parent.getChildCount();
 
-        for(int layoutPosition = 0; layoutPosition < childCount; layoutPosition++){
+        for (int layoutPosition = 0; layoutPosition < childCount; layoutPosition++) {
             View child = parent.getChildAt(layoutPosition);
 
             final int adapterPosition = parent.getChildAdapterPosition(child);
 
-            if( adapterPosition != RecyclerView.NO_POSITION && layoutPosition == 0 ){
+            if (adapterPosition != RecyclerView.NO_POSITION && layoutPosition == 0) {
 
                 View headerView = getHeader().itemView;
                 c.save();
@@ -60,8 +60,8 @@ public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
-    private RecyclerView.ViewHolder getHeader(){
-        if(header==null){
+    private RecyclerView.ViewHolder getHeader() {
+        if (header == null) {
             header = adapter.onCreateHeaderViewHolder(recyclerView);
             final View headerView = header.itemView;
 

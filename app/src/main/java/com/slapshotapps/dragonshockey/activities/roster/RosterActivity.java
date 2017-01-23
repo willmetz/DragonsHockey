@@ -46,7 +46,7 @@ public class RosterActivity extends AppCompatActivity {
         Toolbar toolbar = ButterKnife.findById(this, R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(!Config.isRelease){
+        if (!Config.isRelease) {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle("CERT Roster CERT");
         }
@@ -57,11 +57,11 @@ public class RosterActivity extends AppCompatActivity {
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
-        }catch(DatabaseException exception){
+        } catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
         }
 
-        recyclerView = (RecyclerView)findViewById(R.id.roster_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.roster_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -99,7 +99,7 @@ public class RosterActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if(rosterSubscription!=null){
+        if (rosterSubscription != null) {
             rosterSubscription.unsubscribe();
             rosterSubscription = null;
         }

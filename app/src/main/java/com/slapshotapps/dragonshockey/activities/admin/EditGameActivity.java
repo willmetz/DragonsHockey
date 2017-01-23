@@ -49,10 +49,10 @@ public class EditGameActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             originalGame = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
             refreshData = false;
-        }else{
+        } else {
             originalGame = null;
             keys = null;
             refreshData = true;
@@ -72,10 +72,10 @@ public class EditGameActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
 
-        if(!refreshData){
+        if (!refreshData) {
             getDataKeys(originalGame.gameID);
             binding.setData(new EditGameViewModel(originalGame));
-        }else{
+        } else {
             //get the game ID
             Game game = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
 
@@ -187,41 +187,41 @@ public class EditGameActivity extends AppCompatActivity implements
         deleteGameAndStats();
     }
 
-    private void saveUpdates(EditGameViewModel model){
-        if(keys != null){
+    private void saveUpdates(EditGameViewModel model) {
+        if (keys != null) {
 
-            if(keys.gameKeyValid()) {
+            if (keys.gameKeyValid()) {
                 database.getReference().child(Config.GAMES)
                         .child(keys.getGameKey())
                         .setValue(model.getGame());
             }
 
-            if(keys.gameResultKeyValid()) {
+            if (keys.gameResultKeyValid()) {
                 database.getReference().child(Config.GAME_RESULTS)
                         .child(keys.getGameResultKey())
                         .setValue(model.getGame().gameResult);
-            }else{
+            } else {
                 DatabaseReference newGameResultRef = database.getReference().child(Config.GAME_RESULTS).push();
                 newGameResultRef.setValue(model.getGame().gameResult);
             }
 
             super.onBackPressed();
-        }else{
+        } else {
             showKeysNotAvailableAlert();
         }
     }
 
     private void deleteGameAndStats() {
 
-        if(keys != null){
+        if (keys != null) {
 
-            if(keys.gameResultKeyValid()){
+            if (keys.gameResultKeyValid()) {
                 database.getReference().child(Config.GAME_RESULTS)
                         .child(keys.getGameResultKey())
                         .removeValue();
             }
 
-            if(keys.gameStatsKeyValid()){
+            if (keys.gameStatsKeyValid()) {
                 database.getReference().child(Config.GAME_STATS)
                         .child(keys.getGameStatsKey())
                         .removeValue();
@@ -229,12 +229,12 @@ public class EditGameActivity extends AppCompatActivity implements
 
             Toast.makeText(this, "Removed game", Toast.LENGTH_SHORT).show();
             finish();
-        }else{
+        } else {
             Toast.makeText(this, "Unable to remove game, keys not available", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void getDataKeys(int gameID){
+    private void getDataKeys(int gameID) {
 
         subscription = AdminObserver.getGameKeys(database, gameID)
                 .subscribeOn(Schedulers.io())
@@ -247,7 +247,7 @@ public class EditGameActivity extends AppCompatActivity implements
                 });
     }
 
-    private void showKeysNotAvailableAlert(){
+    private void showKeysNotAvailableAlert() {
         new AlertDialog.Builder(this)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

@@ -11,32 +11,32 @@ import com.slapshotapps.dragonshockey.models.Game;
  * Created on 10/15/16.
  */
 
-public class GameListItem extends ListItem{
+public class GameListItem extends ListItem {
 
     private Game game;
 
-    public GameListItem(@NonNull Game game){
+    public GameListItem(@NonNull Game game) {
         super(R.layout.view_admin_game_card);
         this.game = game;
     }
 
-    public String getGameID(){
+    public String getGameID() {
         return String.valueOf(game.gameID);
     }
 
-    public String getGameDate(){
+    public String getGameDate() {
         return DateFormaters.getGameTime(game.gameTimeToDate());
     }
 
-    public String getGameOpponent(){
+    public String getGameOpponent() {
         return game.opponent;
     }
 
-    public String getGameResult(){
+    public String getGameResult() {
         return FormattingUtils.getGameScore(game.gameResult, game.opponent);
     }
 
-    public Game getGame(){
+    public Game getGame() {
         return game;
     }
 

@@ -47,12 +47,12 @@ public class StatsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(!Config.isRelease){
+        if (!Config.isRelease) {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle("CERT Stats CERT");
         }
 
-        recyclerView = (RecyclerView)findViewById(R.id.stats_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.stats_recycler_view);
         errorLoading = ButterKnife.findById(this, R.id.unable_to_load);
 
 
@@ -64,7 +64,7 @@ public class StatsActivity extends AppCompatActivity {
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
-        }catch(DatabaseException exception){
+        } catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
         }
     }
@@ -77,7 +77,7 @@ public class StatsActivity extends AppCompatActivity {
         statsSubscription = RosterObserver.GetRoster(firebaseDatabase)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1< List<Player>, rx.Observable<List<PlayerStats>>>(){
+                .flatMap(new Func1<List<Player>, rx.Observable<List<PlayerStats>>>() {
                     @Override
                     public rx.Observable<List<PlayerStats>> call(List<Player> players) {
                         return StatsObserver.getPlayerStats(firebaseDatabase, players);
@@ -107,7 +107,7 @@ public class StatsActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if(statsSubscription!=null){
+        if (statsSubscription != null) {
             statsSubscription.unsubscribe();
             statsSubscription = null;
         }

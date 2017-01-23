@@ -9,11 +9,12 @@ import timber.log.Timber;
  */
 
 public class DragonsApplication extends Application {
-  @Override public void onCreate() {
-    super.onCreate();
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-    if (BuildConfig.DEBUG) {
-      Timber.plant(new Timber.DebugTree());
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
-  }
 }
