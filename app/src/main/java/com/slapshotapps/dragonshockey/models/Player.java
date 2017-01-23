@@ -1,9 +1,11 @@
 package com.slapshotapps.dragonshockey.models;
 
+import android.support.annotation.Keep;
+
 /**
  * A player object.
  */
-
+@Keep
 public class Player {
 
     public static final String FORWARD = "F";

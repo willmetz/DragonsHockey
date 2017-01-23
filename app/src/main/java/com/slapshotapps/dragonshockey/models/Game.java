@@ -2,6 +2,7 @@ package com.slapshotapps.dragonshockey.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Keep;
 
 import com.google.firebase.database.Exclude;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
@@ -11,7 +12,7 @@ import java.util.Date;
 /**
  * A custom object for a game
  */
-
+@Keep
 public class Game implements Parcelable, Cloneable {
     public String gameTime;
     public String opponent;

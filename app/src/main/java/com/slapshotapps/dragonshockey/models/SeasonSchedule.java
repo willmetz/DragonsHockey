@@ -1,11 +1,14 @@
 package com.slapshotapps.dragonshockey.models;
 
+import android.support.annotation.Keep;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A class that will hold the schedule for the season
  */
+@Keep
 public class SeasonSchedule {
   public List<Game> games;
 

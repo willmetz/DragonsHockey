@@ -1,11 +1,13 @@
 package com.slapshotapps.dragonshockey.models;
 
+import android.support.annotation.Keep;
+
 import java.util.Comparator;
 
 /**
  * Created by willmetz on 9/5/16.
  */
-
+@Keep
 public class PlayerStats implements Comparable<PlayerStats>{
 
     public int playerID;
