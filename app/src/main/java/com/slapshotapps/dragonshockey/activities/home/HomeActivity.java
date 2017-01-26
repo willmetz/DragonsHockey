@@ -147,90 +147,6 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
         }
     }
 
-
-    /*
-    protected void setLastGameScore(Game lastGame) {
-        if (lastGame != null && lastGame.gameResult != null) {
-
-            String gameResultString = FormattingUtils.getGameResultAsString(lastGame.gameResult);
-            String gameScore =
-                    String.format(getString(R.string.last_game_score), lastGame.gameResult.dragonsScore,
-                            lastGame.opponent, lastGame.gameResult.opponentScore, gameResultString);
-            lastGameScore.setText(gameScore);
-            lastGameScore.animate().alpha(1.0f);
-            lastGameHeader.animate().alpha(1.0f);
-        } else if (lastGame != null) {
-            lastGameScore.setText(R.string.update_pending);
-            lastGameHeader.animate().alpha(1.0f);
-            lastGameScore.animate().alpha(1.0f);
-        }
-    }
-
-    protected void setNextGameDate(Game nextGame) {
-        if (nextGame == null) {
-            nextGameDate.setText(R.string.no_more_games);
-            nextGameHeader.animate().alpha(1.0f);
-            nextGameDate.animate().alpha(1.0f);
-            return;
-        }
-
-        Date date = nextGame.gameTimeToDate();
-
-        if (date != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-
-            if (DateUtils.isToday(date.getTime())) {
-
-                Animation animation = AnimationUtils.loadAnimation(this, R.anim.bubbles);
-
-                nextGameDate.setText(getString(R.string.today_gameday, DateFormaters.getGameTime(date)));
-
-                nextGameDate.startAnimation(animation);
-
-            } else {
-                nextGameDate.setText(DateFormaters.getGameDateTime(date));
-            }
-        }
-
-        nextGameHeader.animate().alpha(1.0f);
-        nextGameDate.animate().alpha(1.0f);
-    }
-
-    protected void setSeasonRecord(SeasonRecord record) {
-
-        TextView winValue = (TextView) findViewById(R.id.record_win);
-        TextView lossValue = (TextView) findViewById(R.id.record_loss);
-        TextView otlValue = (TextView) findViewById(R.id.record_otl);
-        TextView tieValue = (TextView) findViewById(R.id.record_tie);
-
-
-        if (record == null) {
-            winValue.animate().alpha(0f);
-            lossValue.animate().alpha(0f);
-            tieValue.animate().alpha(0f);
-            otlValue.animate().alpha(0f);
-
-            winValue.setText("");
-            lossValue.setText("");
-            tieValue.setText("");
-            otlValue.setText("");
-        } else {
-            winValue.setText(String.valueOf(record.wins));
-            lossValue.setText(String.valueOf(record.losses));
-            tieValue.setText(String.valueOf(record.ties));
-            otlValue.setText(String.valueOf(record.overtimeLosses));
-
-            winValue.animate().alpha(1f);
-            lossValue.animate().alpha(1f);
-            tieValue.animate().alpha(1f);
-            otlValue.animate().alpha(1f);
-        }
-
-    }
-
-    */
-
     @Override
     public void onViewSchedule() {
         Bundle bundle = new Bundle();
@@ -238,7 +154,7 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "900");
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
-        startActivity(DragonsHockeyIntents.createScheduleIntent(HomeActivity.this));
+        startActivity(DragonsHockeyIntents.createScheduleIntent(this));
     }
 
     @Override
@@ -248,7 +164,7 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "902");
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
-        startActivity(DragonsHockeyIntents.createStatsIntent(HomeActivity.this));
+        startActivity(DragonsHockeyIntents.createStatsIntent(this));
     }
 
     @Override
@@ -258,6 +174,6 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "901");
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
-        startActivity(DragonsHockeyIntents.createRosterIntent(HomeActivity.this));
+        startActivity(DragonsHockeyIntents.createRosterIntent(this));
     }
 }
