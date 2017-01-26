@@ -1,5 +1,6 @@
 package com.slapshotapps.dragonshockey.activities.home;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
 import com.slapshotapps.dragonshockey.Utils.SharedPrefsUtils;
+import com.slapshotapps.dragonshockey.databinding.ActivityHomeBinding;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.SeasonRecord;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
@@ -47,26 +49,21 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class HomeActivity extends AppCompatActivity {
-
-    private TextView lastGameScore;
-
-    private TextView nextGameDate;
-
-    private TextView lastGameHeader, nextGameHeader;
+public class HomeActivity extends AppCompatActivity implements HomeScreenListener{
 
     private Subscription hockeyScheduleSubscription;
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAnalytics firebaseAnalytics;
+    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        binding.setListener(this);
+        setSupportActionBar(binding.toolbar);
 
         if (Config.isRelease) {
             Fabric.with(this, new Crashlytics());
@@ -74,53 +71,6 @@ public class HomeActivity extends AppCompatActivity {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle("CERT Dragons Hockey CERT");
         }
-
-        //butterknife injection doesn't appear to be working in a constraint layout at this time...
-        nextGameDate = (TextView) findViewById(R.id.next_game_date);
-        lastGameScore = (TextView) findViewById(R.id.last_game_score);
-        lastGameHeader = (TextView) findViewById(R.id.last_game_header);
-        nextGameHeader = (TextView) findViewById(R.id.next_game_header);
-
-        //would be nice if butterknife worked...
-        Button viewSchedule = (Button) findViewById(R.id.schedule_button);
-        Button viewRoster = (Button) findViewById(R.id.roster_button);
-        Button viewStats = (Button) findViewById(R.id.stats_button);
-
-        viewSchedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Schedule");
-                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "900");
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-                startActivity(DragonsHockeyIntents.createScheduleIntent(HomeActivity.this));
-            }
-        });
-
-        viewRoster.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Roster");
-                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "901");
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-                startActivity(DragonsHockeyIntents.createRosterIntent(HomeActivity.this));
-            }
-        });
-
-        viewStats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Stats");
-                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "902");
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-                startActivity(DragonsHockeyIntents.createStatsIntent(HomeActivity.this));
-            }
-        });
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -148,16 +98,13 @@ public class HomeActivity extends AppCompatActivity {
                 .subscribe(new Action1<HomeContents>() {
                     @Override
                     public void call(HomeContents homeContents) {
-                        setLastGameScore(homeContents.lastGame);
-                        setNextGameDate(homeContents.nextGame);
-                        setSeasonRecord(homeContents.seasonRecord);
+                        binding.setItem(new HomeScreenViewModel(homeContents));
                         ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar_container));
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        setLastGameScore(null);
-                        setNextGameDate(null);
+                        binding.setItem(new HomeScreenViewModel(null));
                         ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar_container));
                         Toast.makeText(HomeActivity.this,
                                 R.string.error_loading,
@@ -165,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
 
-        ProgressBarUtils.displayProgressBar(findViewById(R.id.progress_bar_container));
+        ProgressBarUtils.displayProgressBar(binding.progressBar);
     }
 
     @Override
@@ -201,6 +148,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    /*
     protected void setLastGameScore(Game lastGame) {
         if (lastGame != null && lastGame.gameResult != null) {
 
@@ -281,4 +229,35 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    */
+
+    @Override
+    public void onViewSchedule() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Schedule");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "900");
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
+        startActivity(DragonsHockeyIntents.createScheduleIntent(HomeActivity.this));
+    }
+
+    @Override
+    public void onViewStats() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Stats");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "902");
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
+        startActivity(DragonsHockeyIntents.createStatsIntent(HomeActivity.this));
+    }
+
+    @Override
+    public void onViewRoster() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Roster");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "901");
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
+        startActivity(DragonsHockeyIntents.createRosterIntent(HomeActivity.this));
+    }
 }
