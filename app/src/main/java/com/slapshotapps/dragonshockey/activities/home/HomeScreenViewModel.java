@@ -41,10 +41,14 @@ public class HomeScreenViewModel {
 
             if (DateUtils.isToday(date.getTime())) {
 
-                return context.getString(R.string.today_gameday, DateFormaters.getGameTime(date));
+                return context.getString(R.string.today_gameday,
+                        DateFormaters.getGameTime(date),
+                        homeContents.nextGame.home?"Home":"Guest");
 
             } else {
-                return DateFormaters.getGameDateTime(date);
+                return context.getString(R.string.gameday,
+                        DateFormaters.getGameDateTime(date),
+                        homeContents.nextGame.home?"Home":"Guest");
             }
         }
 
