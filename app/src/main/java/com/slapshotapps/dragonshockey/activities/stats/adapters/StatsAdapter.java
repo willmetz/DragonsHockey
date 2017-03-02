@@ -19,12 +19,12 @@ import butterknife.ButterKnife;
 /**
  * Recyclerview adapter for player stats
  */
-public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsViewHolder>{
+public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsViewHolder> {
 
     private ArrayList<PlayerStats> playerStats;
 
-    public StatsAdapter(List<PlayerStats> playerStats){
-        if(playerStats!=null) {
+    public StatsAdapter(List<PlayerStats> playerStats) {
+        if (playerStats != null) {
             this.playerStats = new ArrayList<>(playerStats);
 
             Collections.sort(this.playerStats);
@@ -48,10 +48,10 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
 
     @Override
     public int getItemCount() {
-        return playerStats != null?playerStats.size():0;
+        return playerStats != null ? playerStats.size() : 0;
     }
 
-    protected static class PlayerStatsViewHolder extends RecyclerView.ViewHolder{
+    protected static class PlayerStatsViewHolder extends RecyclerView.ViewHolder {
 
         private PlayerStats stats;
         private TextView playerName, goals, points, gamesPlayed;
@@ -60,14 +60,14 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
         public PlayerStatsViewHolder(View itemView) {
             super(itemView);
 
-            playerName = (TextView)itemView.findViewById(R.id.player_name);
+            playerName = (TextView) itemView.findViewById(R.id.player_name);
             goals = ButterKnife.findById(itemView, R.id.goals);
             assists = ButterKnife.findById(itemView, R.id.assists);
             points = ButterKnife.findById(itemView, R.id.points);
             gamesPlayed = ButterKnife.findById(itemView, R.id.games_played);
         }
 
-        public void setStats(PlayerStats playerStats){
+        public void setStats(PlayerStats playerStats) {
             stats = playerStats;
 
             playerName.setText(StatsUtils.fullPlayerName(playerStats));

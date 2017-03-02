@@ -1,203 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/content_home"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_home"
-    tools:context=".activities.home.HomeActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!--change this to an imageview -->
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_dragon_eye_red"
-        android:textAppearance="@android:style/TextAppearance.Material.Large"
-        android:id="@+id/dragons_hockey"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        app:layout_constraintTop_toTopOf="@+id/content_home"
-        android:layout_marginTop="8dp"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        android:contentDescription="@string/dragons_hockey_team_logo"/>
+    <data>
 
-    <TextView
-        android:id="@+id/record_key_header_win"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        app:layout_constraintTop_toBottomOf="@+id/dragons_hockey"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintHorizontal_bias=".42"
-        android:layout_marginTop="8dp"
-        android:text="@string/win_header"/>
+        <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenViewModel" />
+        <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenListener"/>
 
-    <TextView
-        android:id="@+id/record_key_header_loss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/record_key_header_win"
-        app:layout_constraintBottom_toBottomOf="@id/record_key_header_win"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        android:layout_marginStart="8dp"
-        android:text="@string/loss_header"/>
+        <variable
+            name="item"
+            type="HomeScreenViewModel" />
+        <variable
+            name="listener"
+            type="HomeScreenListener"/>
+    </data>
 
-    <TextView
-        android:id="@+id/record_key_header_otl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/record_key_header_loss"
-        app:layout_constraintBottom_toBottomOf="@id/record_key_header_loss"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        android:layout_marginStart="8dp"
-        android:text="@string/otl_header"/>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/content_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activities.home.HomeActivity"
+        tools:showIn="@layout/activity_home">
 
-    <TextView
-        android:id="@+id/record_key_header_tie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/record_key_header_otl"
-        app:layout_constraintBottom_toBottomOf="@id/record_key_header_otl"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        android:layout_marginStart="8dp"
-        android:text="@string/tie_header"/>
+        <!--change this to an imageview -->
+        <ImageView
+            android:id="@+id/dragons_hockey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/dragons_hockey_team_logo"
+            android:src="@drawable/ic_dragon_eye_red"
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            app:layout_constraintLeft_toLeftOf="@+id/content_home"
+            app:layout_constraintRight_toRightOf="@+id/content_home"
+            app:layout_constraintTop_toTopOf="@+id/content_home" />
 
-    <TextView
-        android:id="@+id/record_win"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@+id/record_key_header_win"
-        app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
-        app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        android:layout_marginTop="4dp"
-        tools:text="2"/>
+        <TextView
+            android:id="@+id/record_key_header_win"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/win_header"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            app:layout_constraintHorizontal_bias=".42"
+            app:layout_constraintLeft_toLeftOf="@+id/content_home"
+            app:layout_constraintRight_toRightOf="@+id/content_home"
+            app:layout_constraintTop_toBottomOf="@+id/dragons_hockey" />
 
-    <TextView
-        android:id="@+id/record_loss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
-        app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
-        app:layout_constraintBottom_toBottomOf="@id/record_win"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        tools:text="1"/>
+        <TextView
+            android:id="@+id/record_key_header_loss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/loss_header"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            app:layout_constraintBottom_toBottomOf="@id/record_key_header_win"
+            app:layout_constraintLeft_toRightOf="@id/record_key_header_win" />
 
-    <TextView
-        android:id="@+id/record_otl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
-        app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
-        app:layout_constraintBottom_toBottomOf="@id/record_win"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        tools:text="0"/>
+        <TextView
+            android:id="@+id/record_key_header_otl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/otl_header"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            app:layout_constraintBottom_toBottomOf="@id/record_key_header_loss"
+            app:layout_constraintLeft_toRightOf="@id/record_key_header_loss" />
 
-    <TextView
-        android:id="@+id/record_tie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
-        app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
-        app:layout_constraintBottom_toBottomOf="@id/record_win"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        tools:text="1"/>
+        <TextView
+            android:id="@+id/record_key_header_tie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/tie_header"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            app:layout_constraintBottom_toBottomOf="@id/record_key_header_otl"
+            app:layout_constraintLeft_toRightOf="@id/record_key_header_otl" />
 
-    <TextView
-        android:id="@+id/last_game_header"
-        android:text="@string/last_game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:layout_marginTop="32dp"
-        android:alpha="0"
-        tools:alpha="1"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        app:layout_constraintTop_toBottomOf="@+id/record_win"
-        app:layout_constraintRight_toRightOf="@+id/content_home"/>
+        <TextView
+            android:id="@+id/record_win"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            app:layout_constraintLeft_toLeftOf="@+id/record_key_header_win"
+            app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
+            app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
+            android:text="@{item.getWins()}"
+            tools:text="2" />
 
-    <TextView
-        android:id="@+id/next_game_header"
-        android:text="@string/next_game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        app:layout_constraintTop_toBottomOf="@+id/last_game_score"
-        android:layout_marginTop="24dp"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        android:alpha="0"
-        tools:alpha="1"/>
+        <TextView
+            android:id="@+id/record_loss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            app:layout_constraintBottom_toBottomOf="@id/record_win"
+            app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
+            app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
+            android:text="@{item.getLosses()}"
+            tools:text="1" />
 
-    <TextView
-        android:id="@+id/next_game_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="12/24/16 8:00pm"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintTop_toBottomOf="@+id/next_game_header"
-        android:layout_marginTop="8dp"
-        tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        tools:layout_constraintRight_creator="1"
-        android:alpha="0"
-        tools:alpha="1"/>
+        <TextView
+            android:id="@+id/record_otl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            app:layout_constraintBottom_toBottomOf="@id/record_win"
+            app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
+            app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
+            android:text="@{item.getOvertimeLosses()}"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/record_tie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            app:layout_constraintBottom_toBottomOf="@id/record_win"
+            app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
+            app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
+            android:text="@{item.getTies()}"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/last_game_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/last_game"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            app:layout_constraintLeft_toLeftOf="@+id/content_home"
+            app:layout_constraintRight_toRightOf="@+id/content_home"
+            app:layout_constraintTop_toBottomOf="@+id/record_win"
+            android:visibility="@{item.showLastGameInfo()}"
+            tools:alpha="1" />
+
+        <TextView
+            android:id="@+id/next_game_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/next_game"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            app:layout_constraintLeft_toLeftOf="@+id/content_home"
+            app:layout_constraintRight_toRightOf="@+id/content_home"
+            app:layout_constraintTop_toBottomOf="@+id/last_game_score"
+            tools:alpha="1" />
+
+        <TextView
+            android:id="@+id/next_game_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/content_home"
+            app:layout_constraintRight_toRightOf="@+id/content_home"
+            app:layout_constraintTop_toBottomOf="@+id/next_game_header"
+            android:text="@{item.getNextGameTime(context)}"
+            tools:alpha="1"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="0"
+            tools:text="12/24/16 8:00pm" />
 
 
-    <TextView
-        android:id="@+id/last_game_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Dragons 8  Oranges 5"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        app:layout_constraintTop_toBottomOf="@+id/last_game_header"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        android:layout_marginTop="8dp"
-        android:alpha="0"
-        tools:alpha="1"/>
+        <TextView
+            android:id="@+id/last_game_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/content_home"
+            app:layout_constraintRight_toRightOf="@+id/content_home"
+            app:layout_constraintTop_toBottomOf="@+id/last_game_header"
+            android:text="@{item.getLastGameResult(context)}"
+            android:visibility="@{item.showLastGameInfo()}"
+            tools:alpha="1"
+            tools:text="Dragons 8  Oranges 5" />
 
-    <Button
-        android:id="@+id/schedule_button"
-        android:text="@string/schedule"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:background="@drawable/borderless_button_ripple"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        app:layout_constraintLeft_toLeftOf="@+id/content_home"
-        app:layout_constraintRight_toRightOf="@+id/content_home"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintBottom_toBottomOf="@+id/content_home"
-        android:layout_marginBottom="5dp"/>
+        <Button
+            android:id="@+id/schedule_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/borderless_button_ripple"
+            android:text="@string/schedule"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/content_home"
+            app:layout_constraintHorizontal_bias="0.92"
+            app:layout_constraintLeft_toLeftOf="@+id/content_home"
+            app:layout_constraintRight_toRightOf="@+id/content_home"
+            android:onClick="@{() -> listener.onViewSchedule()}"/>
 
-    <Button
-        android:id="@+id/roster_button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/roster_caps"
-        android:textColor="@color/colorPrimary"
-        android:background="@drawable/borderless_button_ripple"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_marginStart="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
-        app:layout_constraintRight_toLeftOf="@+id/schedule_button"
-        />
+        <Button
+            android:id="@+id/roster_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/borderless_button_ripple"
+            android:text="@string/roster_caps"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
+            app:layout_constraintRight_toLeftOf="@+id/schedule_button"
+            android:onClick="@{() -> listener.onViewRoster()}"/>
 
-    <Button
-        android:id="@+id/stats_button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="STATS"
-        android:textColor="@color/colorPrimary"
-        android:background="@drawable/borderless_button_ripple"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_marginStart="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
-        app:layout_constraintRight_toLeftOf="@+id/roster_button"
-        />
+        <Button
+            android:id="@+id/stats_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/borderless_button_ripple"
+            android:text="STATS"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
+            app:layout_constraintRight_toLeftOf="@+id/roster_button"
+            android:onClick="@{() -> listener.onViewStats()}"/>
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

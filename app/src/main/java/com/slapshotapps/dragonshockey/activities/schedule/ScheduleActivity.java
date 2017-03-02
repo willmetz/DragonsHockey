@@ -40,7 +40,7 @@ public class ScheduleActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(!Config.isRelease){
+        if (!Config.isRelease) {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle("CERT Schedule CERT");
         }

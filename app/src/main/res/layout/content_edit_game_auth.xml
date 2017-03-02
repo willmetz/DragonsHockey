@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.slapshotapps.dragonshockey.activities.admin.EditGameActivity"
     tools:showIn="@layout/activity_edit_game_auth">
 
     <data>
-        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.EditGameViewModel"/>
-        <import type="com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener"/>
-        <variable name="data" type="EditGameViewModel"/>
-        <variable name="listener" type="EditGameClickListener"/>
+
+        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.EditGameViewModel" />
+
+        <import type="com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener" />
+
+        <variable
+            name="data"
+            type="EditGameViewModel" />
+
+        <variable
+            name="listener"
+            type="EditGameClickListener" />
     </data>
 
 
@@ -23,8 +30,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-       >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
             android:id="@+id/game_id"
@@ -35,8 +41,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@{data.getGameID(context)}"
-            tools:text="Game ID: 1"
-            />
+            tools:text="Game ID: 1" />
 
         <TextView
             android:id="@+id/game_date_label"
@@ -48,7 +53,7 @@
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintTop_toBottomOf="@+id/game_id"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:text="Game Date: "/>
+            android:text="Game Date: " />
 
         <Button
             android:layout_width="wrap_content"
@@ -59,7 +64,7 @@
             android:layout_marginStart="8dp"
             android:onClick="@{() -> listener.onDateClick(data.getGameDate)}"
             android:text="@{data.getGameDateAsString}"
-            tools:text="01/01/2016"/>
+            tools:text="01/01/2016" />
 
         <TextView
             android:id="@+id/game_time_label"
@@ -71,7 +76,7 @@
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintTop_toBottomOf="@+id/game_date_label"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:text="Game Date: "/>
+            android:text="Game Date: " />
 
         <Button
             android:layout_width="wrap_content"
@@ -82,7 +87,7 @@
             android:layout_marginStart="8dp"
             android:onClick="@{() -> listener.onTimeClick(data.getGameDate)}"
             android:text="@{data.getGameTimeAsString}"
-            tools:text="7:00 PM"/>
+            tools:text="7:00 PM" />
 
 
         <android.support.design.widget.TextInputLayout
@@ -101,10 +106,9 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:text="@={data.opponentName}"
-                android:hint="@string/opponent_hint"/>
+                android:hint="@string/opponent_hint" />
 
         </android.support.design.widget.TextInputLayout>
-
 
 
         <android.support.design.widget.TextInputLayout
@@ -125,7 +129,7 @@
                 android:text="@={data.dragonsScore}"
                 android:selectAllOnFocus="true"
                 android:inputType="number"
-                android:hint="Dragons Score"/>
+                android:hint="Dragons Score" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -148,7 +152,7 @@
                 android:text="@={data.opponentScore}"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:hint="Opponents Score"/>
+                android:hint="Opponents Score" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -163,7 +167,7 @@
             android:layout_marginTop="16dp"
             android:checked="@={data.OTL}"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:text="Overtime Loss"/>
+            android:text="Overtime Loss" />
 
 
         <Button
@@ -177,7 +181,7 @@
             android:background="@drawable/borderless_button_ripple"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:onClick="@{() -> listener.onClearGameClick()}"
-            android:text="Clear Game Result"/>
+            android:text="Clear Game Result" />
 
         <Button
             android:id="@+id/stats_button"
@@ -190,7 +194,7 @@
             android:background="@drawable/borderless_button_ripple"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:onClick="@{() -> listener.onEditStatsClick()}"
-            android:text="Edit Stats"/>
+            android:text="Edit Stats" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="@id/roster_row"
         app:layout_constraintBottom_toBottomOf="@id/roster_row"
         android:layout_marginStart="4dp"
-        tools:text="56"/>
+        tools:text="56" />
 
     <TextView
         android:id="@+id/player_name"
@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="@id/roster_row"
         app:layout_constraintLeft_toLeftOf="@id/roster_row"
         android:layout_marginStart="@dimen/roster_name_left_margin"
-        tools:text="Will Metz"/>
+        tools:text="Will Metz" />
 
     <TextView
         android:id="@+id/player_position"
@@ -39,6 +39,6 @@
         app:layout_constraintBottom_toBottomOf="@id/roster_row"
         app:layout_constraintRight_toRightOf="@id/roster_row"
         android:layout_marginRight="16dp"
-        tools:text="Forward"/>
+        tools:text="Forward" />
 
 </android.support.constraint.ConstraintLayout>

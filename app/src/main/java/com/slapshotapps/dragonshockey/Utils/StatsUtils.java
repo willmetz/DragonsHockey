@@ -16,19 +16,19 @@ import java.util.List;
 
 public class StatsUtils {
 
-    public static ArrayList<PlayerStats> toPlayerStats(@NonNull SparseArray<PlayerStats> sparseArray){
+    public static ArrayList<PlayerStats> toPlayerStats(@NonNull SparseArray<PlayerStats> sparseArray) {
 
 
         ArrayList<PlayerStats> statsArrayList = new ArrayList<>();
 
-        for (int i = 0; i < sparseArray.size();i++){
+        for (int i = 0; i < sparseArray.size(); i++) {
             statsArrayList.add(sparseArray.valueAt(i));
         }
 
         return statsArrayList;
     }
 
-    public static String fullPlayerName(@NonNull PlayerStats playerStats){
+    public static String fullPlayerName(@NonNull PlayerStats playerStats) {
 
         String name = playerStats.firstName != null ? playerStats.firstName : "";
 

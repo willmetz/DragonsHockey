@@ -11,15 +11,15 @@ public abstract class ListItem {
     public abstract ItemType getItemType();
 
 
-    public ListItem(int layoutID){
+    public ListItem(int layoutID) {
         this.layoutID = layoutID;
     }
 
-    public int getLayoutID(){
+    public int getLayoutID() {
         return layoutID;
     }
 
-    public enum  ItemType{
+    public enum ItemType {
         GAME,
         ADD_GAME
     }

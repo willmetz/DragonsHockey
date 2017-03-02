@@ -1,5 +1,7 @@
 package com.slapshotapps.dragonshockey.models;
 
+import android.support.annotation.Keep;
+
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
 
@@ -8,7 +10,7 @@ import java.util.List;
 /**
  * Created by willmetz on 9/5/16.
  */
-
+@Keep
 public class GameStats {
 
     @Exclude
@@ -19,7 +21,7 @@ public class GameStats {
     @PropertyName("stats")
     public List<Stats> gameStats;
 
-    public static class Stats{
+    public static class Stats {
 
         public int playerID;
         public int assists;
@@ -28,8 +30,8 @@ public class GameStats {
 
     }
 
-    public Stats getPlayerStats(int playerID){
-        if(gameStats != null) {
+    public Stats getPlayerStats(int playerID) {
+        if (gameStats != null) {
             for (Stats playerStats : gameStats) {
                 if (playerStats.playerID == playerID) {
                     return playerStats;
@@ -39,7 +41,6 @@ public class GameStats {
 
         return new Stats();
     }
-
 
 
 }

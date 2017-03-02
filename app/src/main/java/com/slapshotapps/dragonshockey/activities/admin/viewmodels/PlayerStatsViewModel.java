@@ -14,53 +14,53 @@ public class PlayerStatsViewModel {
     private boolean isPresent, isDirty;
 
 
-    public static class PlayerStatsVMBuilder{
+    public static class PlayerStatsVMBuilder {
         private String playerName;
         private int goals, assists, playerID, playerNumber;
         private boolean isPresent;
 
-        public PlayerStatsVMBuilder(){
+        public PlayerStatsVMBuilder() {
 
         }
 
-        public PlayerStatsVMBuilder playerID(int playerID){
+        public PlayerStatsVMBuilder playerID(int playerID) {
             this.playerID = playerID;
             return this;
         }
 
-        public PlayerStatsVMBuilder playerName(String playerName){
+        public PlayerStatsVMBuilder playerName(String playerName) {
             this.playerName = playerName;
             return this;
         }
 
-        public PlayerStatsVMBuilder goals(int goals){
+        public PlayerStatsVMBuilder goals(int goals) {
             this.goals = goals;
             return this;
         }
 
-        public PlayerStatsVMBuilder assists(int assists){
+        public PlayerStatsVMBuilder assists(int assists) {
             this.assists = assists;
             return this;
         }
 
-        public PlayerStatsVMBuilder playerNumber(int playerNumber){
+        public PlayerStatsVMBuilder playerNumber(int playerNumber) {
             this.playerNumber = playerNumber;
             return this;
         }
 
-        public PlayerStatsVMBuilder present(boolean present){
+        public PlayerStatsVMBuilder present(boolean present) {
             this.isPresent = present;
             return this;
         }
 
-        public PlayerStatsViewModel build(){
+        public PlayerStatsViewModel build() {
             return new PlayerStatsViewModel(this.playerName, this.goals, this.assists, this.playerID, this.playerNumber, this.isPresent);
         }
     }
 
 
     public PlayerStatsViewModel(String playerName, int goals, int assists,
-                                int playerID, int playerNumber, boolean isPresent){
+                                int playerID, int playerNumber, boolean isPresent) {
         this.playerID = playerID;
         this.assists = assists;
         this.goals = goals;
@@ -70,51 +70,53 @@ public class PlayerStatsViewModel {
         isDirty = false;
     }
 
-    public String getPlayerName(){
-        return playerName!=null?playerName:"";
+    public String getPlayerName() {
+        return playerName != null ? playerName : "";
     }
 
-    public String getPlayerNumber(){
+    public String getPlayerNumber() {
         return String.valueOf(playerNumber);
     }
 
-    public int getPlayerID(){return playerID;}
+    public int getPlayerID() {
+        return playerID;
+    }
 
-    public boolean getPresence(){
+    public boolean getPresence() {
         return isPresent;
     }
 
-    public boolean isDirty(){
+    public boolean isDirty() {
         return isDirty;
     }
 
-    public void setPresence(boolean isPresent){
+    public void setPresence(boolean isPresent) {
         this.isPresent = isPresent;
         isDirty = true;
     }
 
-    public String getGoals(){
+    public String getGoals() {
         return String.valueOf(goals);
     }
 
-    public void setGoals(String goals){
-        if(goals == null || goals.isEmpty()){
+    public void setGoals(String goals) {
+        if (goals == null || goals.isEmpty()) {
             this.goals = 0;
-        }else{
+        } else {
             this.goals = Integer.valueOf(goals);
         }
 
         isDirty = true;
     }
 
-    public String getAssists(){
+    public String getAssists() {
         return String.valueOf(assists);
     }
 
-    public void setAssists(String assists){
-        if(assists == null || assists.isEmpty()){
+    public void setAssists(String assists) {
+        if (assists == null || assists.isEmpty()) {
             this.assists = 0;
-        }else{
+        } else {
             this.assists = Integer.valueOf(assists);
         }
 

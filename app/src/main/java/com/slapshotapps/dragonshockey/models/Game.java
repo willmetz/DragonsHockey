@@ -2,6 +2,7 @@ package com.slapshotapps.dragonshockey.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Keep;
 
 import com.google.firebase.database.Exclude;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
@@ -11,11 +12,12 @@ import java.util.Date;
 /**
  * A custom object for a game
  */
-
+@Keep
 public class Game implements Parcelable, Cloneable {
     public String gameTime;
     public String opponent;
     public int gameID;
+    public boolean home;
 
     @Exclude
     public GameResult gameResult;
@@ -59,7 +61,8 @@ public class Game implements Parcelable, Cloneable {
         cloneGame.gameTime = gameTime;
         cloneGame.opponent = opponent;
         cloneGame.gameID = gameID;
-        if(gameResult != null){
+        cloneGame.home = home;
+        if (gameResult != null) {
             cloneGame.gameResult = new GameResult();
             cloneGame.gameResult.dragonsScore = gameResult.dragonsScore;
             cloneGame.gameResult.opponentScore = gameResult.opponentScore;
@@ -75,6 +78,7 @@ public class Game implements Parcelable, Cloneable {
         result = 31 * result + (opponent != null ? opponent.hashCode() : 0);
         result = 31 * result + gameID;
         result = 31 * result + (gameResult != null ? gameResult.hashCode() : 0);
+        result = 31 * result + (home ? 1:0);
         return result;
     }
 
@@ -89,6 +93,7 @@ public class Game implements Parcelable, Cloneable {
         dest.writeString(this.opponent);
         dest.writeInt(this.gameID);
         dest.writeParcelable(this.gameResult, flags);
+        dest.writeByte((byte)(home?1:0));
     }
 
     public Game() {
@@ -99,6 +104,7 @@ public class Game implements Parcelable, Cloneable {
         this.opponent = in.readString();
         this.gameID = in.readInt();
         this.gameResult = in.readParcelable(GameResult.class.getClassLoader());
+        this.home = in.readByte() == 1;
     }
 
     public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {

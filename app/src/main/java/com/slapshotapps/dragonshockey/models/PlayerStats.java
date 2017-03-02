@@ -1,12 +1,14 @@
 package com.slapshotapps.dragonshockey.models;
 
+import android.support.annotation.Keep;
+
 import java.util.Comparator;
 
 /**
  * Created by willmetz on 9/5/16.
  */
-
-public class PlayerStats implements Comparable<PlayerStats>{
+@Keep
+public class PlayerStats implements Comparable<PlayerStats> {
 
     public int playerID;
     public String firstName;
@@ -16,7 +18,7 @@ public class PlayerStats implements Comparable<PlayerStats>{
     public int gamesPlayed;
     public int points;
 
-    public PlayerStats ( int playerID, String firstName, String lastName){
+    public PlayerStats(int playerID, String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.playerID = playerID;
@@ -25,9 +27,9 @@ public class PlayerStats implements Comparable<PlayerStats>{
     @Override
     public int compareTo(PlayerStats playerStats) {
 
-        if(points < playerStats.points){
+        if (points < playerStats.points) {
             return 1;
-        }else if( points > playerStats.points){
+        } else if (points > playerStats.points) {
             return -1;
         }
         return lastName.compareTo(playerStats.lastName);

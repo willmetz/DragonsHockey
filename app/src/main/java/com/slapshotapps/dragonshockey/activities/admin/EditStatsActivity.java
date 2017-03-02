@@ -45,7 +45,7 @@ public class EditStatsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recyclerView = (RecyclerView)findViewById(R.id.admin_stats_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.admin_stats_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -57,7 +57,7 @@ public class EditStatsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if(adminEditsStatsAdapter == null) {
+        if (adminEditsStatsAdapter == null) {
             subscription = AdminObserver.getPlayerStatsForGame(firebaseDatabase, gameID)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -90,7 +90,7 @@ public class EditStatsActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if(subscription != null){
+        if (subscription != null) {
             subscription.unsubscribe();
             subscription = null;
         }
@@ -100,29 +100,29 @@ public class EditStatsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        if(adminEditsStatsAdapter.statsChanged()){
+        if (adminEditsStatsAdapter.statsChanged()) {
 
             ArrayList<PlayerStatsViewModel> viewModel = adminEditsStatsAdapter.getStats();
 
-            if(playerGameStats.isKeyValid()){
+            if (playerGameStats.isKeyValid()) {
                 firebaseDatabase.getReference().child(Config.GAME_STATS)
                         .child(playerGameStats.playerStatsKey)
                         .setValue(getGameStats(viewModel));
-            }else{
+            } else {
                 DatabaseReference newGameResultRef = firebaseDatabase.getReference().child(Config.GAME_STATS).push();
                 newGameResultRef.setValue(getGameStats(viewModel));
             }
         }
     }
 
-    private ArrayList<PlayerStatsViewModel> getViewModel(){
+    private ArrayList<PlayerStatsViewModel> getViewModel() {
         ArrayList<PlayerStatsViewModel> statsViewModel = new ArrayList<PlayerStatsViewModel>();
 
-        for( Player player : playerGameStats.players){
+        for (Player player : playerGameStats.players) {
 
             GameStats.Stats statsForPlayer = playerGameStats.playerGameStats.getPlayerStats(player.playerID);
 
-            if(statsForPlayer == null){
+            if (statsForPlayer == null) {
                 statsForPlayer = new GameStats.Stats();
             }
 
@@ -142,13 +142,13 @@ public class EditStatsActivity extends AppCompatActivity {
 
     }
 
-    private GameStats getGameStats(List<PlayerStatsViewModel> playerStatsViewModelList){
+    private GameStats getGameStats(List<PlayerStatsViewModel> playerStatsViewModelList) {
         GameStats gameStats = new GameStats();
 
         gameStats.gameID = gameID;
         gameStats.gameStats = new ArrayList<>();
 
-        for(PlayerStatsViewModel playerStatsViewModel : playerStatsViewModelList){
+        for (PlayerStatsViewModel playerStatsViewModel : playerStatsViewModelList) {
             GameStats.Stats stats = new GameStats.Stats();
             stats.playerID = playerStatsViewModel.getPlayerID();
             stats.assists = Integer.valueOf(playerStatsViewModel.getAssists());

@@ -25,7 +25,7 @@ import rx.subscriptions.Subscriptions;
 
 public class RosterObserver {
 
-    public static Observable<List<Player>> GetRoster(final FirebaseDatabase database){
+    public static Observable<List<Player>> GetRoster(final FirebaseDatabase database) {
         return Observable.create(new Observable.OnSubscribe<List<Player>>() {
             @Override
             public void call(final Subscriber<? super List<Player>> subscriber) {

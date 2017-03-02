@@ -13,12 +13,12 @@ public class RosterListItem {
     public Player player;
     public final int rosterItemType;
 
-    public RosterListItem( Player player){
+    public RosterListItem(Player player) {
         rosterItemType = ROSTER_TYPE;
         this.player = player;
     }
 
-    public RosterListItem(){
+    public RosterListItem() {
         rosterItemType = HEADER_TYPE;
     }
 
