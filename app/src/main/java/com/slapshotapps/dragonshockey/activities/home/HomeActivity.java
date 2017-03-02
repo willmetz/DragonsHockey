@@ -99,20 +99,20 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
                     @Override
                     public void call(HomeContents homeContents) {
                         binding.setItem(new HomeScreenViewModel(homeContents));
-                        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar_container));
+                        ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
                         binding.setItem(new HomeScreenViewModel(null));
-                        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar_container));
+                        ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
                         Toast.makeText(HomeActivity.this,
                                 R.string.error_loading,
                                 Toast.LENGTH_LONG).show();
                     }
                 });
 
-        ProgressBarUtils.displayProgressBar(binding.progressBar);
+        ProgressBarUtils.displayProgressBar(binding.toolbarProgressBar);
     }
 
     @Override

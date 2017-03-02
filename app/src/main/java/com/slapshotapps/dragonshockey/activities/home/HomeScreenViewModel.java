@@ -2,11 +2,14 @@ package com.slapshotapps.dragonshockey.activities.home;
 
 
 import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.support.annotation.Keep;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
 import android.view.View;
 
+import com.slapshotapps.dragonshockey.BR;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
@@ -17,16 +20,30 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Keep
-public class HomeScreenViewModel {
+public class HomeScreenViewModel extends BaseObservable{
     private HomeContents homeContents;
+    private boolean isDataReady;
 
     public HomeScreenViewModel(@Nullable HomeContents homeContents){
         if(homeContents == null){
             this.homeContents = new HomeContents();
+            setDataReady(true);
         }else {
             this.homeContents = homeContents;
+            setDataReady(false);
         }
     }
+
+    @Bindable
+    public boolean isDataReady(){
+        return isDataReady;
+    }
+
+    public void setDataReady(boolean dataReady){
+        isDataReady = true;
+        notifyPropertyChanged(BR.dataReady);
+    }
+
 
     public String getNextGameTime(Context context){
         if (homeContents.nextGame == null) {
