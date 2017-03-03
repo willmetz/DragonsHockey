@@ -21,6 +21,7 @@ public class GameStats {
     @PropertyName("stats")
     public List<Stats> gameStats;
 
+    @Keep
     public static class Stats {
 
         public int playerID;

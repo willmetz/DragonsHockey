@@ -89,6 +89,9 @@
             app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
             app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
             android:text="@{item.getWins()}"
+            app:fadeInView="@{item.isDataReady()}"
+            android:alpha="0"
+            tools:alpha="1"
             tools:text="2" />
 
         <TextView
@@ -100,6 +103,9 @@
             app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
             app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
             android:text="@{item.getLosses()}"
+            app:fadeInView="@{item.isDataReady()}"
+            android:alpha="0"
+            tools:alpha="1"
             tools:text="1" />
 
         <TextView
@@ -111,6 +117,9 @@
             app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
             app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
             android:text="@{item.getOvertimeLosses()}"
+            app:fadeInView="@{item.isDataReady()}"
+            android:alpha="0"
+            tools:alpha="1"
             tools:text="0" />
 
         <TextView
@@ -122,6 +131,9 @@
             app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
             app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
             android:text="@{item.getTies()}"
+            app:fadeInView="@{item.isDataReady()}"
+            android:alpha="0"
+            tools:alpha="1"
             tools:text="1" />
 
         <TextView
@@ -134,8 +146,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/content_home"
             app:layout_constraintRight_toRightOf="@+id/content_home"
             app:layout_constraintTop_toBottomOf="@+id/record_win"
-            android:visibility="@{item.showLastGameInfo()}"
-            tools:alpha="1" />
+            android:visibility="@{item.showLastGameInfo()}" />
 
         <TextView
             android:id="@+id/next_game_header"
@@ -146,8 +157,7 @@
             android:textAppearance="@android:style/TextAppearance.Material.Medium"
             app:layout_constraintLeft_toLeftOf="@+id/content_home"
             app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/last_game_score"
-            tools:alpha="1" />
+            app:layout_constraintTop_toBottomOf="@+id/last_game_score" />
 
         <TextView
             android:id="@+id/next_game_date"
@@ -158,7 +168,8 @@
             app:layout_constraintRight_toRightOf="@+id/content_home"
             app:layout_constraintTop_toBottomOf="@+id/next_game_header"
             android:text="@{item.getNextGameTime(context)}"
-            tools:alpha="1"
+            tools:alpha="0"
+            app:fadeInView="@{item.isDataReady()}"
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1"
             tools:layout_constraintTop_creator="0"
@@ -175,7 +186,8 @@
             app:layout_constraintTop_toBottomOf="@+id/last_game_header"
             android:text="@{item.getLastGameResult(context)}"
             android:visibility="@{item.showLastGameInfo()}"
-            tools:alpha="1"
+            tools:alpha="0"
+            app:fadeInView="@{item.isDataReady()}"
             tools:text="Dragons 8  Oranges 5" />
 
         <Button
@@ -191,7 +203,10 @@
             app:layout_constraintHorizontal_bias="0.92"
             app:layout_constraintLeft_toLeftOf="@+id/content_home"
             app:layout_constraintRight_toRightOf="@+id/content_home"
-            android:onClick="@{() -> listener.onViewSchedule()}"/>
+            android:onClick="@{() -> listener.onViewSchedule()}"
+            app:fadeInView="@{item.isDataReady()}"
+            android:alpha="0"
+            tools:alpha="1"/>
 
         <Button
             android:id="@+id/roster_button"
@@ -204,7 +219,10 @@
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
             app:layout_constraintRight_toLeftOf="@+id/schedule_button"
-            android:onClick="@{() -> listener.onViewRoster()}"/>
+            android:onClick="@{() -> listener.onViewRoster()}"
+            app:fadeInView="@{item.isDataReady()}"
+            android:alpha="0"
+            tools:alpha="1"/>
 
         <Button
             android:id="@+id/stats_button"
@@ -217,7 +235,10 @@
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
             app:layout_constraintRight_toLeftOf="@+id/roster_button"
-            android:onClick="@{() -> listener.onViewStats()}"/>
+            android:onClick="@{() -> listener.onViewStats()}"
+            app:fadeInView="@{item.isDataReady()}"
+            android:alpha="0"
+            tools:alpha="1"/>
 
     </android.support.constraint.ConstraintLayout>
 
