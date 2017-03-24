@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
-
+    android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
     <android.support.constraint.Guideline
         android:id="@+id/guideline_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="4dp"/>
-    
+
     <TextView
-        android:id="@+id/season"
+        android:id="@+id/season_label"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline_one"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Winter '17" />
+        android:text="Season" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_two"
@@ -28,9 +28,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25"/>
-        
+
     <TextView
-        android:id="@+id/games_played"
+        android:id="@+id/games_played_label"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="@+id/guideline_three"
         app:layout_constraintStart_toStartOf="@id/guideline_two"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="8" />
+        android:text="GP"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_three"
@@ -48,7 +48,7 @@
         app:layout_constraintGuide_percent="0.45"/>
 
     <TextView
-        android:id="@+id/goals"
+        android:id="@+id/goals_label"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="@+id/guideline_four"
         app:layout_constraintStart_toStartOf="@id/guideline_three"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="3" />
+        android:text="G" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_four"
@@ -66,7 +66,7 @@
         app:layout_constraintGuide_percent="0.55"/>
 
     <TextView
-        android:id="@+id/assists"
+        android:id="@+id/assists_label"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline_four"
         app:layout_constraintEnd_toEndOf="@+id/guideline_five"
-        tools:text="2"/>
+        android:text="A"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_five"
@@ -84,7 +84,7 @@
         app:layout_constraintGuide_percent="0.7"/>
 
     <TextView
-        android:id="@+id/points"
+        android:id="@+id/point_label"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,5 +92,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline_five"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="5"/>
+        android:text="PTS"/>
+
 </android.support.constraint.ConstraintLayout>
