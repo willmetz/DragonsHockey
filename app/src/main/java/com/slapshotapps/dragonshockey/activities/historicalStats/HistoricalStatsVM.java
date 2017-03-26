@@ -34,6 +34,9 @@ public class HistoricalStatsVM {
     }
 
     public String getSeasonName(){
+        if(playerStats.seasonID == null){
+            return "";
+        }
         return playerStats.seasonID;
     }
 

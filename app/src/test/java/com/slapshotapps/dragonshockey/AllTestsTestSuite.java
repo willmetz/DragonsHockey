@@ -2,7 +2,7 @@ package com.slapshotapps.dragonshockey;
 
 import com.slapshotapps.dragonshockey.Utils.UtilsTestSuite;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.ViewModelTestSuite;
-import com.slapshotapps.dragonshockey.models.GameTest;
+import com.slapshotapps.dragonshockey.activities.historicalStats.HistoricalStatsTestSuite;
 import com.slapshotapps.dragonshockey.models.ModelsTestSuite;
 
 import org.junit.runner.RunWith;
@@ -15,7 +15,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         ModelsTestSuite.class,
         UtilsTestSuite.class,
-        ViewModelTestSuite.class
+        ViewModelTestSuite.class,
+        HistoricalStatsTestSuite.class
 })
 public class AllTestsTestSuite {
 }
