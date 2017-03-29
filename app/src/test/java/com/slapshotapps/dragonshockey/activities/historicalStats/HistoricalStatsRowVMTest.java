@@ -11,32 +11,32 @@ import java.util.ArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class HistoricalStatsVMTest {
+public class HistoricalStatsRowVMTest {
 
     @Test
     public void testSeasonID(){
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.seasonID = "Winter '17";
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getSeasonName(), is("Winter '17"));
+        assertThat(historicalStatsRowVM.getSeasonName(), is("Winter '17"));
     }
 
     @Test
     public void testSeasonIDEmpty(){
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getSeasonName(), is(""));
+        assertThat(historicalStatsRowVM.getSeasonName(), is(""));
     }
 
 
     @Test
     public void testGamesPlayed_None(){
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getGamesPlayed(), is(0));
+        assertThat(historicalStatsRowVM.getGamesPlayed(), is(0));
     }
 
     @Test
@@ -51,9 +51,9 @@ public class HistoricalStatsVMTest {
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.games = seasonStats;
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getGamesPlayed(), is(1));
+        assertThat(historicalStatsRowVM.getGamesPlayed(), is(1));
     }
 
     @Test
@@ -69,9 +69,9 @@ public class HistoricalStatsVMTest {
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.games = seasonStats;
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getGamesPlayed(), is(0));
+        assertThat(historicalStatsRowVM.getGamesPlayed(), is(0));
     }
 
     @Test
@@ -89,9 +89,9 @@ public class HistoricalStatsVMTest {
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.games = seasonStats;
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getGamesPlayed(), is(2));
+        assertThat(historicalStatsRowVM.getGamesPlayed(), is(2));
     }
 
     @Test
@@ -109,9 +109,9 @@ public class HistoricalStatsVMTest {
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.games = seasonStats;
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getGoals(), is(2));
+        assertThat(historicalStatsRowVM.getGoals(), is(2));
     }
 
     @Test
@@ -127,17 +127,17 @@ public class HistoricalStatsVMTest {
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.games = seasonStats;
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getGoals(), is(0));
+        assertThat(historicalStatsRowVM.getGoals(), is(0));
     }
 
     @Test
     public void testGoals_None(){
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getGoals(), is(0));
+        assertThat(historicalStatsRowVM.getGoals(), is(0));
     }
 
     @Test
@@ -155,9 +155,9 @@ public class HistoricalStatsVMTest {
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.games = seasonStats;
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getAssists(), is(3));
+        assertThat(historicalStatsRowVM.getAssists(), is(3));
     }
 
     @Test
@@ -173,17 +173,17 @@ public class HistoricalStatsVMTest {
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.games = seasonStats;
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getAssists(), is(0));
+        assertThat(historicalStatsRowVM.getAssists(), is(0));
     }
 
     @Test
     public void testAssists_None(){
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getAssists(), is(0));
+        assertThat(historicalStatsRowVM.getAssists(), is(0));
     }
 
     @Test
@@ -201,9 +201,9 @@ public class HistoricalStatsVMTest {
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.games = seasonStats;
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getPoints(), is(12));
+        assertThat(historicalStatsRowVM.getPoints(), is(12));
     }
 
     @Test
@@ -219,16 +219,16 @@ public class HistoricalStatsVMTest {
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
         playerHistoricalStats.games = seasonStats;
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getPoints(), is(0));
+        assertThat(historicalStatsRowVM.getPoints(), is(0));
     }
 
     @Test
     public void testPoints_None(){
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        HistoricalStatsVM historicalStatsVM = new HistoricalStatsVM(playerHistoricalStats);
+        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
-        assertThat(historicalStatsVM.getPoints(), is(0));
+        assertThat(historicalStatsRowVM.getPoints(), is(0));
     }
 }
