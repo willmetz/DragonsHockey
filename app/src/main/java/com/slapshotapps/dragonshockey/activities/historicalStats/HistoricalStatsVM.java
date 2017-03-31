@@ -16,9 +16,11 @@ public class HistoricalStatsVM {
     private final Player player;
     private List<PlayerHistoricalStats> playerHistoricalStats;
 
-    public HistoricalStatsVM(@NonNull Player player, GameStats currentSeasonStats, List<PlayerHistoricalStats> historicalStats) {
+    public HistoricalStatsVM(@NonNull Player player, List<GameStats> currentSeasonStats, List<PlayerHistoricalStats> unfilteredHistoricalStats) {
         this.player = player;
         this.playerHistoricalStats = new ArrayList<>();
+        filterStatsForPlayer(unfilteredHistoricalStats);
+        addCurrentSeason(currentSeasonStats);
     }
 
     public String getPlayerName() {
@@ -37,24 +39,46 @@ public class HistoricalStatsVM {
         return playerHistoricalStats;
     }
 
-    private void filterStatsForPlayer(PlayerHistoricalStats unfilteredStats) {
-        for(GameStats gameStats : unfilteredStats.games){
-            
+    private void filterStatsForPlayer(List<PlayerHistoricalStats> unfilteredStats) {
+
+        if(unfilteredStats == null){
+            return;
         }
+
+        for(PlayerHistoricalStats unfilteredHistoricalStats : unfilteredStats){
+
+            PlayerHistoricalStats currentSeasonFilteredStats = new PlayerHistoricalStats();
+            currentSeasonFilteredStats.seasonID = unfilteredHistoricalStats.seasonID;
+            currentSeasonFilteredStats.gamesStats = new ArrayList<>();
+
+            for (GameStats.Stats gameStats : unfilteredHistoricalStats.gamesStats) {
+
+                if(gameStats.playerID == player.playerID){
+                    currentSeasonFilteredStats.gamesStats.add(gameStats);
+                }
+
+            }
+
+            playerHistoricalStats.add(currentSeasonFilteredStats);
+
+        }
+
     }
 
-    private void addCurrentSeason(GameStats currentSeasonStats) {
+    private void addCurrentSeason(List<GameStats> unfilteredStats) {
+
+        if(unfilteredStats == null){
+            return;
+        }
+
         PlayerHistoricalStats currentSeasonFilteredStats = new PlayerHistoricalStats();
         currentSeasonFilteredStats.seasonID = "Current";
-        currentSeasonFilteredStats.games = new ArrayList<>(1);
-        GameStats filteredForPlayer = new GameStats();
-        filteredForPlayer.gameStats = new ArrayList<>();
+        currentSeasonFilteredStats.gamesStats = new ArrayList<>();
 
-        for (GameStats.Stats stats : currentSeasonStats.gameStats) {
-            if (stats.playerID == player.playerID) {
-                filteredForPlayer.gameStats.add(stats);
-            }
+        for(GameStats gameStats : unfilteredStats){
+            currentSeasonFilteredStats.gamesStats.add(gameStats.getPlayerStats(player.playerID));
         }
+
 
         playerHistoricalStats.add(currentSeasonFilteredStats);
     }

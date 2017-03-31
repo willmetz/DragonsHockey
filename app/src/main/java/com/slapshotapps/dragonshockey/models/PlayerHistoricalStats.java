@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PlayerHistoricalStats {
 
-    public List<GameStats> games;
+    public List<GameStats.Stats> gamesStats;
 
     public String seasonID;
 }

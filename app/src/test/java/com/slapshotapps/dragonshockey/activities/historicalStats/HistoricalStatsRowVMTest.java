@@ -46,49 +46,25 @@ public class HistoricalStatsRowVMTest {
         GameStats gameStats = new GameStats();
         ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
         playerInGameStats.add(new GameStats.Stats(0, 1, 1, true));
-        gameStats.gameStats = playerInGameStats;
-        seasonStats.add(gameStats);
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        playerHistoricalStats.games = seasonStats;
+        playerHistoricalStats.gamesStats = playerInGameStats;
         HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
         assertThat(historicalStatsRowVM.getGamesPlayed(), is(1));
     }
 
     @Test
-    public void testGamesPlayed_InvalidNumberOfStats(){
-
-        ArrayList<GameStats> seasonStats = new ArrayList<>();
-        GameStats gameStats = new GameStats();
-        ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
-        playerInGameStats.add(new GameStats.Stats(0, 1, 1, true));
-        playerInGameStats.add(new GameStats.Stats(1, 1, 1, true));
-        gameStats.gameStats = playerInGameStats;
-        seasonStats.add(gameStats);
-
-        PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        playerHistoricalStats.games = seasonStats;
-        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
-
-        assertThat(historicalStatsRowVM.getGamesPlayed(), is(0));
-    }
-
-    @Test
     public void testGamesPlayed_twoOfThree(){
 
-        ArrayList<GameStats> seasonStats = new ArrayList<>();
+        ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
 
         for(int i = 0; i < 3; i++) {
-            GameStats gameStats = new GameStats();
-            ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
             playerInGameStats.add(new GameStats.Stats(0, 1, 1, i != 1));
-            gameStats.gameStats = playerInGameStats;
-            seasonStats.add(gameStats);
         }
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        playerHistoricalStats.games = seasonStats;
+        playerHistoricalStats.gamesStats = playerInGameStats;
         HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
         assertThat(historicalStatsRowVM.getGamesPlayed(), is(2));
@@ -97,39 +73,17 @@ public class HistoricalStatsRowVMTest {
     @Test
     public void testGoals_Two(){
 
-        ArrayList<GameStats> seasonStats = new ArrayList<>();
+        ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
 
         for(int i = 0; i < 2; i++) {
-            GameStats gameStats = new GameStats();
-            ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
             playerInGameStats.add(new GameStats.Stats(0, 0, 1, true));
-            gameStats.gameStats = playerInGameStats;
-            seasonStats.add(gameStats);
         }
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        playerHistoricalStats.games = seasonStats;
+        playerHistoricalStats.gamesStats = playerInGameStats;
         HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
         assertThat(historicalStatsRowVM.getGoals(), is(2));
-    }
-
-    @Test
-    public void testGoals_InvalidNumberOfStats(){
-
-        ArrayList<GameStats> seasonStats = new ArrayList<>();
-        GameStats gameStats = new GameStats();
-        ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
-        playerInGameStats.add(new GameStats.Stats(0, 1, 1, true));
-        playerInGameStats.add(new GameStats.Stats(1, 1, 1, true));
-        gameStats.gameStats = playerInGameStats;
-        seasonStats.add(gameStats);
-
-        PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        playerHistoricalStats.games = seasonStats;
-        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
-
-        assertThat(historicalStatsRowVM.getGoals(), is(0));
     }
 
     @Test
@@ -143,40 +97,19 @@ public class HistoricalStatsRowVMTest {
     @Test
     public void testAssists_Three(){
 
-        ArrayList<GameStats> seasonStats = new ArrayList<>();
+        ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
 
         for(int i = 0; i < 2; i++) {
-            GameStats gameStats = new GameStats();
-            ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
             playerInGameStats.add(new GameStats.Stats(0, i == 0?1:2, 0, true));
-            gameStats.gameStats = playerInGameStats;
-            seasonStats.add(gameStats);
         }
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        playerHistoricalStats.games = seasonStats;
+        playerHistoricalStats.gamesStats = playerInGameStats;
         HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
         assertThat(historicalStatsRowVM.getAssists(), is(3));
     }
 
-    @Test
-    public void testAssists_InvalidNumberOfStats(){
-
-        ArrayList<GameStats> seasonStats = new ArrayList<>();
-        GameStats gameStats = new GameStats();
-        ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
-        playerInGameStats.add(new GameStats.Stats(0, 1, 1, true));
-        playerInGameStats.add(new GameStats.Stats(1, 1, 1, true));
-        gameStats.gameStats = playerInGameStats;
-        seasonStats.add(gameStats);
-
-        PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        playerHistoricalStats.games = seasonStats;
-        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
-
-        assertThat(historicalStatsRowVM.getAssists(), is(0));
-    }
 
     @Test
     public void testAssists_None(){
@@ -189,39 +122,17 @@ public class HistoricalStatsRowVMTest {
     @Test
     public void testPoins_Twelve(){
 
-        ArrayList<GameStats> seasonStats = new ArrayList<>();
+        ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
 
         for(int i = 0; i < 3; i++) {
-            GameStats gameStats = new GameStats();
-            ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
             playerInGameStats.add(new GameStats.Stats(0, 2, 2, true));
-            gameStats.gameStats = playerInGameStats;
-            seasonStats.add(gameStats);
         }
 
         PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        playerHistoricalStats.games = seasonStats;
+        playerHistoricalStats.gamesStats = playerInGameStats;
         HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
 
         assertThat(historicalStatsRowVM.getPoints(), is(12));
-    }
-
-    @Test
-    public void testPoints_InvalidNumberOfStats(){
-
-        ArrayList<GameStats> seasonStats = new ArrayList<>();
-        GameStats gameStats = new GameStats();
-        ArrayList<GameStats.Stats> playerInGameStats = new ArrayList<>();
-        playerInGameStats.add(new GameStats.Stats(0, 1, 1, true));
-        playerInGameStats.add(new GameStats.Stats(1, 1, 1, true));
-        gameStats.gameStats = playerInGameStats;
-        seasonStats.add(gameStats);
-
-        PlayerHistoricalStats playerHistoricalStats = new PlayerHistoricalStats();
-        playerHistoricalStats.games = seasonStats;
-        HistoricalStatsRowVM historicalStatsRowVM = new HistoricalStatsRowVM(playerHistoricalStats);
-
-        assertThat(historicalStatsRowVM.getPoints(), is(0));
     }
 
     @Test
