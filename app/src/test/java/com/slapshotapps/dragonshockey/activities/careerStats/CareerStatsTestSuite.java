@@ -7,5 +7,5 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         CareerStatsVMTest.class})
-public class HistoricalStatsTestSuite {
+public class CareerStatsTestSuite {
 }
