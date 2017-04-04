@@ -48,7 +48,11 @@
         <activity
             android:name=".activities.admin.EditStatsActivity"
             android:label="@string/title_activity_edit_stats_auth"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.careerStats.CareerStatsActivity"
+            android:label="CareerStats"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
