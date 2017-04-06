@@ -5,7 +5,6 @@ import com.android.annotations.NonNull;
 import com.slapshotapps.dragonshockey.Utils.RosterUtils;
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
-import com.slapshotapps.dragonshockey.models.PlayerSeasonStats;
 import com.slapshotapps.dragonshockey.models.SeasonStats;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.Locale;
 public class CareerStatsVM {
 
     private final Player player;
-    private List<PlayerSeasonStats> playerSeasonStats;
+    private List<PlayerSeasonStatsVM> playerSeasonStats;
 
     public CareerStatsVM(@NonNull Player player, List<GameStats> currentSeasonStats, List<SeasonStats> unfilteredSeasonStats) {
         this.player = player;
@@ -36,7 +35,7 @@ public class CareerStatsVM {
         return RosterUtils.getPosition(player);
     }
 
-    public List<PlayerSeasonStats> getStats() {
+    public List<PlayerSeasonStatsVM> getStats() {
         return playerSeasonStats;
     }
 
@@ -48,7 +47,7 @@ public class CareerStatsVM {
 
         for(SeasonStats unfilteredHistoricalStats : unfilteredStats){
 
-            PlayerSeasonStats tempPlayerSeasonStats = new PlayerSeasonStats(unfilteredHistoricalStats.seasonID);
+            PlayerSeasonStatsVM tempPlayerSeasonStats = new PlayerSeasonStatsVM(unfilteredHistoricalStats.seasonID);
 
             for (GameStats stats : unfilteredHistoricalStats.stats) {
 
@@ -72,7 +71,7 @@ public class CareerStatsVM {
             return;
         }
 
-        PlayerSeasonStats tempPlayerSeasonStats = new PlayerSeasonStats("Current");
+        PlayerSeasonStatsVM tempPlayerSeasonStats = new PlayerSeasonStatsVM("Current");
 
         for(GameStats gameStats : unfilteredStats){
             for(GameStats.Stats stats : gameStats.gameStats){

@@ -1,15 +1,11 @@
 package com.slapshotapps.dragonshockey.activities.admin;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,18 +14,9 @@ import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.activities.admin.adapter.AdminScheduleAdapter;
 import com.slapshotapps.dragonshockey.activities.admin.listeners.AdminClickListener;
-import com.slapshotapps.dragonshockey.activities.roster.RosterActivity;
-import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
-import com.slapshotapps.dragonshockey.activities.roster.views.RosterHeaderDecoration;
-import com.slapshotapps.dragonshockey.activities.schedule.adapters.ScheduleAdapter;
 import com.slapshotapps.dragonshockey.models.Game;
-import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
-import com.slapshotapps.dragonshockey.observables.RosterObserver;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
-
-import java.util.Date;
-import java.util.List;
 
 import rx.Observable;
 import rx.Subscription;
