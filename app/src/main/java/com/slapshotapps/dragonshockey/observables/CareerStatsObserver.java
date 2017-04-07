@@ -37,19 +37,10 @@ public class CareerStatsObserver {
                             //essentially this will just get the season id
                             SeasonStats seasonStats = snapshot.getValue(SeasonStats.class);
 
-                            //populate the internal list of players details per game
+                            //get the actual game stats
                             seasonStats.stats = new ArrayList<GameStats>();
                             for (DataSnapshot gameSnapshot : snapshot.child("games").getChildren()) {
-
-                                //this is essentially just the game id
-                                GameStats gameStats = gameSnapshot.getValue(GameStats.class);
-
-//                                for(DataSnapshot gameStatsSnapshot : gameSnapshot.child("stats").getChildren()){
-//
-//                                    //here are all the stats for the game
-//                                    gameStats.gameStats.add(gameStatsSnapshot.getValue(GameStats.Stats.class));
-//                                }
-                                seasonStats.stats.add(gameStats);
+                                seasonStats.stats.add(gameSnapshot.getValue(GameStats.class));
                             }
 
                             careerStats.add(seasonStats);
