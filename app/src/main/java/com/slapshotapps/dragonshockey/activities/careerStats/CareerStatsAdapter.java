@@ -20,8 +20,14 @@ public class CareerStatsAdapter extends RecyclerView.Adapter<CareerStatsAdapter.
 
     final ArrayList<PlayerSeasonStatsVM> playerSeasonStats;
 
-    public CareerStatsAdapter(List<PlayerSeasonStatsVM> playerSeasonStats){
-        this.playerSeasonStats = new ArrayList<>(playerSeasonStats);
+    public CareerStatsAdapter(){
+        this.playerSeasonStats = new ArrayList<>();
+    }
+
+    public void updateStats(List<PlayerSeasonStatsVM> playerSeasonStats){
+        this.playerSeasonStats.clear();
+        this.playerSeasonStats.addAll(playerSeasonStats);
+        notifyDataSetChanged();
     }
 
     @Override
