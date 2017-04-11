@@ -1,14 +1,14 @@
 package com.slapshotapps.dragonshockey.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Keep;
-
-import java.util.Comparator;
 
 /**
  * Created by willmetz on 9/5/16.
  */
 @Keep
-public class PlayerStats implements Comparable<PlayerStats> {
+public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
 
     public int playerID;
     public String firstName;
@@ -34,4 +34,42 @@ public class PlayerStats implements Comparable<PlayerStats> {
         }
         return lastName.compareTo(playerStats.lastName);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.playerID);
+        dest.writeString(this.firstName);
+        dest.writeString(this.lastName);
+        dest.writeInt(this.goals);
+        dest.writeInt(this.assists);
+        dest.writeInt(this.gamesPlayed);
+        dest.writeInt(this.points);
+    }
+
+    protected PlayerStats(Parcel in) {
+        this.playerID = in.readInt();
+        this.firstName = in.readString();
+        this.lastName = in.readString();
+        this.goals = in.readInt();
+        this.assists = in.readInt();
+        this.gamesPlayed = in.readInt();
+        this.points = in.readInt();
+    }
+
+    public static final Parcelable.Creator<PlayerStats> CREATOR = new Parcelable.Creator<PlayerStats>() {
+        @Override
+        public PlayerStats createFromParcel(Parcel source) {
+            return new PlayerStats(source);
+        }
+
+        @Override
+        public PlayerStats[] newArray(int size) {
+            return new PlayerStats[size];
+        }
+    };
 }

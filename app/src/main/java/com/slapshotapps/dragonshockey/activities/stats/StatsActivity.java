@@ -1,6 +1,5 @@
 package com.slapshotapps.dragonshockey.activities.stats;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +12,8 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
-import com.slapshotapps.dragonshockey.activities.careerStats.CareerStatsActivity;
 import com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM;
 import com.slapshotapps.dragonshockey.activities.stats.adapters.StatsAdapter;
 import com.slapshotapps.dragonshockey.models.Player;
@@ -116,6 +115,6 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
 
     @Override
     public void onViewPLayerStats(PlayerStats playerStats) {
-        startActivity(new Intent(this, CareerStatsActivity.class));
+        startActivity(DragonsHockeyIntents.createCareerStatsIntent(this,playerStats));
     }
 }

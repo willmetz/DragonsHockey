@@ -10,15 +10,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.RecyclerViewDivider;
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.StaticHeaderDecoration;
 import com.slapshotapps.dragonshockey.databinding.ActivityCareerStatsBinding;
-import com.slapshotapps.dragonshockey.models.Player;
-import com.slapshotapps.dragonshockey.models.SeasonStats;
+import com.slapshotapps.dragonshockey.models.PlayerStats;
 import com.slapshotapps.dragonshockey.observables.CareerStatsObserver;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -35,7 +32,7 @@ public class CareerStatsActivity extends AppCompatActivity {
     private Subscription careerStatsSubscription;
     private CareerStatsAdapter careerStatsAdapter;
 
-    private Player player;
+    private PlayerStats playerStats;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,35 +51,10 @@ public class CareerStatsActivity extends AppCompatActivity {
             Timber.e("Unable to set persistance for Firebase");
         }
 
-        //dummy data
-        player = new Player("F");
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 1;
-        player.number = 99;
+        playerStats = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_PLAYER_STATS);
 
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_career_stats);
-
-
-        //dummy data
-        ArrayList<PlayerSeasonStatsVM> dummyStats = new ArrayList<>();
-        PlayerSeasonStatsVM data = new PlayerSeasonStatsVM("Fall '16");
-        data.assists = 2;
-        data.gamesPlayed = 9;
-        data.goals = 8;
-        dummyStats.add(data);
-        data = new PlayerSeasonStatsVM("Fall '16");
-        data.assists = 9;
-        data.gamesPlayed = 9;
-        data.goals = 5;
-        dummyStats.add(data);
-        data = new PlayerSeasonStatsVM("Current");
-        data.assists = 0;
-        data.gamesPlayed = 3;
-        data.goals = 1;
-        dummyStats.add(data);
-
 
         careerStatsAdapter = new CareerStatsAdapter();
         binding.careerStats.setAdapter(careerStatsAdapter);
@@ -96,14 +68,13 @@ public class CareerStatsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        careerStatsSubscription = CareerStatsObserver.getHistoricalStats(firebaseDatabase)
+        careerStatsSubscription = CareerStatsObserver.getCareerStatsData(firebaseDatabase, playerStats.playerID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<SeasonStats>>() {
+                .subscribe(new Action1<CareerStatsData>() {
                     @Override
-                    public void call(List<SeasonStats> seasonStats) {
-
-                        careerStatsVM = new CareerStatsVM(player, null, seasonStats);
+                    public void call(CareerStatsData careerStatsData) {
+                        careerStatsVM = new CareerStatsVM(careerStatsData.player, null, careerStatsData.seasonStats);
                         binding.setStats(careerStatsVM);
                         careerStatsAdapter.updateStats(careerStatsVM.getStats());
                     }
