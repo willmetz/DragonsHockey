@@ -1,6 +1,8 @@
 package com.slapshotapps.dragonshockey.activities.careerStats;
 
 
+import com.slapshotapps.dragonshockey.models.PlayerStats;
+
 public class PlayerSeasonStatsVM {
 
     public String seasonID;
@@ -10,6 +12,13 @@ public class PlayerSeasonStatsVM {
 
 
     public PlayerSeasonStatsVM(String seasonID){
+        this.seasonID = seasonID;
+    }
+
+    public PlayerSeasonStatsVM(PlayerStats playerStats, String seasonID){
+        goals = playerStats.goals;
+        assists = playerStats.assists;
+        gamesPlayed = playerStats.gamesPlayed;
         this.seasonID = seasonID;
     }
 

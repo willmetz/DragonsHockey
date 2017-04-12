@@ -13,4 +13,10 @@ public class SeasonStats {
     public SeasonStats(){
         stats = new ArrayList<>();
     }
+
+    public SeasonStats(String seasonID){
+        this();
+        this.seasonID = seasonID;
+    }
+
 }

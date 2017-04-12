@@ -5,6 +5,7 @@ import com.android.annotations.NonNull;
 import com.slapshotapps.dragonshockey.Utils.RosterUtils;
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
+import com.slapshotapps.dragonshockey.models.PlayerStats;
 import com.slapshotapps.dragonshockey.models.SeasonStats;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class CareerStatsVM {
     private final Player player;
     private List<PlayerSeasonStatsVM> playerSeasonStats;
 
-    public CareerStatsVM(@NonNull Player player, List<GameStats> currentSeasonStats, List<SeasonStats> unfilteredSeasonStats) {
+    public CareerStatsVM(@NonNull Player player, PlayerStats currentSeasonStats, List<SeasonStats> unfilteredSeasonStats) {
         this.player = player;
         this.playerSeasonStats = new ArrayList<>();
         filterStatsForPlayer(unfilteredSeasonStats);
@@ -65,24 +66,10 @@ public class CareerStatsVM {
 
     }
 
-    private void addCurrentSeason(List<GameStats> unfilteredStats) {
-
-        if(unfilteredStats == null){
-            return;
+    private void addCurrentSeason(PlayerStats currentSeasonStats) {
+        if(currentSeasonStats != null) {
+            playerSeasonStats.add(new PlayerSeasonStatsVM(currentSeasonStats, "Current"));
         }
-
-        PlayerSeasonStatsVM tempPlayerSeasonStats = new PlayerSeasonStatsVM("Current");
-
-        for(GameStats gameStats : unfilteredStats){
-            for(GameStats.Stats stats : gameStats.gameStats){
-                if(stats.playerID == player.playerID){
-                    tempPlayerSeasonStats.assists += stats.assists;
-                    tempPlayerSeasonStats.goals += stats.goals;
-                    tempPlayerSeasonStats.gamesPlayed += stats.present?1:0;
-                }
-            }
-        }
-        playerSeasonStats.add(tempPlayerSeasonStats);
     }
 
 }

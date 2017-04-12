@@ -4,11 +4,13 @@ package com.slapshotapps.dragonshockey.activities.careerStats;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
+import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.RecyclerViewDivider;
@@ -32,16 +34,11 @@ public class CareerStatsActivity extends AppCompatActivity {
     private Subscription careerStatsSubscription;
     private CareerStatsAdapter careerStatsAdapter;
 
-    private PlayerStats playerStats;
+    private PlayerStats currentSeasonStats;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        if (!Config.isRelease) {
-//            ActionBar actionBar = getSupportActionBar();
-//            actionBar.setTitle("CERT CareerStats CERT");
-//        }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -51,10 +48,17 @@ public class CareerStatsActivity extends AppCompatActivity {
             Timber.e("Unable to set persistance for Firebase");
         }
 
-        playerStats = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_PLAYER_STATS);
+        currentSeasonStats = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_PLAYER_STATS);
 
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_career_stats);
+
+        setSupportActionBar(binding.toolbar);
+
+        if (!Config.isRelease) {
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("CERT Career Stats CERT");
+        }
 
         careerStatsAdapter = new CareerStatsAdapter();
         binding.careerStats.setAdapter(careerStatsAdapter);
@@ -68,15 +72,18 @@ public class CareerStatsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        careerStatsSubscription = CareerStatsObserver.getCareerStatsData(firebaseDatabase, playerStats.playerID)
+        binding.toolbarProgressBar.animate().alpha(1);
+
+        careerStatsSubscription = CareerStatsObserver.getCareerStatsData(firebaseDatabase, currentSeasonStats.playerID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<CareerStatsData>() {
                     @Override
                     public void call(CareerStatsData careerStatsData) {
-                        careerStatsVM = new CareerStatsVM(careerStatsData.player, null, careerStatsData.seasonStats);
+                        careerStatsVM = new CareerStatsVM(careerStatsData.player, currentSeasonStats, careerStatsData.seasonStats);
                         binding.setStats(careerStatsVM);
                         careerStatsAdapter.updateStats(careerStatsVM.getStats());
+                        binding.toolbarProgressBar.animate().alpha(0);
                     }
                 });
     }
@@ -89,5 +96,7 @@ public class CareerStatsActivity extends AppCompatActivity {
             careerStatsSubscription.unsubscribe();
             careerStatsSubscription = null;
         }
+
+        binding.toolbarProgressBar.setAlpha(0);
     }
 }

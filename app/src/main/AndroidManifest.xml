@@ -51,7 +51,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.careerStats.CareerStatsActivity"
-            android:label="CareerStats"
+            android:label="Career Stats"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

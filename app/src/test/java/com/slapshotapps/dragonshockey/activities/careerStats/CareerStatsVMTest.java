@@ -3,6 +3,7 @@ package com.slapshotapps.dragonshockey.activities.careerStats;
 
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
+import com.slapshotapps.dragonshockey.models.PlayerStats;
 import com.slapshotapps.dragonshockey.models.SeasonStats;
 
 import org.junit.Test;
@@ -81,14 +82,12 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testCurrentSeasonFiltering(){
+    public void testCurrentSeasonAdding(){
 
-        List<GameStats> currentSeason = new ArrayList<>();
-
-        for(int i = 0; i < 5; i++){
-            currentSeason.add(new GameStats());
-            currentSeason.get(i).gameStats = getTeamStatsForGame();
-        }
+        PlayerStats playerStats = new PlayerStats(2, "bob", "Builder");
+        playerStats.goals = 2;
+        playerStats.assists = 4;
+        playerStats.gamesPlayed = 10;
 
         Player player = new Player("F");
         player.firstName = "Bob";
@@ -96,40 +95,14 @@ public class CareerStatsVMTest {
         player.playerID = 2;
         player.number = 99;
 
-        CareerStatsVM careerStatsVM = new CareerStatsVM(player, currentSeason, null);
+        CareerStatsVM careerStatsVM = new CareerStatsVM(player, playerStats, null);
 
         List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
 
         assertThat(playerSeasonStats.size(), is(1));
-        assertThat(playerSeasonStats.get(0).goals, is(15));
-        assertThat(playerSeasonStats.get(0).assists, is(20));
-        assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(35)));
-    }
-
-    @Test
-    public void testCurrentSeasonFilteringNoStatsForPlayer(){
-
-        List<GameStats> currentSeason = new ArrayList<>();
-
-        for(int i = 0; i < 5; i++){
-            currentSeason.add(new GameStats());
-            currentSeason.get(i).gameStats = getTeamStatsForGame();
-        }
-
-        Player player = new Player("F");
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 11;
-        player.number = 99;
-
-        CareerStatsVM careerStatsVM = new CareerStatsVM(player, currentSeason, null);
-
-        List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
-
-        assertThat(playerSeasonStats.size(), is(1));
-        assertThat(playerSeasonStats.get(0).goals, is(0));
-        assertThat(playerSeasonStats.get(0).assists, is(0));
-        assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(0)));
+        assertThat(playerSeasonStats.get(0).goals, is(2));
+        assertThat(playerSeasonStats.get(0).assists, is(4));
+        assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(6)));
     }
 
     @Test
@@ -167,6 +140,56 @@ public class CareerStatsVMTest {
         assertThat(playerSeasonStats.get(1).goals, is(15));
         assertThat(playerSeasonStats.get(1).assists, is(20));
         assertThat(playerSeasonStats.get(1).getPoints(), is(String.valueOf(35)));
+    }
+
+    @Test
+    public void testFullCareer(){
+        List<SeasonStats> seasonStats = new ArrayList<>();
+        seasonStats.add(new SeasonStats("Winter 16"));
+        seasonStats.add(new SeasonStats("Fall 17"));
+
+        for(int i = 0; i < 5; i++){
+            seasonStats.get(0).stats.add(new GameStats());
+            seasonStats.get(0).stats.get(i).gameStats = getTeamStatsForGame();
+
+
+            seasonStats.get(1).stats.add(new GameStats());
+            seasonStats.get(1).stats.get(i).gameStats = getTeamStatsForGame();
+        }
+
+        Player player = new Player("F");
+        player.firstName = "Bob";
+        player.lastName = "Builder";
+        player.playerID = 2;
+        player.number = 99;
+
+        PlayerStats playerStats = new PlayerStats(2, "bob", "Builder");
+        playerStats.goals = 2;
+        playerStats.assists = 4;
+        playerStats.gamesPlayed = 10;
+
+        CareerStatsVM careerStatsVM = new CareerStatsVM(player, playerStats, seasonStats);
+
+        List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
+
+        assertThat(playerSeasonStats.size(), is(3));
+
+        assertThat(playerSeasonStats.get(0).goals, is(15));
+        assertThat(playerSeasonStats.get(0).assists, is(20));
+        assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(35)));
+        assertThat(playerSeasonStats.get(0).seasonID, is("Winter 16"));
+
+
+        assertThat(playerSeasonStats.get(1).goals, is(15));
+        assertThat(playerSeasonStats.get(1).assists, is(20));
+        assertThat(playerSeasonStats.get(1).getPoints(), is(String.valueOf(35)));
+        assertThat(playerSeasonStats.get(1).seasonID, is("Fall 17"));
+
+
+        assertThat(playerSeasonStats.get(2).goals, is(2));
+        assertThat(playerSeasonStats.get(2).assists, is(4));
+        assertThat(playerSeasonStats.get(2).getPoints(), is(String.valueOf(6)));
+        assertThat(playerSeasonStats.get(2).seasonID, is("Current"));
     }
 
     private List<GameStats.Stats> getTeamStatsForGame(){
