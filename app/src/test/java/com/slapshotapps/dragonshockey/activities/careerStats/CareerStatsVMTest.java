@@ -99,10 +99,15 @@ public class CareerStatsVMTest {
 
         List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
 
-        assertThat(playerSeasonStats.size(), is(1));
+        assertThat(playerSeasonStats.size(), is(2));
         assertThat(playerSeasonStats.get(0).goals, is(2));
         assertThat(playerSeasonStats.get(0).assists, is(4));
         assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(6)));
+
+        //career
+        assertThat(playerSeasonStats.get(1).goals, is(2));
+        assertThat(playerSeasonStats.get(1).assists, is(4));
+        assertThat(playerSeasonStats.get(1).getPoints(), is(String.valueOf(6)));
     }
 
     @Test
@@ -131,7 +136,7 @@ public class CareerStatsVMTest {
 
         List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
 
-        assertThat(playerSeasonStats.size(), is(2));
+        assertThat(playerSeasonStats.size(), is(3));
         assertThat(playerSeasonStats.get(0).goals, is(15));
         assertThat(playerSeasonStats.get(0).assists, is(20));
         assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(35)));
@@ -140,6 +145,10 @@ public class CareerStatsVMTest {
         assertThat(playerSeasonStats.get(1).goals, is(15));
         assertThat(playerSeasonStats.get(1).assists, is(20));
         assertThat(playerSeasonStats.get(1).getPoints(), is(String.valueOf(35)));
+
+        assertThat(playerSeasonStats.get(2).goals, is(30));
+        assertThat(playerSeasonStats.get(2).assists, is(40));
+        assertThat(playerSeasonStats.get(2).getPoints(), is(String.valueOf(70)));
     }
 
     @Test
@@ -172,7 +181,7 @@ public class CareerStatsVMTest {
 
         List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
 
-        assertThat(playerSeasonStats.size(), is(3));
+        assertThat(playerSeasonStats.size(), is(4));
 
         assertThat(playerSeasonStats.get(0).goals, is(15));
         assertThat(playerSeasonStats.get(0).assists, is(20));
@@ -190,6 +199,12 @@ public class CareerStatsVMTest {
         assertThat(playerSeasonStats.get(2).assists, is(4));
         assertThat(playerSeasonStats.get(2).getPoints(), is(String.valueOf(6)));
         assertThat(playerSeasonStats.get(2).seasonID, is("Current"));
+
+        assertThat(playerSeasonStats.get(3).goals, is(32));
+        assertThat(playerSeasonStats.get(3).assists, is(44));
+        assertThat(playerSeasonStats.get(3).getPoints(), is(String.valueOf(76)));
+        assertThat(playerSeasonStats.get(3).seasonID, is("Career"));
+
     }
 
     private List<GameStats.Stats> getTeamStatsForGame(){

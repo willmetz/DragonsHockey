@@ -16,7 +16,8 @@
     <android.support.constraint.ConstraintLayout
 
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@{seasonData.getBackgroundColor(context)}">
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline_one"

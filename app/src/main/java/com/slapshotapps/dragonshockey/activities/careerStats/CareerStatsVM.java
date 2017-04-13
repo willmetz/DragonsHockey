@@ -22,6 +22,7 @@ public class CareerStatsVM {
         this.playerSeasonStats = new ArrayList<>();
         filterStatsForPlayer(unfilteredSeasonStats);
         addCurrentSeason(currentSeasonStats);
+        totalCareerStats();
     }
 
     public String getPlayerName() {
@@ -70,6 +71,18 @@ public class CareerStatsVM {
         if(currentSeasonStats != null) {
             playerSeasonStats.add(new PlayerSeasonStatsVM(currentSeasonStats, "Current"));
         }
+    }
+
+    private void totalCareerStats(){
+        PlayerSeasonStatsVM careerStats = new PlayerSeasonStatsVM("Career");
+
+        for(PlayerSeasonStatsVM stats : playerSeasonStats){
+            careerStats.assists += stats.assists;
+            careerStats.goals += stats.goals;
+            careerStats.gamesPlayed += stats.gamesPlayed;
+        }
+
+        playerSeasonStats.add(careerStats);
     }
 
 }
