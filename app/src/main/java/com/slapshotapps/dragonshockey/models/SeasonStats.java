@@ -1,9 +1,12 @@
 package com.slapshotapps.dragonshockey.models;
 
 
+import android.support.annotation.Keep;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Keep
 public class SeasonStats {
 
     public List<GameStats> stats;
