@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.slapshotapps.dragonshockey.activities.careerStats.PlayerSeasonStatsVM" />
+
+        <variable
+            name="seasonData"
+            type="PlayerSeasonStatsVM" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@{seasonData.getBackgroundColor(context)}">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="4dp" />
+
+        <TextView
+            android:id="@+id/season"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_one"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{seasonData.seasonID}"
+            tools:text="Winter '17" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <TextView
+            android:id="@+id/games_played"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{seasonData.getGamesPlayed()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_three"
+            app:layout_constraintStart_toStartOf="@id/guideline_two"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="8" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <TextView
+            android:id="@+id/goals"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{seasonData.getGoals()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_four"
+            app:layout_constraintStart_toStartOf="@id/guideline_three"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="3" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
+
+        <TextView
+            android:id="@+id/assists"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{seasonData.getAssists()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_five"
+            app:layout_constraintStart_toStartOf="@id/guideline_four"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <TextView
+            android:id="@+id/points"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{seasonData.getPoints()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_five"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5" />
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

@@ -1,4 +1,4 @@
-package com.slapshotapps.dragonshockey.activities.roster.adapters;
+package com.slapshotapps.dragonshockey.ViewUtils.interfaces;
 
 import android.support.v7.widget.RecyclerView;
 

@@ -29,6 +29,17 @@ public class GameStats {
         public int goals;
         public boolean present;
 
+        public Stats(){
+
+        }
+
+        public Stats(int playerID, int assists, int goals, boolean present){
+            this.playerID = playerID;
+            this.assists = assists;
+            this.present = present;
+            this.goals = goals;
+        }
+
     }
 
     public Stats getPlayerStats(int playerID) {

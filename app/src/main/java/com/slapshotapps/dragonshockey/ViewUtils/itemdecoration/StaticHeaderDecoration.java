@@ -1,4 +1,4 @@
-package com.slapshotapps.dragonshockey.activities.roster.views;
+package com.slapshotapps.dragonshockey.ViewUtils.itemdecoration;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -6,19 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.slapshotapps.dragonshockey.activities.roster.adapters.StickyHeaderAdapter;
+import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter;
 
 /**
  * An adaption of the https://github.com/edubarr/header-decor to
  * handle just one header rather than a list of headers.
  */
-public class RosterHeaderDecoration extends RecyclerView.ItemDecoration {
+public class StaticHeaderDecoration extends RecyclerView.ItemDecoration {
 
     private RecyclerView.ViewHolder header;
     private StickyHeaderAdapter adapter;
     private RecyclerView recyclerView;
 
-    public RosterHeaderDecoration(StickyHeaderAdapter adapter, RecyclerView recyclerView) {
+    public StaticHeaderDecoration(StickyHeaderAdapter adapter, RecyclerView recyclerView) {
         this.adapter = adapter;
         this.recyclerView = recyclerView;
     }

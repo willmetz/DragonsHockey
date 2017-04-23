@@ -3,23 +3,19 @@ package com.slapshotapps.dragonshockey.activities.roster.adapters;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.RosterUtils;
+import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter;
 import com.slapshotapps.dragonshockey.models.Player;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by willmetz on 7/31/16.

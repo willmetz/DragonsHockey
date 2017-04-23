@@ -1,4 +1,4 @@
-package com.slapshotapps.dragonshockey.activities.schedule.itemdecoration;
+package com.slapshotapps.dragonshockey.ViewUtils.itemdecoration;
 
 import android.content.Context;
 import android.graphics.Canvas;

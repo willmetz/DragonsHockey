@@ -1,31 +1,34 @@
 package com.slapshotapps.dragonshockey.activities.stats.adapters;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.slapshotapps.dragonshockey.BR;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.StatsUtils;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 /**
  * Recyclerview adapter for player stats
  */
 public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsViewHolder> {
 
-    private ArrayList<PlayerStats> playerStats;
+    private ArrayList<PlayerStatsVM> playerStats;
 
-    public StatsAdapter(List<PlayerStats> playerStats) {
+    public StatsAdapter(List<PlayerStats> playerStats, PlayerStatsVM.PlayerStatsVMListener listener) {
         if (playerStats != null) {
-            this.playerStats = new ArrayList<>(playerStats);
+            this.playerStats = new ArrayList<>();
+
+            for(PlayerStats stats : playerStats){
+                this.playerStats.add(new PlayerStatsVM(stats, listener));
+            }
 
             Collections.sort(this.playerStats);
         }
@@ -43,7 +46,10 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
 
     @Override
     public void onBindViewHolder(PlayerStatsViewHolder holder, int position) {
-        holder.setStats(playerStats.get(position));
+
+        holder.getBinding().setVariable(BR.data, playerStats.get(position));
+        holder.getBinding().setVariable(BR.listener, playerStats.get(position));
+        holder.getBinding().executePendingBindings();
     }
 
     @Override
@@ -53,28 +59,17 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
 
     protected static class PlayerStatsViewHolder extends RecyclerView.ViewHolder {
 
-        private PlayerStats stats;
-        private TextView playerName, goals, points, gamesPlayed;
-        private TextView assists;
+        private ViewDataBinding binding;
+
 
         public PlayerStatsViewHolder(View itemView) {
             super(itemView);
 
-            playerName = (TextView) itemView.findViewById(R.id.player_name);
-            goals = ButterKnife.findById(itemView, R.id.goals);
-            assists = ButterKnife.findById(itemView, R.id.assists);
-            points = ButterKnife.findById(itemView, R.id.points);
-            gamesPlayed = ButterKnife.findById(itemView, R.id.games_played);
+            binding = DataBindingUtil.bind(itemView);
         }
 
-        public void setStats(PlayerStats playerStats) {
-            stats = playerStats;
-
-            playerName.setText(StatsUtils.fullPlayerName(playerStats));
-            goals.setText(String.valueOf(stats.goals));
-            assists.setText(String.valueOf(stats.assists));
-            points.setText(String.valueOf(stats.points));
-            gamesPlayed.setText(String.valueOf(stats.gamesPlayed));
+        public ViewDataBinding getBinding(){
+            return binding;
         }
     }
 

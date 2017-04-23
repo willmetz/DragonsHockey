@@ -1,6 +1,5 @@
 package com.slapshotapps.dragonshockey.Utils;
 
-import com.slapshotapps.dragonshockey.Utils.ScheduleUtils;
 import com.slapshotapps.dragonshockey.models.Game;
 
 import junit.framework.Assert;
@@ -19,7 +18,7 @@ public class ScheduleUtilsTest {
         createScedule("2016-06-02 17:18:33", "2016-06-03 17:18:33", "2016-06-04 17:18:33");
 
     Calendar time = Calendar.getInstance();
-    time.set(2016, Calendar.JUNE, 3);
+    time.set(2016, Calendar.JUNE, 3, 18, 0, 0);
 
     Game foundGame = ScheduleUtils.getGameBeforeDate(time.getTime(), games);
 
@@ -31,7 +30,7 @@ public class ScheduleUtilsTest {
         createScedule("2016-06-02 17:18:33", "2016-06-03 17:18:33", "2016-06-04 17:18:33");
 
     Calendar time = Calendar.getInstance();
-    time.set(2016, Calendar.JUNE, 4);
+    time.set(2016, Calendar.JUNE, 4, 18, 0, 0);
 
     Game foundGame = ScheduleUtils.getGameBeforeDate(time.getTime(), games);
 
@@ -43,7 +42,7 @@ public class ScheduleUtilsTest {
         createScedule("2016-06-02 17:18:33", "2016-06-03 17:18:33", "2016-06-04 17:18:33");
 
     Calendar time = Calendar.getInstance();
-    time.set(2016, Calendar.JUNE, 6);
+    time.set(2016, Calendar.JUNE, 6, 18, 0, 0);
 
     Game foundGame = ScheduleUtils.getGameBeforeDate(time.getTime(), games);
 
@@ -55,7 +54,7 @@ public class ScheduleUtilsTest {
         createScedule("2016-06-02 17:18:33", "2016-06-03 17:18:33", "2016-06-04 17:18:33");
 
     Calendar time = Calendar.getInstance();
-    time.set(2016, Calendar.JUNE, 1);
+    time.set(2016, Calendar.JUNE, 1, 18, 0, 0);
 
     Game foundGame = ScheduleUtils.getGameBeforeDate(time.getTime(), games);
 
@@ -67,7 +66,7 @@ public class ScheduleUtilsTest {
         createScedule("2016-06-02 17:18:33", "2016-06-03 17:18:33", "2016-06-04 17:18:33");
 
     Calendar time = Calendar.getInstance();
-    time.set(2016, Calendar.JUNE, 1);
+    time.set(2016, Calendar.JUNE, 2, 16, 0, 0);
 
     Game foundGame = ScheduleUtils.getGameAfterDate(time.getTime(), games);
 
@@ -79,7 +78,7 @@ public class ScheduleUtilsTest {
         createScedule("2016-06-02 17:18:33", "2016-06-03 17:18:33", "2016-06-04 17:18:33");
 
     Calendar time = Calendar.getInstance();
-    time.set(2016, Calendar.JUNE, 5);
+    time.set(2016, Calendar.JUNE, 5, 18, 0, 0);
 
     Game foundGame = ScheduleUtils.getGameAfterDate(time.getTime(), games);
 
@@ -91,7 +90,7 @@ public class ScheduleUtilsTest {
         createScedule("2016-06-02 17:18:33", "2016-06-03 17:18:33", "2016-06-04 17:18:33");
 
     Calendar time = Calendar.getInstance();
-    time.set(2016, Calendar.JUNE, 2);
+    time.set(2016, Calendar.JUNE, 2, 19, 0, 0);
 
     Game foundGame = ScheduleUtils.getGameAfterDate(time.getTime(), games);
 

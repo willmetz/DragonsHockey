@@ -12,7 +12,9 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
+import com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM;
 import com.slapshotapps.dragonshockey.activities.stats.adapters.StatsAdapter;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
@@ -20,18 +22,16 @@ import com.slapshotapps.dragonshockey.observables.RosterObserver;
 import com.slapshotapps.dragonshockey.observables.StatsObserver;
 
 import java.util.List;
-import java.util.Observable;
 
 import butterknife.ButterKnife;
 import rx.Subscription;
-import rx.android.MainThreadSubscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class StatsActivity extends AppCompatActivity {
+public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.PlayerStatsVMListener{
 
     private RecyclerView recyclerView;
     private TextView errorLoading;
@@ -88,7 +88,7 @@ public class StatsActivity extends AppCompatActivity {
                     public void call(List<PlayerStats> playerStats) {
                         errorLoading.setAlpha(0);
                         ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
-                        StatsAdapter adapter = new StatsAdapter(playerStats);
+                        StatsAdapter adapter = new StatsAdapter(playerStats, StatsActivity.this);
                         recyclerView.setAdapter(adapter);
                     }
                 }, new Action1<Throwable>() {
@@ -111,5 +111,10 @@ public class StatsActivity extends AppCompatActivity {
             statsSubscription.unsubscribe();
             statsSubscription = null;
         }
+    }
+
+    @Override
+    public void onViewPLayerStats(PlayerStats playerStats) {
+        startActivity(DragonsHockeyIntents.createCareerStatsIntent(this,playerStats));
     }
 }

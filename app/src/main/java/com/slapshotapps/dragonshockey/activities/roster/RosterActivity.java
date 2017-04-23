@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
-import com.slapshotapps.dragonshockey.activities.roster.views.RosterHeaderDecoration;
+import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.StaticHeaderDecoration;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.observables.RosterObserver;
 
@@ -90,7 +90,7 @@ public class RosterActivity extends AppCompatActivity {
                         RosterAdapter adapter = new RosterAdapter(RosterActivity.this, players, recyclerView);
                         recyclerView.setAdapter(adapter);
 
-                        recyclerView.addItemDecoration(new RosterHeaderDecoration(adapter, recyclerView));
+                        recyclerView.addItemDecoration(new StaticHeaderDecoration(adapter, recyclerView));
                     }
                 });
     }

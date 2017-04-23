@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.activities.schedule.adapters.ScheduleAdapter;
-import com.slapshotapps.dragonshockey.activities.schedule.itemdecoration.RecyclerViewDivider;
+import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.RecyclerViewDivider;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
 
