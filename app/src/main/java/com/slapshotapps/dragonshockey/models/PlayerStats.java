@@ -17,6 +17,7 @@ public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
     public int assists;
     public int gamesPlayed;
     public int points;
+    public int penaltyMinutes;
 
     public PlayerStats(int playerID, String firstName, String lastName) {
         this.firstName = firstName;
@@ -49,6 +50,7 @@ public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
         dest.writeInt(this.assists);
         dest.writeInt(this.gamesPlayed);
         dest.writeInt(this.points);
+        dest.writeInt(this.penaltyMinutes);
     }
 
     protected PlayerStats(Parcel in) {
@@ -59,6 +61,7 @@ public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
         this.assists = in.readInt();
         this.gamesPlayed = in.readInt();
         this.points = in.readInt();
+        this.penaltyMinutes = in.readInt();
     }
 
     public static final Parcelable.Creator<PlayerStats> CREATOR = new Parcelable.Creator<PlayerStats>() {

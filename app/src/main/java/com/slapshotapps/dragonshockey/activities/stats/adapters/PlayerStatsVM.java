@@ -39,6 +39,10 @@ public class PlayerStatsVM  implements Comparable<PlayerStatsVM>, StatsListener 
         return String.valueOf(playerStats.points);
     }
 
+    public String getPenaltyMinutes(){
+        return String.valueOf(playerStats.penaltyMinutes);
+    }
+
     public String getGamesPlayed(){
         return String.valueOf(playerStats.gamesPlayed);
     }

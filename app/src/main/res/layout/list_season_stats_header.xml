@@ -36,8 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_three"
-        app:layout_constraintStart_toStartOf="@id/guideline_two"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_three"
+        app:layout_constraintStart_toEndOf="@id/guideline_two"
         app:layout_constraintTop_toTopOf="parent"
         android:text="GP"/>
 
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.45"/>
+        app:layout_constraintGuide_percent="0.35"/>
 
     <TextView
         android:id="@+id/goals_label"
@@ -54,8 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_four"
-        app:layout_constraintStart_toStartOf="@id/guideline_three"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_four"
+        app:layout_constraintStart_toEndOf="@id/guideline_three"
         app:layout_constraintTop_toTopOf="parent"
         android:text="G" />
 
@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.55"/>
+        app:layout_constraintGuide_percent="0.45"/>
 
     <TextView
         android:id="@+id/assists_label"
@@ -73,8 +73,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_four"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_five"
+        app:layout_constraintStart_toEndOf="@id/guideline_four"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_five"
         android:text="A"/>
 
     <android.support.constraint.Guideline
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7"/>
+        app:layout_constraintGuide_percent="0.55"/>
 
     <TextView
         android:id="@+id/point_label"
@@ -91,8 +91,26 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_five"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_five"
+        app:layout_constraintEnd_toStartOf="@id/guideline_six"
         android:text="PTS"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7"/>
+
+    <TextView
+        android:id="@+id/penalty_minutes_label"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_six"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="PIM"/>
 
 </android.support.constraint.ConstraintLayout>

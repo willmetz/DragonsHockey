@@ -144,6 +144,30 @@
                     app:layout_constraintRight_toLeftOf="@id/points_header"
                     tools:text="2" />
 
+                <TextView
+                    android:id="@+id/penalty_minutes_header"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/PIM_label"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.85"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.55" />
+
+                <TextView
+                    android:id="@+id/penalty_minutes"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.penaltyMinutes}"
+                    app:layout_constraintBaseline_toBaselineOf="@id/games_played"
+                    app:layout_constraintLeft_toRightOf="@id/penalty_minutes_header"
+                    app:layout_constraintRight_toLeftOf="@id/penalty_minutes_header"
+                    tools:text="20" />
+
             </android.support.constraint.ConstraintLayout>
 
 

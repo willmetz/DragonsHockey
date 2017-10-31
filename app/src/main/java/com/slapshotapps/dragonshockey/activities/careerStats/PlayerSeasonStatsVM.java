@@ -13,6 +13,7 @@ public class PlayerSeasonStatsVM {
     public int goals;
     public int assists;
     public int gamesPlayed;
+    public int penaltyMinutes;
 
 
     public PlayerSeasonStatsVM(String seasonID){
@@ -23,6 +24,7 @@ public class PlayerSeasonStatsVM {
         goals = playerStats.goals;
         assists = playerStats.assists;
         gamesPlayed = playerStats.gamesPlayed;
+        penaltyMinutes = playerStats.penaltyMinutes;
         this.seasonID = seasonID;
     }
 
@@ -40,6 +42,10 @@ public class PlayerSeasonStatsVM {
 
     public String getGamesPlayed(){
         return String.valueOf(gamesPlayed);
+    }
+
+    public String getPenaltyMinutes(){
+        return String.valueOf(penaltyMinutes);
     }
 
     public int getBackgroundColor(Context context){
