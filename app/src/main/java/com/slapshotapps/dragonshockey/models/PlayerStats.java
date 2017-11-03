@@ -3,10 +3,9 @@ package com.slapshotapps.dragonshockey.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 
-/**
- * Created by willmetz on 9/5/16.
- */
+
 @Keep
 public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
 
@@ -26,7 +25,7 @@ public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
     }
 
     @Override
-    public int compareTo(PlayerStats playerStats) {
+    public int compareTo(@NonNull PlayerStats playerStats) {
 
         if (points < playerStats.points) {
             return 1;

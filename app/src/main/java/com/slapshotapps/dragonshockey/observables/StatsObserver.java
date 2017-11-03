@@ -68,6 +68,7 @@ public class StatsObserver {
                                     currentStats.goals += playerGameStats.goals;
                                     currentStats.points = currentStats.goals + currentStats.assists;
                                     currentStats.gamesPlayed += playerGameStats.present ? 1 : 0;
+                                    currentStats.penaltyMinutes += playerGameStats.penaltyMinutes;
                                 }
                             }
                         }
