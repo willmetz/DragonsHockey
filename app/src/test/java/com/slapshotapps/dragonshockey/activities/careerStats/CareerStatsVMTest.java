@@ -215,7 +215,7 @@ public class CareerStatsVMTest {
         int goals = 1;
         int assists = 2;
         for(int playerID = 0; playerID < 10; playerID++){
-            stats.add(new GameStats.Stats(playerID, assists++,  goals++, true));
+            stats.add(new GameStats.Stats(playerID, assists++,  goals++, 0, true));
         }
 
         return stats;

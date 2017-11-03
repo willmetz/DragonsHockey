@@ -46,6 +46,8 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
 
     private StatsSortDialogFragment statsSortDialogFragment;
 
+    private StatsAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +95,7 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
                 public void call(List<PlayerStats> playerStats) {
                     errorLoading.setAlpha(0);
                     ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
-                    StatsAdapter adapter = new StatsAdapter(playerStats, StatsActivity.this);
+                    adapter = new StatsAdapter(playerStats, StatsActivity.this);
                     recyclerView.setAdapter(adapter);
                 }
             }, new Action1<Throwable>() {
@@ -157,5 +159,9 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
     @Override
     public void onSortOptionSelected(StatsSortDialogFragment.StatSortSelection sortSelection) {
         Log.d("Sort Option", String.format("Received sort option back: %s", sortSelection.name()));
+
+        if(adapter != null){
+            adapter.updateSortOrder(sortSelection);
+        }
     }
 }

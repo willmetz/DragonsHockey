@@ -16,7 +16,7 @@ import java.util.Collections;
 public class PlayerStatsTest {
 
     @Test
-    public void testSortPoints(){
+    public void testSortDefault(){
 
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class PlayerStatsTest {
     }
 
     @Test
-    public void testSortName(){
+    public void testSortNameDefault(){
 
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
 
@@ -68,4 +68,8 @@ public class PlayerStatsTest {
         Assert.assertEquals("aaa", playerStats.get(2).lastName);
 
     }
+
+
+
+
 }
