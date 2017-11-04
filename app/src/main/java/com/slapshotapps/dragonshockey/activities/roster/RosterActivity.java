@@ -8,19 +8,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-
+import butterknife.ButterKnife;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.StaticHeaderDecoration;
+import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.observables.RosterObserver;
-
 import java.util.List;
-
-import butterknife.ButterKnife;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -57,7 +54,8 @@ public class RosterActivity extends AppCompatActivity {
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
-        } catch (DatabaseException exception) {
+        }
+        catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
         }
 
@@ -65,8 +63,6 @@ public class RosterActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-
-
     }
 
     @Override
@@ -74,25 +70,27 @@ public class RosterActivity extends AppCompatActivity {
         super.onResume();
 
         rosterSubscription = RosterObserver.GetRoster(firebaseDatabase)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Timber.e("Unable to get the roster...");
-                        rosterUnavailable.animate().alpha(1f);
-                    }
-                })
-                .subscribe(new Action1<List<Player>>() {
-                    @Override
-                    public void call(List<Player> players) {
-                        rosterUnavailable.setAlpha(0);
-                        RosterAdapter adapter = new RosterAdapter(RosterActivity.this, players, recyclerView);
-                        recyclerView.setAdapter(adapter);
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError(new Action1<Throwable>() {
+                @Override
+                public void call(Throwable throwable) {
+                    Timber.e("Unable to get the roster...");
+                    rosterUnavailable.animate().alpha(1f);
+                }
+            })
+            .subscribe(new Action1<List<Player>>() {
+                @Override
+                public void call(List<Player> players) {
+                    rosterUnavailable.setAlpha(0);
+                    RosterAdapter adapter =
+                        new RosterAdapter(RosterActivity.this, players, recyclerView);
+                    recyclerView.setAdapter(adapter);
 
-                        recyclerView.addItemDecoration(new StaticHeaderDecoration(adapter, recyclerView));
-                    }
-                });
+                    recyclerView.addItemDecoration(
+                        new StaticHeaderDecoration(adapter, recyclerView));
+                }
+            });
     }
 
     @Override

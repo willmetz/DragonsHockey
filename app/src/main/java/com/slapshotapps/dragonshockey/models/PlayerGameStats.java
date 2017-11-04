@@ -1,7 +1,6 @@
 package com.slapshotapps.dragonshockey.models;
 
 import android.support.annotation.Keep;
-
 import java.util.ArrayList;
 
 /**
@@ -17,5 +16,4 @@ public class PlayerGameStats {
     public boolean isKeyValid() {
         return playerStatsKey != null;
     }
-
 }

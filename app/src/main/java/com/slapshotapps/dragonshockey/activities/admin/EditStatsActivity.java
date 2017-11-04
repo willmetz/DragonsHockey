@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
@@ -20,10 +19,8 @@ import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerGameStats;
 import com.slapshotapps.dragonshockey.observables.AdminObserver;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -59,31 +56,31 @@ public class EditStatsActivity extends AppCompatActivity {
 
         if (adminEditsStatsAdapter == null) {
             subscription = AdminObserver.getPlayerStatsForGame(firebaseDatabase, gameID)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<PlayerGameStats>() {
-                        @Override
-                        public void call(PlayerGameStats stats) {
-                            playerGameStats = stats;
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<PlayerGameStats>() {
+                    @Override
+                    public void call(PlayerGameStats stats) {
+                        playerGameStats = stats;
 
-                            adminEditsStatsAdapter = new AdminEditsStatsAdapter(getViewModel());
-                            recyclerView.setAdapter(adminEditsStatsAdapter);
-                        }
-                    }, new Action1<Throwable>() {
-                        @Override
-                        public void call(Throwable throwable) {
-                            new AlertDialog.Builder(EditStatsActivity.this).setMessage("Unable to retrieve stats information")
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            finish();
-                                        }
-                                    })
-                                    .show();
-                        }
-                    });
+                        adminEditsStatsAdapter = new AdminEditsStatsAdapter(getViewModel());
+                        recyclerView.setAdapter(adminEditsStatsAdapter);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        new AlertDialog.Builder(EditStatsActivity.this).setMessage(
+                            "Unable to retrieve stats information")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            })
+                            .show();
+                    }
+                });
         }
-
     }
 
     @Override
@@ -105,11 +102,13 @@ public class EditStatsActivity extends AppCompatActivity {
             ArrayList<PlayerStatsViewModel> viewModel = adminEditsStatsAdapter.getStats();
 
             if (playerGameStats.isKeyValid()) {
-                firebaseDatabase.getReference().child(Config.GAME_STATS)
-                        .child(playerGameStats.playerStatsKey)
-                        .setValue(getGameStats(viewModel));
+                firebaseDatabase.getReference()
+                    .child(Config.GAME_STATS)
+                    .child(playerGameStats.playerStatsKey)
+                    .setValue(getGameStats(viewModel));
             } else {
-                DatabaseReference newGameResultRef = firebaseDatabase.getReference().child(Config.GAME_STATS).push();
+                DatabaseReference newGameResultRef =
+                    firebaseDatabase.getReference().child(Config.GAME_STATS).push();
                 newGameResultRef.setValue(getGameStats(viewModel));
             }
         }
@@ -120,14 +119,16 @@ public class EditStatsActivity extends AppCompatActivity {
 
         for (Player player : playerGameStats.players) {
 
-            GameStats.Stats statsForPlayer = playerGameStats.playerGameStats.getPlayerStats(player.playerID);
+            GameStats.Stats statsForPlayer =
+                playerGameStats.playerGameStats.getPlayerStats(player.playerID);
 
             if (statsForPlayer == null) {
                 statsForPlayer = new GameStats.Stats();
             }
 
-            PlayerStatsViewModel viewModel = new PlayerStatsViewModel.PlayerStatsVMBuilder()
-                    .playerName(RosterUtils.getFullName(player))
+            PlayerStatsViewModel viewModel =
+                new PlayerStatsViewModel.PlayerStatsVMBuilder().playerName(
+                    RosterUtils.getFullName(player))
                     .playerID(player.playerID)
                     .playerNumber(player.number)
                     .goals(statsForPlayer.goals)
@@ -139,7 +140,6 @@ public class EditStatsActivity extends AppCompatActivity {
         }
 
         return statsViewModel;
-
     }
 
     private GameStats getGameStats(List<PlayerStatsViewModel> playerStatsViewModelList) {
@@ -160,5 +160,4 @@ public class EditStatsActivity extends AppCompatActivity {
 
         return gameStats;
     }
-
 }

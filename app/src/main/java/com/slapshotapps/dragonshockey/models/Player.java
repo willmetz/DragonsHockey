@@ -31,7 +31,6 @@ public class Player implements Parcelable {
         this.position = position;
     }
 
-
     public boolean isForward() {
         return FORWARD.equalsIgnoreCase(position);
     }

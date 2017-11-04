@@ -1,8 +1,8 @@
 package com.slapshotapps.dragonshockey.dialogs;
 
 public enum StatSortSelection {
-    GamesPlayed("Games Played", 0), Goals("Goals", 1), Assists("Assists", 2),
-    Points("Points", 3), PenaltyMinutes("Penalty Minutes", 4);
+    GamesPlayed("Games Played", 0), Goals("Goals", 1), Assists("Assists", 2), Points("Points", 3),
+    PenaltyMinutes("Penalty Minutes", 4);
 
     String name;
     int index;
@@ -12,11 +12,11 @@ public enum StatSortSelection {
         this.name = name;
     }
 
-    public int getIndex(){
+    public int getIndex() {
         return index;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 }

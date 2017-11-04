@@ -1,7 +1,6 @@
 package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 
 import android.support.annotation.NonNull;
-
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;

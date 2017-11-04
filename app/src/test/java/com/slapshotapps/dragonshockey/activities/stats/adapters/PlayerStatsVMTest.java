@@ -1,7 +1,6 @@
 package com.slapshotapps.dragonshockey.activities.stats.adapters;
 
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;
-import com.slapshotapps.dragonshockey.dialogs.StatsSortDialogFragment;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import java.util.ArrayList;
 import java.util.Collections;

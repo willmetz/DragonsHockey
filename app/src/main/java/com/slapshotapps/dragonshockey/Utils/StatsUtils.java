@@ -2,13 +2,8 @@ package com.slapshotapps.dragonshockey.Utils;
 
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
-
-import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by willmetz on 9/12/16.
@@ -17,7 +12,6 @@ import java.util.List;
 public class StatsUtils {
 
     public static ArrayList<PlayerStats> toPlayerStats(@NonNull SparseArray<PlayerStats> sparseArray) {
-
 
         ArrayList<PlayerStats> statsArrayList = new ArrayList<>();
 
@@ -36,5 +30,4 @@ public class StatsUtils {
 
         return name;
     }
-
 }

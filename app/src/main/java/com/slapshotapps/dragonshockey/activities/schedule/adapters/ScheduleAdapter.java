@@ -5,14 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.models.Game;
-import com.slapshotapps.dragonshockey.models.GameResult;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -35,8 +32,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.GameVi
     @Override
     public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View gameView =
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.view_game_details, parent, false);
+        View gameView = LayoutInflater.from(parent.getContext())
+            .inflate(R.layout.view_game_details, parent, false);
 
         return new GameViewHolder(gameView);
     }
@@ -70,9 +67,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.GameVi
             calendar.setTime(gameDate);
 
             final String gameDayStr =
-                    calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US) +
-                            " " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) +
-                            " " + FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH));
+                calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)
+                    + " "
+                    + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US)
+                    + " "
+                    + FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH));
 
             gameDay.setText(gameDayStr);
             gameTime.setText(DateFormaters.getGameTime(gameDate));

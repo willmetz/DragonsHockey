@@ -48,7 +48,6 @@ public class GameResult implements Parcelable {
             return false;
         }
         return overtimeLoss == that.overtimeLoss;
-
     }
 
     @Override
@@ -70,15 +69,16 @@ public class GameResult implements Parcelable {
         this.overtimeLoss = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<GameResult> CREATOR = new Parcelable.Creator<GameResult>() {
-        @Override
-        public GameResult createFromParcel(Parcel source) {
-            return new GameResult(source);
-        }
+    public static final Parcelable.Creator<GameResult> CREATOR =
+        new Parcelable.Creator<GameResult>() {
+            @Override
+            public GameResult createFromParcel(Parcel source) {
+                return new GameResult(source);
+            }
 
-        @Override
-        public GameResult[] newArray(int size) {
-            return new GameResult[size];
-        }
-    };
+            @Override
+            public GameResult[] newArray(int size) {
+                return new GameResult[size];
+            }
+        };
 }

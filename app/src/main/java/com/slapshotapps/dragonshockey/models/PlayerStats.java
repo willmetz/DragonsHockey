@@ -5,9 +5,8 @@ import android.os.Parcelable;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 
-
 @Keep
-public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
+public class PlayerStats implements Comparable<PlayerStats>, Parcelable {
 
     public int playerID;
     public String firstName;
@@ -63,15 +62,16 @@ public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
         this.penaltyMinutes = in.readInt();
     }
 
-    public static final Parcelable.Creator<PlayerStats> CREATOR = new Parcelable.Creator<PlayerStats>() {
-        @Override
-        public PlayerStats createFromParcel(Parcel source) {
-            return new PlayerStats(source);
-        }
+    public static final Parcelable.Creator<PlayerStats> CREATOR =
+        new Parcelable.Creator<PlayerStats>() {
+            @Override
+            public PlayerStats createFromParcel(Parcel source) {
+                return new PlayerStats(source);
+            }
 
-        @Override
-        public PlayerStats[] newArray(int size) {
-            return new PlayerStats[size];
-        }
-    };
+            @Override
+            public PlayerStats[] newArray(int size) {
+                return new PlayerStats[size];
+            }
+        };
 }

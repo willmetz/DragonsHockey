@@ -4,43 +4,25 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
-import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
-import com.slapshotapps.dragonshockey.Utils.SharedPrefsUtils;
 import com.slapshotapps.dragonshockey.databinding.ActivityHomeBinding;
-import com.slapshotapps.dragonshockey.models.Game;
-import com.slapshotapps.dragonshockey.models.SeasonRecord;
-import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.models.HomeContents;
+import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.observables.HomeScreenObserver;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
-
 import io.fabric.sdk.android.Fabric;
-
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -49,7 +31,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class HomeActivity extends AppCompatActivity implements HomeScreenListener{
+public class HomeActivity extends AppCompatActivity implements HomeScreenListener {
 
     private Subscription hockeyScheduleSubscription;
 
@@ -77,7 +59,8 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
-        } catch (DatabaseException exception) {
+        }
+        catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
         }
     }
@@ -87,30 +70,29 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
         super.onResume();
 
         hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1<SeasonSchedule, Observable<HomeContents>>() {
-                    @Override
-                    public Observable<HomeContents> call(SeasonSchedule games) {
-                        return HomeScreenObserver.getHomeScreen(firebaseDatabase, games, new Date());
-                    }
-                })
-                .subscribe(new Action1<HomeContents>() {
-                    @Override
-                    public void call(HomeContents homeContents) {
-                        binding.setItem(new HomeScreenViewModel(homeContents));
-                        ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        binding.setItem(new HomeScreenViewModel(null));
-                        ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
-                        Toast.makeText(HomeActivity.this,
-                                R.string.error_loading,
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap(new Func1<SeasonSchedule, Observable<HomeContents>>() {
+                @Override
+                public Observable<HomeContents> call(SeasonSchedule games) {
+                    return HomeScreenObserver.getHomeScreen(firebaseDatabase, games, new Date());
+                }
+            })
+            .subscribe(new Action1<HomeContents>() {
+                @Override
+                public void call(HomeContents homeContents) {
+                    binding.setItem(new HomeScreenViewModel(homeContents));
+                    ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
+                }
+            }, new Action1<Throwable>() {
+                @Override
+                public void call(Throwable throwable) {
+                    binding.setItem(new HomeScreenViewModel(null));
+                    ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
+                    Toast.makeText(HomeActivity.this, R.string.error_loading, Toast.LENGTH_LONG)
+                        .show();
+                }
+            });
 
         ProgressBarUtils.displayProgressBar(binding.toolbarProgressBar);
     }

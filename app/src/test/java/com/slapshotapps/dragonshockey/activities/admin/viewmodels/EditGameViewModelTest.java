@@ -2,12 +2,8 @@ package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameResult;
-
 import junit.framework.Assert;
-
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created on 10/23/16.
@@ -80,7 +76,6 @@ public class EditGameViewModelTest {
 
         Assert.assertEquals("8", editGameViewModel.getOpponentScore());
         Assert.assertTrue(editGameViewModel.hasChanged());
-
     }
 
     @Test
@@ -137,6 +132,4 @@ public class EditGameViewModelTest {
         Assert.assertEquals("", editGameViewModel.getDragonsScore());
         Assert.assertFalse(editGameViewModel.hasChanged());
     }
-
-
 }

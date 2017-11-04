@@ -1,13 +1,9 @@
 package com.slapshotapps.dragonshockey.models;
 
-import com.slapshotapps.dragonshockey.models.Player;
-import com.slapshotapps.dragonshockey.models.PlayerStats;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Created by willmetz on 9/17/16.
@@ -16,7 +12,7 @@ import java.util.Collections;
 public class PlayerStatsTest {
 
     @Test
-    public void testSortDefault(){
+    public void testSortDefault() {
 
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
 
@@ -45,7 +41,7 @@ public class PlayerStatsTest {
     }
 
     @Test
-    public void testSortNameDefault(){
+    public void testSortNameDefault() {
 
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
 
@@ -66,10 +62,5 @@ public class PlayerStatsTest {
         Assert.assertEquals("aa", playerStats.get(0).lastName);
         Assert.assertEquals("bb", playerStats.get(1).lastName);
         Assert.assertEquals("aaa", playerStats.get(2).lastName);
-
     }
-
-
-
-
 }

@@ -3,8 +3,6 @@ package com.slapshotapps.dragonshockey.Utils;
 import android.animation.TimeInterpolator;
 import android.view.View;
 
-import com.slapshotapps.dragonshockey.R;
-
 /**
  * Created by willmetz on 9/17/16.
  */
@@ -21,10 +19,8 @@ public class ProgressBarUtils {
                 } else {
                     return (v - 0.5f) / 0.5f;
                 }
-
             }
         });
-
     }
 
     public static void hideProgressBar(View progressView) {

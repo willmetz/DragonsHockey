@@ -151,7 +151,8 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
 
     private void showSortOptionsDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        statsSortDialogFragment = StatsSortDialogFragment.newInstance(prefsManager.getStatSortPreference());
+        statsSortDialogFragment =
+            StatsSortDialogFragment.newInstance(prefsManager.getStatSortPreference());
         statsSortDialogFragment.setListener(this);
 
         statsSortDialogFragment.show(fragmentManager, "tag");

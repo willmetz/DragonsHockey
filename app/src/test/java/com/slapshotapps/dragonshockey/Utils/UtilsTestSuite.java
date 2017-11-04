@@ -8,10 +8,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        FormattingUtilsTest.class,
-        HomeScreenUtilsTest.class,
-        RosterUtilsTest.class,
-        ScheduleUtilsTest.class
-})
+                        FormattingUtilsTest.class, HomeScreenUtilsTest.class, RosterUtilsTest.class,
+                        ScheduleUtilsTest.class
+                    })
 public class UtilsTestSuite {
 }

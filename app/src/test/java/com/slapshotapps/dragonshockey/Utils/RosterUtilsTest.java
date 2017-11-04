@@ -1,21 +1,16 @@
 package com.slapshotapps.dragonshockey.Utils;
 
 import com.slapshotapps.dragonshockey.models.Player;
-
-import junit.framework.Assert;
-
-import org.junit.Test;
-
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
+import junit.framework.Assert;
+import org.junit.Test;
 
 /**
  * Created by willmetz on 8/8/16.
  */
 public class RosterUtilsTest {
     @Test
-    public void getFullName(){
+    public void getFullName() {
 
         Assert.assertNotNull("null player error", RosterUtils.getFullName(null));
 
@@ -25,17 +20,17 @@ public class RosterUtilsTest {
 
         testPlayer.firstName = "bob";
 
-        Assert.assertEquals("FirstName","Bob",RosterUtils.getFullName(testPlayer));
+        Assert.assertEquals("FirstName", "Bob", RosterUtils.getFullName(testPlayer));
 
         testPlayer.firstName = null;
         testPlayer.lastName = "gonzo";
 
-        Assert.assertEquals("FirstName"," Gonzo",RosterUtils.getFullName(testPlayer));
+        Assert.assertEquals("FirstName", " Gonzo", RosterUtils.getFullName(testPlayer));
 
         testPlayer.firstName = "bob";
         testPlayer.lastName = "gonzo";
 
-        Assert.assertEquals("FirstName","Bob Gonzo",RosterUtils.getFullName(testPlayer));
+        Assert.assertEquals("FirstName", "Bob Gonzo", RosterUtils.getFullName(testPlayer));
     }
 
     @Test
@@ -50,7 +45,6 @@ public class RosterUtilsTest {
         testPlayer.number = 56;
 
         Assert.assertEquals("Number check", "56", RosterUtils.getNumber(testPlayer));
-
     }
 
     @Test
@@ -74,9 +68,8 @@ public class RosterUtilsTest {
         Assert.assertEquals("Unknown check", "Unknown", RosterUtils.getPosition(testPlayer));
     }
 
-
     @Test
-    public void sortRoster(){
+    public void sortRoster() {
 
         ArrayList<Player> roster = new ArrayList<>();
 
@@ -101,8 +94,5 @@ public class RosterUtilsTest {
         Assert.assertEquals(Player.DEFENSE, sortedRoster.get(6).position);
         Assert.assertEquals(Player.GOALIE, sortedRoster.get(7).position);
         Assert.assertEquals(Player.GOALIE, sortedRoster.get(8).position);
-
     }
-
-
 }

@@ -3,10 +3,8 @@ package com.slapshotapps.dragonshockey.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
-
 import com.google.firebase.database.Exclude;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
-
 import java.util.Date;
 
 /**
@@ -30,7 +28,6 @@ public class Game implements Parcelable, Cloneable {
         return DateFormaters.getDateFromGameTime(gameTime);
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -52,7 +49,6 @@ public class Game implements Parcelable, Cloneable {
             return false;
         }
         return gameResult != null ? gameResult.equals(game.gameResult) : game.gameResult == null;
-
     }
 
     @Override
@@ -78,7 +74,7 @@ public class Game implements Parcelable, Cloneable {
         result = 31 * result + (opponent != null ? opponent.hashCode() : 0);
         result = 31 * result + gameID;
         result = 31 * result + (gameResult != null ? gameResult.hashCode() : 0);
-        result = 31 * result + (home ? 1:0);
+        result = 31 * result + (home ? 1 : 0);
         return result;
     }
 
@@ -93,7 +89,7 @@ public class Game implements Parcelable, Cloneable {
         dest.writeString(this.opponent);
         dest.writeInt(this.gameID);
         dest.writeParcelable(this.gameResult, flags);
-        dest.writeByte((byte)(home?1:0));
+        dest.writeByte((byte) (home ? 1 : 0));
     }
 
     public Game() {

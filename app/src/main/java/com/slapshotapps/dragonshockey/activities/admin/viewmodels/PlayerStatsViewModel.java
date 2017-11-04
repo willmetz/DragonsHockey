@@ -1,8 +1,5 @@
 package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 
-import com.slapshotapps.dragonshockey.models.GameStats;
-import com.slapshotapps.dragonshockey.models.PlayerStats;
-
 /**
  * Created on 10/31/16.
  */
@@ -12,7 +9,6 @@ public class PlayerStatsViewModel {
     private String playerName;
     private int goals, assists, playerID, playerNumber;
     private boolean isPresent, isDirty;
-
 
     public static class PlayerStatsVMBuilder {
         private String playerName;
@@ -54,13 +50,12 @@ public class PlayerStatsViewModel {
         }
 
         public PlayerStatsViewModel build() {
-            return new PlayerStatsViewModel(this.playerName, this.goals, this.assists, this.playerID, this.playerNumber, this.isPresent);
+            return new PlayerStatsViewModel(this.playerName, this.goals, this.assists,
+                this.playerID, this.playerNumber, this.isPresent);
         }
     }
 
-
-    public PlayerStatsViewModel(String playerName, int goals, int assists,
-                                int playerID, int playerNumber, boolean isPresent) {
+    public PlayerStatsViewModel(String playerName, int goals, int assists, int playerID, int playerNumber, boolean isPresent) {
         this.playerID = playerID;
         this.assists = assists;
         this.goals = goals;
@@ -122,5 +117,4 @@ public class PlayerStatsViewModel {
 
         isDirty = true;
     }
-
 }

@@ -1,13 +1,11 @@
 package com.slapshotapps.dragonshockey.activities.careerStats;
 
-
 import android.support.annotation.NonNull;
 import com.slapshotapps.dragonshockey.Utils.RosterUtils;
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import com.slapshotapps.dragonshockey.models.SeasonStats;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -43,40 +41,40 @@ public class CareerStatsVM {
 
     private void filterStatsForPlayer(List<SeasonStats> unfilteredStats) {
 
-        if(unfilteredStats == null){
+        if (unfilteredStats == null) {
             return;
         }
 
-        for(SeasonStats unfilteredHistoricalStats : unfilteredStats){
+        for (SeasonStats unfilteredHistoricalStats : unfilteredStats) {
 
-            PlayerSeasonStatsVM tempPlayerSeasonStats = new PlayerSeasonStatsVM(unfilteredHistoricalStats.seasonID);
+            PlayerSeasonStatsVM tempPlayerSeasonStats =
+                new PlayerSeasonStatsVM(unfilteredHistoricalStats.seasonID);
 
             for (GameStats stats : unfilteredHistoricalStats.stats) {
 
-                for (GameStats.Stats gameStats: stats.gameStats ){
-                    if(gameStats.playerID == player.playerID){
+                for (GameStats.Stats gameStats : stats.gameStats) {
+                    if (gameStats.playerID == player.playerID) {
                         tempPlayerSeasonStats.goals += gameStats.goals;
                         tempPlayerSeasonStats.assists += gameStats.assists;
-                        tempPlayerSeasonStats.gamesPlayed += gameStats.present?1:0;
+                        tempPlayerSeasonStats.gamesPlayed += gameStats.present ? 1 : 0;
                         break;
                     }
                 }
             }
             playerSeasonStats.add(tempPlayerSeasonStats);
         }
-
     }
 
     private void addCurrentSeason(PlayerStats currentSeasonStats) {
-        if(currentSeasonStats != null) {
+        if (currentSeasonStats != null) {
             playerSeasonStats.add(new PlayerSeasonStatsVM(currentSeasonStats, "Current"));
         }
     }
 
-    private void totalCareerStats(){
+    private void totalCareerStats() {
         PlayerSeasonStatsVM careerStats = new PlayerSeasonStatsVM("Career");
 
-        for(PlayerSeasonStatsVM stats : playerSeasonStats){
+        for (PlayerSeasonStatsVM stats : playerSeasonStats) {
             careerStats.assists += stats.assists;
             careerStats.goals += stats.goals;
             careerStats.gamesPlayed += stats.gamesPlayed;
@@ -84,5 +82,4 @@ public class CareerStatsVM {
 
         playerSeasonStats.add(careerStats);
     }
-
 }

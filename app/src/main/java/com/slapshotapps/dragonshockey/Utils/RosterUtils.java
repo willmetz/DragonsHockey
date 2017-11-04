@@ -1,10 +1,6 @@
 package com.slapshotapps.dragonshockey.Utils;
 
-import android.provider.UserDictionary;
-
-import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterListItem;
 import com.slapshotapps.dragonshockey.models.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +49,6 @@ public class RosterUtils {
         return position;
     }
 
-
     public static String formatName(String name) {
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
@@ -81,6 +76,4 @@ public class RosterUtils {
 
         return sortedRoster;
     }
-
-
 }

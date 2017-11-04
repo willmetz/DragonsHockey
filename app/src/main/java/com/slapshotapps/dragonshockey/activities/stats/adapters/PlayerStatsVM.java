@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import com.slapshotapps.dragonshockey.Utils.StatsUtils;
 import com.slapshotapps.dragonshockey.activities.stats.StatsListener;
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;
-import com.slapshotapps.dragonshockey.dialogs.StatsSortDialogFragment;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 
 public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
@@ -23,7 +22,7 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
         sortSelection = StatSortSelection.Points;
     }
 
-    public void setSortSelection(StatSortSelection sortSelection){
+    public void setSortSelection(StatSortSelection sortSelection) {
         this.sortSelection = sortSelection;
     }
 
@@ -72,7 +71,7 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
             case PenaltyMinutes:
                 return sortByPenaltyMinutes(playerStatsVM);
             case Points:
-                default:
+            default:
                 return sortByPoints(playerStatsVM);
         }
     }
