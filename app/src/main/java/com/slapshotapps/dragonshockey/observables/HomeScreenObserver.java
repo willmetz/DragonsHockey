@@ -12,12 +12,8 @@ import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameResult;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
-
 import java.util.Date;
-
 import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action0;
 import rx.subscriptions.Subscriptions;
 
 /**
@@ -25,20 +21,20 @@ import rx.subscriptions.Subscriptions;
  */
 public class HomeScreenObserver {
 
-    public static Observable<HomeContents> getHomeScreen(final FirebaseDatabase firebaseDatabase,
-                                                         final SeasonSchedule schedule, final Date referenceDate) {
-        return Observable.create(new Observable.OnSubscribe<HomeContents>() {
-            @Override
-            public void call(final Subscriber<? super HomeContents> subscriber) {
+    public static Observable<HomeContents> getHomeScreen(final FirebaseDatabase firebaseDatabase, final SeasonSchedule schedule, final Date referenceDate) {
+        return Observable.create(subscriber -> {
 
-                //find the next game and last game IDs
-                final Game nextGame = ScheduleUtils.getGameAfterDate(referenceDate, schedule.getAllGames());
-                final Game lastGame =
-                        ScheduleUtils.getGameBeforeDate(referenceDate, schedule.getAllGames());
+            //find the next game and last game IDs
+            final Game nextGame =
+                ScheduleUtils.getGameAfterDate(referenceDate, schedule.getAllGames());
+            final Game lastGame =
+                ScheduleUtils.getGameBeforeDate(referenceDate, schedule.getAllGames());
 
-                final Query query = firebaseDatabase.getReference(Config.GAME_RESULTS).orderByChild(Config.GAME_ID);
+            final Query query =
+                firebaseDatabase.getReference(Config.GAME_RESULTS).orderByChild(Config.GAME_ID);
 
-                final ValueEventListener listener = query.addValueEventListener(new ValueEventListener() {
+            final ValueEventListener listener =
+                query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -66,7 +62,6 @@ public class HomeScreenObserver {
                             } else if (HomeScreenUtils.wasTie(gameResult)) {
                                 homeContents.seasonRecord.ties++;
                             }
-
                         }
 
                         if (!subscriber.isUnsubscribed()) {
@@ -80,14 +75,8 @@ public class HomeScreenObserver {
                     }
                 });
 
-                //when the subscription is cancelled remove the listener
-                subscriber.add(Subscriptions.create(new Action0() {
-                    @Override
-                    public void call() {
-                        query.removeEventListener(listener);
-                    }
-                }));
-            }
+            //when the subscription is cancelled remove the listener
+            subscriber.add(Subscriptions.create(() -> query.removeEventListener(listener)));
         });
     }
 }

@@ -12,15 +12,9 @@ import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.GameUpdateKeys;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerGameStats;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action0;
-import rx.functions.Func2;
-import rx.functions.Func3;
 import rx.subscriptions.Subscriptions;
 
 /**
@@ -33,14 +27,14 @@ public class AdminObserver {
 
     public static Observable<String> getPlayerStatsKey(final FirebaseDatabase database, final int gameID) {
 
+        return Observable.create((Subscriber<? super String> subscriber) -> {
 
-        return Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(final Subscriber<? super String> subscriber) {
+            final Query query = database.getReference(Config.GAME_STATS)
+                .orderByChild(Config.GAME_ID)
+                .equalTo(gameID);
 
-                final Query query = database.getReference(Config.GAME_STATS).orderByChild(Config.GAME_ID).equalTo(gameID);
-
-                final ValueEventListener valueEventListener = query.addValueEventListener(new ValueEventListener() {
+            final ValueEventListener valueEventListener =
+                query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -56,7 +50,6 @@ public class AdminObserver {
                         if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(key);
                         }
-
                     }
 
                     @Override
@@ -65,28 +58,21 @@ public class AdminObserver {
                     }
                 });
 
-                //remove the subscriber when canceled
-                subscriber.add(Subscriptions.create(new Action0() {
-                    @Override
-                    public void call() {
-                        query.removeEventListener(valueEventListener);
-                    }
-                }));
-            }
+            //remove the subscriber when canceled
+            subscriber.add(
+                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
-
     }
 
     public static Observable<String> getGameKey(final FirebaseDatabase database, final int gameID) {
 
+        return Observable.create(subscriber -> {
 
-        return Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(final Subscriber<? super String> subscriber) {
+            final Query query =
+                database.getReference(Config.GAMES).orderByChild(Config.GAME_ID).equalTo(gameID);
 
-                final Query query = database.getReference(Config.GAMES).orderByChild(Config.GAME_ID).equalTo(gameID);
-
-                final ValueEventListener valueEventListener = query.addValueEventListener(new ValueEventListener() {
+            final ValueEventListener valueEventListener =
+                query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -102,7 +88,6 @@ public class AdminObserver {
                         if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(key);
                         }
-
                     }
 
                     @Override
@@ -111,28 +96,22 @@ public class AdminObserver {
                     }
                 });
 
-                //remove the subscriber when canceled
-                subscriber.add(Subscriptions.create(new Action0() {
-                    @Override
-                    public void call() {
-                        query.removeEventListener(valueEventListener);
-                    }
-                }));
-            }
+            //remove the subscriber when canceled
+            subscriber.add(
+                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
-
     }
 
     public static Observable<String> getGameResultKey(final FirebaseDatabase database, final int gameID) {
 
+        return Observable.create(subscriber -> {
 
-        return Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(final Subscriber<? super String> subscriber) {
+            final Query query = database.getReference(Config.GAME_RESULTS)
+                .orderByChild(Config.GAME_ID)
+                .equalTo(gameID);
 
-                final Query query = database.getReference(Config.GAME_RESULTS).orderByChild(Config.GAME_ID).equalTo(gameID);
-
-                final ValueEventListener valueEventListener = query.addValueEventListener(new ValueEventListener() {
+            final ValueEventListener valueEventListener =
+                query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -148,7 +127,6 @@ public class AdminObserver {
                         if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(key);
                         }
-
                     }
 
                     @Override
@@ -157,28 +135,22 @@ public class AdminObserver {
                     }
                 });
 
-                //remove the subscriber when canceled
-                subscriber.add(Subscriptions.create(new Action0() {
-                    @Override
-                    public void call() {
-                        query.removeEventListener(valueEventListener);
-                    }
-                }));
-            }
+            //remove the subscriber when canceled
+            subscriber.add(
+                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
-
     }
 
     public static Observable<GameStats> getGameStats(final FirebaseDatabase database, final int gameID) {
 
+        return Observable.create(subscriber -> {
 
-        return Observable.create(new Observable.OnSubscribe<GameStats>() {
-            @Override
-            public void call(final Subscriber<? super GameStats> subscriber) {
+            final Query query = database.getReference(Config.GAME_STATS)
+                .orderByChild(Config.GAME_ID)
+                .equalTo(gameID);
 
-                final Query query = database.getReference(Config.GAME_STATS).orderByChild(Config.GAME_ID).equalTo(gameID);
-
-                final ValueEventListener valueEventListener = query.addValueEventListener(new ValueEventListener() {
+            final ValueEventListener valueEventListener =
+                query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -192,8 +164,10 @@ public class AdminObserver {
 
                                 //populate the internal list of players details per game
                                 gameStats.gameStats = new ArrayList<GameStats.Stats>();
-                                for (DataSnapshot childListSnapshot : child.child("stats").getChildren()) {
-                                    gameStats.gameStats.add(childListSnapshot.getValue(GameStats.Stats.class));
+                                for (DataSnapshot childListSnapshot : child.child("stats")
+                                    .getChildren()) {
+                                    gameStats.gameStats.add(
+                                        childListSnapshot.getValue(GameStats.Stats.class));
                                 }
                             }
                         }
@@ -201,7 +175,6 @@ public class AdminObserver {
                         if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(gameStats);
                         }
-
                     }
 
                     @Override
@@ -210,26 +183,20 @@ public class AdminObserver {
                     }
                 });
 
-                //remove the subscriber when canceled
-                subscriber.add(Subscriptions.create(new Action0() {
-                    @Override
-                    public void call() {
-                        query.removeEventListener(valueEventListener);
-                    }
-                }));
-            }
+            //remove the subscriber when canceled
+            subscriber.add(
+                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
-
     }
 
     public static Observable<Game> getGame(final FirebaseDatabase database, final int gameID) {
 
-        return Observable.create(new Observable.OnSubscribe<Game>() {
-            @Override
-            public void call(final Subscriber<? super Game> subscriber) {
-                final Query query = database.getReference(Config.GAMES).orderByChild(Config.GAME_ID).equalTo(gameID);
+        return Observable.create(subscriber -> {
+            final Query query =
+                database.getReference(Config.GAMES).orderByChild(Config.GAME_ID).equalTo(gameID);
 
-                final ValueEventListener valueEventListener = query.addValueEventListener(new ValueEventListener() {
+            final ValueEventListener valueEventListener =
+                query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -245,7 +212,6 @@ public class AdminObserver {
                         if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(game);
                         }
-
                     }
 
                     @Override
@@ -254,25 +220,21 @@ public class AdminObserver {
                     }
                 });
 
-                //remove the subscriber when canceled
-                subscriber.add(Subscriptions.create(new Action0() {
-                    @Override
-                    public void call() {
-                        query.removeEventListener(valueEventListener);
-                    }
-                }));
-            }
+            //remove the subscriber when canceled
+            subscriber.add(
+                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
     }
 
     public static Observable<GameResult> getGameResult(final FirebaseDatabase database, final int gameID) {
 
-        return Observable.create(new Observable.OnSubscribe<GameResult>() {
-            @Override
-            public void call(final Subscriber<? super GameResult> subscriber) {
-                final Query query = database.getReference(Config.GAME_RESULTS).orderByChild(Config.GAME_ID).equalTo(gameID);
+        return Observable.create(subscriber -> {
+            final Query query = database.getReference(Config.GAME_RESULTS)
+                .orderByChild(Config.GAME_ID)
+                .equalTo(gameID);
 
-                final ValueEventListener valueEventListener = query.addValueEventListener(new ValueEventListener() {
+            final ValueEventListener valueEventListener =
+                query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -288,7 +250,6 @@ public class AdminObserver {
                         if (!subscriber.isUnsubscribed()) {
                             subscriber.onNext(gameResult);
                         }
-
                     }
 
                     @Override
@@ -297,65 +258,44 @@ public class AdminObserver {
                     }
                 });
 
-                //remove the subscriber when canceled
-                subscriber.add(Subscriptions.create(new Action0() {
-                    @Override
-                    public void call() {
-                        query.removeEventListener(valueEventListener);
-                    }
-                }));
-            }
+            //remove the subscriber when canceled
+            subscriber.add(
+                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
     }
 
     public static Observable<GameUpdateKeys> getGameKeys(final FirebaseDatabase database, final int gameID) {
 
         return Observable.zip(AdminObserver.getGameKey(database, gameID),
-                AdminObserver.getGameResultKey(database, gameID),
-                AdminObserver.getPlayerStatsKey(database, gameID),
-                new Func3<String, String, String, GameUpdateKeys>() {
-                    @Override
-                    public GameUpdateKeys call(String gameKey, String gameResultsKey, String playerStatsKey) {
-                        return new GameUpdateKeys(gameKey, gameResultsKey, playerStatsKey);
-                    }
-                }
-        );
+            AdminObserver.getGameResultKey(database, gameID),
+            AdminObserver.getPlayerStatsKey(database, gameID), GameUpdateKeys::new);
     }
 
     public static Observable<PlayerGameStats> getPlayerStatsForGame(final FirebaseDatabase database, final int gameID) {
 
         return Observable.zip(RosterObserver.GetRoster(database),
-                AdminObserver.getGameStats(database, gameID),
-                new Func2<List<Player>, GameStats, PlayerGameStats>() {
-                    @Override
-                    public PlayerGameStats call(List<Player> players, GameStats gameStats) {
+            AdminObserver.getGameStats(database, gameID), (players, gameStats) -> {
 
-                        if (gameStats == null) {
-                            gameStats = new GameStats();
-                        }
-
-                        PlayerGameStats playerGameStats = new PlayerGameStats();
-                        playerGameStats.playerStatsKey = gameStats.key;
-                        playerGameStats.players = new ArrayList<Player>(players);
-                        playerGameStats.playerGameStats = gameStats;
-
-                        return playerGameStats;
-                    }
+                if (gameStats == null) {
+                    gameStats = new GameStats();
                 }
-        );
+
+                PlayerGameStats playerGameStats = new PlayerGameStats();
+                playerGameStats.playerStatsKey = gameStats.key;
+                playerGameStats.players = new ArrayList<Player>(players);
+                playerGameStats.playerGameStats = gameStats;
+
+                return playerGameStats;
+            });
     }
 
     public static Observable<Game> getGameUpdateInfo(final FirebaseDatabase database, final int gameID) {
         return Observable.zip(AdminObserver.getGame(database, gameID),
-                AdminObserver.getGameResult(database, gameID),
-                new Func2<Game, GameResult, Game>() {
-                    @Override
-                    public Game call(Game game, GameResult gameResult) {
+            AdminObserver.getGameResult(database, gameID), (game, gameResult) -> {
 
-                        game.gameResult = gameResult;
+                game.gameResult = gameResult;
 
-                        return game;
-                    }
-                });
+                return game;
+            });
     }
 }
