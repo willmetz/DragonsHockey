@@ -13,19 +13,6 @@ public class StatsSortDialogFragment extends DialogFragment {
         void onSortOptionSelected(StatSortSelection sortSelection);
     }
 
-    public enum StatSortSelection {
-        GamesPlayed("Games Played", 0), Goals("Goals", 1), Assists("Assists", 2),
-        Points("Points", 3), PenaltyMinutes("Penalty Minutes", 4);
-
-        String name;
-        int index;
-
-        StatSortSelection(String name, int index) {
-            this.index = index;
-            this.name = name;
-        }
-    }
-
     private static final String CURRENT_SORT_OPTION_KEY = "currentSortOption";
 
     private final StatSortSelection[] statSortOptions = {

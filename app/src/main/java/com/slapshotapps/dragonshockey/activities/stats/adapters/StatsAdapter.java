@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.slapshotapps.dragonshockey.BR;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;
 import com.slapshotapps.dragonshockey.dialogs.StatsSortDialogFragment;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 
@@ -35,7 +36,7 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
         }
     }
 
-    public void updateSortOrder(StatsSortDialogFragment.StatSortSelection sortSelection){
+    public void updateSortOrder(StatSortSelection sortSelection){
         for(PlayerStatsVM playerStatsVM : playerStats){
             playerStatsVM.setSortSelection(sortSelection);
         }

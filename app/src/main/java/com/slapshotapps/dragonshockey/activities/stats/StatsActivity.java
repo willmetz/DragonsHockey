@@ -21,7 +21,9 @@ import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
 import com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM;
 import com.slapshotapps.dragonshockey.activities.stats.adapters.StatsAdapter;
+import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;
 import com.slapshotapps.dragonshockey.dialogs.StatsSortDialogFragment;
+import com.slapshotapps.dragonshockey.managers.UserPrefsManager;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import com.slapshotapps.dragonshockey.observables.RosterObserver;
@@ -29,7 +31,6 @@ import com.slapshotapps.dragonshockey.observables.StatsObserver;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -48,6 +49,8 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
 
     private StatsAdapter adapter;
 
+    private UserPrefsManager prefsManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +58,12 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (!Config.isRelease) {
-            ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
+        if (!Config.isRelease && actionBar != null) {
             actionBar.setTitle("CERT Stats CERT");
         }
+
+        prefsManager = new UserPrefsManager(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.stats_recycler_view);
         errorLoading = ButterKnife.findById(this, R.id.unable_to_load);
@@ -90,23 +95,20 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
                     return StatsObserver.getPlayerStats(firebaseDatabase, players);
                 }
             })
-            .subscribe(new Action1<List<PlayerStats>>() {
-                @Override
-                public void call(List<PlayerStats> playerStats) {
-                    errorLoading.setAlpha(0);
-                    ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
-                    adapter = new StatsAdapter(playerStats, StatsActivity.this);
-                    recyclerView.setAdapter(adapter);
-                }
-            }, new Action1<Throwable>() {
-                @Override
-                public void call(Throwable throwable) {
-                    errorLoading.animate().alpha(1);
-                    ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
-                }
+            .subscribe(this::showStats, throwable -> {
+                errorLoading.animate().alpha(1);
+                ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
             });
 
         ProgressBarUtils.displayProgressBar(findViewById(R.id.progress_bar));
+    }
+
+    private void showStats(List<PlayerStats> playerStats) {
+        errorLoading.setAlpha(0);
+        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
+        adapter = new StatsAdapter(playerStats, StatsActivity.this);
+        adapter.updateSortOrder(prefsManager.getStatSortPreference());
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -118,7 +120,7 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
             statsSubscription = null;
         }
 
-        if(statsSortDialogFragment != null){
+        if (statsSortDialogFragment != null) {
             statsSortDialogFragment.dismiss();
             statsSortDialogFragment = null;
         }
@@ -149,18 +151,19 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
 
     private void showSortOptionsDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        statsSortDialogFragment =
-            StatsSortDialogFragment.newInstance(StatsSortDialogFragment.StatSortSelection.Points);
+        statsSortDialogFragment = StatsSortDialogFragment.newInstance(prefsManager.getStatSortPreference());
         statsSortDialogFragment.setListener(this);
 
         statsSortDialogFragment.show(fragmentManager, "tag");
     }
 
     @Override
-    public void onSortOptionSelected(StatsSortDialogFragment.StatSortSelection sortSelection) {
+    public void onSortOptionSelected(StatSortSelection sortSelection) {
         Log.d("Sort Option", String.format("Received sort option back: %s", sortSelection.name()));
 
-        if(adapter != null){
+        prefsManager.saveStatSortPreference(sortSelection);
+
+        if (adapter != null) {
             adapter.updateSortOrder(sortSelection);
         }
     }
