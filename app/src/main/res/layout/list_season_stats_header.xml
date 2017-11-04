@@ -4,8 +4,8 @@
     android:layout_height="50dp"
     android:background="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    
+    >
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline_one"
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline_one"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Season" />
+        android:text="Season"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_two"
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline_four"
         app:layout_constraintStart_toEndOf="@id/guideline_three"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="G" />
+        android:text="G"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_four"
