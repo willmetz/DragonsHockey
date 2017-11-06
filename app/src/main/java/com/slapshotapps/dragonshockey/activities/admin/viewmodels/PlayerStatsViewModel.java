@@ -7,12 +7,12 @@ package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 public class PlayerStatsViewModel {
 
     private String playerName;
-    private int goals, assists, playerID, playerNumber;
+    private int goals, assists, playerID, playerNumber, penaltyMinutes;
     private boolean isPresent, isDirty;
 
     public static class PlayerStatsVMBuilder {
         private String playerName;
-        private int goals, assists, playerID, playerNumber;
+        private int goals, assists, playerID, playerNumber, penaltyMinutes;
         private boolean isPresent;
 
         public PlayerStatsVMBuilder() {
@@ -39,6 +39,11 @@ public class PlayerStatsViewModel {
             return this;
         }
 
+        public PlayerStatsVMBuilder penaltyMinutes(int penaltyMinutes){
+            this.penaltyMinutes = penaltyMinutes;
+            return this;
+        }
+
         public PlayerStatsVMBuilder playerNumber(int playerNumber) {
             this.playerNumber = playerNumber;
             return this;
@@ -51,17 +56,18 @@ public class PlayerStatsViewModel {
 
         public PlayerStatsViewModel build() {
             return new PlayerStatsViewModel(this.playerName, this.goals, this.assists,
-                this.playerID, this.playerNumber, this.isPresent);
+                this.playerID, this.playerNumber, this.isPresent, this.penaltyMinutes);
         }
     }
 
-    public PlayerStatsViewModel(String playerName, int goals, int assists, int playerID, int playerNumber, boolean isPresent) {
+    public PlayerStatsViewModel(String playerName, int goals, int assists, int playerID, int playerNumber, boolean isPresent, int penaltyMinutes) {
         this.playerID = playerID;
         this.assists = assists;
         this.goals = goals;
         this.playerName = playerName;
         this.playerNumber = playerNumber;
         this.isPresent = isPresent;
+        this.penaltyMinutes = penaltyMinutes;
         isDirty = false;
     }
 
@@ -117,4 +123,19 @@ public class PlayerStatsViewModel {
 
         isDirty = true;
     }
+
+    public String getPenaltyMinutes(){
+        return String.valueOf(penaltyMinutes);
+    }
+
+    public void setPenaltyMinutes(String penaltyMinutes){
+        if(penaltyMinutes == null || penaltyMinutes.isEmpty()){
+            this.penaltyMinutes = 0;
+        }else{
+            this.penaltyMinutes = Integer.valueOf(penaltyMinutes);
+        }
+
+        isDirty = true;
+    }
+
 }

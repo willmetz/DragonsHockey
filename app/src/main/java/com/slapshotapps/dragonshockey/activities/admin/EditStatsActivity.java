@@ -39,10 +39,10 @@ public class EditStatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_stats_auth);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recyclerView = (RecyclerView) findViewById(R.id.admin_stats_recycler_view);
+        recyclerView = findViewById(R.id.admin_stats_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -58,28 +58,15 @@ public class EditStatsActivity extends AppCompatActivity {
             subscription = AdminObserver.getPlayerStatsForGame(firebaseDatabase, gameID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<PlayerGameStats>() {
-                    @Override
-                    public void call(PlayerGameStats stats) {
-                        playerGameStats = stats;
+                .subscribe(stats -> {
+                    playerGameStats = stats;
 
-                        adminEditsStatsAdapter = new AdminEditsStatsAdapter(getViewModel());
-                        recyclerView.setAdapter(adminEditsStatsAdapter);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        new AlertDialog.Builder(EditStatsActivity.this).setMessage(
-                            "Unable to retrieve stats information")
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            })
-                            .show();
-                    }
-                });
+                    adminEditsStatsAdapter = new AdminEditsStatsAdapter(getViewModel());
+                    recyclerView.setAdapter(adminEditsStatsAdapter);
+                }, throwable -> new AlertDialog.Builder(EditStatsActivity.this).setMessage(
+                    "Unable to retrieve stats information")
+                    .setPositiveButton("Ok", (dialogInterface, i) -> finish())
+                    .show());
         }
     }
 
@@ -134,6 +121,7 @@ public class EditStatsActivity extends AppCompatActivity {
                     .goals(statsForPlayer.goals)
                     .assists(statsForPlayer.assists)
                     .present(statsForPlayer.present)
+                    .penaltyMinutes(statsForPlayer.penaltyMinutes)
                     .build();
 
             statsViewModel.add(viewModel);
@@ -154,6 +142,7 @@ public class EditStatsActivity extends AppCompatActivity {
             stats.assists = Integer.valueOf(playerStatsViewModel.getAssists());
             stats.goals = Integer.valueOf(playerStatsViewModel.getGoals());
             stats.present = playerStatsViewModel.getPresence();
+            stats.penaltyMinutes = Integer.valueOf(playerStatsViewModel.getPenaltyMinutes());
 
             gameStats.gameStats.add(stats);
         }
