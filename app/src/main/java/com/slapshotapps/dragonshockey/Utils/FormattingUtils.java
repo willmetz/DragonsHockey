@@ -1,7 +1,6 @@
 package com.slapshotapps.dragonshockey.Utils;
 
 import com.slapshotapps.dragonshockey.models.GameResult;
-import com.slapshotapps.dragonshockey.models.SeasonRecord;
 
 /**
  * Created by willmetz on 6/2/16.
@@ -43,9 +42,12 @@ public class FormattingUtils {
 
         if (gameResult != null) {
 
-            gameScore = gameResult.dragonsScore + "-" +
-                    gameResult.opponentScore +
-                    " (" + getGameResultAsString(gameResult) + ")";
+            gameScore = gameResult.dragonsScore
+                + "-"
+                + gameResult.opponentScore
+                + " ("
+                + getGameResultAsString(gameResult)
+                + ")";
         }
 
         return gameScore;
@@ -68,6 +70,4 @@ public class FormattingUtils {
 
         return gameResultText;
     }
-
-
 }

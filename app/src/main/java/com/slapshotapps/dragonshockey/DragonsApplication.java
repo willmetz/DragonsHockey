@@ -1,7 +1,6 @@
 package com.slapshotapps.dragonshockey;
 
 import android.app.Application;
-
 import timber.log.Timber;
 
 /**

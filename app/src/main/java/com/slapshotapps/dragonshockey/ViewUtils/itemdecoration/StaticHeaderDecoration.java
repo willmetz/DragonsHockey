@@ -5,7 +5,6 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter;
 
 /**
@@ -55,7 +54,6 @@ public class StaticHeaderDecoration extends RecyclerView.ItemDecoration {
                 c.save();
                 headerView.draw(c);
                 c.restore();
-
             }
         }
     }
@@ -65,17 +63,20 @@ public class StaticHeaderDecoration extends RecyclerView.ItemDecoration {
             header = adapter.onCreateHeaderViewHolder(recyclerView);
             final View headerView = header.itemView;
 
-
             adapter.onBindHeaderViewHolder(header);
 
             //need to take some measurements here as without this the view has no size
-            int widthSpec = View.MeasureSpec.makeMeasureSpec(recyclerView.getWidth(), View.MeasureSpec.EXACTLY);
-            int heightSpec = View.MeasureSpec.makeMeasureSpec(recyclerView.getHeight(), View.MeasureSpec.UNSPECIFIED);
+            int widthSpec =
+                View.MeasureSpec.makeMeasureSpec(recyclerView.getWidth(), View.MeasureSpec.EXACTLY);
+            int heightSpec = View.MeasureSpec.makeMeasureSpec(recyclerView.getHeight(),
+                View.MeasureSpec.UNSPECIFIED);
 
             int childWidth = ViewGroup.getChildMeasureSpec(widthSpec,
-                    recyclerView.getPaddingLeft() + recyclerView.getPaddingRight(), headerView.getLayoutParams().width);
+                recyclerView.getPaddingLeft() + recyclerView.getPaddingRight(),
+                headerView.getLayoutParams().width);
             int childHeight = ViewGroup.getChildMeasureSpec(heightSpec,
-                    recyclerView.getPaddingTop() + recyclerView.getPaddingBottom(), headerView.getLayoutParams().height);
+                recyclerView.getPaddingTop() + recyclerView.getPaddingBottom(),
+                headerView.getLayoutParams().height);
 
             headerView.measure(childWidth, childHeight);
             headerView.layout(0, 0, headerView.getMeasuredWidth(), headerView.getMeasuredHeight());
@@ -83,6 +84,4 @@ public class StaticHeaderDecoration extends RecyclerView.ItemDecoration {
 
         return header;
     }
-
-
 }

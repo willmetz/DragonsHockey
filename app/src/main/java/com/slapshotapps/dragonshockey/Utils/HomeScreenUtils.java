@@ -1,12 +1,7 @@
 package com.slapshotapps.dragonshockey.Utils;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.slapshotapps.dragonshockey.models.GameResult;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by willmetz on 8/20/16.
@@ -36,5 +31,4 @@ public class HomeScreenUtils {
     public static boolean wasTie(@Nullable GameResult gameResult) {
         return gameResult != null && gameResult.dragonsScore == gameResult.opponentScore;
     }
-
 }

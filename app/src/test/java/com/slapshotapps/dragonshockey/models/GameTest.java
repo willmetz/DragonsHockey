@@ -10,7 +10,7 @@ import org.junit.Test;
 public class GameTest {
 
     @Test
-    public void testEquals_falseGameID(){
+    public void testEquals_falseGameID() {
         Game originalGame = new Game();
 
         originalGame.gameID = 2;
@@ -33,11 +33,10 @@ public class GameTest {
         modifiedGame.gameResult.overtimeLoss = false;
 
         Assert.assertFalse(originalGame.equals(modifiedGame));
-
     }
 
     @Test
-    public void testEquals_falseGameTime(){
+    public void testEquals_falseGameTime() {
         Game originalGame = new Game();
 
         originalGame.gameID = 2;
@@ -63,7 +62,7 @@ public class GameTest {
     }
 
     @Test
-    public void testEquals_falseOpponent(){
+    public void testEquals_falseOpponent() {
         Game originalGame = new Game();
 
         originalGame.gameID = 2;
@@ -89,7 +88,7 @@ public class GameTest {
     }
 
     @Test
-    public void testEquals_falseOTL(){
+    public void testEquals_falseOTL() {
         Game originalGame = new Game();
 
         originalGame.gameID = 2;
@@ -115,7 +114,7 @@ public class GameTest {
     }
 
     @Test
-    public void testEquals_falseDragons(){
+    public void testEquals_falseDragons() {
         Game originalGame = new Game();
 
         originalGame.gameID = 2;
@@ -141,7 +140,7 @@ public class GameTest {
     }
 
     @Test
-    public void testEquals_falseOpponentScore(){
+    public void testEquals_falseOpponentScore() {
         Game originalGame = new Game();
 
         originalGame.gameID = 2;
@@ -167,7 +166,7 @@ public class GameTest {
     }
 
     @Test
-    public void testEquals_true(){
+    public void testEquals_true() {
         Game originalGame = new Game();
 
         originalGame.gameID = 2;

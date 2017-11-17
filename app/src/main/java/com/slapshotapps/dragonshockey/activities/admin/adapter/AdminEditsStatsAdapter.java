@@ -6,18 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.android.databinding.library.baseAdapters.BR;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.PlayerStatsViewModel;
-
 import java.util.ArrayList;
 
 /**
  * Created on 11/1/16.
  */
 
-public class AdminEditsStatsAdapter extends RecyclerView.Adapter<AdminEditsStatsAdapter.StatsViewHolder> {
+public class AdminEditsStatsAdapter
+    extends RecyclerView.Adapter<AdminEditsStatsAdapter.StatsViewHolder> {
 
     private ArrayList<PlayerStatsViewModel> stats;
 
@@ -43,7 +42,7 @@ public class AdminEditsStatsAdapter extends RecyclerView.Adapter<AdminEditsStats
     @Override
     public StatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_admin_stats_player_card, parent, false);
+            .inflate(R.layout.view_admin_stats_player_card, parent, false);
 
         return new StatsViewHolder(view);
     }

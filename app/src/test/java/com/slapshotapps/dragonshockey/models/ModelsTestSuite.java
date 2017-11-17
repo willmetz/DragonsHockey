@@ -9,8 +9,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        PlayerStatsTest.class,
-        GameTest.class
-})
+                        PlayerStatsTest.class, GameTest.class
+                    })
 public class ModelsTestSuite {
 }

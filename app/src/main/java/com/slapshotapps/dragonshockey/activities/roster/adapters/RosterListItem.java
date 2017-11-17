@@ -21,5 +21,4 @@ public class RosterListItem {
     public RosterListItem() {
         rosterItemType = HEADER_TYPE;
     }
-
 }

@@ -8,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.RosterUtils;
 import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter;
 import com.slapshotapps.dragonshockey.models.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,7 @@ import java.util.List;
  */
 
 public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLineView>
-        implements StickyHeaderAdapter<RosterAdapter.HeaderView> {
+    implements StickyHeaderAdapter<RosterAdapter.HeaderView> {
 
     private ArrayList<RosterListItem> rosterListItems;
     private final Context context;
@@ -40,13 +38,11 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
         this.context = context;
     }
 
-
     @Override
     public RosterAdapter.PlayerLineView onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.view_roster_row, parent, false);
         return new PlayerLineView(view);
-
     }
 
     @Override
@@ -63,8 +59,6 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
 
             playerLineView.setPlayer(player);
         }
-
-
     }
 
     @Override
@@ -77,10 +71,10 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
         return rosterListItems.size();
     }
 
-
     @Override
     public RosterAdapter.HeaderView onCreateHeaderViewHolder(RecyclerView parent) {
-        View view = LayoutInflater.from(context).inflate(R.layout.view_header_roster, parent, false);
+        View view =
+            LayoutInflater.from(context).inflate(R.layout.view_header_roster, parent, false);
         return new HeaderView(view);
     }
 
@@ -135,6 +129,5 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.PlayerLine
         public View getContentView() {
             return itemView;
         }
-
     }
 }

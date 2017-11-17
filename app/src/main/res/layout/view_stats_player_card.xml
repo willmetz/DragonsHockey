@@ -4,12 +4,12 @@
 
     <data>
 
-        <import type="com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM" />
+        <import type="com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM"/>
         <import type="com.slapshotapps.dragonshockey.activities.stats.StatsListener"/>
 
         <variable
             name="data"
-            type="PlayerStatsVM" />
+            type="PlayerStatsVM"/>
         <variable
             name="listener"
             type="StatsListener"/>
@@ -45,7 +45,7 @@
                     android:text="@{data.getPlayerName()}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="John Doe" />
+                    tools:text="John Doe"/>
 
                 <TextView
                     android:id="@+id/games_played_header"
@@ -58,7 +58,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55" />
+                    app:layout_constraintVertical_bias="0.55"/>
 
                 <TextView
                     android:id="@+id/games_played"
@@ -70,7 +70,7 @@
                     app:layout_constraintLeft_toRightOf="@id/games_played_header"
                     app:layout_constraintRight_toLeftOf="@id/games_played_header"
                     app:layout_constraintTop_toBottomOf="@id/games_played_header"
-                    tools:text="7" />
+                    tools:text="7"/>
 
                 <TextView
                     android:id="@+id/goals_header"
@@ -83,7 +83,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55" />
+                    app:layout_constraintVertical_bias="0.55"/>
 
                 <TextView
                     android:id="@+id/goals"
@@ -94,7 +94,7 @@
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
                     app:layout_constraintLeft_toRightOf="@id/goals_header"
                     app:layout_constraintRight_toLeftOf="@id/goals_header"
-                    tools:text="1" />
+                    tools:text="1"/>
 
                 <TextView
                     android:id="@+id/assists_header"
@@ -107,7 +107,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55" />
+                    app:layout_constraintVertical_bias="0.55"/>
 
                 <TextView
                     android:id="@+id/assists"
@@ -118,7 +118,7 @@
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
                     app:layout_constraintLeft_toRightOf="@id/assists_header"
                     app:layout_constraintRight_toLeftOf="@id/assists_header"
-                    tools:text="2" />
+                    tools:text="2"/>
 
                 <TextView
                     android:id="@+id/points_header"
@@ -131,7 +131,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55" />
+                    app:layout_constraintVertical_bias="0.55"/>
 
                 <TextView
                     android:id="@+id/points"
@@ -142,7 +142,31 @@
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
                     app:layout_constraintLeft_toRightOf="@id/points_header"
                     app:layout_constraintRight_toLeftOf="@id/points_header"
-                    tools:text="2" />
+                    tools:text="2"/>
+
+                <TextView
+                    android:id="@+id/penalty_minutes_header"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/PIM_label"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.85"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.55"/>
+
+                <TextView
+                    android:id="@+id/penalty_minutes"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.penaltyMinutes}"
+                    app:layout_constraintBaseline_toBaselineOf="@id/games_played"
+                    app:layout_constraintLeft_toRightOf="@id/penalty_minutes_header"
+                    app:layout_constraintRight_toLeftOf="@id/penalty_minutes_header"
+                    tools:text="20"/>
 
             </android.support.constraint.ConstraintLayout>
 

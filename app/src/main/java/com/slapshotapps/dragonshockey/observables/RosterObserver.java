@@ -1,22 +1,16 @@
 package com.slapshotapps.dragonshockey.observables;
 
 import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.slapshotapps.dragonshockey.Config;
-import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.Player;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action0;
 import rx.subscriptions.Subscriptions;
 
 /**
@@ -26,12 +20,12 @@ import rx.subscriptions.Subscriptions;
 public class RosterObserver {
 
     public static Observable<List<Player>> GetRoster(final FirebaseDatabase database) {
-        return Observable.create(new Observable.OnSubscribe<List<Player>>() {
-            @Override
-            public void call(final Subscriber<? super List<Player>> subscriber) {
+        return Observable.create(subscriber -> {
 
-                final Query query = database.getReference(Config.ROSTER).orderByChild(Player.PLAYER_NUMBER);
-                final ValueEventListener listener = query.addValueEventListener(new ValueEventListener() {
+            final Query query =
+                database.getReference(Config.ROSTER).orderByChild(Player.PLAYER_NUMBER);
+            final ValueEventListener listener =
+                query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ArrayList<Player> roster = new ArrayList<Player>();
@@ -51,15 +45,8 @@ public class RosterObserver {
                     }
                 });
 
-
-                //when the subscription is cancelled remove the listener
-                subscriber.add(Subscriptions.create(new Action0() {
-                    @Override
-                    public void call() {
-                        query.removeEventListener(listener);
-                    }
-                }));
-            }
+            //when the subscription is cancelled remove the listener
+            subscriber.add(Subscriptions.create(() -> query.removeEventListener(listener)));
         });
     }
 }

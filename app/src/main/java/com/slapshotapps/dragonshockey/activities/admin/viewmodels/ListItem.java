@@ -10,7 +10,6 @@ public abstract class ListItem {
 
     public abstract ItemType getItemType();
 
-
     public ListItem(int layoutID) {
         this.layoutID = layoutID;
     }
@@ -20,7 +19,6 @@ public abstract class ListItem {
     }
 
     public enum ItemType {
-        GAME,
-        ADD_GAME
+        GAME, ADD_GAME
     }
 }

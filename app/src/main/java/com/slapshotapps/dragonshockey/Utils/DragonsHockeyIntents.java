@@ -2,7 +2,6 @@ package com.slapshotapps.dragonshockey.Utils;
 
 import android.content.Context;
 import android.content.Intent;
-
 import com.slapshotapps.dragonshockey.activities.admin.AdminActivity;
 import com.slapshotapps.dragonshockey.activities.admin.AdminAuthActivity;
 import com.slapshotapps.dragonshockey.activities.admin.EditGameActivity;
@@ -14,12 +13,12 @@ import com.slapshotapps.dragonshockey.activities.stats.StatsActivity;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 
-
 public class DragonsHockeyIntents {
 
     public static final String EXTRA_GAME = "com.slapshotapps.dragonshockey.extragame";
     public static final String EXTRA_GAME_ID = "com.slapshotapps.dragonshockey.extragameid";
-    public static final String EXTRA_PLAYER_STATS = "com.slapshotapps.dragonshockey.extraPlayerStats";
+    public static final String EXTRA_PLAYER_STATS =
+        "com.slapshotapps.dragonshockey.extraPlayerStats";
 
     public static Intent createRosterIntent(Context context) {
         return new Intent(context, RosterActivity.class);
@@ -57,11 +56,10 @@ public class DragonsHockeyIntents {
         return intent;
     }
 
-    public static Intent createCareerStatsIntent(Context context, PlayerStats playerStats){
+    public static Intent createCareerStatsIntent(Context context, PlayerStats playerStats) {
         Intent intent = new Intent(context, CareerStatsActivity.class);
         intent.putExtra(EXTRA_PLAYER_STATS, playerStats);
 
         return intent;
     }
-
 }

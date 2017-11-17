@@ -1,13 +1,11 @@
 package com.slapshotapps.dragonshockey.activities.careerStats;
 
-
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
@@ -18,7 +16,6 @@ import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.StaticHeaderDecor
 import com.slapshotapps.dragonshockey.databinding.ActivityCareerStatsBinding;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import com.slapshotapps.dragonshockey.observables.CareerStatsObserver;
-
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -44,12 +41,13 @@ public class CareerStatsActivity extends AppCompatActivity {
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
-        } catch (DatabaseException exception) {
+        }
+        catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
         }
 
-        currentSeasonStats = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_PLAYER_STATS);
-
+        currentSeasonStats =
+            getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_PLAYER_STATS);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_career_stats);
 
@@ -63,10 +61,11 @@ public class CareerStatsActivity extends AppCompatActivity {
         careerStatsAdapter = new CareerStatsAdapter();
         binding.careerStats.setAdapter(careerStatsAdapter);
         binding.careerStats.setLayoutManager(new LinearLayoutManager(this));
-        binding.careerStats.addItemDecoration(new RecyclerViewDivider(this, R.drawable.schedule_divider));
-        binding.careerStats.addItemDecoration(new StaticHeaderDecoration(careerStatsAdapter, binding.careerStats));
+        binding.careerStats.addItemDecoration(
+            new RecyclerViewDivider(this, R.drawable.schedule_divider));
+        binding.careerStats.addItemDecoration(
+            new StaticHeaderDecoration(careerStatsAdapter, binding.careerStats));
     }
-
 
     @Override
     protected void onResume() {
@@ -74,13 +73,16 @@ public class CareerStatsActivity extends AppCompatActivity {
 
         binding.toolbarProgressBar.animate().alpha(1);
 
-        careerStatsSubscription = CareerStatsObserver.getCareerStatsData(firebaseDatabase, currentSeasonStats.playerID)
+        careerStatsSubscription =
+            CareerStatsObserver.getCareerStatsData(firebaseDatabase, currentSeasonStats.playerID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<CareerStatsData>() {
                     @Override
                     public void call(CareerStatsData careerStatsData) {
-                        careerStatsVM = new CareerStatsVM(careerStatsData.player, currentSeasonStats, careerStatsData.seasonStats);
+                        careerStatsVM =
+                            new CareerStatsVM(careerStatsData.player, currentSeasonStats,
+                                careerStatsData.seasonStats);
                         binding.setStats(careerStatsVM);
                         careerStatsAdapter.updateStats(careerStatsVM.getStats());
                         binding.toolbarProgressBar.animate().alpha(0);

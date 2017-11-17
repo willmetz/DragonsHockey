@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="@+id/content_game_details"
         app:layout_constraintLeft_toLeftOf="@+id/content_game_details"
         app:layout_constraintBottom_toBottomOf="@+id/content_game_details"
-        app:layout_constraintVertical_bias=".25" />
+        app:layout_constraintVertical_bias=".25"/>
 
     <TextView
         android:id="@+id/game_time"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/game_day"
         android:layout_marginTop="4dp"
         app:layout_constraintLeft_toLeftOf="@+id/game_day"
-        app:layout_constraintRight_toRightOf="@+id/game_day" />
+        app:layout_constraintRight_toRightOf="@+id/game_day"/>
 
 
     <TextView
@@ -39,7 +39,7 @@
         app:layout_constraintRight_toRightOf="@+id/opponent"
         app:layout_constraintTop_toTopOf="@+id/content_game_details"
         app:layout_constraintBottom_toBottomOf="@+id/content_game_details"
-        app:layout_constraintVertical_bias=".25" />
+        app:layout_constraintVertical_bias=".25"/>
 
     <TextView
         android:id="@+id/opponent"
@@ -51,7 +51,7 @@
         app:layout_constraintRight_toRightOf="@+id/content_game_details"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintTop_toBottomOf="@+id/versus_label"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="4dp"/>
 
     <TextView
         android:id="@+id/game_result"
@@ -62,7 +62,7 @@
         app:layout_constraintRight_toRightOf="@+id/content_game_details"
         app:layout_constraintTop_toBottomOf="@+id/versus_label"
         app:layout_constraintBottom_toTopOf="@+id/opponent"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="4dp"/>
 
 
 </android.support.constraint.ConstraintLayout>

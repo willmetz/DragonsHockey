@@ -1,30 +1,27 @@
 package com.slapshotapps.dragonshockey.activities.careerStats;
 
-
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.slapshotapps.dragonshockey.BR;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CareerStatsAdapter extends RecyclerView.Adapter<CareerStatsAdapter.StatsViewHolder>
-        implements StickyHeaderAdapter<CareerStatsAdapter.HeaderView> {
+    implements StickyHeaderAdapter<CareerStatsAdapter.HeaderView> {
 
     final ArrayList<PlayerSeasonStatsVM> playerSeasonStats;
 
-    public CareerStatsAdapter(){
+    public CareerStatsAdapter() {
         this.playerSeasonStats = new ArrayList<>();
     }
 
-    public void updateStats(List<PlayerSeasonStatsVM> playerSeasonStats){
+    public void updateStats(List<PlayerSeasonStatsVM> playerSeasonStats) {
         this.playerSeasonStats.clear();
         this.playerSeasonStats.addAll(playerSeasonStats);
         notifyDataSetChanged();
@@ -32,9 +29,7 @@ public class CareerStatsAdapter extends RecyclerView.Adapter<CareerStatsAdapter.
 
     @Override
     public StatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(viewType, parent, false);
-
+        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
 
         return new StatsViewHolder(view);
     }
@@ -61,7 +56,7 @@ public class CareerStatsAdapter extends RecyclerView.Adapter<CareerStatsAdapter.
     public HeaderView onCreateHeaderViewHolder(RecyclerView parent) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_season_stats_header, parent, false);
+            .inflate(R.layout.list_season_stats_header, parent, false);
 
         return new HeaderView(view);
     }
@@ -71,7 +66,7 @@ public class CareerStatsAdapter extends RecyclerView.Adapter<CareerStatsAdapter.
         //no-op
     }
 
-    public static class StatsViewHolder extends RecyclerView.ViewHolder{
+    public static class StatsViewHolder extends RecyclerView.ViewHolder {
 
         private ViewDataBinding binding;
 
@@ -94,6 +89,5 @@ public class CareerStatsAdapter extends RecyclerView.Adapter<CareerStatsAdapter.
         public View getContentView() {
             return itemView;
         }
-
     }
 }

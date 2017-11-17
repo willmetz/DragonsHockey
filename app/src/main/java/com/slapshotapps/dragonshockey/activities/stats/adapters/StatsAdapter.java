@@ -6,11 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.slapshotapps.dragonshockey.BR;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,12 +25,22 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
         if (playerStats != null) {
             this.playerStats = new ArrayList<>();
 
-            for(PlayerStats stats : playerStats){
+            for (PlayerStats stats : playerStats) {
                 this.playerStats.add(new PlayerStatsVM(stats, listener));
             }
 
             Collections.sort(this.playerStats);
         }
+    }
+
+    public void updateSortOrder(StatSortSelection sortSelection) {
+        for (PlayerStatsVM playerStatsVM : playerStats) {
+            playerStatsVM.setSortSelection(sortSelection);
+        }
+
+        Collections.sort(this.playerStats);
+
+        notifyDataSetChanged();
     }
 
     @Override
@@ -61,16 +70,14 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
 
         private ViewDataBinding binding;
 
-
         public PlayerStatsViewHolder(View itemView) {
             super(itemView);
 
             binding = DataBindingUtil.bind(itemView);
         }
 
-        public ViewDataBinding getBinding(){
+        public ViewDataBinding getBinding() {
             return binding;
         }
     }
-
 }

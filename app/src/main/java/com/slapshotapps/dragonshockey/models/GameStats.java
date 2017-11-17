@@ -1,10 +1,8 @@
 package com.slapshotapps.dragonshockey.models;
 
 import android.support.annotation.Keep;
-
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
-
 import java.util.List;
 
 /**
@@ -28,18 +26,19 @@ public class GameStats {
         public int assists;
         public int goals;
         public boolean present;
+        public int penaltyMinutes;
 
-        public Stats(){
+        public Stats() {
 
         }
 
-        public Stats(int playerID, int assists, int goals, boolean present){
+        public Stats(int playerID, int assists, int goals, int penaltyMinutes, boolean present) {
             this.playerID = playerID;
             this.assists = assists;
             this.present = present;
             this.goals = goals;
+            this.penaltyMinutes = penaltyMinutes;
         }
-
     }
 
     public Stats getPlayerStats(int playerID) {
@@ -53,6 +52,4 @@ public class GameStats {
 
         return new Stats();
     }
-
-
 }

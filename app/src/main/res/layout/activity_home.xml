@@ -5,17 +5,17 @@
 
     <data>
 
-        <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenViewModel" />
+        <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenViewModel"/>
 
-        <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenListener" />
+        <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenListener"/>
 
         <variable
             name="item"
-            type="HomeScreenViewModel" />
+            type="HomeScreenViewModel"/>
 
         <variable
             name="listener"
-            type="HomeScreenListener" />
+            type="HomeScreenListener"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -36,19 +36,20 @@
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <ProgressBar
-                android:id="@+id/toolbar_progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminateTint="@android:color/white"
-                android:indeterminate="true"
-                android:layout_gravity="end"
-                />
+                <ProgressBar
+                    android:id="@+id/toolbar_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminateTint="@android:color/white"
+                    android:indeterminate="true"
+                    android:layout_gravity="end"
+                    />
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/content_home"
+        <include
+            layout="@layout/content_home"
             app:item="@{item}"
             app:listener="@{listener}"/>
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+        <import type="com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM"/>
+        <variable
+            name="item"
+            type="PlayerStatsVM"/>
+    </data>
+
+    <RadioGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RadioButton
+            android:id="@+id/games_played_sort_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Games Played"
+            style="@style/TextAppearance.AppCompat.Medium"/>
+
+        <RadioButton
+            android:id="@+id/goals_sort_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goals"
+            style="@style/TextAppearance.AppCompat.Medium"/>
+
+        <RadioButton
+            android:id="@+id/assists_sort_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Assists"
+            style="@style/TextAppearance.AppCompat.Medium"/>
+
+        <RadioButton
+            android:id="@+id/points_sort_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Points"
+            style="@style/TextAppearance.AppCompat.Medium"/>
+
+        <RadioButton
+            android:id="@+id/penalty_minutes_sort_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Penalty Minutes"
+            style="@style/TextAppearance.AppCompat.Medium"/>
+
+    </RadioGroup>
+
+</layout>

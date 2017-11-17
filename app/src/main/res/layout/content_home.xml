@@ -5,12 +5,12 @@
 
     <data>
 
-        <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenViewModel" />
+        <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenViewModel"/>
         <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenListener"/>
 
         <variable
             name="item"
-            type="HomeScreenViewModel" />
+            type="HomeScreenViewModel"/>
         <variable
             name="listener"
             type="HomeScreenListener"/>
@@ -35,7 +35,7 @@
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             app:layout_constraintLeft_toLeftOf="@+id/content_home"
             app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toTopOf="@+id/content_home" />
+            app:layout_constraintTop_toTopOf="@+id/content_home"/>
 
         <TextView
             android:id="@+id/record_key_header_win"
@@ -47,7 +47,7 @@
             app:layout_constraintHorizontal_bias=".42"
             app:layout_constraintLeft_toLeftOf="@+id/content_home"
             app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/dragons_hockey" />
+            app:layout_constraintTop_toBottomOf="@+id/dragons_hockey"/>
 
         <TextView
             android:id="@+id/record_key_header_loss"
@@ -57,7 +57,7 @@
             android:text="@string/loss_header"
             android:textAppearance="@android:style/TextAppearance.Material.Small"
             app:layout_constraintBottom_toBottomOf="@id/record_key_header_win"
-            app:layout_constraintLeft_toRightOf="@id/record_key_header_win" />
+            app:layout_constraintLeft_toRightOf="@id/record_key_header_win"/>
 
         <TextView
             android:id="@+id/record_key_header_otl"
@@ -67,7 +67,7 @@
             android:text="@string/otl_header"
             android:textAppearance="@android:style/TextAppearance.Material.Small"
             app:layout_constraintBottom_toBottomOf="@id/record_key_header_loss"
-            app:layout_constraintLeft_toRightOf="@id/record_key_header_loss" />
+            app:layout_constraintLeft_toRightOf="@id/record_key_header_loss"/>
 
         <TextView
             android:id="@+id/record_key_header_tie"
@@ -77,7 +77,7 @@
             android:text="@string/tie_header"
             android:textAppearance="@android:style/TextAppearance.Material.Small"
             app:layout_constraintBottom_toBottomOf="@id/record_key_header_otl"
-            app:layout_constraintLeft_toRightOf="@id/record_key_header_otl" />
+            app:layout_constraintLeft_toRightOf="@id/record_key_header_otl"/>
 
         <TextView
             android:id="@+id/record_win"
@@ -92,7 +92,7 @@
             app:fadeInView="@{item.isDataReady()}"
             android:alpha="0"
             tools:alpha="1"
-            tools:text="2" />
+            tools:text="2"/>
 
         <TextView
             android:id="@+id/record_loss"
@@ -106,7 +106,7 @@
             app:fadeInView="@{item.isDataReady()}"
             android:alpha="0"
             tools:alpha="1"
-            tools:text="1" />
+            tools:text="1"/>
 
         <TextView
             android:id="@+id/record_otl"
@@ -120,7 +120,7 @@
             app:fadeInView="@{item.isDataReady()}"
             android:alpha="0"
             tools:alpha="1"
-            tools:text="0" />
+            tools:text="0"/>
 
         <TextView
             android:id="@+id/record_tie"
@@ -134,7 +134,7 @@
             app:fadeInView="@{item.isDataReady()}"
             android:alpha="0"
             tools:alpha="1"
-            tools:text="1" />
+            tools:text="1"/>
 
         <TextView
             android:id="@+id/last_game_header"
@@ -146,7 +146,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/content_home"
             app:layout_constraintRight_toRightOf="@+id/content_home"
             app:layout_constraintTop_toBottomOf="@+id/record_win"
-            android:visibility="@{item.showLastGameInfo()}" />
+            android:visibility="@{item.showLastGameInfo()}"/>
 
         <TextView
             android:id="@+id/next_game_header"
@@ -157,7 +157,7 @@
             android:textAppearance="@android:style/TextAppearance.Material.Medium"
             app:layout_constraintLeft_toLeftOf="@+id/content_home"
             app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/last_game_score" />
+            app:layout_constraintTop_toBottomOf="@+id/last_game_score"/>
 
         <TextView
             android:id="@+id/next_game_date"
@@ -173,7 +173,7 @@
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1"
             tools:layout_constraintTop_creator="0"
-            tools:text="12/24/16 8:00pm" />
+            tools:text="12/24/16 8:00pm"/>
 
 
         <TextView
@@ -188,7 +188,7 @@
             android:visibility="@{item.showLastGameInfo()}"
             tools:alpha="0"
             app:fadeInView="@{item.isDataReady()}"
-            tools:text="Dragons 8  Oranges 5" />
+            tools:text="Dragons 8  Oranges 5"/>
 
         <Button
             android:id="@+id/schedule_button"

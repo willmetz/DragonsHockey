@@ -1,15 +1,12 @@
 package com.slapshotapps.dragonshockey.activities.careerStats;
 
-
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import com.slapshotapps.dragonshockey.models.SeasonStats;
-
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -17,7 +14,7 @@ import static org.hamcrest.core.Is.is;
 public class CareerStatsVMTest {
 
     @Test
-    public void testPlayerName(){
+    public void testPlayerName() {
 
         Player player = new Player();
         player.firstName = "Bob";
@@ -30,7 +27,7 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testPlayerNameNull(){
+    public void testPlayerNameNull() {
 
         Player player = new Player();
         player.playerID = 9;
@@ -41,8 +38,7 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testPlayerNumber()
-    {
+    public void testPlayerNumber() {
         Player player = new Player();
         player.firstName = "Bob";
         player.lastName = "Builder";
@@ -55,8 +51,7 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testPlayerNumberEmpty()
-    {
+    public void testPlayerNumberEmpty() {
         Player player = new Player();
         player.firstName = "Bob";
         player.lastName = "Builder";
@@ -68,8 +63,7 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testPlayerPosition()
-    {
+    public void testPlayerPosition() {
         Player player = new Player("F");
         player.firstName = "Bob";
         player.lastName = "Builder";
@@ -82,7 +76,7 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testCurrentSeasonAdding(){
+    public void testCurrentSeasonAdding() {
 
         PlayerStats playerStats = new PlayerStats(2, "bob", "Builder");
         playerStats.goals = 2;
@@ -111,16 +105,15 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testHistoricalSeasonFiltering(){
+    public void testHistoricalSeasonFiltering() {
 
         List<SeasonStats> seasonStats = new ArrayList<>();
         seasonStats.add(new SeasonStats());
         seasonStats.add(new SeasonStats());
 
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             seasonStats.get(0).stats.add(new GameStats());
             seasonStats.get(0).stats.get(i).gameStats = getTeamStatsForGame();
-
 
             seasonStats.get(1).stats.add(new GameStats());
             seasonStats.get(1).stats.get(i).gameStats = getTeamStatsForGame();
@@ -141,7 +134,6 @@ public class CareerStatsVMTest {
         assertThat(playerSeasonStats.get(0).assists, is(20));
         assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(35)));
 
-
         assertThat(playerSeasonStats.get(1).goals, is(15));
         assertThat(playerSeasonStats.get(1).assists, is(20));
         assertThat(playerSeasonStats.get(1).getPoints(), is(String.valueOf(35)));
@@ -152,15 +144,14 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testFullCareer(){
+    public void testFullCareer() {
         List<SeasonStats> seasonStats = new ArrayList<>();
         seasonStats.add(new SeasonStats("Winter 16"));
         seasonStats.add(new SeasonStats("Fall 17"));
 
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             seasonStats.get(0).stats.add(new GameStats());
             seasonStats.get(0).stats.get(i).gameStats = getTeamStatsForGame();
-
 
             seasonStats.get(1).stats.add(new GameStats());
             seasonStats.get(1).stats.get(i).gameStats = getTeamStatsForGame();
@@ -188,12 +179,10 @@ public class CareerStatsVMTest {
         assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(35)));
         assertThat(playerSeasonStats.get(0).seasonID, is("Winter 16"));
 
-
         assertThat(playerSeasonStats.get(1).goals, is(15));
         assertThat(playerSeasonStats.get(1).assists, is(20));
         assertThat(playerSeasonStats.get(1).getPoints(), is(String.valueOf(35)));
         assertThat(playerSeasonStats.get(1).seasonID, is("Fall 17"));
-
 
         assertThat(playerSeasonStats.get(2).goals, is(2));
         assertThat(playerSeasonStats.get(2).assists, is(4));
@@ -204,21 +193,18 @@ public class CareerStatsVMTest {
         assertThat(playerSeasonStats.get(3).assists, is(44));
         assertThat(playerSeasonStats.get(3).getPoints(), is(String.valueOf(76)));
         assertThat(playerSeasonStats.get(3).seasonID, is("Career"));
-
     }
 
-    private List<GameStats.Stats> getTeamStatsForGame(){
-
+    private List<GameStats.Stats> getTeamStatsForGame() {
 
         List<GameStats.Stats> stats = new ArrayList<GameStats.Stats>();
 
         int goals = 1;
         int assists = 2;
-        for(int playerID = 0; playerID < 10; playerID++){
-            stats.add(new GameStats.Stats(playerID, assists++,  goals++, true));
+        for (int playerID = 0; playerID < 10; playerID++) {
+            stats.add(new GameStats.Stats(playerID, assists++, goals++, 0, true));
         }
 
         return stats;
     }
-
 }

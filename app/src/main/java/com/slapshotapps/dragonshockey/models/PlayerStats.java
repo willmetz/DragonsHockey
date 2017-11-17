@@ -3,12 +3,10 @@ package com.slapshotapps.dragonshockey.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 
-/**
- * Created by willmetz on 9/5/16.
- */
 @Keep
-public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
+public class PlayerStats implements Comparable<PlayerStats>, Parcelable {
 
     public int playerID;
     public String firstName;
@@ -17,6 +15,7 @@ public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
     public int assists;
     public int gamesPlayed;
     public int points;
+    public int penaltyMinutes;
 
     public PlayerStats(int playerID, String firstName, String lastName) {
         this.firstName = firstName;
@@ -25,7 +24,7 @@ public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
     }
 
     @Override
-    public int compareTo(PlayerStats playerStats) {
+    public int compareTo(@NonNull PlayerStats playerStats) {
 
         if (points < playerStats.points) {
             return 1;
@@ -49,6 +48,7 @@ public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
         dest.writeInt(this.assists);
         dest.writeInt(this.gamesPlayed);
         dest.writeInt(this.points);
+        dest.writeInt(this.penaltyMinutes);
     }
 
     protected PlayerStats(Parcel in) {
@@ -59,17 +59,19 @@ public class PlayerStats implements Comparable<PlayerStats>,Parcelable {
         this.assists = in.readInt();
         this.gamesPlayed = in.readInt();
         this.points = in.readInt();
+        this.penaltyMinutes = in.readInt();
     }
 
-    public static final Parcelable.Creator<PlayerStats> CREATOR = new Parcelable.Creator<PlayerStats>() {
-        @Override
-        public PlayerStats createFromParcel(Parcel source) {
-            return new PlayerStats(source);
-        }
+    public static final Parcelable.Creator<PlayerStats> CREATOR =
+        new Parcelable.Creator<PlayerStats>() {
+            @Override
+            public PlayerStats createFromParcel(Parcel source) {
+                return new PlayerStats(source);
+            }
 
-        @Override
-        public PlayerStats[] newArray(int size) {
-            return new PlayerStats[size];
-        }
-    };
+            @Override
+            public PlayerStats[] newArray(int size) {
+                return new PlayerStats[size];
+            }
+        };
 }

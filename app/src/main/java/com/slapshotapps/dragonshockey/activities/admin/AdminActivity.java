@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
@@ -17,7 +16,6 @@ import com.slapshotapps.dragonshockey.activities.admin.listeners.AdminClickListe
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
-
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -39,7 +37,6 @@ public class AdminActivity extends AppCompatActivity implements AdminClickListen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         if (!Config.isRelease) {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle("CERT Admin CERT");
@@ -49,7 +46,8 @@ public class AdminActivity extends AppCompatActivity implements AdminClickListen
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
-        } catch (DatabaseException exception) {
+        }
+        catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
         }
 
@@ -57,7 +55,6 @@ public class AdminActivity extends AppCompatActivity implements AdminClickListen
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-
     }
 
     @Override
@@ -66,20 +63,20 @@ public class AdminActivity extends AppCompatActivity implements AdminClickListen
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1<SeasonSchedule, Observable<SeasonSchedule>>() {
-                    @Override
-                    public Observable<SeasonSchedule> call(SeasonSchedule schedule) {
-                        return ScheduleObserver.getScheduleWithResults(firebaseDatabase, schedule);
-                    }
-                })
-                .subscribe(new Action1<SeasonSchedule>() {
-                    @Override
-                    public void call(SeasonSchedule schedule) {
-                        recyclerView.setAdapter(new AdminScheduleAdapter(schedule, AdminActivity.this));
-                    }
-                });
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap(new Func1<SeasonSchedule, Observable<SeasonSchedule>>() {
+                @Override
+                public Observable<SeasonSchedule> call(SeasonSchedule schedule) {
+                    return ScheduleObserver.getScheduleWithResults(firebaseDatabase, schedule);
+                }
+            })
+            .subscribe(new Action1<SeasonSchedule>() {
+                @Override
+                public void call(SeasonSchedule schedule) {
+                    recyclerView.setAdapter(new AdminScheduleAdapter(schedule, AdminActivity.this));
+                }
+            });
     }
 
     @Override

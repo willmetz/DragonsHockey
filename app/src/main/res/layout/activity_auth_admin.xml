@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -41,7 +41,7 @@
                 android:gravity="center"
                 android:textSize="18sp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/sign_in_with_google" />
+                android:text="@string/sign_in_with_google"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                 android:gravity="center"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
-                android:text="Please sign in with Google" />
+                android:text="Please sign in with Google"/>
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in_button"
@@ -59,7 +59,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
 
 
@@ -71,7 +71,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:alpha="0" />
+        android:alpha="0"/>
 
 </android.support.design.widget.CoordinatorLayout>
 

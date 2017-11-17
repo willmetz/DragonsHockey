@@ -1,9 +1,7 @@
 package com.slapshotapps.dragonshockey.Utils;
 
 import com.slapshotapps.dragonshockey.models.GameResult;
-
 import junit.framework.Assert;
-
 import org.junit.Test;
 
 /**
@@ -13,7 +11,7 @@ import org.junit.Test;
 public class HomeScreenUtilsTest {
 
     @Test
-    public void wasGameWin_Test(){
+    public void wasGameWin_Test() {
 
         Assert.assertFalse("Null test", HomeScreenUtils.wasWin(null));
 
@@ -30,7 +28,7 @@ public class HomeScreenUtilsTest {
     }
 
     @Test
-    public void wasGameLoss_Test(){
+    public void wasGameLoss_Test() {
         Assert.assertFalse("Null test", HomeScreenUtils.wasLoss(null));
 
         GameResult gameResult = new GameResult();
@@ -51,7 +49,7 @@ public class HomeScreenUtilsTest {
     }
 
     @Test
-    public void wasGameOvertimeLoss_Test(){
+    public void wasGameOvertimeLoss_Test() {
 
         Assert.assertFalse("Null test", HomeScreenUtils.wasOvertimeLoss(null));
 
@@ -68,7 +66,7 @@ public class HomeScreenUtilsTest {
     }
 
     @Test
-    public void wasGameTie_Test(){
+    public void wasGameTie_Test() {
 
         Assert.assertFalse("Null test", HomeScreenUtils.wasTie(null));
 
