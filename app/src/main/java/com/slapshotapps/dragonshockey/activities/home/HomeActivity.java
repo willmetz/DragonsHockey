@@ -111,9 +111,8 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
 
         switch (item.getItemId()) {
             case R.id.action_admin:
-                throw new RuntimeException("A test crash");
-               // startActivity(DragonsHockeyIntents.createAdminAuthIntent(this));
-               // return true;
+                startActivity(DragonsHockeyIntents.createAdminAuthIntent(this));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
