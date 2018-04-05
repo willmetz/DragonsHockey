@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
+import java.util.Locale;
 
 public class PlayerSeasonStatsVM {
 
@@ -12,6 +13,8 @@ public class PlayerSeasonStatsVM {
     public int assists;
     public int gamesPlayed;
     public int penaltyMinutes;
+    public int goalsAgainst;
+    public int shutouts;
 
     public PlayerSeasonStatsVM(String seasonID) {
         this.seasonID = seasonID;
@@ -23,6 +26,8 @@ public class PlayerSeasonStatsVM {
         gamesPlayed = playerStats.gamesPlayed;
         penaltyMinutes = playerStats.penaltyMinutes;
         this.seasonID = seasonID;
+        goalsAgainst = playerStats.goalsAgainst;
+        shutouts = playerStats.shutouts;
     }
 
     public String getPoints() {
@@ -43,6 +48,26 @@ public class PlayerSeasonStatsVM {
 
     public String getPenaltyMinutes() {
         return String.valueOf(penaltyMinutes);
+    }
+
+    public String getGoalsAgainst() {
+        return String.format(Locale.US, "%d", goalsAgainst);
+    }
+
+    public String getShutouts() {
+        return String.valueOf(shutouts);
+    }
+
+    public String getGoalsAgainstAverage() {
+        return String.format(Locale.US, "%.2f", calcGAA());
+    }
+
+    private float calcGAA() {
+        if (gamesPlayed == 0) {
+            return 0f;
+        } else {
+            return goalsAgainst / (float) gamesPlayed;
+        }
     }
 
     public int getBackgroundColor(Context context) {

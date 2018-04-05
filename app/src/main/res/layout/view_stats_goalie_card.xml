@@ -50,7 +50,7 @@
                     android:layout_marginStart="8dp"
                     app:layout_constraintStart_toEndOf="@id/player_name"
                     app:layout_constraintBottom_toBottomOf="@id/player_name"
-                    tools:text="(G)"
+                    android:text="(G)"
                     style="@style/TextAppearance.AppCompat.Medium"/>
 
                 <TextView

@@ -69,7 +69,7 @@ public class StatsObserver {
                                     if (currentStats.position == PlayerPosition.GOALIE) {
                                         currentStats.goalsAgainst += playerGameStats.goalsAgainst;
                                         currentStats.shutouts +=
-                                            playerGameStats.goalsAgainst == 0 ? 1 : 0;
+                                            playerGameStats.goalsAgainst == 0 && playerGameStats.present? 1 : 0;
                                     }
                                 }
                             }
