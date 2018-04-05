@@ -1,14 +1,9 @@
 package com.slapshotapps.dragonshockey.activities.stats.adapters;
 
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import com.slapshotapps.dragonshockey.BR;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.BaseDataBindingAdapter;
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;
+import com.slapshotapps.dragonshockey.models.PlayerPosition;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +12,7 @@ import java.util.List;
 /**
  * Recyclerview adapter for player stats
  */
-public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsViewHolder> {
+public class StatsAdapter extends BaseDataBindingAdapter {
 
     private ArrayList<PlayerStatsVM> playerStats;
 
@@ -44,40 +39,18 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.PlayerStatsV
     }
 
     @Override
-    public PlayerStatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
-        View view = inflater.inflate(R.layout.view_stats_player_card, parent, false);
-
-        return new PlayerStatsViewHolder(view);
+    protected Object getObjForPosition(int position) {
+        return playerStats.get(position);
     }
 
     @Override
-    public void onBindViewHolder(PlayerStatsViewHolder holder, int position) {
-
-        holder.getBinding().setVariable(BR.data, playerStats.get(position));
-        holder.getBinding().setVariable(BR.listener, playerStats.get(position));
-        holder.getBinding().executePendingBindings();
+    protected int getLayoutIdForPosition(int position) {
+        return playerStats.get(position).getPosition() == PlayerPosition.GOALIE
+            ? R.layout.view_stats_goalie_card : R.layout.view_stats_player_card;
     }
 
     @Override
     public int getItemCount() {
-        return playerStats != null ? playerStats.size() : 0;
-    }
-
-    protected static class PlayerStatsViewHolder extends RecyclerView.ViewHolder {
-
-        private ViewDataBinding binding;
-
-        public PlayerStatsViewHolder(View itemView) {
-            super(itemView);
-
-            binding = DataBindingUtil.bind(itemView);
-        }
-
-        public ViewDataBinding getBinding() {
-            return binding;
-        }
+        return playerStats.size();
     }
 }

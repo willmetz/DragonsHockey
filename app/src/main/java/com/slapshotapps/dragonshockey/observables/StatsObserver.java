@@ -10,6 +10,7 @@ import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.Utils.StatsUtils;
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
+import com.slapshotapps.dragonshockey.models.PlayerPosition;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class StatsObserver {
                         for (Player player : players) {
                             statMap.put(player.playerID,
                                 new PlayerStats(player.playerID, player.firstName,
-                                    player.lastName));
+                                    player.lastName, player.getPosition()));
                         }
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -64,6 +65,12 @@ public class StatsObserver {
                                     currentStats.points = currentStats.goals + currentStats.assists;
                                     currentStats.gamesPlayed += playerGameStats.present ? 1 : 0;
                                     currentStats.penaltyMinutes += playerGameStats.penaltyMinutes;
+
+                                    if (currentStats.position == PlayerPosition.GOALIE) {
+                                        currentStats.goalsAgainst += playerGameStats.goalsAgainst;
+                                        currentStats.shutouts +=
+                                            playerGameStats.goalsAgainst == 0 ? 1 : 0;
+                                    }
                                 }
                             }
                         }

@@ -27,6 +27,7 @@ public class GameStats {
         public int goals;
         public boolean present;
         public int penaltyMinutes;
+        public int goalsAgainst;
 
         public Stats() {
 
