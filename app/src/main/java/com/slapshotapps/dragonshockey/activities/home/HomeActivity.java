@@ -112,7 +112,6 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
         switch (item.getItemId()) {
             case R.id.action_admin:
                 startActivity(DragonsHockeyIntents.createAdminAuthIntent(this));
-                //startActivity(DragonsHockeyIntents.createAdminIntent(this));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
