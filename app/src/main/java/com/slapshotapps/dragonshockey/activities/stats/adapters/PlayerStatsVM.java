@@ -117,7 +117,9 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
     }
 
     private int sortByPoints(PlayerStatsVM playerStatsVM) {
-        if(playerStats.position == PlayerPosition.GOALIE){
+        if (playerStats.position == PlayerPosition.GOALIE) {
+            return 1;
+        } else if (playerStatsVM.getPosition() == PlayerPosition.GOALIE) {
             return -1;
         } else if (playerStats.points < Integer.valueOf(playerStatsVM.getPoints())) {
             return 1;
@@ -128,9 +130,12 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
     }
 
     private int sortByGoals(PlayerStatsVM playerStatsVM) {
-        if(playerStats.position == PlayerPosition.GOALIE){
+
+        if (playerStats.position == PlayerPosition.GOALIE) {
+            return 1;
+        } else if (playerStatsVM.getPosition() == PlayerPosition.GOALIE) {
             return -1;
-        }else if (playerStats.goals < Integer.valueOf(playerStatsVM.getGoals())) {
+        } else if (playerStats.goals < Integer.valueOf(playerStatsVM.getGoals())) {
             return 1;
         } else if (playerStats.goals > Integer.valueOf(playerStatsVM.getGoals())) {
             return -1;
@@ -139,9 +144,11 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
     }
 
     private int sortByAssists(PlayerStatsVM playerStatsVM) {
-        if(playerStats.position == PlayerPosition.GOALIE){
+        if (playerStats.position == PlayerPosition.GOALIE) {
+            return 1;
+        } else if (playerStatsVM.getPosition() == PlayerPosition.GOALIE) {
             return -1;
-        }else if (playerStats.assists < Integer.valueOf(playerStatsVM.getAssists())) {
+        } else if (playerStats.assists < Integer.valueOf(playerStatsVM.getAssists())) {
             return 1;
         } else if (playerStats.assists > Integer.valueOf(playerStatsVM.getAssists())) {
             return -1;

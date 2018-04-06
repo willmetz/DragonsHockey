@@ -32,7 +32,7 @@ public class PlayerStatsVMTest {
         viewModel.setSortSelection(StatSortSelection.Goals);
         playerStats.add(viewModel);
 
-        stats = new PlayerStats(1, "dan", "wham", PlayerPosition.FORWARD);
+        stats = new PlayerStats(1, "dan", "wham", PlayerPosition.GOALIE);
         stats.points = 2;
         stats.goals = 6;
         viewModel = new PlayerStatsVM(stats, null);
@@ -55,20 +55,20 @@ public class PlayerStatsVMTest {
 
         Collections.sort(playerStats);
 
-        Assert.assertEquals("6", playerStats.get(0).getGoals());
-        Assert.assertEquals("wham", playerStats.get(0).getLastName());
+        Assert.assertEquals("4", playerStats.get(0).getGoals());
+        Assert.assertEquals("france", playerStats.get(0).getLastName());
 
-        Assert.assertEquals("4", playerStats.get(1).getGoals());
-        Assert.assertEquals("france", playerStats.get(1).getLastName());
+        Assert.assertEquals("2", playerStats.get(1).getGoals());
+        Assert.assertEquals("aa", playerStats.get(1).getLastName());
 
         Assert.assertEquals("2", playerStats.get(2).getGoals());
-        Assert.assertEquals("aa", playerStats.get(2).getLastName());
+        Assert.assertEquals("joe", playerStats.get(2).getLastName());
 
-        Assert.assertEquals("2", playerStats.get(3).getGoals());
-        Assert.assertEquals("joe", playerStats.get(3).getLastName());
+        Assert.assertEquals("1", playerStats.get(3).getGoals());
+        Assert.assertEquals("zaon", playerStats.get(3).getLastName());
 
-        Assert.assertEquals("1", playerStats.get(4).getGoals());
-        Assert.assertEquals("zaon", playerStats.get(4).getLastName());
+        Assert.assertEquals("6", playerStats.get(4).getGoals());
+        Assert.assertEquals("wham", playerStats.get(4).getLastName());
     }
 
     @Test
@@ -100,7 +100,7 @@ public class PlayerStatsVMTest {
         viewModel.setSortSelection(StatSortSelection.Assists);
         playerStats.add(viewModel);
 
-        stats = new PlayerStats(1, "bob", "aa", PlayerPosition.FORWARD);
+        stats = new PlayerStats(1, "bob", "aa", PlayerPosition.GOALIE);
         stats.assists = 2;
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Assists);
@@ -115,13 +115,13 @@ public class PlayerStatsVMTest {
         Assert.assertEquals("france", playerStats.get(1).getLastName());
 
         Assert.assertEquals("2", playerStats.get(2).getAssists());
-        Assert.assertEquals("aa", playerStats.get(2).getLastName());
+        Assert.assertEquals("wham", playerStats.get(2).getLastName());
 
-        Assert.assertEquals("2", playerStats.get(3).getAssists());
-        Assert.assertEquals("wham", playerStats.get(3).getLastName());
+        Assert.assertEquals("1", playerStats.get(3).getAssists());
+        Assert.assertEquals("zaon", playerStats.get(3).getLastName());
 
-        Assert.assertEquals("1", playerStats.get(4).getAssists());
-        Assert.assertEquals("zaon", playerStats.get(4).getLastName());
+        Assert.assertEquals("2", playerStats.get(4).getAssists());
+        Assert.assertEquals("aa", playerStats.get(4).getLastName());
     }
 
     @Test
@@ -143,7 +143,7 @@ public class PlayerStatsVMTest {
         viewModel.setSortSelection(StatSortSelection.Points);
         playerStats.add(viewModel);
 
-        stats = new PlayerStats(1, "dan", "wham", PlayerPosition.FORWARD);
+        stats = new PlayerStats(1, "dan", "wham", PlayerPosition.GOALIE);
         stats.assists = 2;
         stats.points = 18;
         viewModel = new PlayerStatsVM(stats, null);
@@ -175,11 +175,11 @@ public class PlayerStatsVMTest {
         Assert.assertEquals("22", playerStats.get(2).getPoints());
         Assert.assertEquals("zaon", playerStats.get(2).getLastName());
 
-        Assert.assertEquals("18", playerStats.get(3).getPoints());
-        Assert.assertEquals("wham", playerStats.get(3).getLastName());
+        Assert.assertEquals("3", playerStats.get(3).getPoints());
+        Assert.assertEquals("aa", playerStats.get(3).getLastName());
 
-        Assert.assertEquals("3", playerStats.get(4).getPoints());
-        Assert.assertEquals("aa", playerStats.get(4).getLastName());
+        Assert.assertEquals("18", playerStats.get(4).getPoints());
+        Assert.assertEquals("wham", playerStats.get(4).getLastName());
     }
 
     @Test
