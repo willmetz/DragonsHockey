@@ -33,12 +33,13 @@ public class GameStats {
 
         }
 
-        public Stats(int playerID, int assists, int goals, int penaltyMinutes, boolean present) {
+        public Stats(int playerID, int assists, int goals, int penaltyMinutes, boolean present, int goalsAgainst) {
             this.playerID = playerID;
             this.assists = assists;
             this.present = present;
             this.goals = goals;
             this.penaltyMinutes = penaltyMinutes;
+            this.goalsAgainst = goalsAgainst;
         }
     }
 

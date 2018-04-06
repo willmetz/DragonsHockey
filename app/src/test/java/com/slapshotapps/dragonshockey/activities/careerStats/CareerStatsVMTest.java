@@ -77,7 +77,7 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testCurrentSeasonAdding() {
+    public void testNonGoalieCurrentSeasonAdding() {
 
         PlayerStats playerStats = new PlayerStats(2, "bob", "Builder", PlayerPosition.FORWARD);
         playerStats.goals = 2;
@@ -110,7 +110,39 @@ public class CareerStatsVMTest {
     }
 
     @Test
-    public void testHistoricalSeasonFiltering() {
+    public void testGoalieCurrentSeasonAdding() {
+
+        PlayerStats playerStats = new PlayerStats(2, "bob", "Builder", PlayerPosition.GOALIE);
+        playerStats.penaltyMinutes = 5;
+        playerStats.gamesPlayed = 10;
+        playerStats.goalsAgainst = 18;
+
+        Player player = new Player("G");
+        player.firstName = "Bob";
+        player.lastName = "Builder";
+        player.playerID = 2;
+        player.number = 99;
+
+        CareerStatsVM careerStatsVM = new CareerStatsVM(player, playerStats, null);
+
+        List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
+
+        assertThat(playerSeasonStats.size(), is(2));
+        assertThat(playerSeasonStats.get(0).penaltyMinutes, is(5));
+        assertThat(playerSeasonStats.get(0).getGoalsAgainst(), is(String.valueOf(18)));
+        assertThat(playerSeasonStats.get(0).getGoalsAgainstAverage(), is("1.80"));
+        assertThat(playerSeasonStats.get(0).getGamesPlayed(), is(String.valueOf(10)));
+
+        //career
+        assertThat(playerSeasonStats.get(1).getGamesPlayed(), is(String.valueOf(10)));
+        assertThat(playerSeasonStats.get(1).getGoalsAgainst(), is(String.valueOf(18)));
+        assertThat(playerSeasonStats.get(1).getGoalsAgainstAverage(), is("1.80"));
+        assertThat(playerSeasonStats.get(1).penaltyMinutes, is(5));
+        assertThat(playerSeasonStats.get(1).seasonID, is("Career"));
+    }
+
+    @Test
+    public void testNonGoalieHistoricalSeasonFiltering() {
 
         List<SeasonStats> seasonStats = new ArrayList<>();
         seasonStats.add(new SeasonStats());
@@ -149,6 +181,51 @@ public class CareerStatsVMTest {
         assertThat(playerSeasonStats.get(2).assists, is(40));
         assertThat(playerSeasonStats.get(2).penaltyMinutes, is(20));
         assertThat(playerSeasonStats.get(2).getPoints(), is(String.valueOf(70)));
+    }
+
+    @Test
+    public void testGoalieHistoricalSeasonFiltering() {
+
+        List<SeasonStats> seasonStats = new ArrayList<>();
+        seasonStats.add(new SeasonStats());
+        seasonStats.add(new SeasonStats());
+
+        for (int i = 0; i < 5; i++) {
+            seasonStats.get(0).stats.add(new GameStats());
+            seasonStats.get(0).stats.get(i).gameStats = getTeamStatsForGame();
+
+            seasonStats.get(1).stats.add(new GameStats());
+            seasonStats.get(1).stats.get(i).gameStats = getTeamStatsForGame();
+        }
+
+        Player player = new Player("G");
+        player.firstName = "Bob";
+        player.lastName = "Builder";
+        player.playerID = 4;
+        player.number = 99;
+
+        CareerStatsVM careerStatsVM = new CareerStatsVM(player, null, seasonStats);
+
+        List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
+
+        assertThat(playerSeasonStats.size(), is(3));
+        assertThat(playerSeasonStats.get(0).penaltyMinutes, is(10));
+        assertThat(playerSeasonStats.get(0).getGoalsAgainst(), is("20"));
+        assertThat(playerSeasonStats.get(0).getGoalsAgainstAverage(), is("4.00"));
+        assertThat(playerSeasonStats.get(0).getGamesPlayed(), is("5"));
+
+
+
+        assertThat(playerSeasonStats.get(1).penaltyMinutes, is(10));
+        assertThat(playerSeasonStats.get(1).getGoalsAgainst(), is("20"));
+        assertThat(playerSeasonStats.get(1).getGoalsAgainstAverage(), is("4.00"));
+        assertThat(playerSeasonStats.get(1).getGamesPlayed(), is("5"));
+
+        assertThat(playerSeasonStats.get(2).penaltyMinutes, is(20));
+        assertThat(playerSeasonStats.get(2).getGoalsAgainst(), is("40"));
+        assertThat(playerSeasonStats.get(2).getGoalsAgainstAverage(), is("4.00"));
+        assertThat(playerSeasonStats.get(2).getGamesPlayed(), is("10"));
+
     }
 
     @Test
@@ -214,8 +291,9 @@ public class CareerStatsVMTest {
 
         int goals = 1;
         int assists = 2;
+        int goalsAgainst = 0;
         for (int playerID = 0; playerID < 10; playerID++) {
-            stats.add(new GameStats.Stats(playerID, assists++, goals++, 2, true));
+            stats.add(new GameStats.Stats(playerID, assists++, goals++, 2, true, goalsAgainst++));
         }
 
         return stats;

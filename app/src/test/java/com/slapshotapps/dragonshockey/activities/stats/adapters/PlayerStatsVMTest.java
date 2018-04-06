@@ -8,6 +8,9 @@ import java.util.Collections;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class PlayerStatsVMTest {
 
     @Test
@@ -308,5 +311,27 @@ public class PlayerStatsVMTest {
 
         Assert.assertEquals("2", playerStats.get(4).getGamesPlayed());
         Assert.assertEquals("zaon", playerStats.get(4).getLastName());
+    }
+
+    @Test
+    public void testGoalsAgainstAverage() {
+        PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.GOALIE);
+        stats.goalsAgainst = 2;
+        stats.penaltyMinutes = 2;
+        stats.gamesPlayed = 3;
+        PlayerStatsVM viewModel = new PlayerStatsVM(stats, null);
+
+        assertThat(viewModel.goalsAgainstAverage(), is("0.67"));
+    }
+
+    @Test
+    public void testGoalsAgainstAverageNoGamesPlayed() {
+        PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.GOALIE);
+        stats.goalsAgainst = 0;
+        stats.penaltyMinutes = 2;
+        stats.gamesPlayed = 0;
+        PlayerStatsVM viewModel = new PlayerStatsVM(stats, null);
+
+        assertThat(viewModel.goalsAgainstAverage(), is("0.00"));
     }
 }
