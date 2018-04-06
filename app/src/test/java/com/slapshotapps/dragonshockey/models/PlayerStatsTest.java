@@ -16,19 +16,19 @@ public class PlayerStatsTest {
 
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
 
-        PlayerStats stats = new PlayerStats(1, "bob", "joe");
+        PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.FORWARD);
         stats.points = 4;
         playerStats.add(stats);
 
-        stats = new PlayerStats(1, "jeff", "france");
+        stats = new PlayerStats(1, "jeff", "france", PlayerPosition.FORWARD);
         stats.points = 5;
         playerStats.add(stats);
 
-        stats = new PlayerStats(1, "dan", "wham");
+        stats = new PlayerStats(1, "dan", "wham", PlayerPosition.FORWARD);
         stats.points = 2;
         playerStats.add(stats);
 
-        stats = new PlayerStats(1, "will", "zaon");
+        stats = new PlayerStats(1, "will", "zaon", PlayerPosition.FORWARD);
         stats.points = 6;
         playerStats.add(stats);
 
@@ -45,15 +45,15 @@ public class PlayerStatsTest {
 
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
 
-        PlayerStats stats = new PlayerStats(1, "bb", "bb");
+        PlayerStats stats = new PlayerStats(1, "bb", "bb", PlayerPosition.FORWARD);
         stats.points = 4;
         playerStats.add(stats);
 
-        stats = new PlayerStats(1, "aa", "aa");
+        stats = new PlayerStats(1, "aa", "aa", PlayerPosition.FORWARD);
         stats.points = 4;
         playerStats.add(stats);
 
-        stats = new PlayerStats(1, "aaa", "aaa");
+        stats = new PlayerStats(1, "aaa", "aaa", PlayerPosition.FORWARD);
         stats.points = 3;
         playerStats.add(stats);
 

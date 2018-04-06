@@ -2,6 +2,7 @@ package com.slapshotapps.dragonshockey.activities.careerStats;
 
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
+import com.slapshotapps.dragonshockey.models.PlayerPosition;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import com.slapshotapps.dragonshockey.models.SeasonStats;
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class CareerStatsVMTest {
     @Test
     public void testCurrentSeasonAdding() {
 
-        PlayerStats playerStats = new PlayerStats(2, "bob", "Builder");
+        PlayerStats playerStats = new PlayerStats(2, "bob", "Builder", PlayerPosition.FORWARD);
         playerStats.goals = 2;
         playerStats.assists = 4;
         playerStats.penaltyMinutes = 5;
@@ -170,7 +171,7 @@ public class CareerStatsVMTest {
         player.playerID = 2;
         player.number = 99;
 
-        PlayerStats playerStats = new PlayerStats(2, "bob", "Builder");
+        PlayerStats playerStats = new PlayerStats(2, "bob", "Builder", PlayerPosition.FORWARD);
         playerStats.goals = 2;
         playerStats.assists = 4;
         playerStats.gamesPlayed = 10;
