@@ -9,7 +9,7 @@
         <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.PlayerStatsViewModel"/>
 
         <variable
-            name="data"
+            name="item"
             type="PlayerStatsViewModel"/>
     </data>
 
@@ -30,7 +30,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 style="@style/TextAppearance.AppCompat.Medium"
-                android:text="@{data.playerNumber}"
+                android:text="@{item.playerNumber}"
                 tools:text="56"/>
 
             <TextView
@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="8dp"
                 style="@style/TextAppearance.AppCompat.Medium"
-                android:text="@{data.playerName}"
+                android:text="@{item.playerName}"
                 tools:text="Test Player"/>
 
             <CheckBox
@@ -53,7 +53,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/player_name"
-                android:checked="@={data.presence}"/>
+                android:checked="@={item.presence}"/>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/goal_input"
@@ -71,7 +71,7 @@
                     android:inputType="number"
                     android:hint="Goals"
                     android:selectAllOnFocus="true"
-                    android:text="@={data.goals}"/>
+                    android:text="@={item.goals}"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -91,7 +91,7 @@
                     android:inputType="number"
                     android:hint="Assists"
                     android:selectAllOnFocus="true"
-                    android:text="@={data.assists}"/>
+                    android:text="@={item.assists}"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -112,7 +112,7 @@
                     android:inputType="number"
                     android:hint="PIM"
                     android:selectAllOnFocus="true"
-                    android:text="@={data.penaltyMinutes}"/>
+                    android:text="@={item.penaltyMinutes}"/>
 
             </android.support.design.widget.TextInputLayout>
 
