@@ -3,13 +3,13 @@
 
     <data>
 
-        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.EditGameViewModel"/>
+        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminGameViewModel"/>
 
         <import type="com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener"/>
 
         <variable
             name="data"
-            type="EditGameViewModel"/>
+            type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminGameViewModel"/>
 
         <variable
             name="listener"

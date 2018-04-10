@@ -6,7 +6,7 @@ import com.slapshotapps.dragonshockey.models.PlayerPosition;
  * Created on 10/31/16.
  */
 
-public class PlayerStatsViewModel {
+public class AdminStatsViewModel {
 
     private String playerName;
     private int goals, assists, penaltyMinutes, goalsAgainst;
@@ -14,69 +14,69 @@ public class PlayerStatsViewModel {
     private final PlayerPosition position;
     private final int playerNumber, playerID;
 
-    public static class PlayerStatsVMBuilder {
+    public static class AdminStatsVMBuilder {
         private String playerName;
         private int goals, assists, playerID, playerNumber, penaltyMinutes, goalsAgainst;
         private boolean isPresent;
         private PlayerPosition position;
 
-        public PlayerStatsVMBuilder() {
+        public AdminStatsVMBuilder() {
 
         }
 
-        public PlayerStatsVMBuilder playerID(int playerID) {
+        public AdminStatsVMBuilder playerID(int playerID) {
             this.playerID = playerID;
             return this;
         }
 
-        public PlayerStatsVMBuilder playerName(String playerName) {
+        public AdminStatsVMBuilder playerName(String playerName) {
             this.playerName = playerName;
             return this;
         }
 
-        public PlayerStatsVMBuilder goals(int goals) {
+        public AdminStatsVMBuilder goals(int goals) {
             this.goals = goals;
             return this;
         }
 
-        public PlayerStatsVMBuilder assists(int assists) {
+        public AdminStatsVMBuilder assists(int assists) {
             this.assists = assists;
             return this;
         }
 
-        public PlayerStatsVMBuilder penaltyMinutes(int penaltyMinutes) {
+        public AdminStatsVMBuilder penaltyMinutes(int penaltyMinutes) {
             this.penaltyMinutes = penaltyMinutes;
             return this;
         }
 
-        public PlayerStatsVMBuilder playerNumber(int playerNumber) {
+        public AdminStatsVMBuilder playerNumber(int playerNumber) {
             this.playerNumber = playerNumber;
             return this;
         }
 
-        public PlayerStatsVMBuilder present(boolean present) {
+        public AdminStatsVMBuilder present(boolean present) {
             this.isPresent = present;
             return this;
         }
 
-        public PlayerStatsVMBuilder position(PlayerPosition position) {
+        public AdminStatsVMBuilder position(PlayerPosition position) {
             this.position = position;
             return this;
         }
 
-        public PlayerStatsVMBuilder goalsAgainst(int goalsAgainst) {
+        public AdminStatsVMBuilder goalsAgainst(int goalsAgainst) {
             this.goalsAgainst = goalsAgainst;
             return this;
         }
 
-        public PlayerStatsViewModel build() {
-            return new PlayerStatsViewModel(this.playerName, this.goals, this.assists,
+        public AdminStatsViewModel build() {
+            return new AdminStatsViewModel(this.playerName, this.goals, this.assists,
                 this.playerID, this.playerNumber, this.isPresent, this.penaltyMinutes,
                 this.position, this.goalsAgainst);
         }
     }
 
-    public PlayerStatsViewModel(String playerName, int goals, int assists,
+    public AdminStatsViewModel(String playerName, int goals, int assists,
         int playerID, int playerNumber,
         boolean isPresent, int penaltyMinutes,
         PlayerPosition position, int goalsAgainst) {

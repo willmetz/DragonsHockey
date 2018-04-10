@@ -6,11 +6,11 @@
 
     <data>
 
-        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.PlayerStatsViewModel"/>
+        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminStatsViewModel"/>
 
         <variable
             name="item"
-            type="PlayerStatsViewModel"/>
+            type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminStatsViewModel"/>
     </data>
 
     <android.support.v7.widget.CardView

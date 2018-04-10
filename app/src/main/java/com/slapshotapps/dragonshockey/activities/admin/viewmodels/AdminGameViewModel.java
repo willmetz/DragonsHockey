@@ -12,11 +12,11 @@ import java.util.Date;
  * Created on 10/16/16.
  */
 
-public class EditGameViewModel {
+public class AdminGameViewModel {
     private Game game;
     private Game originalGame;
 
-    public EditGameViewModel(@NonNull Game game) {
+    public AdminGameViewModel(@NonNull Game game) {
         this.game = game;
 
         try {

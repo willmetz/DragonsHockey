@@ -2,7 +2,7 @@ package com.slapshotapps.dragonshockey.activities.admin.adapter;
 
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.BaseDataBindingAdapter;
-import com.slapshotapps.dragonshockey.activities.admin.viewmodels.PlayerStatsViewModel;
+import com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminStatsViewModel;
 import com.slapshotapps.dragonshockey.models.PlayerPosition;
 import java.util.ArrayList;
 
@@ -12,20 +12,20 @@ import java.util.ArrayList;
 
 public class AdminEditsStatsAdapter extends BaseDataBindingAdapter {
 
-    private ArrayList<PlayerStatsViewModel> stats;
+    private ArrayList<AdminStatsViewModel> stats;
 
-    public AdminEditsStatsAdapter(ArrayList<PlayerStatsViewModel> stats) {
+    public AdminEditsStatsAdapter(ArrayList<AdminStatsViewModel> stats) {
 
         this.stats = stats;
     }
 
-    public ArrayList<PlayerStatsViewModel> getStats() {
+    public ArrayList<AdminStatsViewModel> getStats() {
         return stats;
     }
 
     public boolean statsChanged() {
-        for (PlayerStatsViewModel playerStatsViewModel : stats) {
-            if (playerStatsViewModel.isDirty()) {
+        for (AdminStatsViewModel adminStatsViewModel : stats) {
+            if (adminStatsViewModel.isDirty()) {
                 return true;
             }
         }
