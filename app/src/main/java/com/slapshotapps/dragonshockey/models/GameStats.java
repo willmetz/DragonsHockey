@@ -5,9 +5,6 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
 import java.util.List;
 
-/**
- * Created by willmetz on 9/5/16.
- */
 @Keep
 public class GameStats {
 

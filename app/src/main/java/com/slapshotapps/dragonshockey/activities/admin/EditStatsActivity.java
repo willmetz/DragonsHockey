@@ -1,6 +1,5 @@
 package com.slapshotapps.dragonshockey.activities.admin;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class EditStatsActivity extends AppCompatActivity {
@@ -122,6 +120,8 @@ public class EditStatsActivity extends AppCompatActivity {
                     .assists(statsForPlayer.assists)
                     .present(statsForPlayer.present)
                     .penaltyMinutes(statsForPlayer.penaltyMinutes)
+                    .position(player.getPosition())
+                    .goalsAgainst(statsForPlayer.goalsAgainst)
                     .build();
 
             statsViewModel.add(viewModel);
@@ -143,6 +143,7 @@ public class EditStatsActivity extends AppCompatActivity {
             stats.goals = Integer.valueOf(playerStatsViewModel.getGoals());
             stats.present = playerStatsViewModel.getPresence();
             stats.penaltyMinutes = Integer.valueOf(playerStatsViewModel.getPenaltyMinutes());
+            stats.goalsAgainst = Integer.valueOf(playerStatsViewModel.getGoalsAgainst());
 
             gameStats.gameStats.add(stats);
         }

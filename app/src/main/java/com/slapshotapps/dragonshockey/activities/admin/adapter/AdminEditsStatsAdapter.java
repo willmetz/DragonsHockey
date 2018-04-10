@@ -1,15 +1,9 @@
 package com.slapshotapps.dragonshockey.activities.admin.adapter;
 
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import com.android.databinding.library.baseAdapters.BR;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.BaseDataBindingAdapter;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.PlayerStatsViewModel;
+import com.slapshotapps.dragonshockey.models.PlayerPosition;
 import java.util.ArrayList;
 
 /**
@@ -46,7 +40,8 @@ public class AdminEditsStatsAdapter extends BaseDataBindingAdapter {
 
     @Override
     protected int getLayoutIdForPosition(int position) {
-        return R.layout.view_admin_stats_player_card;
+        return isGoalie(position) ? R.layout.view_admin_stats_goalie_card
+            : R.layout.view_admin_stats_player_card;
     }
 
     @Override
@@ -54,4 +49,7 @@ public class AdminEditsStatsAdapter extends BaseDataBindingAdapter {
         return stats.size();
     }
 
+    private boolean isGoalie(int position) {
+        return stats.get(position).getPosition() == PlayerPosition.GOALIE;
+    }
 }
