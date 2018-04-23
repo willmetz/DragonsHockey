@@ -35,10 +35,10 @@
                     android:id="@+id/player_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="@{item.getPlayerName()}"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="John Doe"
                     style="@style/TextAppearance.AppCompat.Medium"/>
@@ -48,10 +48,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@{item.position()}"
-                    app:layout_constraintBottom_toBottomOf="@id/player_name"
                     app:layout_constraintStart_toEndOf="@id/player_name"
-                    tools:text="(F)"
+                    app:layout_constraintBottom_toBottomOf="@id/player_name"
+                    android:text="(G)"
                     style="@style/TextAppearance.AppCompat.Medium"/>
 
                 <TextView
@@ -80,10 +79,10 @@
                     style="@style/TextAppearance.AppCompat.Small"/>
 
                 <TextView
-                    android:id="@+id/goals_header"
+                    android:id="@+id/goals_against_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/goals"
+                    android:text="GA"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.25"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -93,21 +92,21 @@
                     style="@style/TextAppearance.AppCompat.Small"/>
 
                 <TextView
-                    android:id="@+id/goals"
+                    android:id="@+id/goals_against"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.getGoals()}"
+                    android:text="@{item.goalsAgainst()}"
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintLeft_toRightOf="@id/goals_header"
-                    app:layout_constraintRight_toLeftOf="@id/goals_header"
-                    tools:text="1"
+                    app:layout_constraintLeft_toRightOf="@id/goals_against_header"
+                    app:layout_constraintRight_toLeftOf="@id/goals_against_header"
+                    tools:text="25"
                     style="@style/TextAppearance.AppCompat.Small"/>
 
                 <TextView
-                    android:id="@+id/assists_header"
+                    android:id="@+id/goals_against_average_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/assists"
+                    android:text="GAA"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.45"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -117,21 +116,21 @@
                     style="@style/TextAppearance.AppCompat.Small"/>
 
                 <TextView
-                    android:id="@+id/assists"
+                    android:id="@+id/goals_against_average"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.getAssists()}"
+                    android:text="@{item.goalsAgainstAverage()}"
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintLeft_toRightOf="@id/assists_header"
-                    app:layout_constraintRight_toLeftOf="@id/assists_header"
-                    tools:text="2"
+                    app:layout_constraintLeft_toRightOf="@id/goals_against_average_header"
+                    app:layout_constraintRight_toLeftOf="@id/goals_against_average_header"
+                    tools:text="2.35"
                     style="@style/TextAppearance.AppCompat.Small"/>
 
                 <TextView
-                    android:id="@+id/points_header"
+                    android:id="@+id/shutout_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/points"
+                    android:text="SO"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.65"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -141,14 +140,14 @@
                     style="@style/TextAppearance.AppCompat.Small"/>
 
                 <TextView
-                    android:id="@+id/points"
+                    android:id="@+id/shutouts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.getPoints()}"
+                    android:text="@{item.shutouts()}"
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintLeft_toRightOf="@id/points_header"
-                    app:layout_constraintRight_toLeftOf="@id/points_header"
-                    tools:text="2"
+                    app:layout_constraintLeft_toRightOf="@id/shutout_header"
+                    app:layout_constraintRight_toLeftOf="@id/shutout_header"
+                    tools:text="1"
                     style="@style/TextAppearance.AppCompat.Small"/>
 
                 <TextView

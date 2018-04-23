@@ -56,12 +56,10 @@
                 android:checked="@={item.presence}"/>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/goal_input"
-                android:layout_width="100dp"
+                android:id="@+id/goal_against_input"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/assist_input"
                 app:layout_constraintTop_toBottomOf="@id/player_present">
 
                 <android.support.design.widget.TextInputEditText
@@ -69,29 +67,10 @@
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.AppCompat.Medium"
                     android:inputType="number"
-                    android:hint="Goals"
+                    android:hint="Goals Against"
+                    android:maxLength="3"
                     android:selectAllOnFocus="true"
-                    android:text="@={item.goals}"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/assist_input"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@id/goal_input"
-                app:layout_constraintEnd_toStartOf="@id/pim_input"
-                app:layout_constraintBottom_toBottomOf="@id/goal_input">
-
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/TextAppearance.AppCompat.Medium"
-                    android:inputType="number"
-                    android:hint="Assists"
-                    android:selectAllOnFocus="true"
-                    android:text="@={item.assists}"/>
+                    android:text="@={item.goalsAgainst}"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -100,10 +79,8 @@
                 android:id="@+id/pim_input"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@id/assist_input"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/goal_input">
+                app:layout_constraintBottom_toBottomOf="@id/goal_against_input">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
@@ -111,6 +88,7 @@
                     style="@style/TextAppearance.AppCompat.Medium"
                     android:inputType="number"
                     android:hint="PIM"
+                    android:maxLength="3"
                     android:selectAllOnFocus="true"
                     android:text="@={item.penaltyMinutes}"/>
 

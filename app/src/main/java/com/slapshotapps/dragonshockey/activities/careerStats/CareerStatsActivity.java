@@ -84,7 +84,7 @@ public class CareerStatsActivity extends AppCompatActivity {
                             new CareerStatsVM(careerStatsData.player, currentSeasonStats,
                                 careerStatsData.seasonStats);
                         binding.setStats(careerStatsVM);
-                        careerStatsAdapter.updateStats(careerStatsVM.getStats());
+                        careerStatsAdapter.updateStats(careerStatsVM.getStats(), careerStatsData.player.getPosition());
                         binding.toolbarProgressBar.animate().alpha(0);
                     }
                 });

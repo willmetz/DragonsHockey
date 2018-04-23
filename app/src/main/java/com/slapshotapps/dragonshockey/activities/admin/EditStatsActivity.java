@@ -1,6 +1,5 @@
 package com.slapshotapps.dragonshockey.activities.admin;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,7 @@ import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.RosterUtils;
 import com.slapshotapps.dragonshockey.activities.admin.adapter.AdminEditsStatsAdapter;
-import com.slapshotapps.dragonshockey.activities.admin.viewmodels.PlayerStatsViewModel;
+import com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminStatsViewModel;
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerGameStats;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class EditStatsActivity extends AppCompatActivity {
@@ -86,7 +84,7 @@ public class EditStatsActivity extends AppCompatActivity {
 
         if (adminEditsStatsAdapter.statsChanged()) {
 
-            ArrayList<PlayerStatsViewModel> viewModel = adminEditsStatsAdapter.getStats();
+            ArrayList<AdminStatsViewModel> viewModel = adminEditsStatsAdapter.getStats();
 
             if (playerGameStats.isKeyValid()) {
                 firebaseDatabase.getReference()
@@ -101,8 +99,8 @@ public class EditStatsActivity extends AppCompatActivity {
         }
     }
 
-    private ArrayList<PlayerStatsViewModel> getViewModel() {
-        ArrayList<PlayerStatsViewModel> statsViewModel = new ArrayList<PlayerStatsViewModel>();
+    private ArrayList<AdminStatsViewModel> getViewModel() {
+        ArrayList<AdminStatsViewModel> statsViewModel = new ArrayList<AdminStatsViewModel>();
 
         for (Player player : playerGameStats.players) {
 
@@ -113,8 +111,8 @@ public class EditStatsActivity extends AppCompatActivity {
                 statsForPlayer = new GameStats.Stats();
             }
 
-            PlayerStatsViewModel viewModel =
-                new PlayerStatsViewModel.PlayerStatsVMBuilder().playerName(
+            AdminStatsViewModel viewModel =
+                new AdminStatsViewModel.AdminStatsVMBuilder().playerName(
                     RosterUtils.getFullName(player))
                     .playerID(player.playerID)
                     .playerNumber(player.number)
@@ -122,6 +120,8 @@ public class EditStatsActivity extends AppCompatActivity {
                     .assists(statsForPlayer.assists)
                     .present(statsForPlayer.present)
                     .penaltyMinutes(statsForPlayer.penaltyMinutes)
+                    .position(player.getPosition())
+                    .goalsAgainst(statsForPlayer.goalsAgainst)
                     .build();
 
             statsViewModel.add(viewModel);
@@ -130,19 +130,20 @@ public class EditStatsActivity extends AppCompatActivity {
         return statsViewModel;
     }
 
-    private GameStats getGameStats(List<PlayerStatsViewModel> playerStatsViewModelList) {
+    private GameStats getGameStats(List<AdminStatsViewModel> adminStatsViewModelList) {
         GameStats gameStats = new GameStats();
 
         gameStats.gameID = gameID;
         gameStats.gameStats = new ArrayList<>();
 
-        for (PlayerStatsViewModel playerStatsViewModel : playerStatsViewModelList) {
+        for (AdminStatsViewModel adminStatsViewModel : adminStatsViewModelList) {
             GameStats.Stats stats = new GameStats.Stats();
-            stats.playerID = playerStatsViewModel.getPlayerID();
-            stats.assists = Integer.valueOf(playerStatsViewModel.getAssists());
-            stats.goals = Integer.valueOf(playerStatsViewModel.getGoals());
-            stats.present = playerStatsViewModel.getPresence();
-            stats.penaltyMinutes = Integer.valueOf(playerStatsViewModel.getPenaltyMinutes());
+            stats.playerID = adminStatsViewModel.getPlayerID();
+            stats.assists = Integer.valueOf(adminStatsViewModel.getAssists());
+            stats.goals = Integer.valueOf(adminStatsViewModel.getGoals());
+            stats.present = adminStatsViewModel.getPresence();
+            stats.penaltyMinutes = Integer.valueOf(adminStatsViewModel.getPenaltyMinutes());
+            stats.goalsAgainst = Integer.valueOf(adminStatsViewModel.getGoalsAgainst());
 
             gameStats.gameStats.add(stats);
         }

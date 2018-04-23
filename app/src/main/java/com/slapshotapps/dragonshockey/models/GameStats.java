@@ -5,9 +5,6 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
 import java.util.List;
 
-/**
- * Created by willmetz on 9/5/16.
- */
 @Keep
 public class GameStats {
 
@@ -27,17 +24,19 @@ public class GameStats {
         public int goals;
         public boolean present;
         public int penaltyMinutes;
+        public int goalsAgainst;
 
         public Stats() {
 
         }
 
-        public Stats(int playerID, int assists, int goals, int penaltyMinutes, boolean present) {
+        public Stats(int playerID, int assists, int goals, int penaltyMinutes, boolean present, int goalsAgainst) {
             this.playerID = playerID;
             this.assists = assists;
             this.present = present;
             this.goals = goals;
             this.penaltyMinutes = penaltyMinutes;
+            this.goalsAgainst = goalsAgainst;
         }
     }
 

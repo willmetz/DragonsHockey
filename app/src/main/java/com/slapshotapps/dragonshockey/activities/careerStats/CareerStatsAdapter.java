@@ -8,38 +8,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.slapshotapps.dragonshockey.BR;
 import com.slapshotapps.dragonshockey.R;
+import com.slapshotapps.dragonshockey.Utils.BaseDataBindingAdapter;
 import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter;
+import com.slapshotapps.dragonshockey.models.PlayerPosition;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CareerStatsAdapter extends RecyclerView.Adapter<CareerStatsAdapter.StatsViewHolder>
+public class CareerStatsAdapter extends BaseDataBindingAdapter
     implements StickyHeaderAdapter<CareerStatsAdapter.HeaderView> {
 
-    final ArrayList<PlayerSeasonStatsVM> playerSeasonStats;
+    private final ArrayList<PlayerSeasonStatsVM> playerSeasonStats;
+    private PlayerPosition playerPosition;
 
     public CareerStatsAdapter() {
         this.playerSeasonStats = new ArrayList<>();
+        playerPosition = PlayerPosition.FORWARD;
     }
 
-    public void updateStats(List<PlayerSeasonStatsVM> playerSeasonStats) {
+    public void updateStats(List<PlayerSeasonStatsVM> playerSeasonStats, PlayerPosition position) {
         this.playerSeasonStats.clear();
         this.playerSeasonStats.addAll(playerSeasonStats);
+        this.playerPosition = position;
         notifyDataSetChanged();
     }
 
     @Override
-    public StatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-
-        return new StatsViewHolder(view);
+    protected Object getObjForPosition(int position) {
+        return playerSeasonStats.get(position);
     }
 
     @Override
-    public void onBindViewHolder(StatsViewHolder holder, int position) {
-
-        PlayerSeasonStatsVM seasonStats = playerSeasonStats.get(position);
-        holder.getBinding().setVariable(BR.seasonData, seasonStats);
-        holder.getBinding().executePendingBindings();
+    protected int getLayoutIdForPosition(int position) {
+        return playerPosition == PlayerPosition.GOALIE? R.layout.list_goalie_season_stats: R.layout.list_player_season_stats;
     }
 
     @Override
@@ -48,15 +48,12 @@ public class CareerStatsAdapter extends RecyclerView.Adapter<CareerStatsAdapter.
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return R.layout.list_player_season_stats;
-    }
-
-    @Override
     public HeaderView onCreateHeaderViewHolder(RecyclerView parent) {
+        final int layoutID = playerPosition == PlayerPosition.GOALIE? R.layout.list_season_stats_goalie_header:
+            R.layout.list_season_stats_header;
 
-        View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.list_season_stats_header, parent, false);
+        final View view = LayoutInflater.from(parent.getContext())
+            .inflate(layoutID, parent, false);
 
         return new HeaderView(view);
     }
@@ -64,21 +61,6 @@ public class CareerStatsAdapter extends RecyclerView.Adapter<CareerStatsAdapter.
     @Override
     public void onBindHeaderViewHolder(HeaderView viewHolder) {
         //no-op
-    }
-
-    public static class StatsViewHolder extends RecyclerView.ViewHolder {
-
-        private ViewDataBinding binding;
-
-        public StatsViewHolder(View itemView) {
-            super(itemView);
-
-            binding = DataBindingUtil.bind(itemView);
-        }
-
-        public ViewDataBinding getBinding() {
-            return binding;
-        }
     }
 
     public static class HeaderView extends RecyclerView.ViewHolder {

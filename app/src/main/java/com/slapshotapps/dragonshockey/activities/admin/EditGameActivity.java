@@ -17,7 +17,7 @@ import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener;
-import com.slapshotapps.dragonshockey.activities.admin.viewmodels.EditGameViewModel;
+import com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminGameViewModel;
 import com.slapshotapps.dragonshockey.databinding.ActivityEditGameAuthBinding;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameUpdateKeys;
@@ -68,7 +68,7 @@ public class EditGameActivity extends AppCompatActivity
 
         if (!refreshData) {
             getDataKeys(originalGame.gameID);
-            binding.setData(new EditGameViewModel(originalGame));
+            binding.setData(new AdminGameViewModel(originalGame));
         } else {
             //get the game ID
             Game game = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
@@ -80,7 +80,7 @@ public class EditGameActivity extends AppCompatActivity
                     @Override
                     public void call(Game game) {
                         originalGame = game;
-                        binding.setData(new EditGameViewModel(originalGame));
+                        binding.setData(new AdminGameViewModel(originalGame));
 
                         getDataKeys(game.gameID);
                     }
@@ -103,7 +103,7 @@ public class EditGameActivity extends AppCompatActivity
             subscription = null;
         }
 
-        EditGameViewModel model = binding.getData();
+        AdminGameViewModel model = binding.getData();
         if (model.hasChanged()) {
             saveUpdates(model);
             refreshData = true;
@@ -113,7 +113,7 @@ public class EditGameActivity extends AppCompatActivity
     @Override
     public void onDateClick(Date gameDate) {
 
-        EditGameViewModel model = binding.getData();
+        AdminGameViewModel model = binding.getData();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(model.getGameDate());
         final int year = calendar.get(Calendar.YEAR);
@@ -126,7 +126,7 @@ public class EditGameActivity extends AppCompatActivity
 
     @Override
     public void onTimeClick(Date gameDate) {
-        EditGameViewModel model = binding.getData();
+        AdminGameViewModel model = binding.getData();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(model.getGameDate());
 
@@ -139,7 +139,7 @@ public class EditGameActivity extends AppCompatActivity
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        EditGameViewModel model = binding.getData();
+        AdminGameViewModel model = binding.getData();
         Date originalGameDate = model.getGameDate();
 
         Calendar newGameDate = Calendar.getInstance();
@@ -156,7 +156,7 @@ public class EditGameActivity extends AppCompatActivity
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        EditGameViewModel model = binding.getData();
+        AdminGameViewModel model = binding.getData();
         Date originalGameDate = model.getGameDate();
 
         Calendar newGameDate = Calendar.getInstance();
@@ -180,7 +180,7 @@ public class EditGameActivity extends AppCompatActivity
         deleteGameAndStats();
     }
 
-    private void saveUpdates(EditGameViewModel model) {
+    private void saveUpdates(AdminGameViewModel model) {
         if (keys != null) {
 
             if (keys.gameKeyValid()) {

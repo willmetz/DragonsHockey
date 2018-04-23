@@ -64,61 +64,61 @@
             app:layout_constraintGuide_percent="0.35"/>
 
         <TextView
-            android:id="@+id/goals"
+            android:id="@+id/goals_against"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{item.getGoals()}"
+            android:text="@{item.getGoalsAgainst()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_four"
             app:layout_constraintStart_toEndOf="@id/guideline_three"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="3"/>
+            tools:text="33"/>
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline_four"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.45"/>
+            app:layout_constraintGuide_percent="0.50"/>
 
         <TextView
-            android:id="@+id/assists"
+            android:id="@+id/goals_against_average"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{item.getAssists()}"
+            android:text="@{item.getGoalsAgainstAverage()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline_four"
             app:layout_constraintEnd_toStartOf="@+id/guideline_five"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="2"/>
+            tools:text="2.34"/>
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline_five"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.55"/>
+            app:layout_constraintGuide_percent="0.60"/>
 
         <TextView
-            android:id="@+id/points"
+            android:id="@+id/shutouts"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{item.getPoints()}"
+            android:text="@{item.getShutouts()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline_five"
             app:layout_constraintEnd_toStartOf="@id/guideline_six"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="5"/>
+            tools:text="1"/>
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline_six"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.7"/>
+            app:layout_constraintGuide_percent="0.75"/>
 
         <TextView
             android:id="@+id/penalty_minutes"

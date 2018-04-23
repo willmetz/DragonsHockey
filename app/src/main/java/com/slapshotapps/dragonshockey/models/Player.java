@@ -43,6 +43,16 @@ public class Player implements Parcelable {
         return GOALIE.equalsIgnoreCase(position);
     }
 
+    public PlayerPosition getPosition() {
+        if (isGoalie()) {
+            return PlayerPosition.GOALIE;
+        } else if (isDefense()) {
+            return PlayerPosition.DEFENSE;
+        } else {
+            return PlayerPosition.FORWARD;
+        }
+    }
+
     @Override
     public int describeContents() {
         return 0;

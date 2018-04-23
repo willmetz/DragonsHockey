@@ -58,6 +58,8 @@ public class CareerStatsVM {
                         tempPlayerSeasonStats.assists += gameStats.assists;
                         tempPlayerSeasonStats.gamesPlayed += gameStats.present ? 1 : 0;
                         tempPlayerSeasonStats.penaltyMinutes += gameStats.penaltyMinutes;
+                        tempPlayerSeasonStats.goalsAgainst += gameStats.goalsAgainst;
+                        tempPlayerSeasonStats.shutouts += gameStats.goalsAgainst == 0 && gameStats.present? 1: 0;
                         break;
                     }
                 }
@@ -80,6 +82,8 @@ public class CareerStatsVM {
             careerStats.goals += stats.goals;
             careerStats.gamesPlayed += stats.gamesPlayed;
             careerStats.penaltyMinutes += stats.penaltyMinutes;
+            careerStats.shutouts += stats.shutouts;
+            careerStats.goalsAgainst += stats.goalsAgainst;
         }
 
         playerSeasonStats.add(careerStats);

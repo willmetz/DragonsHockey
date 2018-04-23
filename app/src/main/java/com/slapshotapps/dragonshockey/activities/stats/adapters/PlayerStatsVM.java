@@ -4,7 +4,9 @@ import android.support.annotation.NonNull;
 import com.slapshotapps.dragonshockey.Utils.StatsUtils;
 import com.slapshotapps.dragonshockey.activities.stats.StatsListener;
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;
+import com.slapshotapps.dragonshockey.models.PlayerPosition;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
+import java.util.Locale;
 
 public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
 
@@ -28,6 +30,20 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
 
     public String getPlayerName() {
         return StatsUtils.fullPlayerName(playerStats);
+    }
+
+    public String position() {
+        switch (playerStats.position) {
+
+            case FORWARD:
+                return "(F)";
+            case DEFENSE:
+                return "(D)";
+            case GOALIE:
+                return "(G)";
+            default:
+                return "(F)";
+        }
     }
 
     public String getLastName() {
@@ -58,6 +74,30 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
         return playerStats;
     }
 
+    public String goalsAgainst() {
+        return String.format(Locale.US, "%d", playerStats.goalsAgainst);
+    }
+
+    public String goalsAgainstAverage() {
+        return String.format(Locale.US, "%.2f", calcGoalsAgainstAverage());
+    }
+
+    public String shutouts() {
+        return String.format(Locale.US, "%d", playerStats.shutouts);
+    }
+
+    private float calcGoalsAgainstAverage() {
+        if (playerStats.gamesPlayed > 0) {
+            return playerStats.goalsAgainst / (float) playerStats.gamesPlayed;
+        } else {
+            return 0f;
+        }
+    }
+
+    public PlayerPosition getPosition() {
+        return playerStats.position;
+    }
+
     @Override
     public int compareTo(@NonNull PlayerStatsVM playerStatsVM) {
 
@@ -77,7 +117,11 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
     }
 
     private int sortByPoints(PlayerStatsVM playerStatsVM) {
-        if (playerStats.points < Integer.valueOf(playerStatsVM.getPoints())) {
+        if (playerStats.position == PlayerPosition.GOALIE) {
+            return 1;
+        } else if (playerStatsVM.getPosition() == PlayerPosition.GOALIE) {
+            return -1;
+        } else if (playerStats.points < Integer.valueOf(playerStatsVM.getPoints())) {
             return 1;
         } else if (playerStats.points > Integer.valueOf(playerStatsVM.getPoints())) {
             return -1;
@@ -86,7 +130,12 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
     }
 
     private int sortByGoals(PlayerStatsVM playerStatsVM) {
-        if (playerStats.goals < Integer.valueOf(playerStatsVM.getGoals())) {
+
+        if (playerStats.position == PlayerPosition.GOALIE) {
+            return 1;
+        } else if (playerStatsVM.getPosition() == PlayerPosition.GOALIE) {
+            return -1;
+        } else if (playerStats.goals < Integer.valueOf(playerStatsVM.getGoals())) {
             return 1;
         } else if (playerStats.goals > Integer.valueOf(playerStatsVM.getGoals())) {
             return -1;
@@ -95,7 +144,11 @@ public class PlayerStatsVM implements Comparable<PlayerStatsVM>, StatsListener {
     }
 
     private int sortByAssists(PlayerStatsVM playerStatsVM) {
-        if (playerStats.assists < Integer.valueOf(playerStatsVM.getAssists())) {
+        if (playerStats.position == PlayerPosition.GOALIE) {
+            return 1;
+        } else if (playerStatsVM.getPosition() == PlayerPosition.GOALIE) {
+            return -1;
+        } else if (playerStats.assists < Integer.valueOf(playerStatsVM.getAssists())) {
             return 1;
         } else if (playerStats.assists > Integer.valueOf(playerStatsVM.getAssists())) {
             return -1;

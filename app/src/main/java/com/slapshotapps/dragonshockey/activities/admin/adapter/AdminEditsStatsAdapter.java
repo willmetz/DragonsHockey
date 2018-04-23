@@ -1,37 +1,31 @@
 package com.slapshotapps.dragonshockey.activities.admin.adapter;
 
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import com.android.databinding.library.baseAdapters.BR;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.activities.admin.viewmodels.PlayerStatsViewModel;
+import com.slapshotapps.dragonshockey.Utils.BaseDataBindingAdapter;
+import com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminStatsViewModel;
+import com.slapshotapps.dragonshockey.models.PlayerPosition;
 import java.util.ArrayList;
 
 /**
  * Created on 11/1/16.
  */
 
-public class AdminEditsStatsAdapter
-    extends RecyclerView.Adapter<AdminEditsStatsAdapter.StatsViewHolder> {
+public class AdminEditsStatsAdapter extends BaseDataBindingAdapter {
 
-    private ArrayList<PlayerStatsViewModel> stats;
+    private ArrayList<AdminStatsViewModel> stats;
 
-    public AdminEditsStatsAdapter(ArrayList<PlayerStatsViewModel> stats) {
+    public AdminEditsStatsAdapter(ArrayList<AdminStatsViewModel> stats) {
 
         this.stats = stats;
     }
 
-    public ArrayList<PlayerStatsViewModel> getStats() {
+    public ArrayList<AdminStatsViewModel> getStats() {
         return stats;
     }
 
     public boolean statsChanged() {
-        for (PlayerStatsViewModel playerStatsViewModel : stats) {
-            if (playerStatsViewModel.isDirty()) {
+        for (AdminStatsViewModel adminStatsViewModel : stats) {
+            if (adminStatsViewModel.isDirty()) {
                 return true;
             }
         }
@@ -40,19 +34,14 @@ public class AdminEditsStatsAdapter
     }
 
     @Override
-    public StatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.view_admin_stats_player_card, parent, false);
-
-        return new StatsViewHolder(view);
+    protected Object getObjForPosition(int position) {
+        return stats.get(position);
     }
 
     @Override
-    public void onBindViewHolder(StatsViewHolder holder, int position) {
-        final PlayerStatsViewModel model = stats.get(position);
-
-        holder.getBinding().setVariable(BR.data, model);
-        holder.getBinding().executePendingBindings();
+    protected int getLayoutIdForPosition(int position) {
+        return isGoalie(position) ? R.layout.view_admin_stats_goalie_card
+            : R.layout.view_admin_stats_player_card;
     }
 
     @Override
@@ -60,18 +49,7 @@ public class AdminEditsStatsAdapter
         return stats.size();
     }
 
-    public static class StatsViewHolder extends RecyclerView.ViewHolder {
-
-        private ViewDataBinding binding;
-
-        public StatsViewHolder(View itemView) {
-            super(itemView);
-
-            binding = DataBindingUtil.bind(itemView);
-        }
-
-        public ViewDataBinding getBinding() {
-            return binding;
-        }
+    private boolean isGoalie(int position) {
+        return stats.get(position).getPosition() == PlayerPosition.GOALIE;
     }
 }
