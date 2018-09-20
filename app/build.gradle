@@ -81,7 +81,7 @@ android {
 }
 
 ext {
-    appCompatVersion = '27.0.2'
+    appCompatVersion = '27.1.1'
     playServicesVersion = '12.0.1'
 }
 
