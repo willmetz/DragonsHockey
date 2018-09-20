@@ -43,7 +43,7 @@ android {
     defaultConfig {
         applicationId "com.slapshotapps.dragonshockey"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 18
         versionName "1.13"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
