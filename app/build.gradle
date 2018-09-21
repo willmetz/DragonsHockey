@@ -95,10 +95,10 @@ dependencies {
     implementation "com.android.support:design:$appCompatVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.jakewharton:butterknife:8.8.1'
-    implementation "com.google.firebase:firebase-database:$playServicesVersion"
-    implementation "com.google.android.gms:play-services-auth:$playServicesVersion"
-    implementation "com.google.firebase:firebase-auth:$playServicesVersion"
-    implementation "com.google.firebase:firebase-core:$playServicesVersion"
+    implementation "com.google.firebase:firebase-database:16.0.1"
+    implementation "com.google.android.gms:play-services-auth:16.0.0"
+    implementation "com.google.firebase:firebase-auth:16.0.3"
+    implementation "com.google.firebase:firebase-core:16.0.3"
     implementation 'io.reactivex:rxjava:1.2.2'
     implementation 'io.reactivex:rxandroid:1.2.1'
     // And ProGuard rules for RxJava!
