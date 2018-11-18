@@ -1,6 +1,6 @@
 package com.slapshotapps.dragonshockey.activities.stats.adapters;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.slapshotapps.dragonshockey.Utils.StatsUtils;
 import com.slapshotapps.dragonshockey.activities.stats.StatsListener;
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;

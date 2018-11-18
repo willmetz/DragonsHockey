@@ -1,10 +1,10 @@
 package com.slapshotapps.dragonshockey.activities.home;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.support.annotation.Keep;
-import android.support.annotation.Nullable;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.annotation.Keep;
+import androidx.annotation.Nullable;
 import android.text.format.DateUtils;
 import android.view.View;
 import com.slapshotapps.dragonshockey.BR;

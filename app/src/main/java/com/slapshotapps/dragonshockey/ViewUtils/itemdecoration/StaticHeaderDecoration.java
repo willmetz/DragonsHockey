@@ -2,7 +2,7 @@ package com.slapshotapps.dragonshockey.ViewUtils.itemdecoration;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter;

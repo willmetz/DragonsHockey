@@ -2,7 +2,7 @@ package com.slapshotapps.dragonshockey.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;
 
 public class UserPrefsManager {

@@ -1,6 +1,6 @@
 package com.slapshotapps.dragonshockey.activities.careerStats;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.slapshotapps.dragonshockey.Utils.RosterUtils;
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;

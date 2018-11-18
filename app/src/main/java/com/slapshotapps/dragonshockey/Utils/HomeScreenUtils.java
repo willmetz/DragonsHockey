@@ -1,6 +1,6 @@
 package com.slapshotapps.dragonshockey.Utils;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.slapshotapps.dragonshockey.models.GameResult;
 
 /**

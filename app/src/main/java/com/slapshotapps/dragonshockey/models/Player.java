@@ -2,7 +2,7 @@ package com.slapshotapps.dragonshockey.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Keep;
+import androidx.annotation.Keep;
 
 /**
  * A player object.

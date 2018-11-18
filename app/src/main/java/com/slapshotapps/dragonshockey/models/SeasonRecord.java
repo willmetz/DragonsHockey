@@ -1,6 +1,6 @@
 package com.slapshotapps.dragonshockey.models;
 
-import android.support.annotation.Keep;
+import androidx.annotation.Keep;
 
 /**
  * Created by willmetz on 8/20/16.
