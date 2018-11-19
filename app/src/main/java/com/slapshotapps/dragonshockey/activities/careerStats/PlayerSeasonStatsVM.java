@@ -1,7 +1,7 @@
 package com.slapshotapps.dragonshockey.activities.careerStats;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import java.util.Locale;

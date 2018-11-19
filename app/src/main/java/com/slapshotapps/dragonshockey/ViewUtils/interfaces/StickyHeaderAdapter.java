@@ -1,6 +1,6 @@
 package com.slapshotapps.dragonshockey.ViewUtils.interfaces;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by willmetz on 8/6/16.

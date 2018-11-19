@@ -10,7 +10,7 @@
     tools:context=".activities.roster.RosterActivity"
     android:id="@+id/roster_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/roster_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +19,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginBottom="4dp"/>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ir_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             app:layout_constraintHorizontal_bias=".45"
             app:layout_constraintBottom_toBottomOf="@id/ir_background_color"
             android:layout_marginBottom="4dp"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/roster_unavailable"

@@ -1,6 +1,6 @@
 package com.slapshotapps.dragonshockey.Utils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.SparseArray;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import java.util.ArrayList;

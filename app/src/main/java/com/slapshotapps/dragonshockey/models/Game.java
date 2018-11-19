@@ -2,7 +2,7 @@ package com.slapshotapps.dragonshockey.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Keep;
+import androidx.annotation.Keep;
 import com.google.firebase.database.Exclude;
 import com.slapshotapps.dragonshockey.Utils.DateFormaters;
 import java.util.Date;

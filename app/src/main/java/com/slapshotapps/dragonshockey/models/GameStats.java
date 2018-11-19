@@ -1,6 +1,6 @@
 package com.slapshotapps.dragonshockey.models;
 
-import android.support.annotation.Keep;
+import androidx.annotation.Keep;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
 import java.util.List;
