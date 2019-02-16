@@ -1,5 +1,6 @@
 package com.slapshotapps.dragonshockey.activities.home;
 
+import android.content.Intent;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
@@ -16,6 +17,7 @@ import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
+import com.slapshotapps.dragonshockey.activities.MainActivity;
 import com.slapshotapps.dragonshockey.databinding.ActivityHomeBinding;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
@@ -135,7 +137,8 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "900");
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
-        startActivity(DragonsHockeyIntents.createScheduleIntent(this));
+        //startActivity(DragonsHockeyIntents.createScheduleIntent(this));
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override

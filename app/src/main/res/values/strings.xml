@@ -44,7 +44,7 @@
     <string name="try_again">Your login was incorrect, please try again</string>
     <string name="unauthorized">Unauthorized</string>
     <string name="PIM_label">PIM</string>
-    
+
     <string-array name="stat_sort_options">
         <item>Games Played</item>
         <item>Goals</item>
