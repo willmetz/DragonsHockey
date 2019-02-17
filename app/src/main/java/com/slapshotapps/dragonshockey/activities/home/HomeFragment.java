@@ -1,6 +1,12 @@
 package com.slapshotapps.dragonshockey.activities.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
@@ -9,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+import androidx.fragment.app.Fragment;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseException;
@@ -33,7 +40,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class HomeActivity extends AppCompatActivity implements HomeScreenListener {
+public class HomeFragment extends Fragment {
 
     private Subscription hockeyScheduleSubscription;
 
@@ -41,23 +48,28 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
     private FirebaseAnalytics firebaseAnalytics;
     private ActivityHomeBinding binding;
 
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.activity_home, container,false);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-        binding.setListener(this);
-        setSupportActionBar(binding.toolbar);
+        return binding.getRoot();
+    }
 
-        if (Config.isRelease) {
-            Fabric.with(this, new Crashlytics());
-        } else {
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setTitle("CERT Dragons Hockey CERT");
-        }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        //TODO
+        //setSupportActionBar(binding.toolbar);
+        //if (!Config.isRelease) {
+        //    ActionBar actionBar = getSupportActionBar();
+        //    actionBar.setTitle("CERT Dragons Hockey CERT");
+        //}
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
         try {
             firebaseDatabase.setPersistenceEnabled(true);
@@ -68,7 +80,7 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
@@ -84,44 +96,30 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
                 @Override
                 public void call(HomeContents homeContents) {
                     binding.setItem(new HomeScreenViewModel(homeContents));
-                    ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
+                    //TODO
+     //               ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
                 }
             }, new Action1<Throwable>() {
                 @Override
                 public void call(Throwable throwable) {
                     binding.setItem(new HomeScreenViewModel(null));
-                    ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
-                    Toast.makeText(HomeActivity.this, R.string.error_loading, Toast.LENGTH_LONG)
+                    //TODO
+                    //ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
+                    Toast.makeText(HomeFragment.this.getContext(), R.string.error_loading, Toast.LENGTH_LONG)
                         .show();
                 }
             });
 
-        ProgressBarUtils.displayProgressBar(binding.toolbarProgressBar);
+        //TODO
+       // ProgressBarUtils.displayProgressBar(binding.toolbarProgressBar);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_home, menu);
 
-        return true;
-    }
+
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.action_admin:
-                startActivity(DragonsHockeyIntents.createAdminAuthIntent(this));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
 
         if (hockeyScheduleSubscription != null) {
@@ -130,34 +128,34 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenListene
         }
     }
 
-    @Override
-    public void onViewSchedule() {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Schedule");
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "900");
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-        //startActivity(DragonsHockeyIntents.createScheduleIntent(this));
-        startActivity(new Intent(this, MainActivity.class));
-    }
-
-    @Override
-    public void onViewStats() {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Stats");
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "902");
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-        startActivity(DragonsHockeyIntents.createStatsIntent(this));
-    }
-
-    @Override
-    public void onViewRoster() {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Roster");
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "901");
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-        startActivity(DragonsHockeyIntents.createRosterIntent(this));
-    }
+    //@Override
+    //public void onViewSchedule() {
+    //    Bundle bundle = new Bundle();
+    //    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Schedule");
+    //    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "900");
+    //    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    //
+    //    //startActivity(DragonsHockeyIntents.createScheduleIntent(this));
+    //    startActivity(new Intent(getContext(), MainActivity.class));
+    //}
+    //
+    //@Override
+    //public void onViewStats() {
+    //    Bundle bundle = new Bundle();
+    //    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Stats");
+    //    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "902");
+    //    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    //
+    //    startActivity(DragonsHockeyIntents.createStatsIntent(getContext()));
+    //}
+    //
+    //@Override
+    //public void onViewRoster() {
+    //    Bundle bundle = new Bundle();
+    //    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Roster");
+    //    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "901");
+    //    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    //
+    //    startActivity(DragonsHockeyIntents.createRosterIntent(getContext()));
+    //}
 }

@@ -2,15 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_stats"
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Home"/>
+    <item
+        android:id="@+id/statsFragment"
         android:icon="@drawable/ic_stats"
         android:title="Stats"/>
     <item
-        android:id="@+id/action_roster"
+        android:id="@+id/rosterFragment"
         android:icon="@drawable/ic_roster"
         android:title="Roster"/>
     <item
-        android:id="@+id/action_schedule"
+        android:id="@+id/scheduleFragment"
         android:icon="@drawable/ic_schedule"
         android:title="Schedule"/>
     <item

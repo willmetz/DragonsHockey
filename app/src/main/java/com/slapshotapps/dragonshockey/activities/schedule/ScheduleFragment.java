@@ -1,14 +1,15 @@
 package com.slapshotapps.dragonshockey.activities.schedule;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import com.google.firebase.database.FirebaseDatabase;
-import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.RecyclerViewDivider;
 import com.slapshotapps.dragonshockey.activities.schedule.adapters.ScheduleAdapter;
@@ -24,35 +25,30 @@ import rx.schedulers.Schedulers;
 /**
  * An activity to display the season schedule
  */
-public class ScheduleActivity extends AppCompatActivity {
+public class ScheduleFragment extends Fragment {
 
-    Subscription hockeyScheduleSubscription;
+    private Subscription hockeyScheduleSubscription;
 
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_schedule, container, false);
 
-        setContentView(R.layout.activity_schedule);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        recyclerView = view.findViewById(R.id.schedule_recycler_view);
 
-        if (!Config.isRelease) {
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setTitle("CERT Schedule CERT");
-        }
-
-        recyclerView = (RecyclerView) findViewById(R.id.schedule_recycler_view);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ScheduleActivity.this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager layoutManager =
+            new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new RecyclerViewDivider(this, R.drawable.schedule_divider));
+        recyclerView.addItemDecoration(
+            new RecyclerViewDivider(getContext(), R.drawable.schedule_divider));
+
+        return view;
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -74,7 +70,7 @@ public class ScheduleActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
 
         if (hockeyScheduleSubscription != null) {

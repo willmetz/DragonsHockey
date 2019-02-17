@@ -1,9 +1,15 @@
 package com.slapshotapps.dragonshockey.activities.roster;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -27,7 +33,7 @@ import timber.log.Timber;
 /**
  * Created by willmetz on 7/25/16.
  */
-public class RosterActivity extends AppCompatActivity {
+public class RosterFragment extends Fragment {
 
     private FirebaseDatabase firebaseDatabase;
     private Subscription rosterSubscription;
@@ -35,20 +41,8 @@ public class RosterActivity extends AppCompatActivity {
     private TextView rosterUnavailable;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_roster);
-
-        Toolbar toolbar = ButterKnife.findById(this, R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        if (!Config.isRelease) {
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setTitle("CERT Roster CERT");
-        }
-
-        rosterUnavailable = ButterKnife.findById(this, R.id.roster_unavailable);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -59,14 +53,33 @@ public class RosterActivity extends AppCompatActivity {
             Timber.e("Unable to set persistance for Firebase");
         }
 
-        recyclerView = (RecyclerView) findViewById(R.id.roster_recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        //TODO
+        //Toolbar toolbar = ButterKnife.findById(this, R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //
+        //if (!Config.isRelease) {
+        //    ActionBar actionBar = getSupportActionBar();
+        //    actionBar.setTitle("CERT Roster CERT");
+        //}
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.activity_roster, container, false);
+
+        rosterUnavailable = view.findViewById(R.id.roster_unavailable);
+
+        recyclerView = view.findViewById(R.id.roster_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+
+        return view;
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         rosterSubscription = RosterObserver.GetRoster(firebaseDatabase)
@@ -84,7 +97,7 @@ public class RosterActivity extends AppCompatActivity {
                 public void call(List<Player> players) {
                     rosterUnavailable.setAlpha(0);
                     RosterAdapter adapter =
-                        new RosterAdapter(RosterActivity.this, players, recyclerView);
+                        new RosterAdapter(RosterFragment.this.getContext(), players, recyclerView);
                     recyclerView.setAdapter(adapter);
 
                     recyclerView.addItemDecoration(
@@ -94,7 +107,7 @@ public class RosterActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
 
         if (rosterSubscription != null) {

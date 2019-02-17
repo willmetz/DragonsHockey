@@ -1,21 +1,24 @@
 package com.slapshotapps.dragonshockey.activities.stats;
 
+import android.content.Context;
 import android.os.Bundle;
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import butterknife.ButterKnife;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
-import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
@@ -35,7 +38,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.PlayerStatsVMListener,
+public class StatsFragment extends Fragment implements PlayerStatsVM.PlayerStatsVMListener,
     StatsSortDialogFragment.StatsSortSelectionListener {
 
     private RecyclerView recyclerView;
@@ -51,26 +54,21 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
 
     private UserPrefsManager prefsManager;
 
+    private ProgressBar progressBar;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stats);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (!Config.isRelease && actionBar != null) {
-            actionBar.setTitle("CERT Stats CERT");
-        }
+        //ActionBar actionBar = getSupportActionBar();
+        //if (!Config.isRelease && actionBar != null) {
+        //    actionBar.setTitle("CERT Stats CERT");
+        //}
+    }
 
-        prefsManager = new UserPrefsManager(this);
-
-        recyclerView = (RecyclerView) findViewById(R.id.stats_recycler_view);
-        errorLoading = ButterKnife.findById(this, R.id.unable_to_load);
-
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -82,8 +80,28 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
         }
     }
 
+    @Nullable
     @Override
-    protected void onResume() {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_stats, container, false);
+
+        prefsManager = new UserPrefsManager(getContext());
+
+        recyclerView = view.findViewById(R.id.stats_recycler_view);
+        errorLoading = view.findViewById(R.id.unable_to_load);
+        progressBar = view.findViewById(R.id.progress_bar);
+
+        LinearLayoutManager manager =
+            new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+
+        setHasOptionsMenu(true);
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
         super.onResume();
 
         statsSubscription = RosterObserver.GetRoster(firebaseDatabase)
@@ -97,22 +115,22 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
             })
             .subscribe(this::showStats, throwable -> {
                 errorLoading.animate().alpha(1);
-                ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
+                ProgressBarUtils.hideProgressBar(progressBar);
             });
 
-        ProgressBarUtils.displayProgressBar(findViewById(R.id.progress_bar));
+        ProgressBarUtils.displayProgressBar(progressBar);
     }
 
     private void showStats(List<PlayerStats> playerStats) {
         errorLoading.setAlpha(0);
-        ProgressBarUtils.hideProgressBar(findViewById(R.id.progress_bar));
-        adapter = new StatsAdapter(playerStats, StatsActivity.this);
+        ProgressBarUtils.hideProgressBar(progressBar);
+        adapter = new StatsAdapter(playerStats, StatsFragment.this);
         adapter.updateSortOrder(prefsManager.getStatSortPreference());
         recyclerView.setAdapter(adapter);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
 
         if (statsSubscription != null) {
@@ -127,10 +145,8 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_stats, menu);
-        return true;
     }
 
     @Override
@@ -146,11 +162,11 @@ public class StatsActivity extends AppCompatActivity implements PlayerStatsVM.Pl
 
     @Override
     public void onViewPLayerStats(PlayerStats playerStats) {
-        startActivity(DragonsHockeyIntents.createCareerStatsIntent(this, playerStats));
+        startActivity(DragonsHockeyIntents.createCareerStatsIntent(getContext(), playerStats));
     }
 
     private void showSortOptionsDialog() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getFragmentManager();
         statsSortDialogFragment =
             StatsSortDialogFragment.newInstance(prefsManager.getStatSortPreference());
         statsSortDialogFragment.setListener(this);
