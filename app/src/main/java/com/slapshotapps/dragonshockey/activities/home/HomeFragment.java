@@ -24,6 +24,8 @@ import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
+import com.slapshotapps.dragonshockey.activities.ActionBarListener;
+import com.slapshotapps.dragonshockey.activities.HockeyFragment;
 import com.slapshotapps.dragonshockey.activities.MainActivity;
 import com.slapshotapps.dragonshockey.databinding.ActivityHomeBinding;
 import com.slapshotapps.dragonshockey.models.HomeContents;
@@ -40,7 +42,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends HockeyFragment {
 
     private Subscription hockeyScheduleSubscription;
 
@@ -61,13 +63,6 @@ public class HomeFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        //TODO
-        //setSupportActionBar(binding.toolbar);
-        //if (!Config.isRelease) {
-        //    ActionBar actionBar = getSupportActionBar();
-        //    actionBar.setTitle("CERT Dragons Hockey CERT");
-        //}
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
@@ -77,11 +72,18 @@ public class HomeFragment extends Fragment {
         catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
         }
+
+        ActionBarListener listener = getActionBarListener();
+        if(listener != null){
+            listener.setTitle(getString(R.string.dragons_hockey));
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        ActionBarListener listener = getActionBarListener();
 
         hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
             .subscribeOn(Schedulers.io())
@@ -96,27 +98,26 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void call(HomeContents homeContents) {
                     binding.setItem(new HomeScreenViewModel(homeContents));
-                    //TODO
-     //               ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
+                    if(listener != null) {
+                        listener.hideProgressBar();
+                    }
                 }
             }, new Action1<Throwable>() {
                 @Override
                 public void call(Throwable throwable) {
                     binding.setItem(new HomeScreenViewModel(null));
-                    //TODO
-                    //ProgressBarUtils.hideProgressBar(binding.toolbarProgressBar);
+                    if(listener != null) {
+                        listener.hideProgressBar();
+                    }
                     Toast.makeText(HomeFragment.this.getContext(), R.string.error_loading, Toast.LENGTH_LONG)
                         .show();
                 }
             });
 
-        //TODO
-       // ProgressBarUtils.displayProgressBar(binding.toolbarProgressBar);
+        if(listener != null) {
+            listener.showProgressBar();
+        }
     }
-
-
-
-
 
     @Override
     public void onPause() {

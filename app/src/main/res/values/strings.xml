@@ -26,9 +26,9 @@
     <string name="points">Points</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="sign_in_with_google">This feature requires authentication to access</string>
-    <string name="stats_title">Dragons Stats</string>
-    <string name="roster_title">Dragons Roster</string>
-    <string name="schedule_title">Dragons Schedule</string>
+    <string name="stats_title">Stats</string>
+    <string name="roster_title">Roster</string>
+    <string name="schedule_title">Schedule</string>
     <string name="auth_title">Admin Auth</string>
     <string name="game_id">Game ID:</string>
     <string name="game_date">Game Date:</string>

@@ -20,12 +20,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.StaticHeaderDecoration;
+import com.slapshotapps.dragonshockey.activities.ActionBarListener;
+import com.slapshotapps.dragonshockey.activities.HockeyFragment;
 import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.observables.RosterObserver;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -33,7 +36,7 @@ import timber.log.Timber;
 /**
  * Created by willmetz on 7/25/16.
  */
-public class RosterFragment extends Fragment {
+public class RosterFragment extends HockeyFragment {
 
     private FirebaseDatabase firebaseDatabase;
     private Subscription rosterSubscription;
@@ -53,14 +56,10 @@ public class RosterFragment extends Fragment {
             Timber.e("Unable to set persistance for Firebase");
         }
 
-        //TODO
-        //Toolbar toolbar = ButterKnife.findById(this, R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //
-        //if (!Config.isRelease) {
-        //    ActionBar actionBar = getSupportActionBar();
-        //    actionBar.setTitle("CERT Roster CERT");
-        //}
+        ActionBarListener listener = getActionBarListener();
+        if(listener != null){
+            listener.setTitle(getString(R.string.roster_title));
+        }
     }
 
     @Nullable

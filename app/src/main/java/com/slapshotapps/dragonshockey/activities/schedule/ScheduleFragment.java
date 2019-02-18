@@ -1,5 +1,6 @@
 package com.slapshotapps.dragonshockey.activities.schedule;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.RecyclerViewDivider;
+import com.slapshotapps.dragonshockey.activities.ActionBarListener;
+import com.slapshotapps.dragonshockey.activities.HockeyFragment;
 import com.slapshotapps.dragonshockey.activities.schedule.adapters.ScheduleAdapter;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver;
@@ -25,7 +28,7 @@ import rx.schedulers.Schedulers;
 /**
  * An activity to display the season schedule
  */
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends HockeyFragment {
 
     private Subscription hockeyScheduleSubscription;
 
@@ -48,6 +51,16 @@ public class ScheduleFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        ActionBarListener listener = getActionBarListener();
+        if(listener != null){
+            listener.setTitle(getString(R.string.schedule_title));
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
@@ -55,18 +68,9 @@ public class ScheduleFragment extends Fragment {
         hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .flatMap(new Func1<SeasonSchedule, Observable<SeasonSchedule>>() {
-                @Override
-                public Observable<SeasonSchedule> call(SeasonSchedule schedule) {
-                    return ScheduleObserver.getScheduleWithResults(firebaseDatabase, schedule);
-                }
-            })
-            .subscribe(new Action1<SeasonSchedule>() {
-                @Override
-                public void call(SeasonSchedule schedule) {
-                    recyclerView.setAdapter(new ScheduleAdapter(schedule));
-                }
-            });
+            .flatMap(
+                (Func1<SeasonSchedule, Observable<SeasonSchedule>>) schedule -> ScheduleObserver.getScheduleWithResults(firebaseDatabase, schedule))
+            .subscribe(schedule -> recyclerView.setAdapter(new ScheduleAdapter(schedule)));
     }
 
     @Override

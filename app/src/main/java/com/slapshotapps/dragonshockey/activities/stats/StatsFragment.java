@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils;
+import com.slapshotapps.dragonshockey.activities.ActionBarListener;
+import com.slapshotapps.dragonshockey.activities.HockeyFragment;
 import com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM;
 import com.slapshotapps.dragonshockey.activities.stats.adapters.StatsAdapter;
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection;
@@ -38,7 +40,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class StatsFragment extends Fragment implements PlayerStatsVM.PlayerStatsVMListener,
+public class StatsFragment extends HockeyFragment implements PlayerStatsVM.PlayerStatsVMListener,
     StatsSortDialogFragment.StatsSortSelectionListener {
 
     private RecyclerView recyclerView;
@@ -57,16 +59,6 @@ public class StatsFragment extends Fragment implements PlayerStatsVM.PlayerStats
     private ProgressBar progressBar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        //ActionBar actionBar = getSupportActionBar();
-        //if (!Config.isRelease && actionBar != null) {
-        //    actionBar.setTitle("CERT Stats CERT");
-        //}
-    }
-
-    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
@@ -77,6 +69,11 @@ public class StatsFragment extends Fragment implements PlayerStatsVM.PlayerStats
         }
         catch (DatabaseException exception) {
             Timber.e("Unable to set persistance for Firebase");
+        }
+
+        ActionBarListener listener = getActionBarListener();
+        if(listener != null){
+            listener.setTitle(getString(R.string.stats_title));
         }
     }
 
