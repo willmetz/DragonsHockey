@@ -66,7 +66,7 @@ class RosterFragment : HockeyFragment() {
         }
         .subscribe { players ->
           rosterUnavailable!!.alpha = 0f
-          val adapter = RosterAdapter(this@RosterFragment.context, players, recyclerView)
+          val adapter = RosterAdapter(this@RosterFragment.context!!, players)
           recyclerView!!.adapter = adapter
 
           recyclerView!!.addItemDecoration(

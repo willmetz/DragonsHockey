@@ -85,7 +85,6 @@
             app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
             app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
             android:text="@{item.getWins()}"
-            app:fadeInView="@{item.isDataReady()}"
             android:alpha="0"
             tools:alpha="1"
             tools:text="2"/>
@@ -99,7 +98,6 @@
             app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
             app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
             android:text="@{item.getLosses()}"
-            app:fadeInView="@{item.isDataReady()}"
             android:alpha="0"
             tools:alpha="1"
             tools:text="1"/>
@@ -113,7 +111,6 @@
             app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
             app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
             android:text="@{item.getOvertimeLosses()}"
-            app:fadeInView="@{item.isDataReady()}"
             android:alpha="0"
             tools:alpha="1"
             tools:text="0"/>
@@ -127,7 +124,6 @@
             app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
             app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
             android:text="@{item.getTies()}"
-            app:fadeInView="@{item.isDataReady()}"
             android:alpha="0"
             tools:alpha="1"
             tools:text="1"/>
@@ -165,7 +161,6 @@
             app:layout_constraintTop_toBottomOf="@+id/next_game_header"
             android:text="@{item.getNextGameTime(context)}"
             tools:alpha="0"
-            app:fadeInView="@{item.isDataReady()}"
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1"
             tools:layout_constraintTop_creator="0"
@@ -183,7 +178,6 @@
             android:text="@{item.getLastGameResult(context)}"
             android:visibility="@{item.showLastGameInfo()}"
             tools:alpha="0"
-            app:fadeInView="@{item.isDataReady()}"
             tools:text="Dragons 8  Oranges 5"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

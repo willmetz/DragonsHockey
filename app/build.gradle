@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 repositories {
   maven { url 'https://maven.google.com/' }
@@ -95,6 +98,7 @@ dependencies {
   //android
   implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
   implementation 'com.google.android.material:material:1.1.0-alpha03'
+  kapt "com.android.databinding:compiler:3.3.1"
 
 
   //wharton
@@ -113,5 +117,3 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
