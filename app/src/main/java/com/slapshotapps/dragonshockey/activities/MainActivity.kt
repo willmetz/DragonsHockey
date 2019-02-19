@@ -8,18 +8,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.slapshotapps.dragonshockey.AnalyticEventListener
 import com.slapshotapps.dragonshockey.Config
 import com.slapshotapps.dragonshockey.R
 import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents
 import com.slapshotapps.dragonshockey.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), ActionBarListener {
+class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListener {
 
   lateinit var binding: ActivityMainBinding
+
+
+  private var firebaseAnalytics: FirebaseAnalytics? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+    firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
     val navController = findNavController(R.id.fragment_container)
     binding.navigationView.setupWithNavController(navController)
@@ -63,5 +70,12 @@ class MainActivity : AppCompatActivity(), ActionBarListener {
 
   override fun hideProgressBar() {
     binding.toolbarProgressBar.visibility = View.GONE
+  }
+
+  override fun logContentSelectedEvent(contentType: String, itemID: String) {
+    val bundle = Bundle()
+    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType)
+    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemID)
+    firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
   }
 }
