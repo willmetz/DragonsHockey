@@ -6,12 +6,10 @@ import com.slapshotapps.dragonshockey.activities.admin.AdminActivity;
 import com.slapshotapps.dragonshockey.activities.admin.AdminAuthActivity;
 import com.slapshotapps.dragonshockey.activities.admin.EditGameActivity;
 import com.slapshotapps.dragonshockey.activities.admin.EditStatsActivity;
-import com.slapshotapps.dragonshockey.activities.careerStats.CareerStatsActivity;
 import com.slapshotapps.dragonshockey.activities.roster.RosterFragment;
 import com.slapshotapps.dragonshockey.activities.schedule.ScheduleFragment;
 import com.slapshotapps.dragonshockey.activities.stats.StatsFragment;
 import com.slapshotapps.dragonshockey.models.Game;
-import com.slapshotapps.dragonshockey.models.PlayerStats;
 
 public class DragonsHockeyIntents {
 
@@ -52,13 +50,6 @@ public class DragonsHockeyIntents {
         Intent intent = new Intent(context, EditStatsActivity.class);
 
         intent.putExtra(EXTRA_GAME_ID, gameID);
-
-        return intent;
-    }
-
-    public static Intent createCareerStatsIntent(Context context, PlayerStats playerStats) {
-        Intent intent = new Intent(context, CareerStatsActivity.class);
-        intent.putExtra(EXTRA_PLAYER_STATS, playerStats);
 
         return intent;
     }

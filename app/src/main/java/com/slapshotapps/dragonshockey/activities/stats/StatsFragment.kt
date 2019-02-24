@@ -3,42 +3,26 @@ package com.slapshotapps.dragonshockey.activities.stats
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.database.DatabaseException
-import com.google.firebase.database.FirebaseDatabase
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils
-import com.slapshotapps.dragonshockey.activities.ActionBarListener
 import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM
 import com.slapshotapps.dragonshockey.activities.stats.adapters.StatsAdapter
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection
 import com.slapshotapps.dragonshockey.dialogs.StatsSortDialogFragment
 import com.slapshotapps.dragonshockey.managers.UserPrefsManager
-import com.slapshotapps.dragonshockey.models.Player
 import com.slapshotapps.dragonshockey.models.PlayerStats
 import com.slapshotapps.dragonshockey.observables.RosterObserver
 import com.slapshotapps.dragonshockey.observables.StatsObserver
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
-import rx.functions.Action
-import rx.functions.Action1
-import rx.functions.Func1
 import rx.schedulers.Schedulers
-import timber.log.Timber
 
 class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, StatsSortDialogFragment.StatsSortSelectionListener {
 
@@ -138,7 +122,8 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
   }
 
   override fun onViewPLayerStats(playerStats: PlayerStats) {
-    startActivity(DragonsHockeyIntents.createCareerStatsIntent(context, playerStats))
+    val action = StatsFragmentDirections.actionStatsFragmentToCareerStatsFragment(playerStats)
+    findNavController().navigate(action)
   }
 
   private fun showSortOptionsDialog() {

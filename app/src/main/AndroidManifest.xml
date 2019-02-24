@@ -46,11 +46,6 @@
             android:label="@string/title_activity_edit_stats_auth"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".activities.careerStats.CareerStatsActivity"
-            android:label="Career Stats"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

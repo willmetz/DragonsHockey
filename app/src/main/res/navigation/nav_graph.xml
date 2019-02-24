@@ -28,5 +28,18 @@
         android:id="@+id/statsFragment"
         android:name="com.slapshotapps.dragonshockey.activities.stats.StatsFragment"
         android:label="activity_stats"
-        tools:layout="@layout/activity_stats"/>
+        tools:layout="@layout/activity_stats">
+        <action
+            android:id="@+id/action_statsFragment_to_careerStatsFragment"
+            app:destination="@id/careerStatsFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/careerStatsFragment"
+        android:name="com.slapshotapps.dragonshockey.activities.careerStats.CareerStatsFragment"
+        android:label="fragment_career_stats"
+        tools:layout="@layout/fragment_career_stats">
+        <argument
+            android:name="CurrentSeasonStats"
+            app:argType="com.slapshotapps.dragonshockey.models.PlayerStats"/>
+    </fragment>
 </navigation>
