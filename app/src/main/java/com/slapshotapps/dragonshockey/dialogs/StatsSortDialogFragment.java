@@ -39,13 +39,14 @@ public class StatsSortDialogFragment extends DialogFragment {
             (StatSortSelection) getArguments().getSerializable(CURRENT_SORT_OPTION_KEY);
 
         final String[] items = {
-            statSortOptions[0].name, statSortOptions[1].name, statSortOptions[2].name,
-            statSortOptions[3].name, statSortOptions[4].name
+            statSortOptions[0].getStatName(), statSortOptions[1].getStatName(),
+            statSortOptions[2].getStatName(), statSortOptions[3].getStatName(), statSortOptions[4].getStatName()
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setTitle("Stat Sorting")
             .setSingleChoiceItems(items,
-                currentSelection != null ? currentSelection.index : StatSortSelection.Points.index,
+                currentSelection != null ? currentSelection.getIndex()
+                    : StatSortSelection.Points.getIndex(),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
