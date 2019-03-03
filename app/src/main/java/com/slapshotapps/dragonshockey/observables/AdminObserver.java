@@ -293,7 +293,7 @@ public class AdminObserver {
         return Observable.zip(AdminObserver.getGame(database, gameID),
             AdminObserver.getGameResult(database, gameID), (game, gameResult) -> {
 
-                game.gameResult = gameResult;
+                game.setGameResult(gameResult);
 
                 return game;
             });

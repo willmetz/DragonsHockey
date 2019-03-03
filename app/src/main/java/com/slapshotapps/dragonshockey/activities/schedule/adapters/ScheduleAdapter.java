@@ -43,8 +43,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.GameVi
         Game game = schedule.getAllGames().get(position);
 
         holder.setGameDate(game.gameTimeToDate());
-        holder.setGameOpponent(game.opponent);
-        holder.setGameResult(FormattingUtils.getGameScore(game.gameResult, game.opponent));
+        holder.setGameOpponent(game.getOpponent());
+        holder.setGameResult(FormattingUtils.getGameScore(game.getGameResult(), game.getOpponent()));
     }
 
     public static class GameViewHolder extends RecyclerView.ViewHolder {

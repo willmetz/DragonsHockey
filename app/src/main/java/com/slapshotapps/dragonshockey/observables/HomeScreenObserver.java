@@ -46,10 +46,10 @@ public class HomeScreenObserver {
 
                             GameResult gameResult = snapshot.getValue(GameResult.class);
 
-                            if (lastGame != null && lastGame.gameID == gameResult.gameID) {
-                                homeContents.lastGame.gameResult = gameResult;
-                            } else if (nextGame != null && nextGame.gameID == gameResult.gameID) {
-                                homeContents.nextGame.gameResult = gameResult;
+                            if (lastGame != null && lastGame.getGameID() == gameResult.gameID) {
+                                homeContents.lastGame.setGameResult(gameResult);
+                            } else if (nextGame != null && nextGame.getGameID() == gameResult.gameID) {
+                                homeContents.nextGame.setGameResult(gameResult);
                             }
 
                             //determine if the game was a win or a loss

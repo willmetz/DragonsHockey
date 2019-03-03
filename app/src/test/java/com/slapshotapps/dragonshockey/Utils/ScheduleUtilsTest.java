@@ -105,19 +105,19 @@ public class ScheduleUtilsTest {
         ArrayList<Game> games = new ArrayList<>();
 
         Game game1 = new Game();
-        game1.gameTime = time1;
-        game1.opponent = "firstGame";
+        game1.setGameTime(time1);
+        game1.setOpponent("firstGame");
 
         games.add(game1);
 
         Game game2 = new Game();
-        game2.gameTime = time2;
-        game2.opponent = "secondGame";
+        game2.setGameTime(time2);
+        game2.setOpponent("secondGame");
         games.add(game2);
 
         Game game3 = new Game();
-        game3.gameTime = time3;
-        game3.opponent = "thirdGame";
+        game3.setGameTime(time3);
+        game3.setOpponent("thirdGame");
         games.add(game3);
 
         return games;

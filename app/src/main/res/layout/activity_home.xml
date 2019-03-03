@@ -84,7 +84,8 @@
             app:layout_constraintLeft_toLeftOf="@+id/record_key_header_win"
             app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
             app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
-            android:text="@{item.getWins()}"
+            android:text="@{item.wins}"
+            app:fadeInView="@{item.isDataReady}"
             android:alpha="0"
             tools:alpha="1"
             tools:text="2"/>
@@ -97,7 +98,8 @@
             app:layout_constraintBottom_toBottomOf="@id/record_win"
             app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
             app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
-            android:text="@{item.getLosses()}"
+            android:text="@{item.losses}"
+            app:fadeInView="@{item.isDataReady}"
             android:alpha="0"
             tools:alpha="1"
             tools:text="1"/>
@@ -110,7 +112,8 @@
             app:layout_constraintBottom_toBottomOf="@id/record_win"
             app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
             app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
-            android:text="@{item.getOvertimeLosses()}"
+            android:text="@{item.overtimeLosses}"
+            app:fadeInView="@{item.isDataReady}"
             android:alpha="0"
             tools:alpha="1"
             tools:text="0"/>
@@ -123,7 +126,8 @@
             app:layout_constraintBottom_toBottomOf="@id/record_win"
             app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
             app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
-            android:text="@{item.getTies()}"
+            android:text="@{item.ties}"
+            app:fadeInView="@{item.isDataReady}"
             android:alpha="0"
             tools:alpha="1"
             tools:text="1"/>

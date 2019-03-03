@@ -29,7 +29,7 @@ public class SeasonSchedule {
 
     public Game getGame(int gameID) {
         for (Game game : games) {
-            if (game.gameID == gameID) {
+            if (game.getGameID() == gameID) {
                 return game;
             }
         }

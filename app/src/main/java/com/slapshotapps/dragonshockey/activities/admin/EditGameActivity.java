@@ -67,13 +67,13 @@ public class EditGameActivity extends AppCompatActivity
         super.onResume();
 
         if (!refreshData) {
-            getDataKeys(originalGame.gameID);
+            getDataKeys(originalGame.getGameID());
             binding.setData(new AdminGameViewModel(originalGame));
         } else {
             //get the game ID
             Game game = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
 
-            subscription = AdminObserver.getGameUpdateInfo(database, game.gameID)
+            subscription = AdminObserver.getGameUpdateInfo(database, game.getGameID())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(Schedulers.io())
                 .subscribe(new Action1<Game>() {
@@ -82,7 +82,7 @@ public class EditGameActivity extends AppCompatActivity
                         originalGame = game;
                         binding.setData(new AdminGameViewModel(originalGame));
 
-                        getDataKeys(game.gameID);
+                        getDataKeys(game.getGameID());
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -172,7 +172,7 @@ public class EditGameActivity extends AppCompatActivity
 
     @Override
     public void onEditStatsClick() {
-        startActivity(DragonsHockeyIntents.createEditGameStatsIntent(this, originalGame.gameID));
+        startActivity(DragonsHockeyIntents.createEditGameStatsIntent(this, originalGame.getGameID()));
     }
 
     @Override
@@ -194,11 +194,11 @@ public class EditGameActivity extends AppCompatActivity
                 database.getReference()
                     .child(Config.GAME_RESULTS)
                     .child(keys.getGameResultKey())
-                    .setValue(model.getGame().gameResult);
+                    .setValue(model.getGame().getGameResult());
             } else {
                 DatabaseReference newGameResultRef =
                     database.getReference().child(Config.GAME_RESULTS).push();
-                newGameResultRef.setValue(model.getGame().gameResult);
+                newGameResultRef.setValue(model.getGame().getGameResult());
             }
 
             super.onBackPressed();

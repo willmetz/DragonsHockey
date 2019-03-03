@@ -28,52 +28,52 @@ public class AdminGameViewModel {
     }
 
     public String getGameID(Context context) {
-        return context.getString(R.string.edit_game_game_id, game.gameID);
+        return context.getString(R.string.edit_game_game_id, game.getGameID());
     }
 
     public String getOpponentName() {
-        return game.opponent == null ? "" : game.opponent;
+        return game.getOpponent() == null ? "" : game.getOpponent();
     }
 
     public void setOpponentName(String name) {
-        game.opponent = name;
+        game.setOpponent(name);
     }
 
     public void setOpponentScore(String score) {
-        if (game.gameResult == null) {
+        if (game.getGameResult() == null) {
             createGameResult();
         }
 
         if (score == null || score.isEmpty()) {
-            game.gameResult.opponentScore = 0;
+            game.getGameResult().opponentScore = 0;
         } else {
-            game.gameResult.opponentScore = Integer.valueOf(score);
+            game.getGameResult().opponentScore = Integer.valueOf(score);
         }
     }
 
     public String getOpponentScore() {
-        if (game.gameResult != null) {
-            return String.valueOf(game.gameResult.opponentScore);
+        if (game.getGameResult() != null) {
+            return String.valueOf(game.getGameResult().opponentScore);
         } else {
             return "";
         }
     }
 
     public void setDragonsScore(String score) {
-        if (game.gameResult == null) {
+        if (game.getGameResult() == null) {
             createGameResult();
         }
 
         if (score == null || score.isEmpty()) {
-            game.gameResult.dragonsScore = 0;
+            game.getGameResult().dragonsScore = 0;
         } else {
-            game.gameResult.dragonsScore = Integer.valueOf(score);
+            game.getGameResult().dragonsScore = Integer.valueOf(score);
         }
     }
 
     public String getDragonsScore() {
-        if (game.gameResult != null) {
-            return String.valueOf(game.gameResult.dragonsScore);
+        if (game.getGameResult() != null) {
+            return String.valueOf(game.getGameResult().dragonsScore);
         } else {
             return "";
         }
@@ -84,7 +84,7 @@ public class AdminGameViewModel {
     }
 
     public void setGameDate(Date gameDate) {
-        game.gameTime = DateFormaters.convertDateToGameTime(gameDate);
+        game.setGameTime(DateFormaters.convertDateToGameTime(gameDate));
     }
 
     public String getGameDateAsString() {
@@ -104,19 +104,19 @@ public class AdminGameViewModel {
     }
 
     public boolean getOTL() {
-        return game.gameResult != null && game.gameResult.overtimeLoss;
+        return game.getGameResult() != null && game.getGameResult().overtimeLoss;
     }
 
     public void setOTL(boolean isOTL) {
-        if (game.gameResult == null) {
+        if (game.getGameResult() == null) {
             createGameResult();
         }
 
-        game.gameResult.overtimeLoss = isOTL;
+        game.getGameResult().overtimeLoss = isOTL;
     }
 
     private void createGameResult() {
-        game.gameResult = new GameResult();
-        game.gameResult.gameID = originalGame.gameID;
+        game.setGameResult(new GameResult());
+        game.getGameResult().gameID = originalGame.getGameID();
     }
 }

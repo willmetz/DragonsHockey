@@ -35,7 +35,7 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
 
   private var adapter: StatsAdapter? = null
 
-  private var prefsManager: UserPrefsManager? = null
+  private lateinit var prefsManager: UserPrefsManager
 
   private var progressBar: ProgressBar? = null
 
@@ -89,22 +89,20 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
     errorLoading!!.alpha = 0f
     ProgressBarUtils.hideProgressBar(progressBar!!)
     adapter = StatsAdapter(playerStats, this@StatsFragment)
-    adapter!!.updateSortOrder(prefsManager!!.statSortPreference)
+
+    adapter!!.updateSortOrder(prefsManager.statSortPreference)
     recyclerView!!.adapter = adapter
   }
 
   override fun onPause() {
     super.onPause()
 
-    if (statsSubscription != null) {
-      statsSubscription!!.unsubscribe()
-      statsSubscription = null
-    }
+    statsSubscription?.unsubscribe()
+    statsSubscription = null
 
-    if (statsSortDialogFragment != null) {
-      statsSortDialogFragment!!.dismiss()
-      statsSortDialogFragment = null
-    }
+    statsSortDialogFragment?.dismiss()
+    statsSortDialogFragment = null
+
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -128,7 +126,7 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
 
   private fun showSortOptionsDialog() {
     val fragmentManager = fragmentManager
-    statsSortDialogFragment = StatsSortDialogFragment.newInstance(prefsManager!!.statSortPreference)
+    statsSortDialogFragment = StatsSortDialogFragment.newInstance(prefsManager.statSortPreference)
     statsSortDialogFragment!!.setListener(this)
 
     statsSortDialogFragment!!.show(fragmentManager!!, "tag")
@@ -137,7 +135,7 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
   override fun onSortOptionSelected(sortSelection: StatSortSelection) {
     Log.d("Sort Option", String.format("Received sort option back: %s", sortSelection.name))
 
-    prefsManager!!.saveStatSortPreference(sortSelection)
+    prefsManager.statSortPreference = sortSelection
 
     if (adapter != null) {
       adapter!!.updateSortOrder(sortSelection)

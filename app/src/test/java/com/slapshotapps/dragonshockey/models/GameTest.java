@@ -13,24 +13,24 @@ public class GameTest {
     public void testEquals_falseGameID() {
         Game originalGame = new Game();
 
-        originalGame.gameID = 2;
-        originalGame.gameTime = "hi";
-        originalGame.opponent = "predators";
-        originalGame.gameResult = new GameResult();
-        originalGame.gameResult.dragonsScore = 9;
-        originalGame.gameResult.opponentScore = 7;
-        originalGame.gameResult.gameID = 2;
-        originalGame.gameResult.overtimeLoss = false;
+        originalGame.setGameID(2);
+        originalGame.setGameTime("hi");
+        originalGame.setOpponent("predators");
+        originalGame.setGameResult(new GameResult());
+        originalGame.getGameResult().dragonsScore = 9;
+        originalGame.getGameResult().opponentScore = 7;
+        originalGame.getGameResult().gameID = 2;
+        originalGame.getGameResult().overtimeLoss = false;
 
         Game modifiedGame = new Game();
-        modifiedGame.gameID = 3;
-        modifiedGame.gameTime = "hi";
-        modifiedGame.opponent = "predators";
-        modifiedGame.gameResult = new GameResult();
-        modifiedGame.gameResult.dragonsScore = 9;
-        modifiedGame.gameResult.opponentScore = 7;
-        modifiedGame.gameResult.gameID = 2;
-        modifiedGame.gameResult.overtimeLoss = false;
+        modifiedGame.setGameID(3);
+        modifiedGame.setGameTime("hi");
+        modifiedGame.setOpponent("predators");
+        modifiedGame.setGameResult(new GameResult());
+        modifiedGame.getGameResult().dragonsScore = 9;
+        modifiedGame.getGameResult().opponentScore = 7;
+        modifiedGame.getGameResult().gameID = 2;
+        modifiedGame.getGameResult().overtimeLoss = false;
 
         Assert.assertFalse(originalGame.equals(modifiedGame));
     }
@@ -39,24 +39,24 @@ public class GameTest {
     public void testEquals_falseGameTime() {
         Game originalGame = new Game();
 
-        originalGame.gameID = 2;
-        originalGame.gameTime = "hi";
-        originalGame.opponent = "predators";
-        originalGame.gameResult = new GameResult();
-        originalGame.gameResult.dragonsScore = 9;
-        originalGame.gameResult.opponentScore = 7;
-        originalGame.gameResult.gameID = 2;
-        originalGame.gameResult.overtimeLoss = false;
+        originalGame.setGameID(2);
+        originalGame.setGameTime("hi");
+        originalGame.setOpponent("predators");
+        originalGame.setGameResult(new GameResult());
+        originalGame.getGameResult().dragonsScore = 9;
+        originalGame.getGameResult().opponentScore = 7;
+        originalGame.getGameResult().gameID = 2;
+        originalGame.getGameResult().overtimeLoss = false;
 
         Game modifiedGame = new Game();
-        modifiedGame.gameID = 2;
-        modifiedGame.gameTime = "hi3";
-        modifiedGame.opponent = "predators";
-        modifiedGame.gameResult = new GameResult();
-        modifiedGame.gameResult.dragonsScore = 9;
-        modifiedGame.gameResult.opponentScore = 7;
-        modifiedGame.gameResult.gameID = 2;
-        modifiedGame.gameResult.overtimeLoss = false;
+        modifiedGame.setGameID(2);
+        modifiedGame.setGameTime("hi3");
+        modifiedGame.setOpponent("predators");
+        modifiedGame.setGameResult(new GameResult());
+        modifiedGame.getGameResult().dragonsScore = 9;
+        modifiedGame.getGameResult().opponentScore = 7;
+        modifiedGame.getGameResult().gameID = 2;
+        modifiedGame.getGameResult().overtimeLoss = false;
 
         Assert.assertFalse(originalGame.equals(modifiedGame));
     }
@@ -65,24 +65,24 @@ public class GameTest {
     public void testEquals_falseOpponent() {
         Game originalGame = new Game();
 
-        originalGame.gameID = 2;
-        originalGame.gameTime = "hi";
-        originalGame.opponent = "predators";
-        originalGame.gameResult = new GameResult();
-        originalGame.gameResult.dragonsScore = 9;
-        originalGame.gameResult.opponentScore = 7;
-        originalGame.gameResult.gameID = 2;
-        originalGame.gameResult.overtimeLoss = false;
+        originalGame.setGameID(2);
+        originalGame.setGameTime("hi");
+        originalGame.setOpponent("predators");
+        originalGame.setGameResult(new GameResult());
+        originalGame.getGameResult().dragonsScore = 9;
+        originalGame.getGameResult().opponentScore = 7;
+        originalGame.getGameResult().gameID = 2;
+        originalGame.getGameResult().overtimeLoss = false;
 
         Game modifiedGame = new Game();
-        modifiedGame.gameID = 2;
-        modifiedGame.gameTime = "hi";
-        modifiedGame.opponent = "wings";
-        modifiedGame.gameResult = new GameResult();
-        modifiedGame.gameResult.dragonsScore = 9;
-        modifiedGame.gameResult.opponentScore = 7;
-        modifiedGame.gameResult.gameID = 2;
-        modifiedGame.gameResult.overtimeLoss = false;
+        modifiedGame.setGameID(2);
+        modifiedGame.setGameTime("hi");
+        modifiedGame.setOpponent("wings");
+        modifiedGame.setGameResult(new GameResult());
+        modifiedGame.getGameResult().dragonsScore = 9;
+        modifiedGame.getGameResult().opponentScore = 7;
+        modifiedGame.getGameResult().gameID = 2;
+        modifiedGame.getGameResult().overtimeLoss = false;
 
         Assert.assertFalse(originalGame.equals(modifiedGame));
     }
@@ -91,24 +91,24 @@ public class GameTest {
     public void testEquals_falseOTL() {
         Game originalGame = new Game();
 
-        originalGame.gameID = 2;
-        originalGame.gameTime = "hi";
-        originalGame.opponent = "predators";
-        originalGame.gameResult = new GameResult();
-        originalGame.gameResult.dragonsScore = 9;
-        originalGame.gameResult.opponentScore = 7;
-        originalGame.gameResult.gameID = 2;
-        originalGame.gameResult.overtimeLoss = false;
+        originalGame.setGameID(2);
+        originalGame.setGameTime("hi");
+        originalGame.setOpponent("predators");
+        originalGame.setGameResult(new GameResult());
+        originalGame.getGameResult().dragonsScore = 9;
+        originalGame.getGameResult().opponentScore = 7;
+        originalGame.getGameResult().gameID = 2;
+        originalGame.getGameResult().overtimeLoss = false;
 
         Game modifiedGame = new Game();
-        modifiedGame.gameID = 2;
-        modifiedGame.gameTime = "hi";
-        modifiedGame.opponent = "predators";
-        modifiedGame.gameResult = new GameResult();
-        modifiedGame.gameResult.dragonsScore = 9;
-        modifiedGame.gameResult.opponentScore = 7;
-        modifiedGame.gameResult.gameID = 2;
-        modifiedGame.gameResult.overtimeLoss = true;
+        modifiedGame.setGameID(2);
+        modifiedGame.setGameTime("hi");
+        modifiedGame.setOpponent("predators");
+        modifiedGame.setGameResult(new GameResult());
+        modifiedGame.getGameResult().dragonsScore = 9;
+        modifiedGame.getGameResult().opponentScore = 7;
+        modifiedGame.getGameResult().gameID = 2;
+        modifiedGame.getGameResult().overtimeLoss = true;
 
         Assert.assertFalse(originalGame.equals(modifiedGame));
     }
@@ -117,24 +117,24 @@ public class GameTest {
     public void testEquals_falseDragons() {
         Game originalGame = new Game();
 
-        originalGame.gameID = 2;
-        originalGame.gameTime = "hi";
-        originalGame.opponent = "predators";
-        originalGame.gameResult = new GameResult();
-        originalGame.gameResult.dragonsScore = 9;
-        originalGame.gameResult.opponentScore = 7;
-        originalGame.gameResult.gameID = 2;
-        originalGame.gameResult.overtimeLoss = false;
+        originalGame.setGameID(2);
+        originalGame.setGameTime("hi");
+        originalGame.setOpponent("predators");
+        originalGame.setGameResult(new GameResult());
+        originalGame.getGameResult().dragonsScore = 9;
+        originalGame.getGameResult().opponentScore = 7;
+        originalGame.getGameResult().gameID = 2;
+        originalGame.getGameResult().overtimeLoss = false;
 
         Game modifiedGame = new Game();
-        modifiedGame.gameID = 2;
-        modifiedGame.gameTime = "hi";
-        modifiedGame.opponent = "predators";
-        modifiedGame.gameResult = new GameResult();
-        modifiedGame.gameResult.dragonsScore = 10;
-        modifiedGame.gameResult.opponentScore = 7;
-        modifiedGame.gameResult.gameID = 2;
-        modifiedGame.gameResult.overtimeLoss = false;
+        modifiedGame.setGameID(2);
+        modifiedGame.setGameTime("hi");
+        modifiedGame.setOpponent("predators");
+        modifiedGame.setGameResult(new GameResult());
+        modifiedGame.getGameResult().dragonsScore = 10;
+        modifiedGame.getGameResult().opponentScore = 7;
+        modifiedGame.getGameResult().gameID = 2;
+        modifiedGame.getGameResult().overtimeLoss = false;
 
         Assert.assertFalse(originalGame.equals(modifiedGame));
     }
@@ -143,24 +143,24 @@ public class GameTest {
     public void testEquals_falseOpponentScore() {
         Game originalGame = new Game();
 
-        originalGame.gameID = 2;
-        originalGame.gameTime = "hi";
-        originalGame.opponent = "predators";
-        originalGame.gameResult = new GameResult();
-        originalGame.gameResult.dragonsScore = 9;
-        originalGame.gameResult.opponentScore = 7;
-        originalGame.gameResult.gameID = 2;
-        originalGame.gameResult.overtimeLoss = false;
+        originalGame.setGameID(2);
+        originalGame.setGameTime("hi");
+        originalGame.setOpponent("predators");
+        originalGame.setGameResult(new GameResult());
+        originalGame.getGameResult().dragonsScore = 9;
+        originalGame.getGameResult().opponentScore = 7;
+        originalGame.getGameResult().gameID = 2;
+        originalGame.getGameResult().overtimeLoss = false;
 
         Game modifiedGame = new Game();
-        modifiedGame.gameID = 2;
-        modifiedGame.gameTime = "hi";
-        modifiedGame.opponent = "predators";
-        modifiedGame.gameResult = new GameResult();
-        modifiedGame.gameResult.dragonsScore = 9;
-        modifiedGame.gameResult.opponentScore = 6;
-        modifiedGame.gameResult.gameID = 2;
-        modifiedGame.gameResult.overtimeLoss = false;
+        modifiedGame.setGameID(2);
+        modifiedGame.setGameTime("hi");
+        modifiedGame.setOpponent("predators");
+        modifiedGame.setGameResult(new GameResult());
+        modifiedGame.getGameResult().dragonsScore = 9;
+        modifiedGame.getGameResult().opponentScore = 6;
+        modifiedGame.getGameResult().gameID = 2;
+        modifiedGame.getGameResult().overtimeLoss = false;
 
         Assert.assertFalse(originalGame.equals(modifiedGame));
     }
@@ -169,24 +169,24 @@ public class GameTest {
     public void testEquals_true() {
         Game originalGame = new Game();
 
-        originalGame.gameID = 2;
-        originalGame.gameTime = "hi";
-        originalGame.opponent = "predators";
-        originalGame.gameResult = new GameResult();
-        originalGame.gameResult.dragonsScore = 9;
-        originalGame.gameResult.opponentScore = 7;
-        originalGame.gameResult.gameID = 2;
-        originalGame.gameResult.overtimeLoss = false;
+        originalGame.setGameID(2);
+        originalGame.setGameTime("hi");
+        originalGame.setOpponent("predators");
+        originalGame.setGameResult(new GameResult());
+        originalGame.getGameResult().dragonsScore = 9;
+        originalGame.getGameResult().opponentScore = 7;
+        originalGame.getGameResult().gameID = 2;
+        originalGame.getGameResult().overtimeLoss = false;
 
         Game modifiedGame = new Game();
-        modifiedGame.gameID = 2;
-        modifiedGame.gameTime = "hi";
-        modifiedGame.opponent = "predators";
-        modifiedGame.gameResult = new GameResult();
-        modifiedGame.gameResult.dragonsScore = 9;
-        modifiedGame.gameResult.opponentScore = 7;
-        modifiedGame.gameResult.gameID = 2;
-        modifiedGame.gameResult.overtimeLoss = false;
+        modifiedGame.setGameID(2);
+        modifiedGame.setGameTime("hi");
+        modifiedGame.setOpponent("predators");
+        modifiedGame.setGameResult(new GameResult());
+        modifiedGame.getGameResult().dragonsScore = 9;
+        modifiedGame.getGameResult().opponentScore = 7;
+        modifiedGame.getGameResult().gameID = 2;
+        modifiedGame.getGameResult().overtimeLoss = false;
 
         Assert.assertTrue(originalGame.equals(modifiedGame));
     }

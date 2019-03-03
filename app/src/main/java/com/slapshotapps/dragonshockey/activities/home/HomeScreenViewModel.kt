@@ -15,7 +15,7 @@ import java.util.*
 
 
 @Keep
-class HomeScreenViewModel(homeContents: HomeContents?) : BaseObservable() {
+class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
   private var homeContents: HomeContents? = null
 
 
@@ -56,12 +56,12 @@ class HomeScreenViewModel(homeContents: HomeContents?) : BaseObservable() {
     }
 
   init {
-    if (homeContents == null) {
-      this.homeContents = HomeContents()
-      isDataReady = true
-    } else {
-      this.homeContents = homeContents
+    if (contents == null) {
+      homeContents = HomeContents()
       isDataReady = false
+    } else {
+      homeContents = contents
+      isDataReady = true
     }
   }
 
@@ -97,8 +97,8 @@ class HomeScreenViewModel(homeContents: HomeContents?) : BaseObservable() {
       val gameResultString = FormattingUtils.getGameResultAsString(
           homeContents!!.lastGame.gameResult)
       return String.format(context.getString(R.string.last_game_score),
-          lastGame.gameResult.dragonsScore, lastGame.opponent,
-          lastGame.gameResult.opponentScore, gameResultString)
+          lastGame.gameResult?.dragonsScore, lastGame.opponent,
+          lastGame.gameResult?.opponentScore, gameResultString)
     } else return if (homeContents!!.lastGame != null) {
       context.getString(R.string.update_pending)
     } else {

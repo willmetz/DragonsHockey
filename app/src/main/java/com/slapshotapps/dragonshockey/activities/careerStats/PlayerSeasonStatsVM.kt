@@ -8,7 +8,7 @@ import java.util.*
 
 class PlayerSeasonStatsVM {
 
-  var seasonID: String
+  val seasonID: String
   var goals: Int = 0
   var assists: Int = 0
   var gamesPlayed: Int = 0
@@ -36,27 +36,27 @@ class PlayerSeasonStatsVM {
     shutouts = playerStats.shutouts
   }
 
-  fun getGoals(): String {
+  fun getGoalsAsString(): String {
     return goals.toString()
   }
 
-  fun getAssists(): String {
+  fun getAssistsAsString(): String {
     return assists.toString()
   }
 
-  fun getGamesPlayed(): String {
+  fun getGamesPlayedAsString(): String {
     return gamesPlayed.toString()
   }
 
-  fun getPenaltyMinutes(): String {
+  fun getPenaltyMinutesAsString(): String {
     return penaltyMinutes.toString()
   }
 
-  fun getGoalsAgainst(): String {
+  fun getGoalsAgainstAsString(): String {
     return String.format(Locale.US, "%d", goalsAgainst)
   }
 
-  fun getShutouts(): String {
+  fun getShutoutsAsString(): String {
     return shutouts.toString()
   }
 

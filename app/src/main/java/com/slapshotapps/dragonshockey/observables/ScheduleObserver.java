@@ -64,7 +64,7 @@ public class ScheduleObserver {
                                 Game game = schedule.getGame(gameResult.gameID);
 
                                 if (game != null) {
-                                    game.gameResult = gameResult;
+                                    game.setGameResult(gameResult);
                                 }
                             }
                         }

@@ -20,7 +20,7 @@ public class GameListItem extends ListItem {
     }
 
     public String getGameID() {
-        return String.valueOf(game.gameID);
+        return String.valueOf(game.getGameID());
     }
 
     public String getGameDate() {
@@ -28,11 +28,11 @@ public class GameListItem extends ListItem {
     }
 
     public String getGameOpponent() {
-        return game.opponent;
+        return game.getOpponent();
     }
 
     public String getGameResult() {
-        return FormattingUtils.getGameScore(game.gameResult, game.opponent);
+        return FormattingUtils.getGameScore(game.getGameResult(), game.getOpponent());
     }
 
     public Game getGame() {
