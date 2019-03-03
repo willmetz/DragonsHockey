@@ -64,6 +64,8 @@ class CareerStatsFragment : HockeyFragment() {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({ careerStatsData ->
 
+          val currentStats = currentSeasonStats
+
           careerStatsVM = CareerStatsVM(careerStatsData.player, currentSeasonStats,
               careerStatsData.seasonStats)
           binding.stats = careerStatsVM

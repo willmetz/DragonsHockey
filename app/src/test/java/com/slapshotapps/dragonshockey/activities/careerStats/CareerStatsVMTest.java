@@ -96,17 +96,17 @@ public class CareerStatsVMTest {
         List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
 
         assertThat(playerSeasonStats.size(), is(2));
-        assertThat(playerSeasonStats.get(0).goals, is(2));
-        assertThat(playerSeasonStats.get(0).assists, is(4));
-        assertThat(playerSeasonStats.get(0).penaltyMinutes, is(5));
+        assertThat(playerSeasonStats.get(0).getGoals(), is(2));
+        assertThat(playerSeasonStats.get(0).getAssists(), is(4));
+        assertThat(playerSeasonStats.get(0).getPenaltyMinutes(), is(5));
         assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(6)));
 
         //career
-        assertThat(playerSeasonStats.get(1).goals, is(2));
-        assertThat(playerSeasonStats.get(1).assists, is(4));
-        assertThat(playerSeasonStats.get(1).penaltyMinutes, is(5));
+        assertThat(playerSeasonStats.get(1).getGoals(), is(2));
+        assertThat(playerSeasonStats.get(1).getAssists(), is(4));
+        assertThat(playerSeasonStats.get(1).getPenaltyMinutes(), is(5));
         assertThat(playerSeasonStats.get(1).getPoints(), is(String.valueOf(6)));
-        assertThat(playerSeasonStats.get(1).seasonID, is("Career"));
+        assertThat(playerSeasonStats.get(1).getSeasonID(), is("Career"));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class CareerStatsVMTest {
         List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
 
         assertThat(playerSeasonStats.size(), is(2));
-        assertThat(playerSeasonStats.get(0).penaltyMinutes, is(5));
+        assertThat(playerSeasonStats.get(0).getPenaltyMinutes(), is(5));
         assertThat(playerSeasonStats.get(0).getGoalsAgainst(), is(String.valueOf(18)));
         assertThat(playerSeasonStats.get(0).getGoalsAgainstAverage(), is("1.80"));
         assertThat(playerSeasonStats.get(0).getGamesPlayed(), is(String.valueOf(10)));
@@ -137,8 +137,8 @@ public class CareerStatsVMTest {
         assertThat(playerSeasonStats.get(1).getGamesPlayed(), is(String.valueOf(10)));
         assertThat(playerSeasonStats.get(1).getGoalsAgainst(), is(String.valueOf(18)));
         assertThat(playerSeasonStats.get(1).getGoalsAgainstAverage(), is("1.80"));
-        assertThat(playerSeasonStats.get(1).penaltyMinutes, is(5));
-        assertThat(playerSeasonStats.get(1).seasonID, is("Career"));
+        assertThat(playerSeasonStats.get(1).getPenaltyMinutes(), is(5));
+        assertThat(playerSeasonStats.get(1).getSeasonID(), is("Career"));
     }
 
     @Test
@@ -167,19 +167,19 @@ public class CareerStatsVMTest {
         List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
 
         assertThat(playerSeasonStats.size(), is(3));
-        assertThat(playerSeasonStats.get(0).goals, is(15));
-        assertThat(playerSeasonStats.get(0).assists, is(20));
-        assertThat(playerSeasonStats.get(0).penaltyMinutes, is(10));
+        assertThat(playerSeasonStats.get(0).getGoals(), is(15));
+        assertThat(playerSeasonStats.get(0).getAssists(), is(20));
+        assertThat(playerSeasonStats.get(0).getPenaltyMinutes(), is(10));
         assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(35)));
 
-        assertThat(playerSeasonStats.get(1).goals, is(15));
-        assertThat(playerSeasonStats.get(1).assists, is(20));
-        assertThat(playerSeasonStats.get(1).penaltyMinutes, is(10));
+        assertThat(playerSeasonStats.get(1).getGoals(), is(15));
+        assertThat(playerSeasonStats.get(1).getAssists(), is(20));
+        assertThat(playerSeasonStats.get(1).getPenaltyMinutes(), is(10));
         assertThat(playerSeasonStats.get(1).getPoints(), is(String.valueOf(35)));
 
-        assertThat(playerSeasonStats.get(2).goals, is(30));
-        assertThat(playerSeasonStats.get(2).assists, is(40));
-        assertThat(playerSeasonStats.get(2).penaltyMinutes, is(20));
+        assertThat(playerSeasonStats.get(2).getGoals(), is(30));
+        assertThat(playerSeasonStats.get(2).getAssists(), is(40));
+        assertThat(playerSeasonStats.get(2).getPenaltyMinutes(), is(20));
         assertThat(playerSeasonStats.get(2).getPoints(), is(String.valueOf(70)));
     }
 
@@ -209,19 +209,19 @@ public class CareerStatsVMTest {
         List<PlayerSeasonStatsVM> playerSeasonStats = careerStatsVM.getStats();
 
         assertThat(playerSeasonStats.size(), is(3));
-        assertThat(playerSeasonStats.get(0).penaltyMinutes, is(10));
+        assertThat(playerSeasonStats.get(0).getPenaltyMinutes(), is(10));
         assertThat(playerSeasonStats.get(0).getGoalsAgainst(), is("20"));
         assertThat(playerSeasonStats.get(0).getGoalsAgainstAverage(), is("4.00"));
         assertThat(playerSeasonStats.get(0).getGamesPlayed(), is("5"));
 
 
 
-        assertThat(playerSeasonStats.get(1).penaltyMinutes, is(10));
+        assertThat(playerSeasonStats.get(1).getPenaltyMinutes(), is(10));
         assertThat(playerSeasonStats.get(1).getGoalsAgainst(), is("20"));
         assertThat(playerSeasonStats.get(1).getGoalsAgainstAverage(), is("4.00"));
         assertThat(playerSeasonStats.get(1).getGamesPlayed(), is("5"));
 
-        assertThat(playerSeasonStats.get(2).penaltyMinutes, is(20));
+        assertThat(playerSeasonStats.get(2).getPenaltyMinutes(), is(20));
         assertThat(playerSeasonStats.get(2).getGoalsAgainst(), is("40"));
         assertThat(playerSeasonStats.get(2).getGoalsAgainstAverage(), is("4.00"));
         assertThat(playerSeasonStats.get(2).getGamesPlayed(), is("10"));
@@ -260,29 +260,29 @@ public class CareerStatsVMTest {
 
         assertThat(playerSeasonStats.size(), is(4));
 
-        assertThat(playerSeasonStats.get(0).goals, is(15));
-        assertThat(playerSeasonStats.get(0).assists, is(20));
-        assertThat(playerSeasonStats.get(0).penaltyMinutes, is(10));
+        assertThat(playerSeasonStats.get(0).getGoals(), is(15));
+        assertThat(playerSeasonStats.get(0).getAssists(), is(20));
+        assertThat(playerSeasonStats.get(0).getPenaltyMinutes(), is(10));
         assertThat(playerSeasonStats.get(0).getPoints(), is(String.valueOf(35)));
-        assertThat(playerSeasonStats.get(0).seasonID, is("Winter 16"));
+        assertThat(playerSeasonStats.get(0).getSeasonID(), is("Winter 16"));
 
-        assertThat(playerSeasonStats.get(1).goals, is(15));
-        assertThat(playerSeasonStats.get(1).assists, is(20));
-        assertThat(playerSeasonStats.get(1).penaltyMinutes, is(10));
+        assertThat(playerSeasonStats.get(1).getGoals(), is(15));
+        assertThat(playerSeasonStats.get(1).getAssists(), is(20));
+        assertThat(playerSeasonStats.get(1).getPenaltyMinutes(), is(10));
         assertThat(playerSeasonStats.get(1).getPoints(), is(String.valueOf(35)));
-        assertThat(playerSeasonStats.get(1).seasonID, is("Fall 17"));
+        assertThat(playerSeasonStats.get(1).getSeasonID(), is("Fall 17"));
 
-        assertThat(playerSeasonStats.get(2).goals, is(2));
-        assertThat(playerSeasonStats.get(2).assists, is(4));
-        assertThat(playerSeasonStats.get(2).penaltyMinutes, is(8));
+        assertThat(playerSeasonStats.get(2).getGoals(), is(2));
+        assertThat(playerSeasonStats.get(2).getAssists(), is(4));
+        assertThat(playerSeasonStats.get(2).getPenaltyMinutes(), is(8));
         assertThat(playerSeasonStats.get(2).getPoints(), is(String.valueOf(6)));
-        assertThat(playerSeasonStats.get(2).seasonID, is("Current"));
+        assertThat(playerSeasonStats.get(2).getSeasonID(), is("Current"));
 
-        assertThat(playerSeasonStats.get(3).goals, is(32));
-        assertThat(playerSeasonStats.get(3).assists, is(44));
-        assertThat(playerSeasonStats.get(3).penaltyMinutes, is(28));
+        assertThat(playerSeasonStats.get(3).getGoals(), is(32));
+        assertThat(playerSeasonStats.get(3).getAssists(), is(44));
+        assertThat(playerSeasonStats.get(3).getPenaltyMinutes(), is(28));
         assertThat(playerSeasonStats.get(3).getPoints(), is(String.valueOf(76)));
-        assertThat(playerSeasonStats.get(3).seasonID, is("Career"));
+        assertThat(playerSeasonStats.get(3).getSeasonID(), is("Career"));
     }
 
     private List<GameStats.Stats> getTeamStatsForGame() {
