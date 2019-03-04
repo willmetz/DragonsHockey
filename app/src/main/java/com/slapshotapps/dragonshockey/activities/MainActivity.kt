@@ -1,8 +1,6 @@
 package com.slapshotapps.dragonshockey.activities
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -12,7 +10,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.slapshotapps.dragonshockey.AnalyticEventListener
 import com.slapshotapps.dragonshockey.Config
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents
 import com.slapshotapps.dragonshockey.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListener {
@@ -25,29 +22,12 @@ class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListen
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+    setSupportActionBar(binding.toolbar);
 
     firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
     val navController = findNavController(R.id.fragment_container)
     binding.navigationView.setupWithNavController(navController)
-  }
-
-  override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
-    val inflater = menuInflater
-    inflater.inflate(R.menu.menu_home, menu)
-    return true
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-    when (item.itemId) {
-      R.id.action_admin -> {
-        startActivity(DragonsHockeyIntents.createAdminAuthIntent(this))
-        return true
-      }
-      else -> return super.onOptionsItemSelected(item)
-    }
   }
 
   override fun onSupportNavigateUp() =
