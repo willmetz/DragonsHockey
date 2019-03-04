@@ -61,7 +61,7 @@ public class ScheduleObserver {
                             GameResult gameResult = snapshot.getValue(GameResult.class);
 
                             if (gameResult != null) {
-                                Game game = schedule.getGame(gameResult.gameID);
+                                Game game = schedule.getGame(gameResult.getGameID());
 
                                 if (game != null) {
                                     game.setGameResult(gameResult);

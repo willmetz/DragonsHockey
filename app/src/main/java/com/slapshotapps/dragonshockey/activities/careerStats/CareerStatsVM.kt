@@ -41,7 +41,12 @@ class CareerStatsVM(private val player: Player, currentSeasonStats: PlayerStats?
 
       for (stats in unfilteredHistoricalStats.stats) {
 
-        for (gameStats in stats.gameStats) {
+        val historicalGameStats = stats.gameStats
+        if(historicalGameStats == null){
+          continue
+        }
+
+        for (gameStats in historicalGameStats) {
           if (gameStats.playerID == player.playerID) {
             tempPlayerSeasonStats.goals += gameStats.goals
             tempPlayerSeasonStats.assists += gameStats.assists

@@ -16,7 +16,7 @@ import java.util.*
 
 @Keep
 class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
-  private var homeContents: HomeContents? = null
+  private lateinit var homeContents: HomeContents
 
 
   @get:Bindable
@@ -28,32 +28,18 @@ class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
 
 
   val wins: String
-    get() = if (homeContents?.seasonRecord == null) {
-      ""
-    } else {
-      homeContents?.seasonRecord?.wins.toString()
-    }
+    get() = homeContents.seasonRecord.wins.toString()
+
 
   val losses: String
-    get() = if (homeContents?.seasonRecord == null) {
-      ""
-    } else {
-      homeContents?.seasonRecord?.losses.toString()
-    }
+    get() = homeContents.seasonRecord.losses.toString()
+
 
   val overtimeLosses: String
-    get() = if (homeContents?.seasonRecord == null) {
-      ""
-    } else {
-      homeContents?.seasonRecord?.overtimeLosses.toString()
-    }
+    get() = homeContents.seasonRecord.overtimeLosses.toString()
 
   val ties: String
-    get() = if (homeContents?.seasonRecord == null) {
-      ""
-    } else {
-      homeContents?.seasonRecord?.ties.toString()
-    }
+    get() = homeContents.seasonRecord.ties.toString()
 
   init {
     if (contents == null) {
@@ -67,11 +53,12 @@ class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
 
 
   fun getNextGameTime(context: Context): String {
-    if (homeContents!!.nextGame == null) {
+    val nextGame = homeContents.nextGame
+    if (nextGame == null) {
       return context.getString(R.string.no_more_games)
     }
 
-    val date = homeContents!!.nextGame.gameTimeToDate()
+    val date = nextGame.gameTimeToDate()
 
     if (date != null) {
       val calendar = Calendar.getInstance()
@@ -80,10 +67,10 @@ class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
       return if (DateUtils.isToday(date.time)) {
 
         context.getString(R.string.today_gameday, DateFormaters.getGameTime(date),
-            if (homeContents!!.nextGame.home) "Home" else "Guest")
+            if (homeContents.nextGame?.home == true) "Home" else "Guest")
       } else {
         context.getString(R.string.gameday, DateFormaters.getGameDateTime(date),
-            if (homeContents!!.nextGame.home) "Home" else "Guest")
+            if (homeContents.nextGame?.home == true) "Home" else "Guest")
       }
     }
 
@@ -91,22 +78,18 @@ class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
   }
 
   fun getLastGameResult(context: Context): String {
-    if (homeContents!!.lastGame != null && homeContents!!.lastGame.gameResult != null) {
 
-      val lastGame = homeContents!!.lastGame
-      val gameResultString = FormattingUtils.getGameResultAsString(
-          homeContents!!.lastGame.gameResult)
+    val lastGame = homeContents.lastGame
+
+    if (lastGame != null && lastGame.gameResult != null) {
+      val gameResultString = FormattingUtils.getGameResultAsString(lastGame.gameResult)
       return String.format(context.getString(R.string.last_game_score),
           lastGame.gameResult?.dragonsScore, lastGame.opponent,
           lastGame.gameResult?.opponentScore, gameResultString)
-    } else return if (homeContents!!.lastGame != null) {
-      context.getString(R.string.update_pending)
-    } else {
-      ""
-    }
+    } else return if (lastGame != null) { context.getString(R.string.update_pending) } else { "" }
   }
 
   fun showLastGameInfo(): Int {
-    return if (homeContents!!.lastGame == null) View.INVISIBLE else View.VISIBLE
+    return if (homeContents.lastGame == null) View.INVISIBLE else View.VISIBLE
   }
 }

@@ -67,18 +67,18 @@ public class FormattingUtilsTest {
     @Test
     public void testGameResult_Win() {
         GameResult gameResult = new GameResult();
-        gameResult.dragonsScore = 5;
-        gameResult.opponentScore = 4;
-        gameResult.overtimeLoss = false;
+        gameResult.setDragonsScore(5);
+        gameResult.setOpponentScore(4);
+        gameResult.setOvertimeLoss(false);
         Assert.assertEquals(FormattingUtils.WIN, FormattingUtils.getGameResultAsString(gameResult));
     }
 
     @Test
     public void testGameResult_OTL() {
         GameResult gameResult = new GameResult();
-        gameResult.dragonsScore = 5;
-        gameResult.opponentScore = 4;
-        gameResult.overtimeLoss = true;
+        gameResult.setDragonsScore(5);
+        gameResult.setOpponentScore(4);
+        gameResult.setOvertimeLoss(true);
         Assert.assertEquals(FormattingUtils.OVERTIME_LOSS,
             FormattingUtils.getGameResultAsString(gameResult));
     }
@@ -86,9 +86,9 @@ public class FormattingUtilsTest {
     @Test
     public void testGameResult_Loss() {
         GameResult gameResult = new GameResult();
-        gameResult.dragonsScore = 4;
-        gameResult.opponentScore = 5;
-        gameResult.overtimeLoss = false;
+        gameResult.setDragonsScore(4);
+        gameResult.setOpponentScore(5);
+        gameResult.setOvertimeLoss(false);
         Assert.assertEquals(FormattingUtils.LOSS,
             FormattingUtils.getGameResultAsString(gameResult));
     }
@@ -96,9 +96,9 @@ public class FormattingUtilsTest {
     @Test
     public void testGameResult_Tie() {
         GameResult gameResult = new GameResult();
-        gameResult.dragonsScore = 4;
-        gameResult.opponentScore = 4;
-        gameResult.overtimeLoss = false;
+        gameResult.setDragonsScore(4);
+        gameResult.setOpponentScore(4);
+        gameResult.setOvertimeLoss(false);
         Assert.assertEquals(FormattingUtils.TIE, FormattingUtils.getGameResultAsString(gameResult));
     }
 }

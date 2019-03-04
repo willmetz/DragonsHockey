@@ -116,12 +116,12 @@ public class EditStatsActivity extends AppCompatActivity {
                     RosterUtils.getFullName(player))
                     .playerID(player.playerID)
                     .playerNumber(player.number)
-                    .goals(statsForPlayer.goals)
-                    .assists(statsForPlayer.assists)
-                    .present(statsForPlayer.present)
-                    .penaltyMinutes(statsForPlayer.penaltyMinutes)
+                    .goals(statsForPlayer.getGoals())
+                    .assists(statsForPlayer.getAssists())
+                    .present(statsForPlayer.getPresent())
+                    .penaltyMinutes(statsForPlayer.getPenaltyMinutes())
                     .position(player.getPosition())
-                    .goalsAgainst(statsForPlayer.goalsAgainst)
+                    .goalsAgainst(statsForPlayer.getGoalsAgainst())
                     .build();
 
             statsViewModel.add(viewModel);
@@ -133,19 +133,19 @@ public class EditStatsActivity extends AppCompatActivity {
     private GameStats getGameStats(List<AdminStatsViewModel> adminStatsViewModelList) {
         GameStats gameStats = new GameStats();
 
-        gameStats.gameID = gameID;
-        gameStats.gameStats = new ArrayList<>();
+        gameStats.setGameID(gameID);
+        gameStats.setGameStats(new ArrayList<>());
 
         for (AdminStatsViewModel adminStatsViewModel : adminStatsViewModelList) {
             GameStats.Stats stats = new GameStats.Stats();
-            stats.playerID = adminStatsViewModel.getPlayerID();
-            stats.assists = Integer.valueOf(adminStatsViewModel.getAssists());
-            stats.goals = Integer.valueOf(adminStatsViewModel.getGoals());
-            stats.present = adminStatsViewModel.getPresence();
-            stats.penaltyMinutes = Integer.valueOf(adminStatsViewModel.getPenaltyMinutes());
-            stats.goalsAgainst = Integer.valueOf(adminStatsViewModel.getGoalsAgainst());
+            stats.setPlayerID(adminStatsViewModel.getPlayerID());
+            stats.setAssists(Integer.valueOf(adminStatsViewModel.getAssists()));
+            stats.setGoals(Integer.valueOf(adminStatsViewModel.getGoals()));
+            stats.setPresent(adminStatsViewModel.getPresence());
+            stats.setPenaltyMinutes(Integer.valueOf(adminStatsViewModel.getPenaltyMinutes()));
+            stats.setGoalsAgainst(Integer.valueOf(adminStatsViewModel.getGoalsAgainst()));
 
-            gameStats.gameStats.add(stats);
+            gameStats.getGameStats().add(stats);
         }
 
         return gameStats;

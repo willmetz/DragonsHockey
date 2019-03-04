@@ -150,10 +150,10 @@ public class CareerStatsVMTest {
 
         for (int i = 0; i < 5; i++) {
             seasonStats.get(0).stats.add(new GameStats());
-            seasonStats.get(0).stats.get(i).gameStats = getTeamStatsForGame();
+            seasonStats.get(0).stats.get(i).setGameStats(getTeamStatsForGame());
 
             seasonStats.get(1).stats.add(new GameStats());
-            seasonStats.get(1).stats.get(i).gameStats = getTeamStatsForGame();
+            seasonStats.get(1).stats.get(i).setGameStats(getTeamStatsForGame());
         }
 
         Player player = new Player("F");
@@ -192,10 +192,10 @@ public class CareerStatsVMTest {
 
         for (int i = 0; i < 5; i++) {
             seasonStats.get(0).stats.add(new GameStats());
-            seasonStats.get(0).stats.get(i).gameStats = getTeamStatsForGame();
+            seasonStats.get(0).stats.get(i).setGameStats(getTeamStatsForGame());
 
             seasonStats.get(1).stats.add(new GameStats());
-            seasonStats.get(1).stats.get(i).gameStats = getTeamStatsForGame();
+            seasonStats.get(1).stats.get(i).setGameStats(getTeamStatsForGame());
         }
 
         Player player = new Player("G");
@@ -236,10 +236,10 @@ public class CareerStatsVMTest {
 
         for (int i = 0; i < 5; i++) {
             seasonStats.get(0).stats.add(new GameStats());
-            seasonStats.get(0).stats.get(i).gameStats = getTeamStatsForGame();
+            seasonStats.get(0).stats.get(i).setGameStats(getTeamStatsForGame());
 
             seasonStats.get(1).stats.add(new GameStats());
-            seasonStats.get(1).stats.get(i).gameStats = getTeamStatsForGame();
+            seasonStats.get(1).stats.get(i).setGameStats(getTeamStatsForGame());
         }
 
         Player player = new Player("F");

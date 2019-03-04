@@ -69,7 +69,7 @@ public class AdminGameViewModelTest {
     public void setOpponentScore_notNull() {
         Game game = new Game();
         game.setGameResult(new GameResult());
-        game.getGameResult().opponentScore = 2;
+        game.getGameResult().setOpponentScore(2);
 
         AdminGameViewModel adminGameViewModel = new AdminGameViewModel(game);
         adminGameViewModel.setOpponentScore("8");
@@ -114,7 +114,7 @@ public class AdminGameViewModelTest {
     public void setDragonsScore_notNull() {
         Game game = new Game();
         game.setGameResult(new GameResult());
-        game.getGameResult().dragonsScore = 99;
+        game.getGameResult().setDragonsScore(99);
 
         AdminGameViewModel adminGameViewModel = new AdminGameViewModel(game);
         adminGameViewModel.setDragonsScore("3");

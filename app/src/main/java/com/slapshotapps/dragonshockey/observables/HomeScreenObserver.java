@@ -39,28 +39,28 @@ public class HomeScreenObserver {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         HomeContents homeContents = new HomeContents();
-                        homeContents.lastGame = lastGame;
-                        homeContents.nextGame = nextGame;
+                        homeContents.setLastGame(lastGame);
+                        homeContents.setNextGame(nextGame);
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                             GameResult gameResult = snapshot.getValue(GameResult.class);
 
-                            if (lastGame != null && lastGame.getGameID() == gameResult.gameID) {
-                                homeContents.lastGame.setGameResult(gameResult);
-                            } else if (nextGame != null && nextGame.getGameID() == gameResult.gameID) {
-                                homeContents.nextGame.setGameResult(gameResult);
+                            if (lastGame != null && lastGame.getGameID() == gameResult.getGameID()) {
+                                homeContents.getLastGame().setGameResult(gameResult);
+                            } else if (nextGame != null && nextGame.getGameID() == gameResult.getGameID()) {
+                                homeContents.getNextGame().setGameResult(gameResult);
                             }
 
                             //determine if the game was a win or a loss
                             if (HomeScreenUtils.wasWin(gameResult)) {
-                                homeContents.seasonRecord.wins++;
+                                homeContents.getSeasonRecord().wins++;
                             } else if (HomeScreenUtils.wasOvertimeLoss(gameResult)) {
-                                homeContents.seasonRecord.overtimeLosses++;
+                                homeContents.getSeasonRecord().overtimeLosses++;
                             } else if (HomeScreenUtils.wasLoss(gameResult)) {
-                                homeContents.seasonRecord.losses++;
+                                homeContents.getSeasonRecord().losses++;
                             } else if (HomeScreenUtils.wasTie(gameResult)) {
-                                homeContents.seasonRecord.ties++;
+                                homeContents.getSeasonRecord().ties++;
                             }
                         }
 

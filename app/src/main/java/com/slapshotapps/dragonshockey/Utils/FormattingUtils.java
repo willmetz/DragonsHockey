@@ -42,9 +42,9 @@ public class FormattingUtils {
 
         if (gameResult != null) {
 
-            gameScore = gameResult.dragonsScore
+            gameScore = gameResult.getDragonsScore()
                 + "-"
-                + gameResult.opponentScore
+                + gameResult.getOpponentScore()
                 + " ("
                 + getGameResultAsString(gameResult)
                 + ")";
@@ -57,11 +57,11 @@ public class FormattingUtils {
         String gameResultText = "N/A";
 
         if (gameResult != null) {
-            if (gameResult.overtimeLoss) {
+            if (gameResult.getOvertimeLoss()) {
                 gameResultText = OVERTIME_LOSS;
-            } else if (gameResult.dragonsScore > gameResult.opponentScore) {
+            } else if (gameResult.getDragonsScore() > gameResult.getOpponentScore()) {
                 gameResultText = WIN;
-            } else if (gameResult.opponentScore > gameResult.dragonsScore) {
+            } else if (gameResult.getOpponentScore() > gameResult.getDragonsScore()) {
                 gameResultText = LOSS;
             } else {
                 gameResultText = TIE;

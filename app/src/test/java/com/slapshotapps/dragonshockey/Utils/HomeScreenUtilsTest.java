@@ -16,13 +16,13 @@ public class HomeScreenUtilsTest {
         Assert.assertFalse("Null test", HomeScreenUtils.wasWin(null));
 
         GameResult gameResult = new GameResult();
-        gameResult.dragonsScore = 0;
-        gameResult.opponentScore = 1;
-        gameResult.overtimeLoss = false;
+        gameResult.setDragonsScore(0);
+        gameResult.setOpponentScore(1);
+        gameResult.setOvertimeLoss(false);
 
         Assert.assertFalse("Loss test", HomeScreenUtils.wasWin(gameResult));
 
-        gameResult.dragonsScore = 2;
+        gameResult.setDragonsScore(2);
 
         Assert.assertTrue("Win test", HomeScreenUtils.wasWin(gameResult));
     }
@@ -32,18 +32,18 @@ public class HomeScreenUtilsTest {
         Assert.assertFalse("Null test", HomeScreenUtils.wasLoss(null));
 
         GameResult gameResult = new GameResult();
-        gameResult.dragonsScore = 0;
-        gameResult.opponentScore = 1;
-        gameResult.overtimeLoss = false;
+        gameResult.setDragonsScore(0);
+        gameResult.setOpponentScore(1);
+        gameResult.setOvertimeLoss(false);
 
         Assert.assertTrue("Loss test", HomeScreenUtils.wasLoss(gameResult));
 
-        gameResult.dragonsScore = 2;
+        gameResult.setDragonsScore(2);
 
         Assert.assertFalse("Win test", HomeScreenUtils.wasLoss(gameResult));
 
-        gameResult.dragonsScore = 0;
-        gameResult.overtimeLoss = true;
+        gameResult.setDragonsScore(0);
+        gameResult.setOvertimeLoss(true);
 
         Assert.assertFalse("overtime loss test", HomeScreenUtils.wasLoss(gameResult));
     }
@@ -54,13 +54,13 @@ public class HomeScreenUtilsTest {
         Assert.assertFalse("Null test", HomeScreenUtils.wasOvertimeLoss(null));
 
         GameResult gameResult = new GameResult();
-        gameResult.dragonsScore = 0;
-        gameResult.opponentScore = 1;
-        gameResult.overtimeLoss = false;
+        gameResult.setDragonsScore(0);
+        gameResult.setOpponentScore(1);
+        gameResult.setOvertimeLoss(false);
 
         Assert.assertFalse("Loss test", HomeScreenUtils.wasOvertimeLoss(gameResult));
 
-        gameResult.overtimeLoss = true;
+        gameResult.setOvertimeLoss(true);
 
         Assert.assertTrue("overtimeloss test", HomeScreenUtils.wasOvertimeLoss(gameResult));
     }
@@ -71,17 +71,17 @@ public class HomeScreenUtilsTest {
         Assert.assertFalse("Null test", HomeScreenUtils.wasTie(null));
 
         GameResult gameResult = new GameResult();
-        gameResult.dragonsScore = 0;
-        gameResult.opponentScore = 1;
-        gameResult.overtimeLoss = false;
+        gameResult.setDragonsScore(0);
+        gameResult.setOpponentScore(1);
+        gameResult.setOvertimeLoss(false);
 
         Assert.assertFalse("Loss test", HomeScreenUtils.wasTie(gameResult));
 
-        gameResult.dragonsScore = 2;
+        gameResult.setDragonsScore(2);
 
         Assert.assertFalse("Win test", HomeScreenUtils.wasTie(gameResult));
 
-        gameResult.dragonsScore = 1;
+        gameResult.setDragonsScore(1);
 
         Assert.assertTrue("tie test", HomeScreenUtils.wasTie(gameResult));
     }

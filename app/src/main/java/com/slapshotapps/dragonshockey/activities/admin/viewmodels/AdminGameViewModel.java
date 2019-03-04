@@ -45,15 +45,15 @@ public class AdminGameViewModel {
         }
 
         if (score == null || score.isEmpty()) {
-            game.getGameResult().opponentScore = 0;
+            game.getGameResult().setOpponentScore(0);
         } else {
-            game.getGameResult().opponentScore = Integer.valueOf(score);
+            game.getGameResult().setOpponentScore(Integer.valueOf(score));
         }
     }
 
     public String getOpponentScore() {
         if (game.getGameResult() != null) {
-            return String.valueOf(game.getGameResult().opponentScore);
+            return String.valueOf(game.getGameResult().getOpponentScore());
         } else {
             return "";
         }
@@ -65,15 +65,15 @@ public class AdminGameViewModel {
         }
 
         if (score == null || score.isEmpty()) {
-            game.getGameResult().dragonsScore = 0;
+            game.getGameResult().setDragonsScore(0);
         } else {
-            game.getGameResult().dragonsScore = Integer.valueOf(score);
+            game.getGameResult().setDragonsScore(Integer.valueOf(score));
         }
     }
 
     public String getDragonsScore() {
         if (game.getGameResult() != null) {
-            return String.valueOf(game.getGameResult().dragonsScore);
+            return String.valueOf(game.getGameResult().getDragonsScore());
         } else {
             return "";
         }
@@ -104,7 +104,7 @@ public class AdminGameViewModel {
     }
 
     public boolean getOTL() {
-        return game.getGameResult() != null && game.getGameResult().overtimeLoss;
+        return game.getGameResult() != null && game.getGameResult().getOvertimeLoss();
     }
 
     public void setOTL(boolean isOTL) {
@@ -112,11 +112,11 @@ public class AdminGameViewModel {
             createGameResult();
         }
 
-        game.getGameResult().overtimeLoss = isOTL;
+        game.getGameResult().setOvertimeLoss(isOTL);
     }
 
     private void createGameResult() {
         game.setGameResult(new GameResult());
-        game.getGameResult().gameID = originalGame.getGameID();
+        game.getGameResult().setGameID(originalGame.getGameID());
     }
 }

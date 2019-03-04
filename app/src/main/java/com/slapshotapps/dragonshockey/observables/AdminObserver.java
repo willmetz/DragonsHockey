@@ -160,13 +160,13 @@ public class AdminObserver {
                         if (dataSnapshot.getChildrenCount() == 1) {
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 gameStats = child.getValue(GameStats.class);
-                                gameStats.key = child.getKey();
+                                gameStats.setKey(child.getKey());
 
                                 //populate the internal list of players details per game
-                                gameStats.gameStats = new ArrayList<GameStats.Stats>();
+                                gameStats.setGameStats(new ArrayList<GameStats.Stats>());
                                 for (DataSnapshot childListSnapshot : child.child("stats")
                                     .getChildren()) {
-                                    gameStats.gameStats.add(
+                                    gameStats.getGameStats().add(
                                         childListSnapshot.getValue(GameStats.Stats.class));
                                 }
                             }
@@ -281,7 +281,7 @@ public class AdminObserver {
                 }
 
                 PlayerGameStats playerGameStats = new PlayerGameStats();
-                playerGameStats.playerStatsKey = gameStats.key;
+                playerGameStats.playerStatsKey = gameStats.getKey();
                 playerGameStats.players = new ArrayList<Player>(players);
                 playerGameStats.playerGameStats = gameStats;
 

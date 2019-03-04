@@ -49,27 +49,31 @@ public class StatsObserver {
                             GameStats stats = snapshot.getValue(GameStats.class);
 
                             //populate the internal list of players details per game
-                            stats.gameStats = new ArrayList<GameStats.Stats>();
+                            stats.setGameStats(new ArrayList<GameStats.Stats>());
                             for (DataSnapshot childListSnapshot : snapshot.child("stats")
                                 .getChildren()) {
                                 GameStats.Stats playerGameStats =
                                     childListSnapshot.getValue(GameStats.Stats.class);
 
                                 //get the players current stat info
-                                PlayerStats currentStats = statMap.get(playerGameStats.playerID);
+                                PlayerStats currentStats = statMap.get(
+                                    playerGameStats.getPlayerID());
 
                                 //update the stat info based on the game results
                                 if (currentStats != null) {
-                                    currentStats.assists += playerGameStats.assists;
-                                    currentStats.goals += playerGameStats.goals;
+                                    currentStats.assists += playerGameStats.getAssists();
+                                    currentStats.goals += playerGameStats.getGoals();
                                     currentStats.points = currentStats.goals + currentStats.assists;
-                                    currentStats.gamesPlayed += playerGameStats.present ? 1 : 0;
-                                    currentStats.penaltyMinutes += playerGameStats.penaltyMinutes;
+                                    currentStats.gamesPlayed += playerGameStats.getPresent() ? 1 : 0;
+                                    currentStats.penaltyMinutes +=
+                                        playerGameStats.getPenaltyMinutes();
 
                                     if (currentStats.position == PlayerPosition.GOALIE) {
-                                        currentStats.goalsAgainst += playerGameStats.goalsAgainst;
+                                        currentStats.goalsAgainst +=
+                                            playerGameStats.getGoalsAgainst();
                                         currentStats.shutouts +=
-                                            playerGameStats.goalsAgainst == 0 && playerGameStats.present? 1 : 0;
+                                            playerGameStats.getGoalsAgainst()
+                                                == 0 && playerGameStats.getPresent() ? 1 : 0;
                                     }
                                 }
                             }
