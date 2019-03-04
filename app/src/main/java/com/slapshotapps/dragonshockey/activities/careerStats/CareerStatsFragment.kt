@@ -64,16 +64,14 @@ class CareerStatsFragment : HockeyFragment() {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({ careerStatsData ->
 
-          val currentStats = currentSeasonStats
-
           careerStatsVM = CareerStatsVM(careerStatsData.player, currentSeasonStats,
               careerStatsData.seasonStats)
           binding.stats = careerStatsVM
           careerStatsAdapter?.updateStats(careerStatsVM!!.stats,
-              careerStatsData.player.getPosition())
+              careerStatsData.player.getPlayerPosition())
 
           actionBarListener?.hideProgressBar()
-        }, { error -> actionBarListener?.hideProgressBar() })
+        }, { _ -> actionBarListener?.hideProgressBar() })
   }
 
   override fun onPause() {

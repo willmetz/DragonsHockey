@@ -18,9 +18,9 @@ public class CareerStatsVMTest {
     public void testPlayerName() {
 
         Player player = new Player();
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 9;
+        player.setFirstName("Bob");
+        player.setLastName("Builder");
+        player.setPlayerID(9);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, null, null);
 
@@ -31,7 +31,7 @@ public class CareerStatsVMTest {
     public void testPlayerNameNull() {
 
         Player player = new Player();
-        player.playerID = 9;
+        player.setPlayerID(9);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, null, null);
 
@@ -41,10 +41,10 @@ public class CareerStatsVMTest {
     @Test
     public void testPlayerNumber() {
         Player player = new Player();
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 9;
-        player.number = 99;
+        player.setFirstName("Bob");
+        player.setLastName("Builder");
+        player.setPlayerID(9);
+        player.setNumber(99);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, null, null);
 
@@ -54,9 +54,9 @@ public class CareerStatsVMTest {
     @Test
     public void testPlayerNumberEmpty() {
         Player player = new Player();
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 9;
+        player.setFirstName("Bob");
+        player.setLastName("Builder");
+        player.setPlayerID(9);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, null, null);
 
@@ -66,10 +66,10 @@ public class CareerStatsVMTest {
     @Test
     public void testPlayerPosition() {
         Player player = new Player("F");
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 9;
-        player.number = 99;
+        player.setFirstName("Bob");
+        player.setLastName("Builder");
+        player.setPlayerID(9);
+        player.setNumber(99);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, null, null);
 
@@ -80,16 +80,16 @@ public class CareerStatsVMTest {
     public void testNonGoalieCurrentSeasonAdding() {
 
         PlayerStats playerStats = new PlayerStats(2, "bob", "Builder", PlayerPosition.FORWARD);
-        playerStats.goals = 2;
-        playerStats.assists = 4;
-        playerStats.penaltyMinutes = 5;
-        playerStats.gamesPlayed = 10;
+        playerStats.setGoals(2);
+        playerStats.setAssists(4);
+        playerStats.setPenaltyMinutes(5);
+        playerStats.setGamesPlayed(10);
 
         Player player = new Player("F");
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 2;
-        player.number = 99;
+        player.setFirstName("Bob");
+        player.setLastName("Builder");
+        player.setPlayerID(2);
+        player.setNumber(99);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, playerStats, null);
 
@@ -113,15 +113,15 @@ public class CareerStatsVMTest {
     public void testGoalieCurrentSeasonAdding() {
 
         PlayerStats playerStats = new PlayerStats(2, "bob", "Builder", PlayerPosition.GOALIE);
-        playerStats.penaltyMinutes = 5;
-        playerStats.gamesPlayed = 10;
-        playerStats.goalsAgainst = 18;
+        playerStats.setPenaltyMinutes(5);
+        playerStats.setGamesPlayed(10);
+        playerStats.setGoalsAgainst(18);
 
         Player player = new Player("G");
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 2;
-        player.number = 99;
+        player.setFirstName("Bob");
+        player.setLastName("Builder");
+        player.setPlayerID(2);
+        player.setNumber(99);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, playerStats, null);
 
@@ -149,18 +149,18 @@ public class CareerStatsVMTest {
         seasonStats.add(new SeasonStats());
 
         for (int i = 0; i < 5; i++) {
-            seasonStats.get(0).stats.add(new GameStats());
-            seasonStats.get(0).stats.get(i).setGameStats(getTeamStatsForGame());
+            seasonStats.get(0).getStats().add(new GameStats());
+            seasonStats.get(0).getStats().get(i).setGameStats(getTeamStatsForGame());
 
-            seasonStats.get(1).stats.add(new GameStats());
-            seasonStats.get(1).stats.get(i).setGameStats(getTeamStatsForGame());
+            seasonStats.get(1).getStats().add(new GameStats());
+            seasonStats.get(1).getStats().get(i).setGameStats(getTeamStatsForGame());
         }
 
         Player player = new Player("F");
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 2;
-        player.number = 99;
+        player.setFirstName("Bob");
+        player.setLastName("Builder");
+        player.setPlayerID(2);
+        player.setNumber(99);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, null, seasonStats);
 
@@ -191,18 +191,18 @@ public class CareerStatsVMTest {
         seasonStats.add(new SeasonStats());
 
         for (int i = 0; i < 5; i++) {
-            seasonStats.get(0).stats.add(new GameStats());
-            seasonStats.get(0).stats.get(i).setGameStats(getTeamStatsForGame());
+            seasonStats.get(0).getStats().add(new GameStats());
+            seasonStats.get(0).getStats().get(i).setGameStats(getTeamStatsForGame());
 
-            seasonStats.get(1).stats.add(new GameStats());
-            seasonStats.get(1).stats.get(i).setGameStats(getTeamStatsForGame());
+            seasonStats.get(1).getStats().add(new GameStats());
+            seasonStats.get(1).getStats().get(i).setGameStats(getTeamStatsForGame());
         }
 
         Player player = new Player("G");
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 4;
-        player.number = 99;
+        player.setFirstName("Bob");
+        player.setLastName("Builder");
+        player.setPlayerID(4);
+        player.setNumber(99);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, null, seasonStats);
 
@@ -235,24 +235,24 @@ public class CareerStatsVMTest {
         seasonStats.add(new SeasonStats("Fall 17"));
 
         for (int i = 0; i < 5; i++) {
-            seasonStats.get(0).stats.add(new GameStats());
-            seasonStats.get(0).stats.get(i).setGameStats(getTeamStatsForGame());
+            seasonStats.get(0).getStats().add(new GameStats());
+            seasonStats.get(0).getStats().get(i).setGameStats(getTeamStatsForGame());
 
-            seasonStats.get(1).stats.add(new GameStats());
-            seasonStats.get(1).stats.get(i).setGameStats(getTeamStatsForGame());
+            seasonStats.get(1).getStats().add(new GameStats());
+            seasonStats.get(1).getStats().get(i).setGameStats(getTeamStatsForGame());
         }
 
         Player player = new Player("F");
-        player.firstName = "Bob";
-        player.lastName = "Builder";
-        player.playerID = 2;
-        player.number = 99;
+        player.setFirstName("Bob");
+        player.setLastName("Builder");
+        player.setPlayerID(2);
+        player.setNumber(99);
 
         PlayerStats playerStats = new PlayerStats(2, "bob", "Builder", PlayerPosition.FORWARD);
-        playerStats.goals = 2;
-        playerStats.assists = 4;
-        playerStats.gamesPlayed = 10;
-        playerStats.penaltyMinutes = 8;
+        playerStats.setGoals(2);
+        playerStats.setAssists(4);
+        playerStats.setGamesPlayed(10);
+        playerStats.setPenaltyMinutes(8);
 
         CareerStatsVM careerStatsVM = new CareerStatsVM(player, playerStats, seasonStats);
 

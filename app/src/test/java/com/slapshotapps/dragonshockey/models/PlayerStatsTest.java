@@ -17,27 +17,27 @@ public class PlayerStatsTest {
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
 
         PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.FORWARD);
-        stats.points = 4;
+        stats.setPoints(4);
         playerStats.add(stats);
 
         stats = new PlayerStats(1, "jeff", "france", PlayerPosition.FORWARD);
-        stats.points = 5;
+        stats.setPoints(5);
         playerStats.add(stats);
 
         stats = new PlayerStats(1, "dan", "wham", PlayerPosition.FORWARD);
-        stats.points = 2;
+        stats.setPoints(2);
         playerStats.add(stats);
 
         stats = new PlayerStats(1, "will", "zaon", PlayerPosition.FORWARD);
-        stats.points = 6;
+        stats.setPoints(6);
         playerStats.add(stats);
 
         Collections.sort(playerStats);
 
-        Assert.assertEquals("zaon", playerStats.get(0).lastName);
-        Assert.assertEquals("france", playerStats.get(1).lastName);
-        Assert.assertEquals("joe", playerStats.get(2).lastName);
-        Assert.assertEquals("wham", playerStats.get(3).lastName);
+        Assert.assertEquals("zaon", playerStats.get(0).getLastName());
+        Assert.assertEquals("france", playerStats.get(1).getLastName());
+        Assert.assertEquals("joe", playerStats.get(2).getLastName());
+        Assert.assertEquals("wham", playerStats.get(3).getLastName());
     }
 
     @Test
@@ -46,21 +46,21 @@ public class PlayerStatsTest {
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
 
         PlayerStats stats = new PlayerStats(1, "bb", "bb", PlayerPosition.FORWARD);
-        stats.points = 4;
+        stats.setPoints(4);
         playerStats.add(stats);
 
         stats = new PlayerStats(1, "aa", "aa", PlayerPosition.FORWARD);
-        stats.points = 4;
+        stats.setPoints(4);
         playerStats.add(stats);
 
         stats = new PlayerStats(1, "aaa", "aaa", PlayerPosition.FORWARD);
-        stats.points = 3;
+        stats.setPoints(3);
         playerStats.add(stats);
 
         Collections.sort(playerStats);
 
-        Assert.assertEquals("aa", playerStats.get(0).lastName);
-        Assert.assertEquals("bb", playerStats.get(1).lastName);
-        Assert.assertEquals("aaa", playerStats.get(2).lastName);
+        Assert.assertEquals("aa", playerStats.get(0).getLastName());
+        Assert.assertEquals("bb", playerStats.get(1).getLastName());
+        Assert.assertEquals("aaa", playerStats.get(2).getLastName());
     }
 }

@@ -281,9 +281,9 @@ public class AdminObserver {
                 }
 
                 PlayerGameStats playerGameStats = new PlayerGameStats();
-                playerGameStats.playerStatsKey = gameStats.getKey();
-                playerGameStats.players = new ArrayList<Player>(players);
-                playerGameStats.playerGameStats = gameStats;
+                playerGameStats.setPlayerStatsKey(gameStats.getKey());
+                playerGameStats.setPlayers(new ArrayList<Player>(players));
+                playerGameStats.setPlayerGameStats(gameStats);
 
                 return playerGameStats;
             });

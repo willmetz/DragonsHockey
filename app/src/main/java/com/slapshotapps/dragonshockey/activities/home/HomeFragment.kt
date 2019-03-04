@@ -2,14 +2,13 @@ package com.slapshotapps.dragonshockey.activities.home
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.FirebaseDatabase
 import com.slapshotapps.dragonshockey.R
+import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents
 import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.databinding.ActivityHomeBinding
 import com.slapshotapps.dragonshockey.observables.HomeScreenObserver
@@ -20,6 +19,7 @@ import rx.schedulers.Schedulers
 import timber.log.Timber
 import java.util.*
 
+
 class HomeFragment : HockeyFragment() {
 
   private var hockeyScheduleSubscription: Subscription? = null
@@ -29,6 +29,8 @@ class HomeFragment : HockeyFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
     binding = DataBindingUtil.inflate(inflater, R.layout.activity_home, container, false)
+
+    setHasOptionsMenu(true)
 
     return binding.root
   }
@@ -79,4 +81,20 @@ class HomeFragment : HockeyFragment() {
       hockeyScheduleSubscription = null
     }
   }
+
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    inflater.inflate(R.menu.menu_home, menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+    when (item.getItemId()) {
+      R.id.action_admin -> {
+        startActivity(DragonsHockeyIntents.createAdminAuthIntent(context))
+        return true
+      }
+      else -> return super.onOptionsItemSelected(item)
+    }
+  }
+
 }

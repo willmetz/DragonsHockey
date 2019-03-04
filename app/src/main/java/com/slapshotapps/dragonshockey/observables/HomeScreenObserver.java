@@ -54,13 +54,18 @@ public class HomeScreenObserver {
 
                             //determine if the game was a win or a loss
                             if (HomeScreenUtils.wasWin(gameResult)) {
-                                homeContents.getSeasonRecord().wins++;
+                                homeContents.getSeasonRecord()
+                                    .setWins(homeContents.getSeasonRecord().getWins() + 1);
                             } else if (HomeScreenUtils.wasOvertimeLoss(gameResult)) {
-                                homeContents.getSeasonRecord().overtimeLosses++;
+                                homeContents.getSeasonRecord()
+                                    .setOvertimeLosses(
+                                        homeContents.getSeasonRecord().getOvertimeLosses() + 1);
                             } else if (HomeScreenUtils.wasLoss(gameResult)) {
-                                homeContents.getSeasonRecord().losses++;
+                                homeContents.getSeasonRecord()
+                                    .setLosses(homeContents.getSeasonRecord().getLosses() + 1);
                             } else if (HomeScreenUtils.wasTie(gameResult)) {
-                                homeContents.getSeasonRecord().ties++;
+                                homeContents.getSeasonRecord()
+                                    .setTies(homeContents.getSeasonRecord().getTies() + 1);
                             }
                         }
 

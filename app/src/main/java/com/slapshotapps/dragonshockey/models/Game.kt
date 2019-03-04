@@ -30,15 +30,15 @@ class Game : Cloneable, Parcelable {
 
   }
 
-  override fun equals(o: Any?): Boolean {
-    if (this === o) {
+  override fun equals(other: Any?): Boolean {
+    if (this === other) {
       return true
     }
-    if (o == null || javaClass != o.javaClass) {
+    if (other == null || !(other is Game)) {
       return false
     }
 
-    val game = o as Game?
+    val game = other as Game?
 
     if (gameID != game!!.gameID) {
       return false

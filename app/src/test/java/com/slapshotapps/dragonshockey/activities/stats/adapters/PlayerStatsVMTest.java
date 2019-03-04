@@ -19,36 +19,36 @@ public class PlayerStatsVMTest {
         ArrayList<PlayerStatsVM> playerStats = new ArrayList<>();
 
         PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.FORWARD);
-        stats.points = 4;
-        stats.goals = 2;
+        stats.setPoints(4);
+        stats.setGoals(2);
         PlayerStatsVM viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Goals);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "jeff", "france", PlayerPosition.FORWARD);
-        stats.points = 5;
-        stats.goals = 4;
+        stats.setPoints(5);
+        stats.setGoals(4);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Goals);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "dan", "wham", PlayerPosition.GOALIE);
-        stats.points = 2;
-        stats.goals = 6;
+        stats.setPoints(2);
+        stats.setGoals(6);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Goals);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "will", "zaon", PlayerPosition.FORWARD);
-        stats.points = 6;
-        stats.goals = 1;
+        stats.setPoints(6);
+        stats.setGoals(1);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Goals);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "bob", "aa", PlayerPosition.FORWARD);
-        stats.points = 6;
-        stats.goals = 2;
+        stats.setPoints(6);
+        stats.setGoals(2);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Goals);
         playerStats.add(viewModel);
@@ -77,31 +77,31 @@ public class PlayerStatsVMTest {
         ArrayList<PlayerStatsVM> playerStats = new ArrayList<>();
 
         PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.FORWARD);
-        stats.assists = 12;
+        stats.setAssists(12);
         PlayerStatsVM viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Assists);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "jeff", "france", PlayerPosition.FORWARD);
-        stats.assists = 5;
+        stats.setAssists(5);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Assists);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "dan", "wham", PlayerPosition.FORWARD);
-        stats.assists = 2;
+        stats.setAssists(2);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Assists);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "will", "zaon", PlayerPosition.FORWARD);
-        stats.assists = 1;
+        stats.setAssists(1);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Assists);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "bob", "aa", PlayerPosition.GOALIE);
-        stats.assists = 2;
+        stats.setAssists(2);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Assists);
         playerStats.add(viewModel);
@@ -130,36 +130,36 @@ public class PlayerStatsVMTest {
         ArrayList<PlayerStatsVM> playerStats = new ArrayList<>();
 
         PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.FORWARD);
-        stats.assists = 12;
-        stats.points = 33;
+        stats.setAssists(12);
+        stats.setPoints(33);
         PlayerStatsVM viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Points);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "jeff", "france", PlayerPosition.FORWARD);
-        stats.assists = 5;
-        stats.points = 22;
+        stats.setAssists(5);
+        stats.setPoints(22);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Points);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "dan", "wham", PlayerPosition.GOALIE);
-        stats.assists = 2;
-        stats.points = 18;
+        stats.setAssists(2);
+        stats.setPoints(18);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Points);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "will", "zaon", PlayerPosition.FORWARD);
-        stats.assists = 1;
-        stats.points = 22;
+        stats.setAssists(1);
+        stats.setPoints(22);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Points);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "bob", "aa", PlayerPosition.FORWARD);
-        stats.assists = 2;
-        stats.points = 3;
+        stats.setAssists(2);
+        stats.setPoints(3);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.Points);
         playerStats.add(viewModel);
@@ -188,41 +188,41 @@ public class PlayerStatsVMTest {
         ArrayList<PlayerStatsVM> playerStats = new ArrayList<>();
 
         PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.FORWARD);
-        stats.assists = 12;
-        stats.points = 33;
-        stats.penaltyMinutes = 2;
+        stats.setAssists(12);
+        stats.setPoints(33);
+        stats.setPenaltyMinutes(2);
         PlayerStatsVM viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.PenaltyMinutes);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "jeff", "france", PlayerPosition.FORWARD);
-        stats.assists = 5;
-        stats.points = 22;
-        stats.penaltyMinutes = 0;
+        stats.setAssists(5);
+        stats.setPoints(22);
+        stats.setPenaltyMinutes(0);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.PenaltyMinutes);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "dan", "wham", PlayerPosition.FORWARD);
-        stats.assists = 2;
-        stats.points = 18;
-        stats.penaltyMinutes = 12;
+        stats.setAssists(2);
+        stats.setPoints(18);
+        stats.setPenaltyMinutes(12);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.PenaltyMinutes);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "will", "zaon", PlayerPosition.FORWARD);
-        stats.assists = 1;
-        stats.points = 22;
-        stats.penaltyMinutes = 22;
+        stats.setAssists(1);
+        stats.setPoints(22);
+        stats.setPenaltyMinutes(22);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.PenaltyMinutes);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "bob", "aa", PlayerPosition.FORWARD);
-        stats.assists = 2;
-        stats.points = 3;
-        stats.penaltyMinutes = 12;
+        stats.setAssists(2);
+        stats.setPoints(3);
+        stats.setPenaltyMinutes(12);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.PenaltyMinutes);
         playerStats.add(viewModel);
@@ -251,46 +251,46 @@ public class PlayerStatsVMTest {
         ArrayList<PlayerStatsVM> playerStats = new ArrayList<>();
 
         PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.FORWARD);
-        stats.assists = 12;
-        stats.points = 33;
-        stats.penaltyMinutes = 2;
-        stats.gamesPlayed = 8;
+        stats.setAssists(12);
+        stats.setPoints(33);
+        stats.setPenaltyMinutes(2);
+        stats.setGamesPlayed(8);
         PlayerStatsVM viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.GamesPlayed);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "jeff", "france", PlayerPosition.FORWARD);
-        stats.assists = 5;
-        stats.points = 22;
-        stats.penaltyMinutes = 0;
-        stats.gamesPlayed = 8;
+        stats.setAssists(5);
+        stats.setPoints(22);
+        stats.setPenaltyMinutes(0);
+        stats.setGamesPlayed(8);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.GamesPlayed);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "dan", "wham", PlayerPosition.FORWARD);
-        stats.assists = 2;
-        stats.points = 18;
-        stats.penaltyMinutes = 12;
-        stats.gamesPlayed = 7;
+        stats.setAssists(2);
+        stats.setPoints(18);
+        stats.setPenaltyMinutes(12);
+        stats.setGamesPlayed(7);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.GamesPlayed);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "will", "zaon", PlayerPosition.FORWARD);
-        stats.assists = 1;
-        stats.points = 22;
-        stats.penaltyMinutes = 22;
-        stats.gamesPlayed = 2;
+        stats.setAssists(1);
+        stats.setPoints(22);
+        stats.setPenaltyMinutes(22);
+        stats.setGamesPlayed(2);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.GamesPlayed);
         playerStats.add(viewModel);
 
         stats = new PlayerStats(1, "bob", "aa", PlayerPosition.FORWARD);
-        stats.assists = 2;
-        stats.points = 3;
-        stats.penaltyMinutes = 12;
-        stats.gamesPlayed = 8;
+        stats.setAssists(2);
+        stats.setPoints(3);
+        stats.setPenaltyMinutes(12);
+        stats.setGamesPlayed(8);
         viewModel = new PlayerStatsVM(stats, null);
         viewModel.setSortSelection(StatSortSelection.GamesPlayed);
         playerStats.add(viewModel);
@@ -316,9 +316,9 @@ public class PlayerStatsVMTest {
     @Test
     public void testGoalsAgainstAverage() {
         PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.GOALIE);
-        stats.goalsAgainst = 2;
-        stats.penaltyMinutes = 2;
-        stats.gamesPlayed = 3;
+        stats.setGoalsAgainst(2);
+        stats.setPenaltyMinutes(2);
+        stats.setGamesPlayed(3);
         PlayerStatsVM viewModel = new PlayerStatsVM(stats, null);
 
         assertThat(viewModel.goalsAgainstAverage(), is("0.67"));
@@ -327,9 +327,9 @@ public class PlayerStatsVMTest {
     @Test
     public void testGoalsAgainstAverageNoGamesPlayed() {
         PlayerStats stats = new PlayerStats(1, "bob", "joe", PlayerPosition.GOALIE);
-        stats.goalsAgainst = 0;
-        stats.penaltyMinutes = 2;
-        stats.gamesPlayed = 0;
+        stats.setGoalsAgainst(0);
+        stats.setPenaltyMinutes(2);
+        stats.setGamesPlayed(0);
         PlayerStatsVM viewModel = new PlayerStatsVM(stats, null);
 
         assertThat(viewModel.goalsAgainstAverage(), is("0.00"));

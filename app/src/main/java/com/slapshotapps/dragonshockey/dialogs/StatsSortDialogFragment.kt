@@ -24,7 +24,7 @@ class StatsSortDialogFragment : DialogFragment() {
         statSortOptions[2].statName, statSortOptions[3].statName, statSortOptions[4].statName)
 
     val builder = AlertDialog.Builder(context!!).setTitle("Stat Sorting")
-        .setSingleChoiceItems(items, currentSelection.index) { dialog, which ->
+        .setSingleChoiceItems(items, currentSelection.index) { _, which ->
           if (listener != null) {
             listener!!.onSortOptionSelected(statSortOptions[which])
             dismiss()

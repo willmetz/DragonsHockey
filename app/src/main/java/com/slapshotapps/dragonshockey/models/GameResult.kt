@@ -17,15 +17,15 @@ class GameResult : Parcelable {
 
   var overtimeLoss: Boolean = false
 
-  override fun equals(o: Any?): Boolean {
-    if (this === o) {
+  override fun equals(other: Any?): Boolean {
+    if (this === other) {
       return true
     }
-    if (o == null || javaClass != o.javaClass) {
+    if (other == null || !(other is GameResult)) {
       return false
     }
 
-    val that = o as GameResult?
+    val that = other as GameResult?
 
     if (gameID != that!!.gameID) {
       return false

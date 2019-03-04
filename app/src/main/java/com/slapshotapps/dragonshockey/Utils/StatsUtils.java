@@ -24,9 +24,9 @@ public class StatsUtils {
 
     public static String fullPlayerName(@NonNull PlayerStats playerStats) {
 
-        String name = playerStats.firstName != null ? playerStats.firstName : "";
+        String name = playerStats.getFirstName() != null ? playerStats.getFirstName() : "";
 
-        name += playerStats.lastName != null ? " " + playerStats.lastName : "";
+        name += playerStats.getLastName() != null ? " " + playerStats.getLastName() : "";
 
         return name;
     }

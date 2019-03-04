@@ -18,17 +18,17 @@ public class RosterUtilsTest {
 
         Assert.assertNotNull("empty player error", RosterUtils.getFullName(testPlayer));
 
-        testPlayer.firstName = "bob";
+        testPlayer.setFirstName("bob");
 
         Assert.assertEquals("FirstName", "Bob", RosterUtils.getFullName(testPlayer));
 
-        testPlayer.firstName = null;
-        testPlayer.lastName = "gonzo";
+        testPlayer.setFirstName(null);
+        testPlayer.setLastName("gonzo");
 
         Assert.assertEquals("FirstName", " Gonzo", RosterUtils.getFullName(testPlayer));
 
-        testPlayer.firstName = "bob";
-        testPlayer.lastName = "gonzo";
+        testPlayer.setFirstName("bob");
+        testPlayer.setLastName("gonzo");
 
         Assert.assertEquals("FirstName", "Bob Gonzo", RosterUtils.getFullName(testPlayer));
     }
@@ -42,7 +42,7 @@ public class RosterUtilsTest {
 
         Assert.assertNotNull("empty player error", RosterUtils.getNumber(testPlayer));
 
-        testPlayer.number = 56;
+        testPlayer.setNumber(56);
 
         Assert.assertEquals("Number check", "56", RosterUtils.getNumber(testPlayer));
     }
@@ -55,16 +55,16 @@ public class RosterUtilsTest {
 
         Assert.assertNotNull("empty player error", RosterUtils.getPosition(testPlayer));
 
-        testPlayer.position = Player.FORWARD;
+        testPlayer.setPosition(Player.Companion.getFORWARD());
         Assert.assertEquals("forward check", "Forward", RosterUtils.getPosition(testPlayer));
 
-        testPlayer.position = Player.DEFENSE;
+        testPlayer.setPosition(Player.Companion.getDEFENSE());
         Assert.assertEquals("forward check", "Defense", RosterUtils.getPosition(testPlayer));
 
-        testPlayer.position = Player.GOALIE;
+        testPlayer.setPosition(Player.Companion.getGOALIE());
         Assert.assertEquals("forward check", "Goalie", RosterUtils.getPosition(testPlayer));
 
-        testPlayer.position = "serew";
+        testPlayer.setPosition("serew");
         Assert.assertEquals("Unknown check", "Unknown", RosterUtils.getPosition(testPlayer));
     }
 
@@ -73,26 +73,26 @@ public class RosterUtilsTest {
 
         ArrayList<Player> roster = new ArrayList<>();
 
-        roster.add(new Player(Player.GOALIE));
-        roster.add(new Player(Player.FORWARD));
-        roster.add(new Player(Player.FORWARD));
-        roster.add(new Player(Player.GOALIE));
-        roster.add(new Player(Player.DEFENSE));
-        roster.add(new Player(Player.FORWARD));
-        roster.add(new Player(Player.DEFENSE));
-        roster.add(new Player(Player.DEFENSE));
-        roster.add(new Player(Player.FORWARD));
+        roster.add(new Player(Player.Companion.getGOALIE()));
+        roster.add(new Player(Player.Companion.getFORWARD()));
+        roster.add(new Player(Player.Companion.getFORWARD()));
+        roster.add(new Player(Player.Companion.getGOALIE()));
+        roster.add(new Player(Player.Companion.getDEFENSE()));
+        roster.add(new Player(Player.Companion.getFORWARD()));
+        roster.add(new Player(Player.Companion.getDEFENSE()));
+        roster.add(new Player(Player.Companion.getDEFENSE()));
+        roster.add(new Player(Player.Companion.getFORWARD()));
 
         ArrayList<Player> sortedRoster = RosterUtils.sortRoster(roster);
 
-        Assert.assertEquals(Player.FORWARD, sortedRoster.get(0).position);
-        Assert.assertEquals(Player.FORWARD, sortedRoster.get(1).position);
-        Assert.assertEquals(Player.FORWARD, sortedRoster.get(2).position);
-        Assert.assertEquals(Player.FORWARD, sortedRoster.get(3).position);
-        Assert.assertEquals(Player.DEFENSE, sortedRoster.get(4).position);
-        Assert.assertEquals(Player.DEFENSE, sortedRoster.get(5).position);
-        Assert.assertEquals(Player.DEFENSE, sortedRoster.get(6).position);
-        Assert.assertEquals(Player.GOALIE, sortedRoster.get(7).position);
-        Assert.assertEquals(Player.GOALIE, sortedRoster.get(8).position);
+        Assert.assertEquals(Player.Companion.getFORWARD(), sortedRoster.get(0).getPosition());
+        Assert.assertEquals(Player.Companion.getFORWARD(), sortedRoster.get(1).getPosition());
+        Assert.assertEquals(Player.Companion.getFORWARD(), sortedRoster.get(2).getPosition());
+        Assert.assertEquals(Player.Companion.getFORWARD(), sortedRoster.get(3).getPosition());
+        Assert.assertEquals(Player.Companion.getDEFENSE(), sortedRoster.get(4).getPosition());
+        Assert.assertEquals(Player.Companion.getDEFENSE(), sortedRoster.get(5).getPosition());
+        Assert.assertEquals(Player.Companion.getDEFENSE(), sortedRoster.get(6).getPosition());
+        Assert.assertEquals(Player.Companion.getGOALIE(), sortedRoster.get(7).getPosition());
+        Assert.assertEquals(Player.Companion.getGOALIE(), sortedRoster.get(8).getPosition());
     }
 }

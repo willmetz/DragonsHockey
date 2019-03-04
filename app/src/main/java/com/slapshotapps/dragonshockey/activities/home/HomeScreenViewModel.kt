@@ -16,7 +16,7 @@ import java.util.*
 
 @Keep
 class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
-  private lateinit var homeContents: HomeContents
+  private var homeContents: HomeContents
 
 
   @get:Bindable

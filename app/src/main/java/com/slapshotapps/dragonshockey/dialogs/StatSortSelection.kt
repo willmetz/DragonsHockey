@@ -12,6 +12,6 @@ enum class StatSortSelection private constructor(statName: String, index: Int) {
 
   init {
     this.index = index
-    this.statName = name
+    this.statName = statName
   }
 }

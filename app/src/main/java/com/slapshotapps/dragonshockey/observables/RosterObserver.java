@@ -23,7 +23,8 @@ public class RosterObserver {
         return Observable.create(subscriber -> {
 
             final Query query =
-                database.getReference(Config.ROSTER).orderByChild(Player.PLAYER_NUMBER);
+                database.getReference(Config.ROSTER).orderByChild(
+                    Player.Companion.getPLAYER_NUMBER());
             final ValueEventListener listener =
                 query.addValueEventListener(new ValueEventListener() {
                     @Override

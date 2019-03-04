@@ -40,9 +40,9 @@ public class StatsObserver {
                         SparseArray<PlayerStats> statMap = new SparseArray<PlayerStats>();
 
                         for (Player player : players) {
-                            statMap.put(player.playerID,
-                                new PlayerStats(player.playerID, player.firstName,
-                                    player.lastName, player.getPosition()));
+                            statMap.put(player.getPlayerID(),
+                                new PlayerStats(player.getPlayerID(), player.getFirstName(),
+                                    player.getLastName(), player.getPlayerPosition()));
                         }
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -61,19 +61,23 @@ public class StatsObserver {
 
                                 //update the stat info based on the game results
                                 if (currentStats != null) {
-                                    currentStats.assists += playerGameStats.getAssists();
-                                    currentStats.goals += playerGameStats.getGoals();
-                                    currentStats.points = currentStats.goals + currentStats.assists;
-                                    currentStats.gamesPlayed += playerGameStats.getPresent() ? 1 : 0;
-                                    currentStats.penaltyMinutes +=
-                                        playerGameStats.getPenaltyMinutes();
+                                    currentStats.setAssists(
+                                        currentStats.getAssists() + playerGameStats.getAssists());
+                                    currentStats.setGoals(
+                                        currentStats.getGoals() + playerGameStats.getGoals());
+                                    currentStats.setPoints(
+                                        currentStats.getGoals() + currentStats.getAssists());
+                                    currentStats.setGamesPlayed(currentStats.getGamesPlayed() + (
+                                        playerGameStats.getPresent() ? 1 : 0));
+                                    currentStats.setPenaltyMinutes(currentStats.getPenaltyMinutes()
+                                        + playerGameStats.getPenaltyMinutes());
 
-                                    if (currentStats.position == PlayerPosition.GOALIE) {
-                                        currentStats.goalsAgainst +=
-                                            playerGameStats.getGoalsAgainst();
-                                        currentStats.shutouts +=
-                                            playerGameStats.getGoalsAgainst()
-                                                == 0 && playerGameStats.getPresent() ? 1 : 0;
+                                    if (currentStats.getPosition() == PlayerPosition.GOALIE) {
+                                        currentStats.setGoalsAgainst(currentStats.getGoalsAgainst()
+                                            + playerGameStats.getGoalsAgainst());
+                                        currentStats.setShutouts(currentStats.getShutouts() + (
+                                            playerGameStats.getGoalsAgainst() == 0
+                                                && playerGameStats.getPresent() ? 1 : 0));
                                     }
                                 }
                             }

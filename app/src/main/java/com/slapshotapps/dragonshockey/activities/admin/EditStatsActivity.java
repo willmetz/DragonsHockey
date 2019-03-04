@@ -89,7 +89,7 @@ public class EditStatsActivity extends AppCompatActivity {
             if (playerGameStats.isKeyValid()) {
                 firebaseDatabase.getReference()
                     .child(Config.GAME_STATS)
-                    .child(playerGameStats.playerStatsKey)
+                    .child(playerGameStats.getPlayerStatsKey())
                     .setValue(getGameStats(viewModel));
             } else {
                 DatabaseReference newGameResultRef =
@@ -102,10 +102,10 @@ public class EditStatsActivity extends AppCompatActivity {
     private ArrayList<AdminStatsViewModel> getViewModel() {
         ArrayList<AdminStatsViewModel> statsViewModel = new ArrayList<AdminStatsViewModel>();
 
-        for (Player player : playerGameStats.players) {
+        for (Player player : playerGameStats.getPlayers()) {
 
             GameStats.Stats statsForPlayer =
-                playerGameStats.playerGameStats.getPlayerStats(player.playerID);
+                playerGameStats.getPlayerGameStats().getPlayerStats(player.getPlayerID());
 
             if (statsForPlayer == null) {
                 statsForPlayer = new GameStats.Stats();
@@ -114,13 +114,13 @@ public class EditStatsActivity extends AppCompatActivity {
             AdminStatsViewModel viewModel =
                 new AdminStatsViewModel.AdminStatsVMBuilder().playerName(
                     RosterUtils.getFullName(player))
-                    .playerID(player.playerID)
-                    .playerNumber(player.number)
+                    .playerID(player.getPlayerID())
+                    .playerNumber(player.getNumber())
                     .goals(statsForPlayer.getGoals())
                     .assists(statsForPlayer.getAssists())
                     .present(statsForPlayer.getPresent())
                     .penaltyMinutes(statsForPlayer.getPenaltyMinutes())
-                    .position(player.getPosition())
+                    .position(player.getPlayerPosition())
                     .goalsAgainst(statsForPlayer.getGoalsAgainst())
                     .build();
 

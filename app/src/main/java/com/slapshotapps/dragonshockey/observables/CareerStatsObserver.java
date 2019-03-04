@@ -67,10 +67,10 @@ public class CareerStatsObserver {
                             SeasonStats seasonStats = snapshot.getValue(SeasonStats.class);
 
                             //get the actual game stats
-                            seasonStats.stats = new ArrayList<GameStats>();
+                            seasonStats.setStats(new ArrayList<GameStats>());
                             for (DataSnapshot gameSnapshot : snapshot.child("games")
                                 .getChildren()) {
-                                seasonStats.stats.add(gameSnapshot.getValue(GameStats.class));
+                                seasonStats.getStats().add(gameSnapshot.getValue(GameStats.class));
                             }
 
                             careerStats.add(seasonStats);
