@@ -18,7 +18,7 @@
         android:icon="@drawable/ic_schedule"
         android:title="Schedule"/>
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_settings"
         android:title="Settings"/>
 </menu>

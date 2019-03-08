@@ -42,4 +42,8 @@
             android:name="CurrentSeasonStats"
             app:argType="com.slapshotapps.dragonshockey.models.PlayerStats"/>
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.slapshotapps.dragonshockey.activities.settings.SettingsFragment"
+        android:label="SettingsFragment"/>
 </navigation>
