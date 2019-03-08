@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.DateFormaters
+import com.slapshotapps.dragonshockey.Utils.DateFormatter
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils
 import com.slapshotapps.dragonshockey.models.SeasonSchedule
 import java.util.*
@@ -53,16 +53,18 @@ class ScheduleAdapter(
 
     fun setGameDate(gameDate: Date?) {
       val calendar = Calendar.getInstance()
-      calendar.time = gameDate
+      if(gameDate != null) {
+        calendar.time = gameDate
 
-      val gameDayStr = (calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)
-          + " "
-          + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US)
-          + " "
-          + FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)))
+        val gameDayStr = (calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)
+            + " "
+            + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US)
+            + " "
+            + FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)))
 
-      gameDay.text = gameDayStr
-      gameTime.text = DateFormaters.getGameTime(gameDate)
+        gameDay.text = gameDayStr
+        gameTime.text = DateFormatter.getGameTime(gameDate)
+      }
     }
 
     fun setGameOpponent(opponent: String?) {

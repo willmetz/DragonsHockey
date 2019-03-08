@@ -2,7 +2,7 @@ package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 
 import androidx.annotation.NonNull;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DateFormaters;
+import com.slapshotapps.dragonshockey.Utils.DateFormatter;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.models.Game;
 
@@ -24,7 +24,7 @@ public class GameListItem extends ListItem {
     }
 
     public String getGameDate() {
-        return DateFormaters.getGameTime(game.gameTimeToDate());
+        return DateFormatter.INSTANCE.getGameTime(game.gameTimeToDate());
     }
 
     public String getGameOpponent() {

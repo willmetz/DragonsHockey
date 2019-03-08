@@ -3,7 +3,7 @@ package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DateFormaters;
+import com.slapshotapps.dragonshockey.Utils.DateFormatter;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameResult;
 import java.util.Date;
@@ -84,15 +84,15 @@ public class AdminGameViewModel {
     }
 
     public void setGameDate(Date gameDate) {
-        game.setGameTime(DateFormaters.convertDateToGameTime(gameDate));
+        game.setGameTime(DateFormatter.INSTANCE.convertDateToGameTime(gameDate));
     }
 
     public String getGameDateAsString() {
-        return DateFormaters.getGameDate(game.gameTimeToDate());
+        return DateFormatter.INSTANCE.getGameDate(game.gameTimeToDate());
     }
 
     public String getGameTimeAsString() {
-        return DateFormaters.getGameTime(game.gameTimeToDate());
+        return DateFormatter.INSTANCE.getGameTime(game.gameTimeToDate());
     }
 
     public boolean hasChanged() {

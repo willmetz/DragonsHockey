@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.firebase.database.Exclude
-import com.slapshotapps.dragonshockey.Utils.DateFormaters
+import com.slapshotapps.dragonshockey.Utils.DateFormatter
 import java.util.*
 
 /**
@@ -24,9 +24,10 @@ class Game : Cloneable, Parcelable {
   var gameResult: GameResult? = null
 
   fun gameTimeToDate(): Date? {
-    return if (gameTime == null) {
+    val time = gameTime
+    return if (time == null) {
       null
-    } else DateFormaters.getDateFromGameTime(gameTime)
+    } else DateFormatter.getDateFromGameTime(time)
 
   }
 

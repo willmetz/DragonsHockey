@@ -8,7 +8,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.slapshotapps.dragonshockey.BR
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.DateFormaters
+import com.slapshotapps.dragonshockey.Utils.DateFormatter
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils
 import com.slapshotapps.dragonshockey.models.HomeContents
 import java.util.*
@@ -66,10 +66,10 @@ class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
 
       return if (DateUtils.isToday(date.time)) {
 
-        context.getString(R.string.today_gameday, DateFormaters.getGameTime(date),
+        context.getString(R.string.today_gameday, DateFormatter.getGameTime(date),
             if (homeContents.nextGame?.home == true) "Home" else "Guest")
       } else {
-        context.getString(R.string.gameday, DateFormaters.getGameDateTime(date),
+        context.getString(R.string.gameday, DateFormatter.getGameDateTime(date),
             if (homeContents.nextGame?.home == true) "Home" else "Guest")
       }
     }
