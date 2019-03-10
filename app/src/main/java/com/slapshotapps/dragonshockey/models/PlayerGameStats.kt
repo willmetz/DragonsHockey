@@ -9,10 +9,10 @@ import java.util.*
 @Keep
 class PlayerGameStats {
 
-  var playerStatsKey: String? = null
-  var players: ArrayList<Player>? = null
-  var playerGameStats: GameStats? = null
+    var playerStatsKey: String? = null
+    var players: ArrayList<Player>? = null
+    var playerGameStats: GameStats? = null
 
-  val isKeyValid: Boolean
-    get() = playerStatsKey != null
+    val isKeyValid: Boolean
+        get() = playerStatsKey != null
 }

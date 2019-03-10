@@ -8,7 +8,7 @@ import androidx.annotation.Keep
 @Keep
 class HomeContents {
 
-  var lastGame: Game? = null
-  var nextGame: Game? = null
-  var seasonRecord =  SeasonRecord()
+    var lastGame: Game? = null
+    var nextGame: Game? = null
+    var seasonRecord = SeasonRecord()
 }

@@ -2,10 +2,12 @@ package com.slapshotapps.dragonshockey.ViewUtils.itemdecoration;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * An adaption of the https://github.com/edubarr/header-decor to
@@ -67,16 +69,16 @@ public class StaticHeaderDecoration extends RecyclerView.ItemDecoration {
 
             //need to take some measurements here as without this the view has no size
             int widthSpec =
-                View.MeasureSpec.makeMeasureSpec(recyclerView.getWidth(), View.MeasureSpec.EXACTLY);
+                    View.MeasureSpec.makeMeasureSpec(recyclerView.getWidth(), View.MeasureSpec.EXACTLY);
             int heightSpec = View.MeasureSpec.makeMeasureSpec(recyclerView.getHeight(),
-                View.MeasureSpec.UNSPECIFIED);
+                    View.MeasureSpec.UNSPECIFIED);
 
             int childWidth = ViewGroup.getChildMeasureSpec(widthSpec,
-                recyclerView.getPaddingLeft() + recyclerView.getPaddingRight(),
-                headerView.getLayoutParams().width);
+                    recyclerView.getPaddingLeft() + recyclerView.getPaddingRight(),
+                    headerView.getLayoutParams().width);
             int childHeight = ViewGroup.getChildMeasureSpec(heightSpec,
-                recyclerView.getPaddingTop() + recyclerView.getPaddingBottom(),
-                headerView.getLayoutParams().height);
+                    recyclerView.getPaddingTop() + recyclerView.getPaddingBottom(),
+                    headerView.getLayoutParams().height);
 
             headerView.measure(childWidth, childHeight);
             headerView.layout(0, 0, headerView.getMeasuredWidth(), headerView.getMeasuredHeight());

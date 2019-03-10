@@ -22,79 +22,79 @@ import java.util.*
 
 class HomeFragment : HockeyFragment() {
 
-  private var hockeyScheduleSubscription: Subscription? = null
-  private lateinit var binding: ActivityHomeBinding
+    private var hockeyScheduleSubscription: Subscription? = null
+    private lateinit var binding: ActivityHomeBinding
 
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
-    binding = DataBindingUtil.inflate(inflater, R.layout.activity_home, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.activity_home, container, false)
 
-    setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
 
-    return binding.root
-  }
-
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-
-    firebaseDatabase = FirebaseDatabase.getInstance()
-
-
-    try {
-      firebaseDatabase!!.setPersistenceEnabled(true)
-    } catch (exception: DatabaseException) {
-      Timber.e("Unable to set persistance for Firebase")
+        return binding.root
     }
 
-    val listener = actionBarListener
-    listener?.setTitle(getString(R.string.dragons_hockey))
-  }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
-  override fun onResume() {
-    super.onResume()
+        firebaseDatabase = FirebaseDatabase.getInstance()
 
-    val listener = actionBarListener
 
-    hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .flatMap { games -> HomeScreenObserver.getHomeScreen(firebaseDatabase, games, Date()) }
-        .subscribe({ homeContents ->
-          binding.item = HomeScreenViewModel(homeContents)
-          listener?.hideProgressBar()
-        }, {
-          binding.item = HomeScreenViewModel(null)
-          listener?.hideProgressBar()
-          Toast.makeText(this@HomeFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
-              .show()
-        })
+        try {
+            firebaseDatabase!!.setPersistenceEnabled(true)
+        } catch (exception: DatabaseException) {
+            Timber.e("Unable to set persistance for Firebase")
+        }
 
-    listener?.showProgressBar()
-  }
-
-  override fun onPause() {
-    super.onPause()
-
-    if (hockeyScheduleSubscription != null) {
-      hockeyScheduleSubscription!!.unsubscribe()
-      hockeyScheduleSubscription = null
+        val listener = actionBarListener
+        listener?.setTitle(getString(R.string.dragons_hockey))
     }
-  }
 
-  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-    inflater.inflate(R.menu.menu_home, menu)
-  }
+    override fun onResume() {
+        super.onResume()
 
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val listener = actionBarListener
 
-    when (item.getItemId()) {
-      R.id.action_admin -> {
-        startActivity(DragonsHockeyIntents.createAdminAuthIntent(context))
-        return true
-      }
-      else -> return super.onOptionsItemSelected(item)
+        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap { games -> HomeScreenObserver.getHomeScreen(firebaseDatabase, games, Date()) }
+                .subscribe({ homeContents ->
+                    binding.item = HomeScreenViewModel(homeContents)
+                    listener?.hideProgressBar()
+                }, {
+                    binding.item = HomeScreenViewModel(null)
+                    listener?.hideProgressBar()
+                    Toast.makeText(this@HomeFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
+                            .show()
+                })
+
+        listener?.showProgressBar()
     }
-  }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (hockeyScheduleSubscription != null) {
+            hockeyScheduleSubscription!!.unsubscribe()
+            hockeyScheduleSubscription = null
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_home, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.getItemId()) {
+            R.id.action_admin -> {
+                startActivity(DragonsHockeyIntents.createAdminAuthIntent(context))
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
 
 }

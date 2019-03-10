@@ -3,14 +3,11 @@ package com.slapshotapps.dragonshockey.activities.admin;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
@@ -22,16 +19,22 @@ import com.slapshotapps.dragonshockey.databinding.ActivityEditGameAuthBinding;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameUpdateKeys;
 import com.slapshotapps.dragonshockey.observables.AdminObserver;
+
 import java.util.Calendar;
 import java.util.Date;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class EditGameActivity extends AppCompatActivity
-    implements EditGameClickListener, DatePickerDialog.OnDateSetListener,
-    TimePickerDialog.OnTimeSetListener {
+        implements EditGameClickListener, DatePickerDialog.OnDateSetListener,
+        TimePickerDialog.OnTimeSetListener {
 
     private ActivityEditGameAuthBinding binding;
     private FirebaseDatabase database;
@@ -74,23 +77,23 @@ public class EditGameActivity extends AppCompatActivity
             Game game = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
 
             subscription = AdminObserver.getGameUpdateInfo(database, game.getGameID())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(Schedulers.io())
-                .subscribe(new Action1<Game>() {
-                    @Override
-                    public void call(Game game) {
-                        originalGame = game;
-                        binding.setData(new AdminGameViewModel(originalGame));
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(Schedulers.io())
+                    .subscribe(new Action1<Game>() {
+                        @Override
+                        public void call(Game game) {
+                            originalGame = game;
+                            binding.setData(new AdminGameViewModel(originalGame));
 
-                        getDataKeys(game.getGameID());
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Toast.makeText(EditGameActivity.this, "Unable to get game data",
-                            Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            getDataKeys(game.getGameID());
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                            Toast.makeText(EditGameActivity.this, "Unable to get game data",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 
@@ -185,19 +188,19 @@ public class EditGameActivity extends AppCompatActivity
 
             if (keys.gameKeyValid()) {
                 database.getReference()
-                    .child(Config.GAMES)
-                    .child(keys.getGameKey())
-                    .setValue(model.getGame());
+                        .child(Config.GAMES)
+                        .child(keys.getGameKey())
+                        .setValue(model.getGame());
             }
 
             if (keys.gameResultKeyValid()) {
                 database.getReference()
-                    .child(Config.GAME_RESULTS)
-                    .child(keys.getGameResultKey())
-                    .setValue(model.getGame().getGameResult());
+                        .child(Config.GAME_RESULTS)
+                        .child(keys.getGameResultKey())
+                        .setValue(model.getGame().getGameResult());
             } else {
                 DatabaseReference newGameResultRef =
-                    database.getReference().child(Config.GAME_RESULTS).push();
+                        database.getReference().child(Config.GAME_RESULTS).push();
                 newGameResultRef.setValue(model.getGame().getGameResult());
             }
 
@@ -213,47 +216,47 @@ public class EditGameActivity extends AppCompatActivity
 
             if (keys.gameResultKeyValid()) {
                 database.getReference()
-                    .child(Config.GAME_RESULTS)
-                    .child(keys.getGameResultKey())
-                    .removeValue();
+                        .child(Config.GAME_RESULTS)
+                        .child(keys.getGameResultKey())
+                        .removeValue();
             }
 
             if (keys.gameStatsKeyValid()) {
                 database.getReference()
-                    .child(Config.GAME_STATS)
-                    .child(keys.getGameStatsKey())
-                    .removeValue();
+                        .child(Config.GAME_STATS)
+                        .child(keys.getGameStatsKey())
+                        .removeValue();
             }
 
             Toast.makeText(this, "Removed game", Toast.LENGTH_SHORT).show();
             finish();
         } else {
             Toast.makeText(this, "Unable to remove game, keys not available", Toast.LENGTH_SHORT)
-                .show();
+                    .show();
         }
     }
 
     private void getDataKeys(int gameID) {
 
         subscription = AdminObserver.getGameKeys(database, gameID)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Action1<GameUpdateKeys>() {
-                @Override
-                public void call(GameUpdateKeys gameUpdateKeys) {
-                    keys = gameUpdateKeys;
-                }
-            });
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<GameUpdateKeys>() {
+                    @Override
+                    public void call(GameUpdateKeys gameUpdateKeys) {
+                        keys = gameUpdateKeys;
+                    }
+                });
     }
 
     private void showKeysNotAvailableAlert() {
         new AlertDialog.Builder(this).setPositiveButton("OK",
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    finish();
-                }
-            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //no-op

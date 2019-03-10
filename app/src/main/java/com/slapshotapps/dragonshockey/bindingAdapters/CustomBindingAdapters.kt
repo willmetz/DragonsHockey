@@ -8,14 +8,14 @@ import com.slapshotapps.dragonshockey.extensions.setMilitaryTime
 
 @BindingAdapter("fadeInView")
 fun fadeInView(view: View, fadeInView: Boolean) {
-  if (fadeInView) {
-    view.animate().alpha(1f).duration = 500
-  } else {
-    view.animate().alpha(0f).duration = 500
-  }
+    if (fadeInView) {
+        view.animate().alpha(1f).duration = 500
+    } else {
+        view.animate().alpha(0f).duration = 500
+    }
 }
 
 @BindingAdapter("timeOfDay")
-fun setTimeOfDay(timePicker: TimePicker, militaryTime: Int){
-  timePicker.setMilitaryTime(militaryTime)
+fun setTimeOfDay(timePicker: TimePicker, militaryTime: Int) {
+    timePicker.setMilitaryTime(militaryTime)
 }

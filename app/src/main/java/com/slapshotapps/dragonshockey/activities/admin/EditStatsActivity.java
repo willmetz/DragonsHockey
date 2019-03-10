@@ -1,11 +1,7 @@
 package com.slapshotapps.dragonshockey.activities.admin;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
@@ -18,8 +14,15 @@ import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerGameStats;
 import com.slapshotapps.dragonshockey.observables.AdminObserver;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -54,17 +57,17 @@ public class EditStatsActivity extends AppCompatActivity {
 
         if (adminEditsStatsAdapter == null) {
             subscription = AdminObserver.getPlayerStatsForGame(firebaseDatabase, gameID)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(stats -> {
-                    playerGameStats = stats;
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(stats -> {
+                        playerGameStats = stats;
 
-                    adminEditsStatsAdapter = new AdminEditsStatsAdapter(getViewModel());
-                    recyclerView.setAdapter(adminEditsStatsAdapter);
-                }, throwable -> new AlertDialog.Builder(EditStatsActivity.this).setMessage(
-                    "Unable to retrieve stats information")
-                    .setPositiveButton("Ok", (dialogInterface, i) -> finish())
-                    .show());
+                        adminEditsStatsAdapter = new AdminEditsStatsAdapter(getViewModel());
+                        recyclerView.setAdapter(adminEditsStatsAdapter);
+                    }, throwable -> new AlertDialog.Builder(EditStatsActivity.this).setMessage(
+                            "Unable to retrieve stats information")
+                            .setPositiveButton("Ok", (dialogInterface, i) -> finish())
+                            .show());
         }
     }
 
@@ -88,12 +91,12 @@ public class EditStatsActivity extends AppCompatActivity {
 
             if (playerGameStats.isKeyValid()) {
                 firebaseDatabase.getReference()
-                    .child(Config.GAME_STATS)
-                    .child(playerGameStats.getPlayerStatsKey())
-                    .setValue(getGameStats(viewModel));
+                        .child(Config.GAME_STATS)
+                        .child(playerGameStats.getPlayerStatsKey())
+                        .setValue(getGameStats(viewModel));
             } else {
                 DatabaseReference newGameResultRef =
-                    firebaseDatabase.getReference().child(Config.GAME_STATS).push();
+                        firebaseDatabase.getReference().child(Config.GAME_STATS).push();
                 newGameResultRef.setValue(getGameStats(viewModel));
             }
         }
@@ -105,24 +108,24 @@ public class EditStatsActivity extends AppCompatActivity {
         for (Player player : playerGameStats.getPlayers()) {
 
             GameStats.Stats statsForPlayer =
-                playerGameStats.getPlayerGameStats().getPlayerStats(player.getPlayerID());
+                    playerGameStats.getPlayerGameStats().getPlayerStats(player.getPlayerID());
 
             if (statsForPlayer == null) {
                 statsForPlayer = new GameStats.Stats();
             }
 
             AdminStatsViewModel viewModel =
-                new AdminStatsViewModel.AdminStatsVMBuilder().playerName(
-                    RosterUtils.getFullName(player))
-                    .playerID(player.getPlayerID())
-                    .playerNumber(player.getNumber())
-                    .goals(statsForPlayer.getGoals())
-                    .assists(statsForPlayer.getAssists())
-                    .present(statsForPlayer.getPresent())
-                    .penaltyMinutes(statsForPlayer.getPenaltyMinutes())
-                    .position(player.getPlayerPosition())
-                    .goalsAgainst(statsForPlayer.getGoalsAgainst())
-                    .build();
+                    new AdminStatsViewModel.AdminStatsVMBuilder().playerName(
+                            RosterUtils.getFullName(player))
+                            .playerID(player.getPlayerID())
+                            .playerNumber(player.getNumber())
+                            .goals(statsForPlayer.getGoals())
+                            .assists(statsForPlayer.getAssists())
+                            .present(statsForPlayer.getPresent())
+                            .penaltyMinutes(statsForPlayer.getPenaltyMinutes())
+                            .position(player.getPlayerPosition())
+                            .goalsAgainst(statsForPlayer.getGoalsAgainst())
+                            .build();
 
             statsViewModel.add(viewModel);
         }

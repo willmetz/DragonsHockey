@@ -20,32 +20,32 @@ import com.slapshotapps.dragonshockey.managers.UserPrefsManager
  */
 class SettingsFragment : Fragment() {
 
-  lateinit var binding: FragmentSettingsBinding
+    lateinit var binding: FragmentSettingsBinding
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
-    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
 
-    val viewModel = SettingsViewModel(UserPrefsManager(context!!))
-    binding.item = viewModel
-    binding.timeSelection.setOnTimeChangedListener(viewModel)
+        val viewModel = SettingsViewModel(UserPrefsManager(context!!))
+        binding.item = viewModel
+        binding.timeSelection.setOnTimeChangedListener(viewModel)
 
-    lifecycle.addObserver(viewModel)
-
-
-    return binding.root
-  }
+        lifecycle.addObserver(viewModel)
 
 
-  companion object {
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment.
-     *
-     * @return A new instance of fragment SettingsFragment.
-     */
-    @JvmStatic
-    fun newInstance() =
-        SettingsFragment()
-  }
+        return binding.root
+    }
+
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment.
+         *
+         * @return A new instance of fragment SettingsFragment.
+         */
+        @JvmStatic
+        fun newInstance() =
+                SettingsFragment()
+    }
 }

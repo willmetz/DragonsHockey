@@ -6,16 +6,16 @@ import java.util.*
 @Keep
 class SeasonStats() {
 
-  var stats: List<GameStats>
+    var stats: List<GameStats>
 
-  var seasonID: String
+    var seasonID: String
 
-  init {
-    stats = ArrayList()
-    seasonID = ""
-  }
+    init {
+        stats = ArrayList()
+        seasonID = ""
+    }
 
-  constructor(seasonID: String) : this() {
-    this.seasonID = seasonID
-  }
+    constructor(seasonID: String) : this() {
+        this.seasonID = seasonID
+    }
 }

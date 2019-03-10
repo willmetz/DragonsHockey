@@ -9,31 +9,31 @@ import com.slapshotapps.dragonshockey.managers.UserPrefsManager
 
 
 class SettingsViewModel(
-    private val userPrefsManager: UserPrefsManager) : TimePicker.OnTimeChangedListener, LifecycleObserver {
+        private val userPrefsManager: UserPrefsManager) : TimePicker.OnTimeChangedListener, LifecycleObserver {
 
-  val dayOfGameSelected = ObservableBoolean(false)
-  val dayBeforeGameSelected = ObservableBoolean(false)
+    val dayOfGameSelected = ObservableBoolean(false)
+    val dayBeforeGameSelected = ObservableBoolean(false)
 
 
-  val notificationsEnabled = ObservableBoolean(false)
+    val notificationsEnabled = ObservableBoolean(false)
 
-  init {
-    dayOfGameSelected.set(userPrefsManager.notificationsDaysBeforeGame == 0)
-    dayBeforeGameSelected.set(userPrefsManager.notificationsDaysBeforeGame == 1)
-    notificationsEnabled.set(userPrefsManager.notificationsEnabled)
-  }
+    init {
+        dayOfGameSelected.set(userPrefsManager.notificationsDaysBeforeGame == 0)
+        dayBeforeGameSelected.set(userPrefsManager.notificationsDaysBeforeGame == 1)
+        notificationsEnabled.set(userPrefsManager.notificationsEnabled)
+    }
 
-  fun getDesiredNotificationTime(): Int {
-    return userPrefsManager.notificationsHourOfDayMilitaryTime
-  }
+    fun getDesiredNotificationTime(): Int {
+        return userPrefsManager.notificationsHourOfDayMilitaryTime
+    }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-  fun onSaveData() {
-    userPrefsManager.notificationsEnabled = notificationsEnabled.get()
-    userPrefsManager.notificationsDaysBeforeGame = if (dayOfGameSelected.get()) 0 else 1
-  }
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onSaveData() {
+        userPrefsManager.notificationsEnabled = notificationsEnabled.get()
+        userPrefsManager.notificationsDaysBeforeGame = if (dayOfGameSelected.get()) 0 else 1
+    }
 
-  override fun onTimeChanged(view: TimePicker?, hourOfDay: Int, minute: Int) {
-    userPrefsManager.notificationsHourOfDayMilitaryTime = hourOfDay * 100 + minute
-  }
+    override fun onTimeChanged(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        userPrefsManager.notificationsHourOfDayMilitaryTime = hourOfDay * 100 + minute
+    }
 }

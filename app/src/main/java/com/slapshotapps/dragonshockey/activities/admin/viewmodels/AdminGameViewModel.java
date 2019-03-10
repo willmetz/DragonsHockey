@@ -1,12 +1,15 @@
 package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
+
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormatter;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameResult;
+
 import java.util.Date;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created on 10/16/16.
@@ -21,8 +24,7 @@ public class AdminGameViewModel {
 
         try {
             originalGame = game.clone();
-        }
-        catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException e) {
             originalGame = new Game();
         }
     }

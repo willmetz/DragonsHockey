@@ -1,10 +1,11 @@
 package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 
-import androidx.annotation.NonNull;
 import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.DateFormatter;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.models.Game;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created on 10/15/16.

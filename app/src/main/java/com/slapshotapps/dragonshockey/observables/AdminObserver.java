@@ -12,7 +12,9 @@ import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.GameUpdateKeys;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerGameStats;
+
 import java.util.ArrayList;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.subscriptions.Subscriptions;
@@ -30,37 +32,37 @@ public class AdminObserver {
         return Observable.create((Subscriber<? super String> subscriber) -> {
 
             final Query query = database.getReference(Config.GAME_STATS)
-                .orderByChild(Config.GAME_ID)
-                .equalTo(gameID);
+                    .orderByChild(Config.GAME_ID)
+                    .equalTo(gameID);
 
             final ValueEventListener valueEventListener =
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        String key = NO_KEY_FOUND;
+                            String key = NO_KEY_FOUND;
 
-                        //ensure there is only one
-                        if (dataSnapshot.getChildrenCount() == 1) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                key = child.getKey();
+                            //ensure there is only one
+                            if (dataSnapshot.getChildrenCount() == 1) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    key = child.getKey();
+                                }
+                            }
+
+                            if (!subscriber.isUnsubscribed()) {
+                                subscriber.onNext(key);
                             }
                         }
 
-                        if (!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(key);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
 
             //remove the subscriber when canceled
             subscriber.add(
-                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
+                    Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
     }
 
@@ -69,36 +71,36 @@ public class AdminObserver {
         return Observable.create(subscriber -> {
 
             final Query query =
-                database.getReference(Config.GAMES).orderByChild(Config.GAME_ID).equalTo(gameID);
+                    database.getReference(Config.GAMES).orderByChild(Config.GAME_ID).equalTo(gameID);
 
             final ValueEventListener valueEventListener =
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        String key = NO_KEY_FOUND;
+                            String key = NO_KEY_FOUND;
 
-                        //ensure there is only one
-                        if (dataSnapshot.getChildrenCount() == 1) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                key = child.getKey();
+                            //ensure there is only one
+                            if (dataSnapshot.getChildrenCount() == 1) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    key = child.getKey();
+                                }
+                            }
+
+                            if (!subscriber.isUnsubscribed()) {
+                                subscriber.onNext(key);
                             }
                         }
 
-                        if (!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(key);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
 
             //remove the subscriber when canceled
             subscriber.add(
-                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
+                    Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
     }
 
@@ -107,37 +109,37 @@ public class AdminObserver {
         return Observable.create(subscriber -> {
 
             final Query query = database.getReference(Config.GAME_RESULTS)
-                .orderByChild(Config.GAME_ID)
-                .equalTo(gameID);
+                    .orderByChild(Config.GAME_ID)
+                    .equalTo(gameID);
 
             final ValueEventListener valueEventListener =
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        String key = NO_KEY_FOUND;
+                            String key = NO_KEY_FOUND;
 
-                        //ensure there is only one
-                        if (dataSnapshot.getChildrenCount() == 1) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                key = child.getKey();
+                            //ensure there is only one
+                            if (dataSnapshot.getChildrenCount() == 1) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    key = child.getKey();
+                                }
+                            }
+
+                            if (!subscriber.isUnsubscribed()) {
+                                subscriber.onNext(key);
                             }
                         }
 
-                        if (!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(key);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
 
             //remove the subscriber when canceled
             subscriber.add(
-                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
+                    Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
     }
 
@@ -146,46 +148,46 @@ public class AdminObserver {
         return Observable.create(subscriber -> {
 
             final Query query = database.getReference(Config.GAME_STATS)
-                .orderByChild(Config.GAME_ID)
-                .equalTo(gameID);
+                    .orderByChild(Config.GAME_ID)
+                    .equalTo(gameID);
 
             final ValueEventListener valueEventListener =
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        GameStats gameStats = null;
+                            GameStats gameStats = null;
 
-                        //ensure there is only one
-                        if (dataSnapshot.getChildrenCount() == 1) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                gameStats = child.getValue(GameStats.class);
-                                gameStats.setKey(child.getKey());
+                            //ensure there is only one
+                            if (dataSnapshot.getChildrenCount() == 1) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    gameStats = child.getValue(GameStats.class);
+                                    gameStats.setKey(child.getKey());
 
-                                //populate the internal list of players details per game
-                                gameStats.setGameStats(new ArrayList<GameStats.Stats>());
-                                for (DataSnapshot childListSnapshot : child.child("stats")
-                                    .getChildren()) {
-                                    gameStats.getGameStats().add(
-                                        childListSnapshot.getValue(GameStats.Stats.class));
+                                    //populate the internal list of players details per game
+                                    gameStats.setGameStats(new ArrayList<GameStats.Stats>());
+                                    for (DataSnapshot childListSnapshot : child.child("stats")
+                                            .getChildren()) {
+                                        gameStats.getGameStats().add(
+                                                childListSnapshot.getValue(GameStats.Stats.class));
+                                    }
                                 }
+                            }
+
+                            if (!subscriber.isUnsubscribed()) {
+                                subscriber.onNext(gameStats);
                             }
                         }
 
-                        if (!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(gameStats);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
 
             //remove the subscriber when canceled
             subscriber.add(
-                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
+                    Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
     }
 
@@ -193,36 +195,36 @@ public class AdminObserver {
 
         return Observable.create(subscriber -> {
             final Query query =
-                database.getReference(Config.GAMES).orderByChild(Config.GAME_ID).equalTo(gameID);
+                    database.getReference(Config.GAMES).orderByChild(Config.GAME_ID).equalTo(gameID);
 
             final ValueEventListener valueEventListener =
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        Game game = null;
+                            Game game = null;
 
-                        //ensure there is only one
-                        if (dataSnapshot.getChildrenCount() == 1) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                game = child.getValue(Game.class);
+                            //ensure there is only one
+                            if (dataSnapshot.getChildrenCount() == 1) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    game = child.getValue(Game.class);
+                                }
+                            }
+
+                            if (!subscriber.isUnsubscribed()) {
+                                subscriber.onNext(game);
                             }
                         }
 
-                        if (!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(game);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
 
             //remove the subscriber when canceled
             subscriber.add(
-                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
+                    Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
     }
 
@@ -230,72 +232,72 @@ public class AdminObserver {
 
         return Observable.create(subscriber -> {
             final Query query = database.getReference(Config.GAME_RESULTS)
-                .orderByChild(Config.GAME_ID)
-                .equalTo(gameID);
+                    .orderByChild(Config.GAME_ID)
+                    .equalTo(gameID);
 
             final ValueEventListener valueEventListener =
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        GameResult gameResult = null;
+                            GameResult gameResult = null;
 
-                        //ensure there is only one
-                        if (dataSnapshot.getChildrenCount() == 1) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                gameResult = child.getValue(GameResult.class);
+                            //ensure there is only one
+                            if (dataSnapshot.getChildrenCount() == 1) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    gameResult = child.getValue(GameResult.class);
+                                }
+                            }
+
+                            if (!subscriber.isUnsubscribed()) {
+                                subscriber.onNext(gameResult);
                             }
                         }
 
-                        if (!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(gameResult);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
 
             //remove the subscriber when canceled
             subscriber.add(
-                Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
+                    Subscriptions.create(() -> query.removeEventListener(valueEventListener)));
         });
     }
 
     public static Observable<GameUpdateKeys> getGameKeys(final FirebaseDatabase database, final int gameID) {
 
         return Observable.zip(AdminObserver.getGameKey(database, gameID),
-            AdminObserver.getGameResultKey(database, gameID),
-            AdminObserver.getPlayerStatsKey(database, gameID), GameUpdateKeys::new);
+                AdminObserver.getGameResultKey(database, gameID),
+                AdminObserver.getPlayerStatsKey(database, gameID), GameUpdateKeys::new);
     }
 
     public static Observable<PlayerGameStats> getPlayerStatsForGame(final FirebaseDatabase database, final int gameID) {
 
         return Observable.zip(RosterObserver.GetRoster(database),
-            AdminObserver.getGameStats(database, gameID), (players, gameStats) -> {
+                AdminObserver.getGameStats(database, gameID), (players, gameStats) -> {
 
-                if (gameStats == null) {
-                    gameStats = new GameStats();
-                }
+                    if (gameStats == null) {
+                        gameStats = new GameStats();
+                    }
 
-                PlayerGameStats playerGameStats = new PlayerGameStats();
-                playerGameStats.setPlayerStatsKey(gameStats.getKey());
-                playerGameStats.setPlayers(new ArrayList<Player>(players));
-                playerGameStats.setPlayerGameStats(gameStats);
+                    PlayerGameStats playerGameStats = new PlayerGameStats();
+                    playerGameStats.setPlayerStatsKey(gameStats.getKey());
+                    playerGameStats.setPlayers(new ArrayList<Player>(players));
+                    playerGameStats.setPlayerGameStats(gameStats);
 
-                return playerGameStats;
-            });
+                    return playerGameStats;
+                });
     }
 
     public static Observable<Game> getGameUpdateInfo(final FirebaseDatabase database, final int gameID) {
         return Observable.zip(AdminObserver.getGame(database, gameID),
-            AdminObserver.getGameResult(database, gameID), (game, gameResult) -> {
+                AdminObserver.getGameResult(database, gameID), (game, gameResult) -> {
 
-                game.setGameResult(gameResult);
+                    game.setGameResult(gameResult);
 
-                return game;
-            });
+                    return game;
+                });
     }
 }

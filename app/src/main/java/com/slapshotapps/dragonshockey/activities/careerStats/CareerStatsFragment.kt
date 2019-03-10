@@ -20,65 +20,65 @@ import rx.schedulers.Schedulers
 
 class CareerStatsFragment : HockeyFragment() {
 
-  private var careerStatsVM: CareerStatsVM? = null
-  private lateinit var binding: FragmentCareerStatsBinding
+    private var careerStatsVM: CareerStatsVM? = null
+    private lateinit var binding: FragmentCareerStatsBinding
 
-  private var careerStatsSubscription: Subscription? = null
-  private var careerStatsAdapter: CareerStatsAdapter? = null
+    private var careerStatsSubscription: Subscription? = null
+    private var careerStatsAdapter: CareerStatsAdapter? = null
 
-  private var currentSeasonStats: PlayerStats? = null
+    private var currentSeasonStats: PlayerStats? = null
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
-    actionBarListener!!.setTitle("Career Stats")
-  }
+        actionBarListener!!.setTitle("Career Stats")
+    }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
 
-    binding = DataBindingUtil.inflate(inflater,
-        R.layout.fragment_career_stats, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_career_stats, container, false)
 
-    currentSeasonStats = CareerStatsFragmentArgs.fromBundle(arguments!!).currentSeasonStats
+        currentSeasonStats = CareerStatsFragmentArgs.fromBundle(arguments!!).currentSeasonStats
 
-    careerStatsAdapter = CareerStatsAdapter()
-    binding.careerStats.adapter = careerStatsAdapter
-    binding.careerStats.layoutManager = LinearLayoutManager(context)
-    binding.careerStats.addItemDecoration(
-        RecyclerViewDivider(context, R.drawable.schedule_divider))
-    binding.careerStats.addItemDecoration(
-        StaticHeaderDecoration(careerStatsAdapter, binding.careerStats))
+        careerStatsAdapter = CareerStatsAdapter()
+        binding.careerStats.adapter = careerStatsAdapter
+        binding.careerStats.layoutManager = LinearLayoutManager(context)
+        binding.careerStats.addItemDecoration(
+                RecyclerViewDivider(context, R.drawable.schedule_divider))
+        binding.careerStats.addItemDecoration(
+                StaticHeaderDecoration(careerStatsAdapter, binding.careerStats))
 
-    return binding.root
-  }
+        return binding.root
+    }
 
-  override fun onResume() {
-    super.onResume()
+    override fun onResume() {
+        super.onResume()
 
-    actionBarListener?.showProgressBar()
+        actionBarListener?.showProgressBar()
 
-    careerStatsSubscription = CareerStatsObserver.getCareerStatsData(firebaseDatabase,
-        currentSeasonStats!!.playerID)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ careerStatsData ->
+        careerStatsSubscription = CareerStatsObserver.getCareerStatsData(firebaseDatabase,
+                currentSeasonStats!!.playerID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ careerStatsData ->
 
-          careerStatsVM = CareerStatsVM(careerStatsData.player, currentSeasonStats,
-              careerStatsData.seasonStats)
-          binding.stats = careerStatsVM
-          careerStatsAdapter?.updateStats(careerStatsVM!!.stats,
-              careerStatsData.player.getPlayerPosition())
+                    careerStatsVM = CareerStatsVM(careerStatsData.player, currentSeasonStats,
+                            careerStatsData.seasonStats)
+                    binding.stats = careerStatsVM
+                    careerStatsAdapter?.updateStats(careerStatsVM!!.stats,
+                            careerStatsData.player.getPlayerPosition())
 
-          actionBarListener?.hideProgressBar()
-        }, { _ -> actionBarListener?.hideProgressBar() })
-  }
+                    actionBarListener?.hideProgressBar()
+                }, { _ -> actionBarListener?.hideProgressBar() })
+    }
 
-  override fun onPause() {
-    super.onPause()
+    override fun onPause() {
+        super.onPause()
 
-    careerStatsSubscription?.unsubscribe()
+        careerStatsSubscription?.unsubscribe()
 
-    actionBarListener!!.hideProgressBar()
-  }
+        actionBarListener!!.hideProgressBar()
+    }
 }

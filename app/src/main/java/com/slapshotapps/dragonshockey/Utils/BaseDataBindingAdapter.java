@@ -1,20 +1,22 @@
 package com.slapshotapps.dragonshockey.Utils;
 
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import com.slapshotapps.dragonshockey.BR;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import com.slapshotapps.dragonshockey.BR;
 
 public abstract class BaseDataBindingAdapter
-    extends RecyclerView.Adapter<BaseDataBindingAdapter.MyViewHolder> {
+        extends RecyclerView.Adapter<BaseDataBindingAdapter.MyViewHolder> {
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater =
-            LayoutInflater.from(parent.getContext());
+                LayoutInflater.from(parent.getContext());
         ViewDataBinding binding = DataBindingUtil.inflate(
-            layoutInflater, viewType, parent, false);
+                layoutInflater, viewType, parent, false);
         return new MyViewHolder(binding);
     }
 

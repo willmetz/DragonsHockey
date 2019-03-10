@@ -8,8 +8,8 @@ import androidx.annotation.Keep
 @Keep
 class SeasonRecord {
 
-  var wins: Int = 0
-  var losses: Int = 0
-  var overtimeLosses: Int = 0
-  var ties: Int = 0
+    var wins: Int = 0
+    var losses: Int = 0
+    var overtimeLosses: Int = 0
+    var ties: Int = 0
 }

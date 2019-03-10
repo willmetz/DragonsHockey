@@ -1,25 +1,28 @@
 package com.slapshotapps.dragonshockey.activities.admin.adapter;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.slapshotapps.dragonshockey.BR;
 import com.slapshotapps.dragonshockey.activities.admin.listeners.AdminClickListener;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.GameListItem;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.ListItem;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
+
 import java.util.ArrayList;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created on 10/9/16.
  */
 
 public class AdminScheduleAdapter
-    extends RecyclerView.Adapter<AdminScheduleAdapter.ScheduleViewHolder> {
+        extends RecyclerView.Adapter<AdminScheduleAdapter.ScheduleViewHolder> {
 
     ArrayList<ListItem> items;
     private AdminClickListener listener;

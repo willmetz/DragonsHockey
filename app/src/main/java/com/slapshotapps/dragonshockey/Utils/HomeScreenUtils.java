@@ -1,7 +1,8 @@
 package com.slapshotapps.dragonshockey.Utils;
 
-import androidx.annotation.Nullable;
 import com.slapshotapps.dragonshockey.models.GameResult;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by willmetz on 8/20/16.

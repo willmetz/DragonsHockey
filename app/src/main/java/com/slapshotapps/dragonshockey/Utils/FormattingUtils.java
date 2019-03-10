@@ -43,11 +43,11 @@ public class FormattingUtils {
         if (gameResult != null) {
 
             gameScore = gameResult.getDragonsScore()
-                + "-"
-                + gameResult.getOpponentScore()
-                + " ("
-                + getGameResultAsString(gameResult)
-                + ")";
+                    + "-"
+                    + gameResult.getOpponentScore()
+                    + " ("
+                    + getGameResultAsString(gameResult)
+                    + ")";
         }
 
         return gameScore;

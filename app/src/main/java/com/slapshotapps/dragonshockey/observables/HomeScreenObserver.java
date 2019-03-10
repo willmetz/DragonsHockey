@@ -12,7 +12,9 @@ import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameResult;
 import com.slapshotapps.dragonshockey.models.HomeContents;
 import com.slapshotapps.dragonshockey.models.SeasonSchedule;
+
 import java.util.Date;
+
 import rx.Observable;
 import rx.subscriptions.Subscriptions;
 
@@ -26,59 +28,59 @@ public class HomeScreenObserver {
 
             //find the next game and last game IDs
             final Game nextGame =
-                ScheduleUtils.getGameAfterDate(referenceDate, schedule.getAllGames());
+                    ScheduleUtils.getGameAfterDate(referenceDate, schedule.getAllGames());
             final Game lastGame =
-                ScheduleUtils.getGameBeforeDate(referenceDate, schedule.getAllGames());
+                    ScheduleUtils.getGameBeforeDate(referenceDate, schedule.getAllGames());
 
             final Query query =
-                firebaseDatabase.getReference(Config.GAME_RESULTS).orderByChild(Config.GAME_ID);
+                    firebaseDatabase.getReference(Config.GAME_RESULTS).orderByChild(Config.GAME_ID);
 
             final ValueEventListener listener =
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        HomeContents homeContents = new HomeContents();
-                        homeContents.setLastGame(lastGame);
-                        homeContents.setNextGame(nextGame);
+                            HomeContents homeContents = new HomeContents();
+                            homeContents.setLastGame(lastGame);
+                            homeContents.setNextGame(nextGame);
 
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                            GameResult gameResult = snapshot.getValue(GameResult.class);
+                                GameResult gameResult = snapshot.getValue(GameResult.class);
 
-                            if (lastGame != null && lastGame.getGameID() == gameResult.getGameID()) {
-                                homeContents.getLastGame().setGameResult(gameResult);
-                            } else if (nextGame != null && nextGame.getGameID() == gameResult.getGameID()) {
-                                homeContents.getNextGame().setGameResult(gameResult);
+                                if (lastGame != null && lastGame.getGameID() == gameResult.getGameID()) {
+                                    homeContents.getLastGame().setGameResult(gameResult);
+                                } else if (nextGame != null && nextGame.getGameID() == gameResult.getGameID()) {
+                                    homeContents.getNextGame().setGameResult(gameResult);
+                                }
+
+                                //determine if the game was a win or a loss
+                                if (HomeScreenUtils.wasWin(gameResult)) {
+                                    homeContents.getSeasonRecord()
+                                            .setWins(homeContents.getSeasonRecord().getWins() + 1);
+                                } else if (HomeScreenUtils.wasOvertimeLoss(gameResult)) {
+                                    homeContents.getSeasonRecord()
+                                            .setOvertimeLosses(
+                                                    homeContents.getSeasonRecord().getOvertimeLosses() + 1);
+                                } else if (HomeScreenUtils.wasLoss(gameResult)) {
+                                    homeContents.getSeasonRecord()
+                                            .setLosses(homeContents.getSeasonRecord().getLosses() + 1);
+                                } else if (HomeScreenUtils.wasTie(gameResult)) {
+                                    homeContents.getSeasonRecord()
+                                            .setTies(homeContents.getSeasonRecord().getTies() + 1);
+                                }
                             }
 
-                            //determine if the game was a win or a loss
-                            if (HomeScreenUtils.wasWin(gameResult)) {
-                                homeContents.getSeasonRecord()
-                                    .setWins(homeContents.getSeasonRecord().getWins() + 1);
-                            } else if (HomeScreenUtils.wasOvertimeLoss(gameResult)) {
-                                homeContents.getSeasonRecord()
-                                    .setOvertimeLosses(
-                                        homeContents.getSeasonRecord().getOvertimeLosses() + 1);
-                            } else if (HomeScreenUtils.wasLoss(gameResult)) {
-                                homeContents.getSeasonRecord()
-                                    .setLosses(homeContents.getSeasonRecord().getLosses() + 1);
-                            } else if (HomeScreenUtils.wasTie(gameResult)) {
-                                homeContents.getSeasonRecord()
-                                    .setTies(homeContents.getSeasonRecord().getTies() + 1);
+                            if (!subscriber.isUnsubscribed()) {
+                                subscriber.onNext(homeContents);
                             }
                         }
 
-                        if (!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(homeContents);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
 
             //when the subscription is cancelled remove the listener
             subscriber.add(Subscriptions.create(() -> query.removeEventListener(listener)));

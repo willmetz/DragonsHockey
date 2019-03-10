@@ -8,15 +8,15 @@ import com.slapshotapps.dragonshockey.models.Player
 
 class RosterListItem(var player: Player) {
 
-  val rosterItemType: Int
+    val rosterItemType: Int
 
-  init {
-    rosterItemType = ROSTER_TYPE
-  }
+    init {
+        rosterItemType = ROSTER_TYPE
+    }
 
 
-  companion object {
-    val HEADER_TYPE = 1
-    val ROSTER_TYPE = 2
-  }
+    companion object {
+        val HEADER_TYPE = 1
+        val ROSTER_TYPE = 2
+    }
 }

@@ -8,30 +8,22 @@ import java.util.*
  */
 @Keep
 class SeasonSchedule {
-  var games: MutableList<Game>
+    var games: MutableList<Game> = ArrayList()
 
-  val allGames: List<Game>
-    get() = games
+    val allGames: List<Game>
+        get() = games
 
-  init {
-    games = ArrayList()
-  }
-
-  fun addGame(game: Game) {
-    games.add(game)
-  }
-
-  fun numberOfGames(): Int {
-    return games.size
-  }
-
-  fun getGame(gameID: Int): Game? {
-    for (game in games) {
-      if (game.gameID == gameID) {
-        return game
-      }
+    fun addGame(game: Game) {
+        games.add(game)
     }
 
-    return null
-  }
+    fun numberOfGames(): Int {
+        return games.size
+    }
+
+    fun getGame(gameID: Int): Game? {
+        return games.first {
+            gameID == it.gameID
+        }
+    }
 }
