@@ -12,17 +12,19 @@ class NotificationManager(private val context: Context) {
 
     private val ALARM_TOLERANCE_MINUTES = 10
 
-    fun scheduleFutureNotification(calendar: Calendar) {
+    fun scheduleFutureNotification(date: Date) {
 
         val intent = Intent(context, NotificationService::class.java)
         val pendingIntent = PendingIntent.getService(context, 0, intent, 0)
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
-        val windowStart = calendar.clone() as Calendar
+        val windowStart = Calendar.getInstance()
+        windowStart.time = date
         windowStart.add(Calendar.MINUTE, -1 * ALARM_TOLERANCE_MINUTES)
 
-        val windowEnd = calendar.clone() as Calendar
+        val windowEnd = Calendar.getInstance()
+        windowEnd.time = date
         windowEnd.add(Calendar.MINUTE, ALARM_TOLERANCE_MINUTES)
 
         alarmManager?.setWindow(
