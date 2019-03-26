@@ -22,7 +22,7 @@ class SeasonSchedule {
     }
 
     fun getGame(gameID: Int): Game? {
-        return games.first {
+        return games.firstOrNull {
             gameID == it.gameID
         }
     }

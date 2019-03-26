@@ -7,7 +7,6 @@ import android.os.Build
 import android.text.format.DateUtils
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.FirebaseDatabase
 import com.slapshotapps.dragonshockey.R
 import com.slapshotapps.dragonshockey.SCHEDULE_CHANNEL_ID
@@ -16,7 +15,6 @@ import com.slapshotapps.dragonshockey.Utils.ScheduleUtils
 import com.slapshotapps.dragonshockey.activities.MainActivity
 import com.slapshotapps.dragonshockey.managers.UserPrefsManager
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver
-import timber.log.Timber
 import java.util.*
 
 const val SCHEDULE_NOTIFICATION_ID = 1234
@@ -45,12 +43,6 @@ class NotificationService : IntentService("HockeyNotificationService") {
     override fun onHandleIntent(intent: Intent?) {
 
         firebaseDatabase = FirebaseDatabase.getInstance()
-
-        try {
-            firebaseDatabase!!.setPersistenceEnabled(true)
-        } catch (exception: DatabaseException) {
-            Timber.e("Unable to set persistance for Firebase")
-        }
 
         val prefManager = UserPrefsManager(applicationContext)
 

@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.slapshotapps.dragonshockey.AnalyticEventListener
 import com.slapshotapps.dragonshockey.Config
@@ -26,12 +26,13 @@ class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListen
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
-        val navController = findNavController(R.id.fragment_container)
-        binding.navigationView.setupWithNavController(navController)
+        val navController = findNavController(this, R.id.fragment_container)
+        NavigationUI.setupWithNavController(binding.navigationView, navController)
+
     }
 
     override fun onSupportNavigateUp() =
-            findNavController(R.id.fragment_container).navigateUp()
+            findNavController(this, R.id.fragment_container).navigateUp()
 
     override fun setTitle(title: String) {
 

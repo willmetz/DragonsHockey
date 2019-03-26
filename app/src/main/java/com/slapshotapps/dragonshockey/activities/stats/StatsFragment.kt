@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
@@ -121,7 +121,7 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
 
     override fun onViewPLayerStats(playerStats: PlayerStats) {
         val action = StatsFragmentDirections.actionStatsFragmentToCareerStatsFragment(playerStats)
-        findNavController().navigate(action)
+        findNavController(this).navigate(action)
     }
 
     private fun showSortOptionsDialog() {

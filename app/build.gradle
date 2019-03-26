@@ -79,13 +79,14 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
   //navigation
-  implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
-  implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
+  implementation "androidx.navigation:navigation-fragment:$nav_version" // For Kotlin use navigation-fragment-ktx
+  implementation "androidx.navigation:navigation-ui:$nav_version" // For Kotlin use navigation-ui-ktx
 
   //android x
   implementation 'androidx.appcompat:appcompat:1.0.2'
   implementation 'androidx.cardview:cardview:1.0.0'
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+  implementation "androidx.work:work-runtime-ktx:2.0.0-rc01"
 
   //firebase
   implementation "com.google.firebase:firebase-database:16.0.6"
@@ -95,8 +96,8 @@ dependencies {
 
   //android
   implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
-  implementation 'com.google.android.material:material:1.1.0-alpha03'
-  implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+  implementation 'com.google.android.material:material:1.0.0'
+  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   kapt "com.android.databinding:compiler:3.3.1"
 
 

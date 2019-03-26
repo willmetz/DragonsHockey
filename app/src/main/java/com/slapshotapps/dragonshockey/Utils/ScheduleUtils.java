@@ -41,6 +41,7 @@ public class ScheduleUtils {
         return foundGame;
     }
 
+    @Nullable
     public static Game getGameAfterDate(Date date, List<Game> gamesSortedChronologically) {
 
         if (gamesSortedChronologically == null || gamesSortedChronologically.size() == 0) {
