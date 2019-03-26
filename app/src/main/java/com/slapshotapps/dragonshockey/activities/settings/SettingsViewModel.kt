@@ -42,11 +42,12 @@ class SettingsViewModel(private val userPrefsManager: UserPrefsManager, private 
 
 
         val nextGame = ScheduleUtils.getGameAfterDate(Date(), seasonSchedule.allGames)
+        val prevGame = ScheduleUtils.getGameBeforeDate(Date(), seasonSchedule.allGames)
         val gameTime = nextGame?.gameTimeToDate()
 
 
 
-        if(userPrefsManager.notificationsEnabled){// && gameTime != null) {
+        if(userPrefsManager.notificationsEnabled && prevGame != null){// && gameTime != null) {
             val notificationTime = Calendar.getInstance()
 
             notificationTime.add(Calendar.MINUTE, 2)
@@ -60,9 +61,9 @@ class SettingsViewModel(private val userPrefsManager: UserPrefsManager, private 
 //            notificationTime.set(Calendar.MILLISECOND, 0)
 //
 //            notificationTime.add(Calendar.DAY_OF_YEAR, -1 * userPrefsManager.notificationsDaysBeforeGame)
-            notificationManager.scheduleFutureNotification(notificationTime.time)
+            notificationManager.scheduleGameNotification(notificationTime.time, prevGame)
         }else if(!userPrefsManager.notificationsEnabled){
-            notificationManager.cancelNotifications()
+            notificationManager.cancelGameNotifications()
         }
     }
 
