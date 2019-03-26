@@ -8,30 +8,40 @@ import com.slapshotapps.dragonshockey.services.NotificationService
 import java.util.*
 
 
-class NotificationManager(private val context: Context) {
+const val ALARM_TOLERANCE_MINUTES = 1
+const val NOTIFICATION_ALARM_REQUEST_CODE = 123
 
-    private val ALARM_TOLERANCE_MINUTES = 10
+class NotificationManager(private val context: Context) {
 
     fun scheduleFutureNotification(date: Date) {
 
-        val intent = Intent(context, NotificationService::class.java)
-        val pendingIntent = PendingIntent.getService(context, 0, intent, 0)
+        val testTime = Calendar.getInstance()
+        testTime.add(Calendar.MINUTE, 1)
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
         val windowStart = Calendar.getInstance()
-        windowStart.time = date
+        windowStart.time = testTime.time
         windowStart.add(Calendar.MINUTE, -1 * ALARM_TOLERANCE_MINUTES)
 
         val windowEnd = Calendar.getInstance()
-        windowEnd.time = date
+        windowEnd.time = testTime.time
         windowEnd.add(Calendar.MINUTE, ALARM_TOLERANCE_MINUTES)
 
         alarmManager?.setWindow(
-                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                AlarmManager.RTC_WAKEUP,
                 windowStart.timeInMillis,
                 windowEnd.timeInMillis,
-                pendingIntent)
+                createAlarmIntent())
+    }
 
+    fun cancelNotifications() {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        alarmManager?.cancel(createAlarmIntent())
+    }
+
+    private fun createAlarmIntent(): PendingIntent {
+        val intent = Intent(context, NotificationService::class.java)
+        return PendingIntent.getService(context, NOTIFICATION_ALARM_REQUEST_CODE, intent, 0)
     }
 }
