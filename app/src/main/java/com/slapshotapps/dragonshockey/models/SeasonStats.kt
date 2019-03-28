@@ -1,12 +1,11 @@
 package com.slapshotapps.dragonshockey.models
 
 import androidx.annotation.Keep
-import java.util.*
 
 @Keep
 class SeasonStats() {
 
-    var stats: List<GameStats>
+    var stats: ArrayList<GameStats>
 
     var seasonID: String
 
