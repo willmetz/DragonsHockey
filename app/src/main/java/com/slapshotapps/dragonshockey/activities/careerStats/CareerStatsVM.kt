@@ -7,7 +7,7 @@ import com.slapshotapps.dragonshockey.models.SeasonStats
 import java.util.*
 
 class CareerStatsVM(private val player: Player, currentSeasonStats: PlayerStats?,
-                    unfilteredSeasonStats: List<SeasonStats>) {
+                    unfilteredSeasonStats: List<SeasonStats>?) {
     private val playerSeasonStats: MutableList<PlayerSeasonStatsVM>
 
     val playerName: String

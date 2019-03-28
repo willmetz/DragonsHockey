@@ -8,7 +8,7 @@ import com.slapshotapps.dragonshockey.models.PlayerStats
 import java.util.*
 
 class PlayerStatsVM(val playerStats: PlayerStats,
-                    private val listener: PlayerStatsVMListener) : Comparable<PlayerStatsVM>, StatsListener {
+                    private val listener: PlayerStatsVMListener?) : Comparable<PlayerStatsVM>, StatsListener {
     private var sortSelection: StatSortSelection? = null
 
     val playerName: String
@@ -149,6 +149,6 @@ class PlayerStatsVM(val playerStats: PlayerStats,
     }
 
     override fun onStatsClicked() {
-        listener.onViewPLayerStats(playerStats)
+        listener?.onViewPLayerStats(playerStats)
     }
 }

@@ -5,9 +5,11 @@ import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerPosition;
 import com.slapshotapps.dragonshockey.models.PlayerStats;
 import com.slapshotapps.dragonshockey.models.SeasonStats;
+
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -129,13 +131,13 @@ public class CareerStatsVMTest {
 
         assertThat(playerSeasonStats.size(), is(2));
         assertThat(playerSeasonStats.get(0).getPenaltyMinutes(), is(5));
-        assertThat(playerSeasonStats.get(0).getGoalsAgainst(), is(String.valueOf(18)));
+        assertThat(playerSeasonStats.get(0).getGoalsAgainst(), is(18));
         assertThat(playerSeasonStats.get(0).getGoalsAgainstAverage(), is("1.80"));
-        assertThat(playerSeasonStats.get(0).getGamesPlayed(), is(String.valueOf(10)));
+        assertThat(playerSeasonStats.get(0).getGamesPlayed(), is(10));
 
         //career
-        assertThat(playerSeasonStats.get(1).getGamesPlayed(), is(String.valueOf(10)));
-        assertThat(playerSeasonStats.get(1).getGoalsAgainst(), is(String.valueOf(18)));
+        assertThat(playerSeasonStats.get(1).getGamesPlayed(), is(10));
+        assertThat(playerSeasonStats.get(1).getGoalsAgainst(), is(18));
         assertThat(playerSeasonStats.get(1).getGoalsAgainstAverage(), is("1.80"));
         assertThat(playerSeasonStats.get(1).getPenaltyMinutes(), is(5));
         assertThat(playerSeasonStats.get(1).getSeasonID(), is("Career"));
@@ -210,21 +212,21 @@ public class CareerStatsVMTest {
 
         assertThat(playerSeasonStats.size(), is(3));
         assertThat(playerSeasonStats.get(0).getPenaltyMinutes(), is(10));
-        assertThat(playerSeasonStats.get(0).getGoalsAgainst(), is("20"));
+        assertThat(playerSeasonStats.get(0).getGoalsAgainst(), is(20));
         assertThat(playerSeasonStats.get(0).getGoalsAgainstAverage(), is("4.00"));
-        assertThat(playerSeasonStats.get(0).getGamesPlayed(), is("5"));
+        assertThat(playerSeasonStats.get(0).getGamesPlayed(), is(5));
 
 
 
         assertThat(playerSeasonStats.get(1).getPenaltyMinutes(), is(10));
-        assertThat(playerSeasonStats.get(1).getGoalsAgainst(), is("20"));
+        assertThat(playerSeasonStats.get(1).getGoalsAgainst(), is(20));
         assertThat(playerSeasonStats.get(1).getGoalsAgainstAverage(), is("4.00"));
-        assertThat(playerSeasonStats.get(1).getGamesPlayed(), is("5"));
+        assertThat(playerSeasonStats.get(1).getGamesPlayed(), is(5));
 
         assertThat(playerSeasonStats.get(2).getPenaltyMinutes(), is(20));
-        assertThat(playerSeasonStats.get(2).getGoalsAgainst(), is("40"));
+        assertThat(playerSeasonStats.get(2).getGoalsAgainst(), is(40));
         assertThat(playerSeasonStats.get(2).getGoalsAgainstAverage(), is("4.00"));
-        assertThat(playerSeasonStats.get(2).getGamesPlayed(), is("10"));
+        assertThat(playerSeasonStats.get(2).getGamesPlayed(), is(10));
 
     }
 
