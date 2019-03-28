@@ -3,13 +3,13 @@
 <layout>
 
     <data>
+
         <variable
             name="item"
-            type="com.slapshotapps.dragonshockey.activities.settings.SettingsViewModel"/>
+            type="com.slapshotapps.dragonshockey.activities.settings.SettingsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -21,21 +21,22 @@
             android:id="@+id/enable_disable_notifications"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:checked="@={item.notificationsEnabled}"
             android:text="Notifications"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/notification_options_group"
+            app:layout_constraintEnd_toStartOf="@id/notification_options_group"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="@id/notification_options_group" />
 
         <RadioGroup
             android:id="@+id/notification_options_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/time_selection"
-            app:layout_constraintEnd_toStartOf="@+id/time_selection"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enable_disable_notifications">
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/enable_disable_notifications"
+            app:layout_constraintTop_toTopOf="parent">
 
             <RadioButton
                 android:id="@+id/day_before_game"
@@ -43,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:checked="@={item.dayBeforeGameSelected}"
                 android:enabled="@{item.notificationsEnabled}"
-                android:text="Day Before Game"/>
+                android:text="Day Before Game" />
 
             <RadioButton
                 android:id="@+id/day_of_game"
@@ -51,22 +52,9 @@
                 android:layout_height="wrap_content"
                 android:checked="@={item.dayOfGameSelected}"
                 android:enabled="@{item.notificationsEnabled}"
-                android:text="Day Of Game"/>
+                android:text="Day Of Game" />
 
         </RadioGroup>
-
-
-        <TimePicker
-            android:id="@+id/time_selection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:enabled="@{item.notificationsEnabled}"
-            android:timePickerMode="spinner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/notification_options_group"
-            app:layout_constraintTop_toBottomOf="@id/enable_disable_notifications"
-            app:timeOfDay="@{item.getDesiredNotificationTime()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

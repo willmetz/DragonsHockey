@@ -80,6 +80,7 @@ class NotificationService : IntentService("HockeyNotificationService") {
                 .setContentText(description)
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
                 .build()
 
 
