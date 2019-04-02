@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import com.slapshotapps.dragonshockey.models.Game
 import com.slapshotapps.dragonshockey.services.NotificationService
+import timber.log.Timber
 import java.util.*
 
 
@@ -14,6 +15,8 @@ const val NOTIFICATION_ALARM_REQUEST_CODE = 123
 class NotificationManager(private val context: Context) {
 
     fun scheduleGameNotification(notificationTime: Date, game: Game) {
+        Timber.d("Scheduling a notification")
+
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
         val windowStart = Calendar.getInstance()

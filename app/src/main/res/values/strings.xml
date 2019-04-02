@@ -16,8 +16,10 @@
     <string name="otl_header">OTL</string>
     <string name="tie_header">T</string>
     <string name="roster_caps">ROSTER</string>
-    <string name="today_gameday">"Today %1$s (%2$s) vrs %3$s"</string>
-    <string name="gameday">"%1$s (%2$s) vrs %3$s"</string>
+    <string name="today_gameday">"Today %1$s (%2$s)"</string>
+    <string name="today_gameday_notification">"Today %1$s (%2$s) vrs %3$s"</string>
+    <string name="gameday">"%1$s (%2$s)"</string>
+    <string name="gameday_notification">"%1$s (%2$s) vrs %3$s"</string>
     <string name="error_loading">Error loading data, check internet and please try again</string>
     <string name="title_activity_stats">StatsActivity</string>
     <string name="goals">Goals</string>

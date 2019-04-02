@@ -56,10 +56,10 @@ class NotificationService : IntentService("HockeyNotificationService") {
 
             val notificationText = if (DateUtils.isToday(gameTime)) {
 
-                applicationContext.getString(R.string.today_gameday, DateFormatter.getGameTime(gameTimeAsDate),
+                applicationContext.getString(R.string.today_gameday_notification, DateFormatter.getGameTime(gameTimeAsDate),
                         if (homeGame) "Home" else "Guest", opponent)
             } else {
-                applicationContext.getString(R.string.gameday, DateFormatter.getGameDateTime(gameTimeAsDate),
+                applicationContext.getString(R.string.gameday_notification, DateFormatter.getGameDateTime(gameTimeAsDate),
                         if (homeGame) "Home" else "Guest", opponent)
             }
 

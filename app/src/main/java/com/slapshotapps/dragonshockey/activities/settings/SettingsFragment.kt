@@ -1,6 +1,8 @@
 package com.slapshotapps.dragonshockey.activities.settings
 
 
+import android.content.ComponentName
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.databinding.FragmentSettingsBinding
 import com.slapshotapps.dragonshockey.managers.NotificationManager
 import com.slapshotapps.dragonshockey.managers.UserPrefsManager
+import com.slapshotapps.dragonshockey.receivers.RecreateAlarmOnDeviceBoot
 import com.slapshotapps.dragonshockey.workers.UpcomingGameChecker
 import java.util.concurrent.TimeUnit
 
@@ -50,7 +53,7 @@ class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelLi
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
 
-        val notificationWork = PeriodicWorkRequestBuilder<UpcomingGameChecker>(8L, TimeUnit.HOURS)
+        val notificationWork = PeriodicWorkRequestBuilder<UpcomingGameChecker>(24L, TimeUnit.HOURS)
                 .setConstraints(constraints)
                 .addTag(NOTIFICATION_SCHEDULE_CHECKER_TASK)
                 .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
@@ -59,15 +62,30 @@ class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelLi
         val workManager = WorkManager.getInstance()
         cancelNotificationWork(workManager)
         workManager.enqueue(notificationWork)
+
+        enableBootReceiver(true)
     }
 
     override fun onDisableNotifications() {
         cancelNotificationWork(WorkManager.getInstance())
+
+        enableBootReceiver(false)
     }
 
     private fun cancelNotificationWork(workManager: WorkManager) {
         workManager.cancelAllWorkByTag(NOTIFICATION_SCHEDULE_CHECKER_TASK)
     }
+
+    private fun enableBootReceiver(enabled: Boolean) {
+        val receiver = ComponentName(context, RecreateAlarmOnDeviceBoot::class.java)
+
+        context?.packageManager?.setComponentEnabledSetting(
+                receiver,
+                if (enabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP
+        )
+    }
+
 
     companion object {
         /**
