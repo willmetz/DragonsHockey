@@ -38,11 +38,11 @@ class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
                     Timber.e("Error retrieving schedule")
                 })
 
-        var waitCount = 20
-        while(schedule == null && waitCount-- > 0){
+        var waitCount = 40
+        while (schedule == null && waitCount-- > 0) {
             try {
                 Thread.sleep(200)
-            }catch (e: InterruptedException){
+            } catch (e: InterruptedException) {
                 //no-op
             }
         }
@@ -62,8 +62,10 @@ class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
 
         if (userPrefsManager.notificationsDaysBeforeGame == 0) {//schedule notification for day of game
             Timber.d("Workmanager scheduling a game day notification")
-           // gameTime.add(Calendar.HOUR_OF_DAY, -2)
-            notificationManager.scheduleGameNotification(gameTime.time, nextGame)
+            gameTime.add(Calendar.HOUR_OF_DAY, -1)
+            if (gameTime.time.before(Date())) {
+                notificationManager.scheduleGameNotification(gameTime.time, nextGame)
+            }
         } else {
             Timber.d("Workmanager scheduling a day before game day notification")
             //schedule notification for the day before the game
