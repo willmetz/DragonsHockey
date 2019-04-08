@@ -38,15 +38,10 @@ class UserPrefsManager(private val context: Context) {
         get() = context.getSharedPreferences(SHARED_PREFS_KEY, Context.MODE_PRIVATE)
 
     var notificationsEnabled
-        get() = userPrefs.getBoolean(NOTIFICATIONS_ENABLED_KEY, true)
+        get() = userPrefs.getBoolean(NOTIFICATIONS_ENABLED_KEY, false)
         set(value) = userPrefs.edit().putBoolean(NOTIFICATIONS_ENABLED_KEY, value).apply()
 
     var notificationsDaysBeforeGame
         get() = userPrefs.getInt(NOTIFICATIONS_DAY_OF_GAME_KEY, 0)
         set(value) = userPrefs.edit().putInt(NOTIFICATIONS_DAY_OF_GAME_KEY, value).apply()
-
-
-    var notificationsHourOfDayMilitaryTime
-        get() = userPrefs.getInt(NOTIFICATIONS_HOUR_OF_DAY_KEY, 1600)
-        set(value) = userPrefs.edit().putInt(NOTIFICATIONS_HOUR_OF_DAY_KEY, value).apply()
 }

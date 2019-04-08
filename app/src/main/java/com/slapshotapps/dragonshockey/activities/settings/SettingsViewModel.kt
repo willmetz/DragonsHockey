@@ -27,9 +27,6 @@ class SettingsViewModel(private val userPrefsManager: UserPrefsManager, private 
         notificationsEnabled.set(userPrefsManager.notificationsEnabled)
     }
 
-    fun getDesiredNotificationTime(): Int {
-        return userPrefsManager.notificationsHourOfDayMilitaryTime
-    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onSaveData() {
