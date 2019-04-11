@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
 import com.slapshotapps.dragonshockey.Utils.ProgressBarUtils
+import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM
 import com.slapshotapps.dragonshockey.activities.stats.adapters.StatsAdapter
@@ -49,7 +50,7 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        analyticEventListener?.logContentSelectedEvent("Stats", "902")
+        analyticEventListener?.logContentSelectedEvent(HockeyAnalyticEvent.STATS_SELECTED)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.RecyclerViewDivider
+import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.activities.schedule.adapters.ScheduleAdapter
 import com.slapshotapps.dragonshockey.models.SeasonSchedule
@@ -35,7 +36,7 @@ class ScheduleFragment : HockeyFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        analyticEventListener?.logContentSelectedEvent("Schedule", "900")
+        analyticEventListener?.logContentSelectedEvent(HockeyAnalyticEvent.SCHEDULE_SELECTED)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

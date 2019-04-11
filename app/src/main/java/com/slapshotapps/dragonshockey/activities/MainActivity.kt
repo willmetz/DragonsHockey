@@ -10,6 +10,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.slapshotapps.dragonshockey.AnalyticEventListener
 import com.slapshotapps.dragonshockey.Config
 import com.slapshotapps.dragonshockey.R
+import com.slapshotapps.dragonshockey.Utils.logAnalyticEvent
 import com.slapshotapps.dragonshockey.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListener {
@@ -53,10 +54,7 @@ class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListen
         binding.toolbarProgressBar.visibility = View.GONE
     }
 
-    override fun logContentSelectedEvent(contentType: String, itemID: String) {
-        val bundle = Bundle()
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType)
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemID)
-        firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+    override fun logContentSelectedEvent(analyticEvent: HockeyAnalyticEvent) {
+        logAnalyticEvent(analyticEvent, firebaseAnalytics)
     }
 }

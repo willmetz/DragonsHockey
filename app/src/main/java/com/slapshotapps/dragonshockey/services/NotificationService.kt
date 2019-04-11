@@ -9,10 +9,13 @@ import android.os.Build
 import android.text.format.DateUtils
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.database.FirebaseDatabase
 import com.slapshotapps.dragonshockey.R
 import com.slapshotapps.dragonshockey.SCHEDULE_CHANNEL_ID
 import com.slapshotapps.dragonshockey.Utils.DateFormatter
+import com.slapshotapps.dragonshockey.Utils.logAnalyticEvent
+import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.MainActivity
 import com.slapshotapps.dragonshockey.models.Game
 import java.util.*
@@ -51,6 +54,9 @@ class NotificationService : IntentService("HockeyNotificationService") {
         val opponent = intent?.getStringExtra(GAME_OPPONENT_EXTRA)
 
         if (gameTime != null && homeGame != null && opponent != null) {
+
+            logAnalyticEvent(HockeyAnalyticEvent.NOTIFICATION_TRIGGERED, FirebaseAnalytics.getInstance(this))
+
             val notificationTitle = "Dragons Hockey Game"
             val gameTimeAsDate = Date(gameTime)
 

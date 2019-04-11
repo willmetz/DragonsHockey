@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.StaticHeaderDecoration
+import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.activities.roster.adapters.RosterAdapter
 import com.slapshotapps.dragonshockey.observables.RosterObserver
@@ -37,7 +38,7 @@ class RosterFragment : HockeyFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        analyticEventListener?.logContentSelectedEvent("Roster", "901")
+        analyticEventListener?.logContentSelectedEvent(HockeyAnalyticEvent.ROSTER_SELECTED)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.work.*
 import com.slapshotapps.dragonshockey.R
+import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.databinding.FragmentSettingsBinding
 import com.slapshotapps.dragonshockey.managers.NotificationManager
@@ -48,6 +49,10 @@ class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelLi
     }
 
     override fun onEnableNotifications() {
+
+        analyticEventListener?.logContentSelectedEvent(HockeyAnalyticEvent.NOTIFICATIONS_ENABLED)
+
+
         val constraints = Constraints.Builder()
                 .setRequiresBatteryNotLow(true)
                 .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -67,6 +72,8 @@ class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelLi
     }
 
     override fun onDisableNotifications() {
+        analyticEventListener?.logContentSelectedEvent(HockeyAnalyticEvent.NOTIFICATIONS_DISABLED)
+
         cancelNotificationWork(WorkManager.getInstance())
 
         enableBootReceiver(false)
