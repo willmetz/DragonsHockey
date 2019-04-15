@@ -32,7 +32,7 @@ class RecreateAlarmOnDeviceBoot: BroadcastReceiver() {
 
             val notificationWork = OneTimeWorkRequestBuilder<UpcomingGameChecker>()
                     .setConstraints(constraints)
-                    .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
+                    .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 2, TimeUnit.MINUTES)
                     .build()
 
             val workManager = WorkManager.getInstance()

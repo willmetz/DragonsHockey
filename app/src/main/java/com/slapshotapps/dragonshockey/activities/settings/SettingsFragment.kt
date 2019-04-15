@@ -1,8 +1,6 @@
 package com.slapshotapps.dragonshockey.activities.settings
 
 
-import android.content.ComponentName
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +14,6 @@ import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.databinding.FragmentSettingsBinding
 import com.slapshotapps.dragonshockey.managers.NotificationManager
 import com.slapshotapps.dragonshockey.managers.UserPrefsManager
-import com.slapshotapps.dragonshockey.receivers.RecreateAlarmOnDeviceBoot
 import com.slapshotapps.dragonshockey.workers.UpcomingGameChecker
 import java.util.concurrent.TimeUnit
 
@@ -84,13 +81,13 @@ class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelLi
     }
 
     private fun enableBootReceiver(enabled: Boolean) {
-        val receiver = ComponentName(context, RecreateAlarmOnDeviceBoot::class.java)
-
-        context?.packageManager?.setComponentEnabledSetting(
-                receiver,
-                if (enabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-        )
+//        val receiver = ComponentName(context, RecreateAlarmOnDeviceBoot::class.java)
+//
+//        context?.packageManager?.setComponentEnabledSetting(
+//                receiver,
+//                if (enabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+//                PackageManager.DONT_KILL_APP
+//        )
     }
 
 

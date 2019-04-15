@@ -63,7 +63,7 @@ class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
         if (userPrefsManager.notificationsDaysBeforeGame == 0) {//schedule notification for day of game
             Timber.d("Workmanager scheduling a game day notification")
             gameTime.add(Calendar.HOUR_OF_DAY, -1)
-            if (gameTime.time.before(Date())) {
+            if (Date().before(gameTime.time)) {
                 notificationManager.scheduleGameNotification(gameTime.time, nextGame)
             }
         } else {

@@ -18,6 +18,7 @@ import com.slapshotapps.dragonshockey.Utils.logAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.MainActivity
 import com.slapshotapps.dragonshockey.models.Game
+import timber.log.Timber
 import java.util.*
 
 const val SCHEDULE_NOTIFICATION_ID = 1234
@@ -27,6 +28,7 @@ const val GAME_TIME_EXTRA = "GAME_TIME_EXTRA"
 const val GAME_OPPONENT_EXTRA = "GAME_OPPONENT_EXTRA"
 const val GAME_HOME_EXTRA = "HOME_GAME_EXTRA"
 
+//TODO - delete as android 8 has restrictions on this running when the app is not in the foreground...
 class NotificationService : IntentService("HockeyNotificationService") {
 
     protected var firebaseDatabase: FirebaseDatabase? = null
@@ -35,6 +37,8 @@ class NotificationService : IntentService("HockeyNotificationService") {
         super.onCreate()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            Timber.d("Notification Service onCreate")
 
             val notification = NotificationCompat.Builder(applicationContext, SCHEDULE_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_dragon_eye_white)
@@ -47,6 +51,7 @@ class NotificationService : IntentService("HockeyNotificationService") {
 
     override fun onHandleIntent(intent: Intent?) {
 
+        Timber.d("Notification Service onHandleIntent")
         firebaseDatabase = FirebaseDatabase.getInstance()
 
         val gameTime = intent?.getLongExtra(GAME_TIME_EXTRA, 0L)
@@ -54,6 +59,8 @@ class NotificationService : IntentService("HockeyNotificationService") {
         val opponent = intent?.getStringExtra(GAME_OPPONENT_EXTRA)
 
         if (gameTime != null && homeGame != null && opponent != null) {
+
+            Timber.d("Notification Service game valid")
 
             logAnalyticEvent(HockeyAnalyticEvent.NOTIFICATION_TRIGGERED, FirebaseAnalytics.getInstance(this))
 
@@ -69,7 +76,10 @@ class NotificationService : IntentService("HockeyNotificationService") {
                         if (homeGame) "Home" else "Guest", opponent)
             }
 
-            displayNotification(notificationTitle, notificationText)
+            Timber.d("Notification Service, would send notification here")
+           // displayNotification(notificationTitle, notificationText)
+        }else {
+            Timber.d("Notification Service game NOT valid")
         }
     }
 

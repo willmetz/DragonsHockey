@@ -4,9 +4,10 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import com.slapshotapps.dragonshockey.models.Game
-import com.slapshotapps.dragonshockey.services.NotificationService
+import com.slapshotapps.dragonshockey.receivers.NotificationBroadcast
 import timber.log.Timber
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 const val ALARM_TOLERANCE_MINUTES = 5
@@ -19,19 +20,18 @@ class NotificationManager(private val context: Context) {
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
-        val windowStart = Calendar.getInstance()
-        windowStart.time = notificationTime
-        windowStart.add(Calendar.MINUTE, -1 * ALARM_TOLERANCE_MINUTES)
+        Timber.d("Scheduling a notification 2")
 
-        val windowEnd = Calendar.getInstance()
-        windowEnd.time = notificationTime
-        windowEnd.add(Calendar.MINUTE, ALARM_TOLERANCE_MINUTES)
+        val t = TimeUnit.MILLISECONDS.toSeconds(notificationTime.time - Date().time)
 
+        Timber.d("Scheduling alarm for: %d seconds ", t)
         alarmManager?.setWindow(
                 AlarmManager.RTC_WAKEUP,
-                windowStart.timeInMillis,
-                windowEnd.timeInMillis,
+                notificationTime.time,
+                TimeUnit.MINUTES.toMillis(5),
                 createGameNotificationIntent(game))
+
+        Timber.d("Scheduling a notification 3")
     }
 
     fun cancelGameNotifications() {
@@ -40,8 +40,9 @@ class NotificationManager(private val context: Context) {
     }
 
     private fun createGameNotificationIntent(game: Game? = null): PendingIntent {
-        val intent = NotificationService.createIntent(context, game)
+        val intent = NotificationBroadcast.createIntent(context, game)
 
-        return PendingIntent.getService(context, NOTIFICATION_ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        //need to use a broadcast service here as android 8 has restrictions on services started while the app is in the background
+        return PendingIntent.getBroadcast(context, NOTIFICATION_ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 }

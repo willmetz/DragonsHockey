@@ -50,15 +50,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <service android:name=".services.NotificationService"/>
+        <service android:name=".services.NotificationService" android:exported="false"/>
 
         <receiver android:name=".receivers.RecreateAlarmOnDeviceBoot"
-            android:enabled="false">
+            android:enabled="true" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".receivers.NotificationBroadcast" android:enabled="true" android:exported="false">
+
+        </receiver>
 
     </application>
 
