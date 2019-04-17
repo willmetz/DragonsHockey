@@ -5,33 +5,24 @@ import android.app.PendingIntent
 import android.content.Context
 import com.slapshotapps.dragonshockey.models.Game
 import com.slapshotapps.dragonshockey.receivers.NotificationBroadcast
-import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-const val ALARM_TOLERANCE_MINUTES = 5
+const val ALARM_TOLERANCE_MINUTES = 5L
 const val NOTIFICATION_ALARM_REQUEST_CODE = 123
 
 class NotificationManager(private val context: Context) {
 
     fun scheduleGameNotification(notificationTime: Date, game: Game) {
-        Timber.d("Scheduling a notification")
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
-        Timber.d("Scheduling a notification 2")
-
-        val t = TimeUnit.MILLISECONDS.toSeconds(notificationTime.time - Date().time)
-
-        Timber.d("Scheduling alarm for: %d seconds ", t)
         alarmManager?.setWindow(
                 AlarmManager.RTC_WAKEUP,
                 notificationTime.time,
-                TimeUnit.MINUTES.toMillis(5),
+                TimeUnit.MINUTES.toMillis(ALARM_TOLERANCE_MINUTES),
                 createGameNotificationIntent(game))
-
-        Timber.d("Scheduling a notification 3")
     }
 
     fun cancelGameNotifications() {

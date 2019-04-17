@@ -53,14 +53,15 @@
         <service android:name=".services.NotificationService" android:exported="false"/>
 
         <receiver android:name=".receivers.RecreateAlarmOnDeviceBoot"
-            android:enabled="true" android:exported="false">
+            android:enabled="false" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".receivers.NotificationBroadcast" android:enabled="true" android:exported="false">
+        <receiver android:name=".receivers.NotificationBroadcast"
+            android:enabled="false" android:exported="false">
 
         </receiver>
 

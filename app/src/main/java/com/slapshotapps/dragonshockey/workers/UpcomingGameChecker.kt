@@ -15,30 +15,22 @@ import java.util.*
 class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
     : Worker(appContext, workerParams) {
 
-    private var firebaseDatabase: FirebaseDatabase? = null
-
     override fun doWork(): Result {
-
-        Timber.d("Workmanager work started")
         val userPrefsManager = UserPrefsManager(applicationContext)
 
         if (!userPrefsManager.notificationsEnabled) {
             return Result.success()
         }
 
-        Timber.d("Workmanager work notifications enabled")
-
-        firebaseDatabase = FirebaseDatabase.getInstance()
-
         var schedule: SeasonSchedule? = null
-        ScheduleObserver.getHockeySchedule(firebaseDatabase)
+        ScheduleObserver.getHockeySchedule(FirebaseDatabase.getInstance())
                 .subscribe({ seasonSchedule: SeasonSchedule? ->
                     schedule = seasonSchedule
                 }, {
                     Timber.e("Error retrieving schedule")
                 })
 
-        var waitCount = 40
+        var waitCount = 50
         while (schedule == null && waitCount-- > 0) {
             try {
                 Thread.sleep(200)
@@ -47,11 +39,7 @@ class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
             }
         }
 
-        Timber.d("Workmanager done waiting for schedule")
-
         val seasonSchedule = schedule ?: return Result.failure()
-
-        Timber.d("Workmanager schedule is not null")
 
         val nextGame = ScheduleUtils.getGameAfterDate(Date(), seasonSchedule.allGames)
                 ?: return Result.success()
@@ -61,13 +49,11 @@ class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
         val notificationManager = NotificationManager(applicationContext)
 
         if (userPrefsManager.notificationsDaysBeforeGame == 0) {//schedule notification for day of game
-            Timber.d("Workmanager scheduling a game day notification")
             gameTime.add(Calendar.HOUR_OF_DAY, -1)
             if (Date().before(gameTime.time)) {
                 notificationManager.scheduleGameNotification(gameTime.time, nextGame)
             }
         } else {
-            Timber.d("Workmanager scheduling a day before game day notification")
             //schedule notification for the day before the game
             gameTime.add(Calendar.DAY_OF_YEAR, -1)
             notificationManager.scheduleGameNotification(gameTime.time, nextGame)

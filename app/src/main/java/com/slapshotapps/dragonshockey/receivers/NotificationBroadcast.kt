@@ -28,16 +28,11 @@ class NotificationBroadcast : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
-        Timber.d("Notification Broadcast onHandleIntent")
-
         val gameTime = intent.getLongExtra(GAME_TIME_EXTRA, 0L)
         val homeGame = intent.getBooleanExtra(GAME_HOME_EXTRA, false)
         val opponent = intent.getStringExtra(GAME_OPPONENT_EXTRA)
 
         if (opponent != null) {
-
-            Timber.d("Notification Broadcast game valid")
-
             val notificationTitle = "Dragons Hockey Game"
             val gameTimeAsDate = Date(gameTime)
 
@@ -55,7 +50,7 @@ class NotificationBroadcast : BroadcastReceiver() {
 
             logAnalyticEvent(HockeyAnalyticEvent.NOTIFICATION_TRIGGERED, FirebaseAnalytics.getInstance(context))
         } else {
-            Timber.d("Notification Broadcast game NOT valid")
+            Timber.e("Notification Broadcast game NOT valid")
         }
     }
 

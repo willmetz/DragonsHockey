@@ -9,9 +9,7 @@ class UserPrefsManager(private val context: Context) {
     private val SHARED_PREFS_KEY = "HockeyPreferences"
     private val SORT_SELECTION_KEY = "sortSelection"
     private val NOTIFICATIONS_ENABLED_KEY = "notificationsEnabled"
-    private val NOTIFICATIONS_DAY_OF_GAME_KEY = "notificationsDayBeforeGame"
-    private val NOTIFICATIONS_HOUR_OF_DAY_KEY = "notificationsHourOfDay"
-
+    private val NOTIFICATIONS_DAYS_BEFORE_GAME_KEY = "notificationsDayBeforeGame"
     var statSortPreference: StatSortSelection
         get() {
             val sortIndex = userPrefs.getInt(SORT_SELECTION_KEY, StatSortSelection.Points.index)
@@ -42,6 +40,6 @@ class UserPrefsManager(private val context: Context) {
         set(value) = userPrefs.edit().putBoolean(NOTIFICATIONS_ENABLED_KEY, value).apply()
 
     var notificationsDaysBeforeGame
-        get() = userPrefs.getInt(NOTIFICATIONS_DAY_OF_GAME_KEY, 0)
-        set(value) = userPrefs.edit().putInt(NOTIFICATIONS_DAY_OF_GAME_KEY, value).apply()
+        get() = userPrefs.getInt(NOTIFICATIONS_DAYS_BEFORE_GAME_KEY, 0)
+        set(value) = userPrefs.edit().putInt(NOTIFICATIONS_DAYS_BEFORE_GAME_KEY, value).apply()
 }

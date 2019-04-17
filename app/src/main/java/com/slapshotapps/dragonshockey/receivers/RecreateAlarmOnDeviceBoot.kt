@@ -6,7 +6,6 @@ import android.content.Intent
 import androidx.work.*
 import com.slapshotapps.dragonshockey.managers.UserPrefsManager
 import com.slapshotapps.dragonshockey.workers.UpcomingGameChecker
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 
@@ -14,10 +13,7 @@ class RecreateAlarmOnDeviceBoot: BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
-        Timber.d("Received broadcast")
         if (intent.action == "android.intent.action.BOOT_COMPLETED") {
-
-            Timber.d("Received on boot")
 
             val prefsManager = UserPrefsManager(context)
 
@@ -25,7 +21,6 @@ class RecreateAlarmOnDeviceBoot: BroadcastReceiver() {
                 return
             }
 
-            Timber.d("notifications are enabled")
             val constraints = Constraints.Builder()
                     .setRequiredNetworkType(NetworkType.CONNECTED)
                     .build()
