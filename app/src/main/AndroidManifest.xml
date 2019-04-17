@@ -50,8 +50,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <service android:name=".services.NotificationService" android:exported="false"/>
-
         <receiver android:name=".receivers.RecreateAlarmOnDeviceBoot"
             android:enabled="false" android:exported="false">
             <intent-filter>
