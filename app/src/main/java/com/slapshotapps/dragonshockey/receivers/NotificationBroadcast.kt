@@ -16,12 +16,14 @@ import com.slapshotapps.dragonshockey.Utils.logAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.MainActivity
 import com.slapshotapps.dragonshockey.models.Game
-import com.slapshotapps.dragonshockey.services.GAME_HOME_EXTRA
-import com.slapshotapps.dragonshockey.services.GAME_NOTIFICATION_ID
-import com.slapshotapps.dragonshockey.services.GAME_OPPONENT_EXTRA
-import com.slapshotapps.dragonshockey.services.GAME_TIME_EXTRA
 import timber.log.Timber
 import java.util.*
+
+const val GAME_NOTIFICATION_ID = 2345
+
+const val GAME_TIME_EXTRA = "GAME_TIME_EXTRA"
+const val GAME_OPPONENT_EXTRA = "GAME_OPPONENT_EXTRA"
+const val GAME_HOME_EXTRA = "HOME_GAME_EXTRA"
 
 
 class NotificationBroadcast : BroadcastReceiver() {
