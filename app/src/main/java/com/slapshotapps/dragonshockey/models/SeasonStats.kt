@@ -5,14 +5,11 @@ import androidx.annotation.Keep
 @Keep
 class SeasonStats() {
 
-    var stats: ArrayList<GameStats>
+    @Keep
+    @JvmField
+    var stats = ArrayList<GameStats>()
 
-    var seasonID: String
-
-    init {
-        stats = ArrayList()
-        seasonID = ""
-    }
+    var seasonID = ""
 
     constructor(seasonID: String) : this() {
         this.seasonID = seasonID

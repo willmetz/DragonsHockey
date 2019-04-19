@@ -52,7 +52,7 @@ public class StatsObserver {
                                 GameStats stats = snapshot.getValue(GameStats.class);
 
                                 //populate the internal list of players details per game
-                                stats.setGameStats(new ArrayList<GameStats.Stats>());
+                                stats.gameStats = new ArrayList<GameStats.Stats>();
                                 for (DataSnapshot childListSnapshot : snapshot.child("stats")
                                         .getChildren()) {
                                     GameStats.Stats playerGameStats =

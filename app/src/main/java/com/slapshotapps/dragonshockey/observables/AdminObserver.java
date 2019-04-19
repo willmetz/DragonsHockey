@@ -165,10 +165,10 @@ public class AdminObserver {
                                     gameStats.setKey(child.getKey());
 
                                     //populate the internal list of players details per game
-                                    gameStats.setGameStats(new ArrayList<GameStats.Stats>());
+                                    gameStats.gameStats = new ArrayList<>();
                                     for (DataSnapshot childListSnapshot : child.child("stats")
                                             .getChildren()) {
-                                        gameStats.getGameStats().add(
+                                        gameStats.gameStats.add(
                                                 childListSnapshot.getValue(GameStats.Stats.class));
                                     }
                                 }

@@ -11,3 +11,4 @@
 fabric.properties
 runConfigurations.xml
 *.keystore
+*.aab

@@ -12,6 +12,7 @@ class GameStats {
 
     var gameID: Int = 0
 
+    @JvmField
     @PropertyName("stats")
     var gameStats: List<Stats>? = null
 

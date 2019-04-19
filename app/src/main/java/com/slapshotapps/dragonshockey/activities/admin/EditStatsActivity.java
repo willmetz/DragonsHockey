@@ -137,7 +137,7 @@ public class EditStatsActivity extends AppCompatActivity {
         GameStats gameStats = new GameStats();
 
         gameStats.setGameID(gameID);
-        gameStats.setGameStats(new ArrayList<>());
+        gameStats.gameStats = new ArrayList<>();
 
         for (AdminStatsViewModel adminStatsViewModel : adminStatsViewModelList) {
             GameStats.Stats stats = new GameStats.Stats();
@@ -148,7 +148,7 @@ public class EditStatsActivity extends AppCompatActivity {
             stats.setPenaltyMinutes(Integer.valueOf(adminStatsViewModel.getPenaltyMinutes()));
             stats.setGoalsAgainst(Integer.valueOf(adminStatsViewModel.getGoalsAgainst()));
 
-            gameStats.getGameStats().add(stats);
+            gameStats.gameStats.add(stats);
         }
 
         return gameStats;
