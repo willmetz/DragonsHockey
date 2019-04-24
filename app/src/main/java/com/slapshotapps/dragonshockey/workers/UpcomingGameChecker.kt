@@ -11,6 +11,7 @@ import com.slapshotapps.dragonshockey.models.SeasonSchedule
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver
 import timber.log.Timber
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
     : Worker(appContext, workerParams) {
@@ -49,13 +50,18 @@ class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
         val notificationManager = NotificationManager(applicationContext)
 
         if (userPrefsManager.notificationsDaysBeforeGame == 0) {//schedule notification for day of game
-            gameTime.add(Calendar.HOUR_OF_DAY, -1)
-            if (Date().before(gameTime.time)) {
-                notificationManager.scheduleGameNotification(gameTime.time, nextGame)
+            val notificationTime = gameTime.timeInMillis - TimeUnit.MINUTES.toMillis(90)
+            val notificationDate = Date(notificationTime)
+
+            if (Date().before(notificationDate)) {
+                notificationManager.scheduleGameNotification(notificationDate, nextGame)
             }
         } else {
-            //schedule notification for the day before the game
+            //schedule notification for the day before the game at 6pm
             gameTime.add(Calendar.DAY_OF_YEAR, -1)
+            gameTime.set(Calendar.HOUR_OF_DAY, 18)
+            gameTime.set(Calendar.MINUTE, 0)
+            gameTime.set(Calendar.SECOND, 0)
             notificationManager.scheduleGameNotification(gameTime.time, nextGame)
         }
 
