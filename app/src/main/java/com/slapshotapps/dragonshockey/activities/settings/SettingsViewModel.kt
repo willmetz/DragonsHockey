@@ -31,16 +31,22 @@ class SettingsViewModel(private val userPrefsManager: UserPrefsManager, private 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onSaveData() {
         val notificationStateOnUI = notificationsEnabled.get()
-        userPrefsManager.notificationsDaysBeforeGame = if (dayOfGameSelected.get()) 0 else 1
 
+        val notificationSetupChanged = notificationStateOnUI != userPrefsManager.notificationsEnabled ||
+                (dayOfGameSelected.get() && userPrefsManager.notificationsDaysBeforeGame != 0) ||
+                (!dayOfGameSelected.get() && userPrefsManager.notificationsDaysBeforeGame == 0)
 
-        if (notificationStateOnUI && !userPrefsManager.notificationsEnabled) {
-            userPrefsManager.notificationsEnabled = true
-            listener.onEnableNotifications()
-        } else if (!notificationStateOnUI && userPrefsManager.notificationsEnabled) {
-            userPrefsManager.notificationsEnabled = false
-            listener.onDisableNotifications()
-            notificationManager.cancelGameNotifications()
+        if (notificationSetupChanged) {
+            userPrefsManager.notificationsDaysBeforeGame = if (dayOfGameSelected.get()) 0 else 1
+            userPrefsManager.notificationsEnabled = notificationStateOnUI
+
+            if (notificationStateOnUI) {
+                listener.onEnableNotifications()
+            } else if (!notificationStateOnUI) {
+                listener.onDisableNotifications()
+                notificationManager.cancelGameNotifications()
+            }
         }
+
     }
 }

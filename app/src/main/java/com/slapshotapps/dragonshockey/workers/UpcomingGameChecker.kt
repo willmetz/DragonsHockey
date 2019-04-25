@@ -62,7 +62,9 @@ class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
             gameTime.set(Calendar.HOUR_OF_DAY, 18)
             gameTime.set(Calendar.MINUTE, 0)
             gameTime.set(Calendar.SECOND, 0)
-            notificationManager.scheduleGameNotification(gameTime.time, nextGame)
+            if (Date().before(gameTime.time)) {
+                notificationManager.scheduleGameNotification(gameTime.time, nextGame)
+            }
         }
 
         return Result.success()
