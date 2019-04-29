@@ -1,10 +1,11 @@
 package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 
-import androidx.annotation.NonNull;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DateFormaters;
+import com.slapshotapps.dragonshockey.Utils.DateFormatter;
 import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.models.Game;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created on 10/15/16.
@@ -20,19 +21,19 @@ public class GameListItem extends ListItem {
     }
 
     public String getGameID() {
-        return String.valueOf(game.gameID);
+        return String.valueOf(game.getGameID());
     }
 
     public String getGameDate() {
-        return DateFormaters.getGameTime(game.gameTimeToDate());
+        return DateFormatter.INSTANCE.getGameTime(game.gameTimeToDate());
     }
 
     public String getGameOpponent() {
-        return game.opponent;
+        return game.getOpponent();
     }
 
     public String getGameResult() {
-        return FormattingUtils.getGameScore(game.gameResult, game.opponent);
+        return FormattingUtils.getGameScore(game.getGameResult(), game.getOpponent());
     }
 
     public Game getGame() {

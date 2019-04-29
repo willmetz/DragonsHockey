@@ -17,7 +17,9 @@
     <string name="tie_header">T</string>
     <string name="roster_caps">ROSTER</string>
     <string name="today_gameday">"Today %1$s (%2$s)"</string>
+    <string name="today_gameday_notification">"Today %1$s (%2$s) vrs %3$s"</string>
     <string name="gameday">"%1$s (%2$s)"</string>
+    <string name="gameday_notification">"%1$s (%2$s) vrs %3$s"</string>
     <string name="error_loading">Error loading data, check internet and please try again</string>
     <string name="title_activity_stats">StatsActivity</string>
     <string name="goals">Goals</string>
@@ -26,9 +28,9 @@
     <string name="points">Points</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="sign_in_with_google">This feature requires authentication to access</string>
-    <string name="stats_title">Dragons Stats</string>
-    <string name="roster_title">Dragons Roster</string>
-    <string name="schedule_title">Dragons Schedule</string>
+    <string name="stats_title">Stats</string>
+    <string name="roster_title">Roster</string>
+    <string name="schedule_title">Schedule</string>
     <string name="auth_title">Admin Auth</string>
     <string name="game_id">Game ID:</string>
     <string name="game_date">Game Date:</string>
@@ -44,7 +46,9 @@
     <string name="try_again">Your login was incorrect, please try again</string>
     <string name="unauthorized">Unauthorized</string>
     <string name="PIM_label">PIM</string>
-    
+    <string name="schedule_notification_channel">Hockey Schedule Notifications</string>
+    <string name="schedule_notification_channel_desc">Dragons Hockey Game Notifications</string>
+
     <string-array name="stat_sort_options">
         <item>Games Played</item>
         <item>Goals</item>

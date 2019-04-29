@@ -1,98 +1,119 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
 
 repositories {
-    maven { url 'https://maven.google.com/' }
-    google()
+  maven { url 'https://maven.google.com/' }
+  google()
 }
 
 
 android {
-    signingConfigs {
-        prodConfig {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('standardDebug.keystore')
-            storePassword 'android'
-        }
-
-        certConfig {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('cert.keystore')
-            storePassword 'android'
-        }
+  signingConfigs {
+    prodConfig {
+      keyAlias 'androiddebugkey'
+      keyPassword 'android'
+      storeFile file('standardDebug.keystore')
+      storePassword 'android'
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    certConfig {
+      keyAlias 'androiddebugkey'
+      keyPassword 'android'
+      storeFile file('cert.keystore')
+      storePassword 'android'
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  compileSdkVersion 28
+  defaultConfig {
+    applicationId "com.slapshotapps.dragonshockey"
+    minSdkVersion 21
+    targetSdkVersion 28
+    versionCode 24
+    versionName "2.00"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  flavorDimensions "main"
+
+  productFlavors {
+    cert {
+      dimension "main"
     }
 
-    compileSdkVersion 28
-    buildToolsVersion '28.0.2'
-    defaultConfig {
-        applicationId "com.slapshotapps.dragonshockey"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 20
-        versionName "1.15"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    prod {
+      dimension "main"
+    }
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
 
-    flavorDimensions "main"
-
-    productFlavors {
-        cert {
-            dimension "main"
-        }
-
-        prod {
-            dimension "main"
-        }
+    dev {
+      productFlavors.cert.signingConfig signingConfigs.certConfig
+      productFlavors.prod.signingConfig signingConfigs.prodConfig
     }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-        dev {
-            productFlavors.cert.signingConfig signingConfigs.certConfig
-            productFlavors.prod.signingConfig signingConfigs.prodConfig
-        }
-    }
+  }
 
 
 
-    dataBinding {
-        enabled = true
-    }
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
 
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0-alpha01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    implementation "com.google.firebase:firebase-database:16.0.5"
-    implementation "com.google.android.gms:play-services-auth:16.0.1"
-    implementation "com.google.firebase:firebase-auth:16.0.5"
-    implementation "com.google.firebase:firebase-core:16.0.5"
-    implementation 'io.reactivex:rxjava:1.2.2'
-    implementation 'io.reactivex:rxandroid:1.2.1'
-    // And ProGuard rules for RxJava!
-    implementation 'com.artemzin.rxjava:proguard-rules:1.2.2.0'
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.jakewharton.timber:timber:4.5.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation "androidx.test:runner:1.1.0"
-    androidTestImplementation 'androidx.annotation:annotation:1.0.0'
+  //navigation
+  implementation "androidx.navigation:navigation-fragment:$nav_version" // For Kotlin use navigation-fragment-ktx
+  implementation "androidx.navigation:navigation-ui:$nav_version" // For Kotlin use navigation-ui-ktx
+
+  //android x
+  implementation 'androidx.appcompat:appcompat:1.0.2'
+  implementation 'androidx.cardview:cardview:1.0.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+  implementation "androidx.work:work-runtime-ktx:2.0.0-rc01"
+
+  //firebase
+  implementation "com.google.firebase:firebase-database:16.0.6"
+  implementation "com.google.android.gms:play-services-auth:16.0.1"
+  implementation "com.google.firebase:firebase-auth:16.1.0"
+  implementation "com.google.firebase:firebase-core:16.0.7"
+
+  //android
+  implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+  implementation 'com.google.android.material:material:1.1.0-alpha04'
+  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+  kapt "com.android.databinding:compiler:3.3.1"
+
+
+  //wharton
+  implementation 'com.jakewharton:butterknife:8.8.1'
+
+
+  //RX Java
+  implementation 'io.reactivex:rxjava:1.2.2'
+  implementation 'io.reactivex:rxandroid:1.2.1'
+  implementation 'com.artemzin.rxjava:proguard-rules:1.2.2.0'
+
+  implementation 'com.jakewharton.timber:timber:4.5.1'
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation "androidx.test:runner:1.1.0"
+  androidTestImplementation 'androidx.annotation:annotation:1.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
-

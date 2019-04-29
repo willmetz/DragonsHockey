@@ -1,9 +1,12 @@
 package com.slapshotapps.dragonshockey.Utils;
 
-import androidx.annotation.NonNull;
 import android.util.SparseArray;
+
 import com.slapshotapps.dragonshockey.models.PlayerStats;
+
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by willmetz on 9/12/16.
@@ -24,9 +27,9 @@ public class StatsUtils {
 
     public static String fullPlayerName(@NonNull PlayerStats playerStats) {
 
-        String name = playerStats.firstName != null ? playerStats.firstName : "";
+        String name = playerStats.getFirstName() != null ? playerStats.getFirstName() : "";
 
-        name += playerStats.lastName != null ? " " + playerStats.lastName : "";
+        name += playerStats.getLastName() != null ? " " + playerStats.getLastName() : "";
 
         return name;
     }

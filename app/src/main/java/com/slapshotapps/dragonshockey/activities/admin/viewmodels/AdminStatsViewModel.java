@@ -71,15 +71,15 @@ public class AdminStatsViewModel {
 
         public AdminStatsViewModel build() {
             return new AdminStatsViewModel(this.playerName, this.goals, this.assists,
-                this.playerID, this.playerNumber, this.isPresent, this.penaltyMinutes,
-                this.position, this.goalsAgainst);
+                    this.playerID, this.playerNumber, this.isPresent, this.penaltyMinutes,
+                    this.position, this.goalsAgainst);
         }
     }
 
     public AdminStatsViewModel(String playerName, int goals, int assists,
-        int playerID, int playerNumber,
-        boolean isPresent, int penaltyMinutes,
-        PlayerPosition position, int goalsAgainst) {
+                               int playerID, int playerNumber,
+                               boolean isPresent, int penaltyMinutes,
+                               PlayerPosition position, int goalsAgainst) {
         this.playerID = playerID;
         this.assists = assists;
         this.goals = goals;

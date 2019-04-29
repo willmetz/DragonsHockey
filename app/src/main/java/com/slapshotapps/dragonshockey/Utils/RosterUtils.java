@@ -1,6 +1,7 @@
 package com.slapshotapps.dragonshockey.Utils;
 
 import com.slapshotapps.dragonshockey.models.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,9 @@ public class RosterUtils {
 
         if (player != null) {
 
-            playerName = player.firstName != null ? formatName(player.firstName) : "";
+            playerName = player.getFirstName() != null ? formatName(player.getFirstName()) : "";
 
-            playerName += player.lastName != null ? " " + formatName(player.lastName) : "";
+            playerName += player.getLastName() != null ? " " + formatName(player.getLastName()) : "";
         }
 
         return playerName;
@@ -27,7 +28,7 @@ public class RosterUtils {
         String number = "??";
 
         if (player != null) {
-            number = String.valueOf(player.number);
+            number = String.valueOf(player.getNumber());
         }
 
         return number;

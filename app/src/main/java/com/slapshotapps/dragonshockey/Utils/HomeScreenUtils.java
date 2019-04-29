@@ -1,7 +1,8 @@
 package com.slapshotapps.dragonshockey.Utils;
 
-import androidx.annotation.Nullable;
 import com.slapshotapps.dragonshockey.models.GameResult;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by willmetz on 8/20/16.
@@ -10,25 +11,25 @@ import com.slapshotapps.dragonshockey.models.GameResult;
 public class HomeScreenUtils {
     public static boolean wasWin(@Nullable GameResult gameResult) {
         if (gameResult != null) {
-            return gameResult.dragonsScore > gameResult.opponentScore;
+            return gameResult.getDragonsScore() > gameResult.getOpponentScore();
         }
 
         return false;
     }
 
     public static boolean wasOvertimeLoss(@Nullable GameResult gameResult) {
-        return gameResult != null && gameResult.overtimeLoss;
+        return gameResult != null && gameResult.getOvertimeLoss();
     }
 
     public static boolean wasLoss(@Nullable GameResult gameResult) {
         if (gameResult != null && !wasOvertimeLoss(gameResult)) {
-            return gameResult.dragonsScore < gameResult.opponentScore;
+            return gameResult.getDragonsScore() < gameResult.getOpponentScore();
         }
 
         return false;
     }
 
     public static boolean wasTie(@Nullable GameResult gameResult) {
-        return gameResult != null && gameResult.dragonsScore == gameResult.opponentScore;
+        return gameResult != null && gameResult.getDragonsScore() == gameResult.getOpponentScore();
     }
 }

@@ -1,12 +1,15 @@
 package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
+
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DateFormaters;
+import com.slapshotapps.dragonshockey.Utils.DateFormatter;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameResult;
+
 import java.util.Date;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created on 10/16/16.
@@ -21,59 +24,58 @@ public class AdminGameViewModel {
 
         try {
             originalGame = game.clone();
-        }
-        catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException e) {
             originalGame = new Game();
         }
     }
 
     public String getGameID(Context context) {
-        return context.getString(R.string.edit_game_game_id, game.gameID);
+        return context.getString(R.string.edit_game_game_id, game.getGameID());
     }
 
     public String getOpponentName() {
-        return game.opponent == null ? "" : game.opponent;
+        return game.getOpponent() == null ? "" : game.getOpponent();
     }
 
     public void setOpponentName(String name) {
-        game.opponent = name;
+        game.setOpponent(name);
     }
 
     public void setOpponentScore(String score) {
-        if (game.gameResult == null) {
+        if (game.getGameResult() == null) {
             createGameResult();
         }
 
         if (score == null || score.isEmpty()) {
-            game.gameResult.opponentScore = 0;
+            game.getGameResult().setOpponentScore(0);
         } else {
-            game.gameResult.opponentScore = Integer.valueOf(score);
+            game.getGameResult().setOpponentScore(Integer.valueOf(score));
         }
     }
 
     public String getOpponentScore() {
-        if (game.gameResult != null) {
-            return String.valueOf(game.gameResult.opponentScore);
+        if (game.getGameResult() != null) {
+            return String.valueOf(game.getGameResult().getOpponentScore());
         } else {
             return "";
         }
     }
 
     public void setDragonsScore(String score) {
-        if (game.gameResult == null) {
+        if (game.getGameResult() == null) {
             createGameResult();
         }
 
         if (score == null || score.isEmpty()) {
-            game.gameResult.dragonsScore = 0;
+            game.getGameResult().setDragonsScore(0);
         } else {
-            game.gameResult.dragonsScore = Integer.valueOf(score);
+            game.getGameResult().setDragonsScore(Integer.valueOf(score));
         }
     }
 
     public String getDragonsScore() {
-        if (game.gameResult != null) {
-            return String.valueOf(game.gameResult.dragonsScore);
+        if (game.getGameResult() != null) {
+            return String.valueOf(game.getGameResult().getDragonsScore());
         } else {
             return "";
         }
@@ -84,15 +86,15 @@ public class AdminGameViewModel {
     }
 
     public void setGameDate(Date gameDate) {
-        game.gameTime = DateFormaters.convertDateToGameTime(gameDate);
+        game.setGameTime(DateFormatter.INSTANCE.convertDateToGameTime(gameDate));
     }
 
     public String getGameDateAsString() {
-        return DateFormaters.getGameDate(game.gameTimeToDate());
+        return DateFormatter.INSTANCE.getGameDate(game.gameTimeToDate());
     }
 
     public String getGameTimeAsString() {
-        return DateFormaters.getGameTime(game.gameTimeToDate());
+        return DateFormatter.INSTANCE.getGameTime(game.gameTimeToDate());
     }
 
     public boolean hasChanged() {
@@ -104,19 +106,19 @@ public class AdminGameViewModel {
     }
 
     public boolean getOTL() {
-        return game.gameResult != null && game.gameResult.overtimeLoss;
+        return game.getGameResult() != null && game.getGameResult().getOvertimeLoss();
     }
 
     public void setOTL(boolean isOTL) {
-        if (game.gameResult == null) {
+        if (game.getGameResult() == null) {
             createGameResult();
         }
 
-        game.gameResult.overtimeLoss = isOTL;
+        game.getGameResult().setOvertimeLoss(isOTL);
     }
 
     private void createGameResult() {
-        game.gameResult = new GameResult();
-        game.gameResult.gameID = originalGame.gameID;
+        game.setGameResult(new GameResult());
+        game.getGameResult().setGameID(originalGame.getGameID());
     }
 }

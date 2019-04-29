@@ -4,6 +4,7 @@ import com.slapshotapps.dragonshockey.R;
 import com.slapshotapps.dragonshockey.Utils.BaseDataBindingAdapter;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminStatsViewModel;
 import com.slapshotapps.dragonshockey.models.PlayerPosition;
+
 import java.util.ArrayList;
 
 /**
@@ -41,7 +42,7 @@ public class AdminEditsStatsAdapter extends BaseDataBindingAdapter {
     @Override
     protected int getLayoutIdForPosition(int position) {
         return isGoalie(position) ? R.layout.view_admin_stats_goalie_card
-            : R.layout.view_admin_stats_player_card;
+                : R.layout.view_admin_stats_player_card;
     }
 
     @Override

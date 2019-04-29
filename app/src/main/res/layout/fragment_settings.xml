@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.slapshotapps.dragonshockey.activities.settings.SettingsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.settings.SettingsFragment">
+
+
+        <Switch
+            android:id="@+id/enable_disable_notifications"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:checked="@={item.notificationsEnabled}"
+            android:text="Notifications"
+            app:layout_constraintBottom_toBottomOf="@id/notification_options_group"
+            app:layout_constraintEnd_toStartOf="@id/notification_options_group"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/notification_options_group" />
+
+        <RadioGroup
+            android:id="@+id/notification_options_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/enable_disable_notifications"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/day_before_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={item.dayBeforeGameSelected}"
+                android:enabled="@{item.notificationsEnabled}"
+                android:text="Day Before Game" />
+
+            <RadioButton
+                android:id="@+id/day_of_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={item.dayOfGameSelected}"
+                android:enabled="@{item.notificationsEnabled}"
+                android:text="Day Of Game" />
+
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

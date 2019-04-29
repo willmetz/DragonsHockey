@@ -2,6 +2,7 @@ package com.slapshotapps.dragonshockey.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.slapshotapps.dragonshockey.Config;
 
 /**

@@ -1,9 +1,11 @@
 package com.slapshotapps.dragonshockey.Utils;
 
-import androidx.annotation.Nullable;
 import com.slapshotapps.dragonshockey.models.Game;
+
 import java.util.Date;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by willmetz on 5/30/16.
@@ -13,7 +15,7 @@ public class ScheduleUtils {
     /**
      * Gets the game before the date given.
      *
-     * @param date Date to get game before
+     * @param date                       Date to get game before
      * @param gamesSortedChronologically A sorted list of games (chronologically sorted)
      * @return The game before the date in the list or null
      */
@@ -39,6 +41,7 @@ public class ScheduleUtils {
         return foundGame;
     }
 
+    @Nullable
     public static Game getGameAfterDate(Date date, List<Game> gamesSortedChronologically) {
 
         if (gamesSortedChronologically == null || gamesSortedChronologically.size() == 0) {

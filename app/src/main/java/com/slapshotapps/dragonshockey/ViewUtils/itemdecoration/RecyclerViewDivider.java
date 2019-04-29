@@ -3,9 +3,10 @@ package com.slapshotapps.dragonshockey.ViewUtils.itemdecoration;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.view.View;
+
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 
 /**
  * A class to draw a divider in a recycler view.
