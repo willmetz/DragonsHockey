@@ -32,6 +32,9 @@ class HomeFragment : HockeyFragment() {
 
         setHasOptionsMenu(true)
 
+        val listener = actionBarListener
+        listener?.setTitle(getString(R.string.dragons_hockey))
+
         return binding.root
     }
 
@@ -47,8 +50,7 @@ class HomeFragment : HockeyFragment() {
             Timber.e("Unable to set persistance for Firebase")
         }
 
-        val listener = actionBarListener
-        listener?.setTitle(getString(R.string.dragons_hockey))
+
     }
 
     override fun onResume() {

@@ -42,8 +42,8 @@ android {
     applicationId "com.slapshotapps.dragonshockey"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 24
-    versionName "2.00"
+    versionCode 25
+    versionName "2.10"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
@@ -100,7 +100,7 @@ dependencies {
 
   //android
   implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
-  implementation 'com.google.android.material:material:1.1.0-alpha04'
+  implementation 'com.google.android.material:material:1.1.0-alpha10'
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   kapt "com.android.databinding:compiler:3.3.1"
 
