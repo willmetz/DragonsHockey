@@ -85,7 +85,7 @@ class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelLi
     }
 
     private fun enableBroadcastReceivers(enabled: Boolean) {
-        val bootBroadcastReceiver = ComponentName(context, RecreateAlarmOnDeviceBoot::class.java)
+        val bootBroadcastReceiver = ComponentName(context!!, RecreateAlarmOnDeviceBoot::class.java)
 
         context?.packageManager?.setComponentEnabledSetting(
                 bootBroadcastReceiver,
@@ -93,7 +93,7 @@ class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelLi
                 PackageManager.DONT_KILL_APP
         )
 
-        val notificationBroadcastReceiver = ComponentName(context, NotificationBroadcast::class.java)
+        val notificationBroadcastReceiver = ComponentName(context!!, NotificationBroadcast::class.java)
         context?.packageManager?.setComponentEnabledSetting(
                 notificationBroadcastReceiver,
                 if (enabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,

@@ -37,11 +37,11 @@ android {
     jvmTarget = JavaVersion.VERSION_1_8
   }
 
-  compileSdkVersion 28
+  compileSdkVersion 29
   defaultConfig {
     applicationId "com.slapshotapps.dragonshockey"
     minSdkVersion 21
-    targetSdkVersion 28
+    targetSdkVersion 29
     versionCode 25
     versionName "2.10"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

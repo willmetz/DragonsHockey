@@ -15,7 +15,7 @@ class PlayerStatsVM(val playerStats: PlayerStats,
         get() = StatsUtils.fullPlayerName(playerStats)
 
     val lastName: String
-        get() = playerStats.lastName
+        get() = playerStats.lastName!!
 
     val goals: String
         get() = playerStats.goals.toString()
@@ -99,7 +99,7 @@ class PlayerStatsVM(val playerStats: PlayerStats,
         } else if (playerStats.points > Integer.valueOf(playerStatsVM.points)) {
             return -1
         }
-        return playerStats.lastName.compareTo(playerStatsVM.lastName)
+        return playerStats.lastName!!.compareTo(playerStatsVM.lastName)
     }
 
     private fun sortByGoals(playerStatsVM: PlayerStatsVM): Int {
@@ -113,7 +113,7 @@ class PlayerStatsVM(val playerStats: PlayerStats,
         } else if (playerStats.goals > Integer.valueOf(playerStatsVM.goals)) {
             return -1
         }
-        return playerStats.lastName.compareTo(playerStatsVM.lastName)
+        return playerStats.lastName!!.compareTo(playerStatsVM.lastName)
     }
 
     private fun sortByAssists(playerStatsVM: PlayerStatsVM): Int {
@@ -126,7 +126,7 @@ class PlayerStatsVM(val playerStats: PlayerStats,
         } else if (playerStats.assists > Integer.valueOf(playerStatsVM.assists)) {
             return -1
         }
-        return playerStats.lastName.compareTo(playerStatsVM.lastName)
+        return playerStats.lastName!!.compareTo(playerStatsVM.lastName)
     }
 
     private fun sortByGamesPlayed(playerStatsVM: PlayerStatsVM): Int {
@@ -135,7 +135,7 @@ class PlayerStatsVM(val playerStats: PlayerStats,
         } else if (playerStats.gamesPlayed > Integer.valueOf(playerStatsVM.gamesPlayed)) {
             return -1
         }
-        return playerStats.lastName.compareTo(playerStatsVM.lastName)
+        return playerStats.lastName!!.compareTo(playerStatsVM.lastName)
     }
 
     private fun sortByPenaltyMinutes(playerStatsVM: PlayerStatsVM): Int {
@@ -145,7 +145,7 @@ class PlayerStatsVM(val playerStats: PlayerStats,
                         playerStatsVM.penaltyMinutes)) {
             return -1
         }
-        return playerStats.lastName.compareTo(playerStatsVM.lastName)
+        return playerStats.lastName!!.compareTo(playerStatsVM.lastName)
     }
 
     override fun onStatsClicked() {
