@@ -178,6 +178,7 @@
             app:layout_constraintTop_toBottomOf="@+id/next_game_date"
             app:layout_constraintLeft_toLeftOf="@+id/content_home"
             app:layout_constraintRight_toRightOf="@+id/content_home"
+            android:text="@{item.rink}"
             tools:text="West Rink"/>
 
 

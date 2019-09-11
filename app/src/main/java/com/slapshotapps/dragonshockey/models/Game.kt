@@ -20,8 +20,20 @@ class Game : Cloneable, Parcelable {
 
     var home: Boolean = false
 
+    var rink: String? = null
+
     @Exclude
     var gameResult: GameResult? = null
+
+    fun getRinkName(): String {
+
+        return when(rink)
+        {
+            "east" -> "East Rink"
+            "west" -> "West Rink"
+            else -> ""
+        }
+    }
 
     fun gameTimeToDate(): Date? {
         val time = gameTime
@@ -76,6 +88,7 @@ class Game : Cloneable, Parcelable {
         result = 31 * result + gameID
         result = 31 * result + if (gameResult != null) gameResult!!.hashCode() else 0
         result = 31 * result + if (home) 1 else 0
+        result = 31 * result + if (rink != null) rink!!.hashCode() else 0
         return result
     }
 
@@ -87,6 +100,7 @@ class Game : Cloneable, Parcelable {
         gameID = source.readInt()
         gameResult = source.readParcelable(GameResult::class.java.classLoader)
         home = source.readByte().toInt() == 1
+        rink = source.readString()
     }
 
     override fun describeContents() = 0
@@ -97,6 +111,7 @@ class Game : Cloneable, Parcelable {
         writeInt(gameID)
         writeParcelable(gameResult, flags)
         writeByte(if (home) 1 else 0)
+        writeString(rink)
     }
 
     companion object {
