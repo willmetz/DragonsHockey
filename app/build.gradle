@@ -33,6 +33,10 @@ android {
     targetCompatibility JavaVersion.VERSION_1_8
   }
 
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_1_8
+  }
+
   compileSdkVersion 28
   defaultConfig {
     applicationId "com.slapshotapps.dragonshockey"
@@ -83,10 +87,10 @@ dependencies {
   implementation "androidx.navigation:navigation-ui:$nav_version" // For Kotlin use navigation-ui-ktx
 
   //android x
-  implementation 'androidx.appcompat:appcompat:1.0.2'
+  implementation 'androidx.appcompat:appcompat:1.1.0'
   implementation 'androidx.cardview:cardview:1.0.0'
-  implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-  implementation "androidx.work:work-runtime-ktx:2.0.0-rc01"
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+  implementation "androidx.work:work-runtime-ktx:2.3.0-alpha01"
 
   //firebase
   implementation "com.google.firebase:firebase-database:16.0.6"
