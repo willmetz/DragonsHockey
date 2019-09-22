@@ -5,7 +5,7 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 
 @Keep
-class PlayerStats(val playerID: Int, val firstName: String, val lastName: String, val position: PlayerPosition) :
+class PlayerStats(val playerID: Int, val firstName: String?, val lastName: String?, val position: PlayerPosition) :
         Comparable<PlayerStats>, Parcelable {
     var goals: Int = 0
 
@@ -28,7 +28,7 @@ class PlayerStats(val playerID: Int, val firstName: String, val lastName: String
         } else if (points > other.points) {
             return -1
         }
-        return lastName.compareTo(other.lastName)
+        return lastName!!.compareTo(other.lastName!!)
     }
 
     companion object {

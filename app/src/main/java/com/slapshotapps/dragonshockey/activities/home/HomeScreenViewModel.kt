@@ -41,6 +41,9 @@ class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
     val ties: String
         get() = homeContents.seasonRecord.ties.toString()
 
+    val rink: String
+        get() = homeContents.nextGame?.getRinkName() ?: ""
+
     init {
         if (contents == null) {
             homeContents = HomeContents()

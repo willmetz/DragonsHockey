@@ -164,11 +164,22 @@
             app:layout_constraintRight_toRightOf="@+id/content_home"
             app:layout_constraintTop_toBottomOf="@+id/next_game_header"
             android:text="@{item.getNextGameTime(context)}"
-            tools:alpha="0"
+            tools:alpha="1"
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1"
             tools:layout_constraintTop_creator="0"
-            tools:text="12/24/16 8:00pm"/>
+            tools:text="12/24/16 8:00pm (H)"/>
+
+        <TextView
+            android:id="@+id/next_game_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/next_game_date"
+            app:layout_constraintLeft_toLeftOf="@+id/content_home"
+            app:layout_constraintRight_toRightOf="@+id/content_home"
+            android:text="@{item.rink}"
+            tools:text="West Rink"/>
 
 
         <TextView
