@@ -34,6 +34,9 @@ class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
     val losses: String
         get() = homeContents.seasonRecord.losses.toString()
 
+    val nextGameInfoVisible: Int
+        get() = if(homeContents.nextGame ==  null) View.GONE else View.VISIBLE
+
 
     val overtimeLosses: String
         get() = homeContents.seasonRecord.overtimeLosses.toString()
@@ -78,6 +81,16 @@ class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
         }
 
         return context.getString(R.string.no_more_games)
+    }
+
+    fun getNextGameOpponent(): String {
+        val nextGameOpponent = homeContents.nextGame?.opponent
+
+        if (nextGameOpponent == null) {
+            return "Unknown"
+        }
+
+        return nextGameOpponent
     }
 
     fun getLastGameResult(context: Context): String {

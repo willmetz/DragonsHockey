@@ -48,6 +48,7 @@
     <string name="PIM_label">PIM</string>
     <string name="schedule_notification_channel">Hockey Schedule Notifications</string>
     <string name="schedule_notification_channel_desc">Dragons Hockey Game Notifications</string>
+    <string name="opponent_versus">Vrs: %1$s</string>
 
     <string-array name="stat_sort_options">
         <item>Games Played</item>
