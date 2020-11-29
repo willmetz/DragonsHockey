@@ -26,26 +26,11 @@ import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 
-class HomeFragment : HockeyFragment(), CoroutineScope {
+class HomeFragment : HockeyFragment() {
 
     private var hockeyScheduleSubscription: Subscription? = null
     private lateinit var binding: ActivityHomeBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var masterJob: Job
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO + masterJob
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        masterJob = Job()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        masterJob.cancel()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -61,6 +46,17 @@ class HomeFragment : HockeyFragment(), CoroutineScope {
         return binding.root
     }
 
+    override fun onResumeWithCredentials() {
+        updateData()
+    }
+
+    override fun noCredentialsOnResume() {
+        val listener = actionBarListener
+        listener?.hideProgressBar()
+        Toast.makeText(this@HomeFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
+                .show()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         firebaseDatabase = FirebaseDatabase.getInstance()
@@ -74,35 +70,11 @@ class HomeFragment : HockeyFragment(), CoroutineScope {
     }
 
     override fun onResume() {
-        super.onResume()
-
         val listener = actionBarListener
-
-        if(auth.currentUser == null){
-            launch { checkUserAuth() }
-        }else{
-            updateData();
-        }
-
-
-
         listener?.showProgressBar()
+        super.onResume()
     }
 
-    private suspend fun checkUserAuth() = coroutineScope {
-        val signInResult = auth.signInAnonymously().await();
-
-        withContext(Dispatchers.Main) {
-            if (signInResult.user == null) {
-                val listener = actionBarListener
-                listener?.hideProgressBar()
-                Toast.makeText(this@HomeFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
-                        .show()
-            } else {
-                updateData();
-            }
-        }
-    }
 
     private fun updateData() {
         val listener = actionBarListener

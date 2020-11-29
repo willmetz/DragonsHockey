@@ -35,6 +35,28 @@ class RosterFragment : HockeyFragment() {
         listener?.setTitle(getString(R.string.roster_title))
     }
 
+    override fun onResumeWithCredentials() {
+        rosterSubscription = RosterObserver.GetRoster(firebaseDatabase)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError {
+                    Timber.e("Unable to get the roster...")
+                    rosterUnavailable!!.animate().alpha(1f)
+                }
+                .subscribe { players ->
+                    rosterUnavailable!!.alpha = 0f
+                    val adapter = RosterAdapter(this@RosterFragment.context!!, players)
+                    recyclerView!!.adapter = adapter
+
+                    recyclerView!!.addItemDecoration(
+                            StaticHeaderDecoration(adapter, recyclerView))
+                }
+    }
+
+    override fun noCredentialsOnResume() {
+        rosterUnavailable!!.animate().alpha(1f)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,26 +75,6 @@ class RosterFragment : HockeyFragment() {
         recyclerView!!.layoutManager = layoutManager
 
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        rosterSubscription = RosterObserver.GetRoster(firebaseDatabase)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError {
-                    Timber.e("Unable to get the roster...")
-                    rosterUnavailable!!.animate().alpha(1f)
-                }
-                .subscribe { players ->
-                    rosterUnavailable!!.alpha = 0f
-                    val adapter = RosterAdapter(this@RosterFragment.context!!, players)
-                    recyclerView!!.adapter = adapter
-
-                    recyclerView!!.addItemDecoration(
-                            StaticHeaderDecoration(adapter, recyclerView))
-                }
     }
 
     override fun onPause() {

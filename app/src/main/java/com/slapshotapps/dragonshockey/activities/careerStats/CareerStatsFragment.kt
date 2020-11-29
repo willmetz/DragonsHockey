@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.slapshotapps.dragonshockey.R
@@ -53,11 +54,7 @@ class CareerStatsFragment : HockeyFragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        actionBarListener?.showProgressBar()
-
+    override fun onResumeWithCredentials() {
         careerStatsSubscription = CareerStatsObserver.getCareerStatsData(firebaseDatabase,
                 currentSeasonStats!!.playerID)
                 .subscribeOn(Schedulers.io())
@@ -72,6 +69,16 @@ class CareerStatsFragment : HockeyFragment() {
 
                     actionBarListener?.hideProgressBar()
                 }, { _ -> actionBarListener?.hideProgressBar() })
+    }
+
+    override fun noCredentialsOnResume() {
+        Toast.makeText(this@CareerStatsFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
+                .show()
+    }
+
+    override fun onResume() {
+        actionBarListener?.showProgressBar()
+        super.onResume()
     }
 
     override fun onPause() {

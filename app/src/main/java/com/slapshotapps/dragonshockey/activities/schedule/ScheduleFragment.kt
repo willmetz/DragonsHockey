@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
@@ -33,6 +34,21 @@ class ScheduleFragment : HockeyFragment() {
         actionBarListener?.setTitle(getString(R.string.schedule_title))
     }
 
+    override fun onResumeWithCredentials() {
+        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap { schedule: SeasonSchedule ->
+                    ScheduleObserver.getScheduleWithResults(firebaseDatabase, schedule)
+                }
+                .subscribe { schedule -> recyclerView!!.adapter = ScheduleAdapter(schedule) }
+    }
+
+    override fun noCredentialsOnResume() {
+        Toast.makeText(this@ScheduleFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
+                .show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,18 +67,6 @@ class ScheduleFragment : HockeyFragment() {
                 RecyclerViewDivider(context, R.drawable.schedule_divider))
 
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap { schedule: SeasonSchedule ->
-                    ScheduleObserver.getScheduleWithResults(firebaseDatabase, schedule)
-                }
-                .subscribe { schedule -> recyclerView!!.adapter = ScheduleAdapter(schedule) }
     }
 
     override fun onPause() {
