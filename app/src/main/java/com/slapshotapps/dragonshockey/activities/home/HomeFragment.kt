@@ -92,13 +92,15 @@ class HomeFragment : HockeyFragment(), CoroutineScope {
     private suspend fun checkUserAuth() = coroutineScope {
         val signInResult = auth.signInAnonymously().await();
 
-        if(signInResult.credential == null){
-            val listener = actionBarListener
-            listener?.hideProgressBar()
-            Toast.makeText(this@HomeFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
-                    .show()
-        }else{
-            updateData();
+        withContext(Dispatchers.Main) {
+            if (signInResult.user == null) {
+                val listener = actionBarListener
+                listener?.hideProgressBar()
+                Toast.makeText(this@HomeFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
+                        .show()
+            } else {
+                updateData();
+            }
         }
     }
 
