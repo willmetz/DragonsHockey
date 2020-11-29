@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
@@ -62,6 +63,12 @@ public class AdminAuthActivity extends AppCompatActivity
         }
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        //ensure the user is not anonymous
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if(user != null && user.isAnonymous()){
+            firebaseAuth.signOut();
+        }
 
         if (doesUserHaveAdminAccess(firebaseAuth)) {
             launchAuthenticatedActivity();
