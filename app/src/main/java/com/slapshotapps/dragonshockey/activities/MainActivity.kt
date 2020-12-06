@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
 import com.slapshotapps.dragonshockey.AnalyticEventListener
 import com.slapshotapps.dragonshockey.Config
 import com.slapshotapps.dragonshockey.R
@@ -17,15 +18,11 @@ class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListen
 
     lateinit var binding: ActivityMainBinding
 
-
-    private var firebaseAnalytics: FirebaseAnalytics? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(binding.toolbar);
 
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         val navController = findNavController(this, R.id.fragment_container)
         NavigationUI.setupWithNavController(binding.navigationView, navController)
@@ -55,6 +52,6 @@ class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListen
     }
 
     override fun logContentSelectedEvent(analyticEvent: HockeyAnalyticEvent) {
-        logAnalyticEvent(analyticEvent, firebaseAnalytics)
+        //no-op for now
     }
 }

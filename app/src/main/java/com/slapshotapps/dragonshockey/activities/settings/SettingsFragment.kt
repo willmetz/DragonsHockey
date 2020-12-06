@@ -41,6 +41,14 @@ class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelLi
         return binding.root
     }
 
+    override fun onResumeWithCredentials() {
+        //no-op
+    }
+
+    override fun noCredentialsOnResume() {
+        //no-op
+    }
+
     override fun onResume() {
         super.onResume()
 

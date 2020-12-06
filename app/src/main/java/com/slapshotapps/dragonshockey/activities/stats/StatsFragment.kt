@@ -47,6 +47,22 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
         listener?.setTitle(getString(R.string.stats_title))
     }
 
+    override fun onResumeWithCredentials() {
+        statsSubscription = RosterObserver.GetRoster(firebaseDatabase)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap { players -> StatsObserver.getPlayerStats(firebaseDatabase, players) }
+                .subscribe({ this.showStats(it) }, { _ ->
+                    errorLoading!!.animate().alpha(1f)
+                    ProgressBarUtils.hideProgressBar(progressBar!!)
+                })
+    }
+
+    override fun noCredentialsOnResume() {
+        errorLoading!!.animate().alpha(1f)
+        ProgressBarUtils.hideProgressBar(progressBar!!)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -72,18 +88,8 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
     }
 
     override fun onResume() {
-        super.onResume()
-
-        statsSubscription = RosterObserver.GetRoster(firebaseDatabase)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap { players -> StatsObserver.getPlayerStats(firebaseDatabase, players) }
-                .subscribe({ this.showStats(it) }, { _ ->
-                    errorLoading!!.animate().alpha(1f)
-                    ProgressBarUtils.hideProgressBar(progressBar!!)
-                })
-
         ProgressBarUtils.displayProgressBar(progressBar!!)
+        super.onResume()
     }
 
     private fun showStats(playerStats: List<PlayerStats>) {
