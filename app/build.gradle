@@ -37,13 +37,13 @@ android {
     jvmTarget = JavaVersion.VERSION_1_8
   }
 
-  compileSdkVersion 30
+  compileSdkVersion 31
   defaultConfig {
     applicationId "com.slapshotapps.dragonshockey"
-    minSdkVersion 21
-    targetSdkVersion 30
-    versionCode 27
-    versionName "2.30"
+    minSdkVersion 23
+    targetSdkVersion 31
+    versionCode 28
+    versionName "2.40"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
@@ -71,7 +71,9 @@ android {
     }
   }
 
-
+  buildFeatures {
+    viewBinding true
+  }
 
   dataBinding {
     enabled = true
@@ -87,20 +89,20 @@ dependencies {
   implementation "androidx.navigation:navigation-ui:$nav_version" // For Kotlin use navigation-ui-ktx
 
   //android x
-  implementation 'androidx.appcompat:appcompat:1.1.0'
+  implementation 'androidx.appcompat:appcompat:1.4.0'
   implementation 'androidx.cardview:cardview:1.0.0'
-  implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
-  implementation "androidx.work:work-runtime-ktx:2.3.0"
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+  implementation "androidx.work:work-runtime-ktx:2.7.1"
   implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1'
 
   //firebase
-  implementation "com.google.firebase:firebase-database:19.2.1"
-  implementation "com.google.android.gms:play-services-auth:17.0.0"
-  implementation "com.google.firebase:firebase-auth:19.2.0"
-  implementation "com.google.firebase:firebase-core:17.2.2"
+  implementation "com.google.firebase:firebase-database:20.0.5"
+  implementation "com.google.android.gms:play-services-auth:20.2.0"
+  implementation "com.google.firebase:firebase-auth:21.0.5"
+  implementation "com.google.firebase:firebase-core:21.0.0"
 
   //android
-  implementation 'com.google.android.material:material:1.1.0-alpha10'
+  implementation 'com.google.android.material:material:1.6.0'
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   kapt "com.android.databinding:compiler:3.3.1"
 

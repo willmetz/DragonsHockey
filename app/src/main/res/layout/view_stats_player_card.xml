@@ -11,7 +11,8 @@
             type="PlayerStatsVM"/>
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -73,8 +74,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@{item.getGamesPlayed()}"
-                    app:layout_constraintLeft_toRightOf="@id/games_played_header"
-                    app:layout_constraintRight_toLeftOf="@id/games_played_header"
+                    app:layout_constraintStart_toStartOf="@id/games_played_header"
+                    app:layout_constraintEnd_toEndOf="@id/games_played_header"
                     app:layout_constraintTop_toBottomOf="@id/games_played_header"
                     tools:text="7"
                     style="@style/TextAppearance.AppCompat.Small"/>
@@ -98,8 +99,9 @@
                     android:layout_height="wrap_content"
                     android:text="@{item.getGoals()}"
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintLeft_toRightOf="@id/goals_header"
-                    app:layout_constraintRight_toLeftOf="@id/goals_header"
+                    app:layout_constraintStart_toStartOf="@id/goals_header"
+                    app:layout_constraintEnd_toEndOf="@id/goals_header"
+                    app:layout_constraintTop_toBottomOf="@+id/goals_header"
                     tools:text="1"
                     style="@style/TextAppearance.AppCompat.Small"/>
 
@@ -122,8 +124,8 @@
                     android:layout_height="wrap_content"
                     android:text="@{item.getAssists()}"
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintLeft_toRightOf="@id/assists_header"
-                    app:layout_constraintRight_toLeftOf="@id/assists_header"
+                    app:layout_constraintStart_toStartOf="@id/assists_header"
+                    app:layout_constraintEnd_toEndOf="@id/assists_header"
                     tools:text="2"
                     style="@style/TextAppearance.AppCompat.Small"/>
 
@@ -146,8 +148,8 @@
                     android:layout_height="wrap_content"
                     android:text="@{item.getPoints()}"
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintLeft_toRightOf="@id/points_header"
-                    app:layout_constraintRight_toLeftOf="@id/points_header"
+                    app:layout_constraintStart_toStartOf="@id/points_header"
+                    app:layout_constraintEnd_toEndOf="@id/points_header"
                     tools:text="2"
                     style="@style/TextAppearance.AppCompat.Small"/>
 
@@ -170,8 +172,8 @@
                     android:layout_height="wrap_content"
                     android:text="@{item.penaltyMinutes}"
                     app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintLeft_toRightOf="@id/penalty_minutes_header"
-                    app:layout_constraintRight_toLeftOf="@id/penalty_minutes_header"
+                    app:layout_constraintStart_toStartOf="@id/penalty_minutes_header"
+                    app:layout_constraintEnd_toEndOf="@id/penalty_minutes_header"
                     tools:text="20"
                     style="@style/TextAppearance.AppCompat.Small"/>
 

@@ -16,16 +16,16 @@ import com.slapshotapps.dragonshockey.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListener {
 
-    lateinit var binding: ActivityMainBinding
+    private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        setSupportActionBar(binding.toolbar);
+        setSupportActionBar(binding!!.toolbar);
 
 
         val navController = findNavController(this, R.id.fragment_container)
-        NavigationUI.setupWithNavController(binding.navigationView, navController)
+        NavigationUI.setupWithNavController(binding!!.navigationView, navController)
 
     }
 
@@ -40,15 +40,15 @@ class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListen
             enhancedTitle = "CERT $title CERT"
         }
 
-        binding.toolbar.title = enhancedTitle
+        binding?.toolbar?.title = enhancedTitle
     }
 
     override fun showProgressBar() {
-        binding.toolbarProgressBar.visibility = View.VISIBLE
+        binding?.toolbarProgressBar?.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-        binding.toolbarProgressBar.visibility = View.GONE
+        binding?.toolbarProgressBar?.visibility = View.GONE
     }
 
     override fun logContentSelectedEvent(analyticEvent: HockeyAnalyticEvent) {

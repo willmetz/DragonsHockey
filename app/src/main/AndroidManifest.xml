@@ -17,6 +17,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/dragons_hockey"
+            android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -31,21 +32,25 @@
 
         <activity
             android:name=".activities.admin.AdminAuthActivity"
+            android:exported="false"
             android:label="@string/auth_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.admin.AdminActivity"
+            android:exported="false"
             android:label="@string/title_activity_admin"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.admin.EditGameActivity"
+            android:exported="false"
             android:label="@string/title_activity_edit_game_auth"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.admin.EditStatsActivity"
+            android:exported="false"
             android:label="@string/title_activity_edit_stats_auth"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
