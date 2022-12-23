@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenViewModel" />
 
         <variable
@@ -12,221 +11,231 @@
             type="HomeScreenViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content_home"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".activities.home.HomeFragment"
-        tools:showIn="@layout/activity_home">
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".activities.home.HomeFragment"
+            tools:showIn="@layout/activity_home">
 
-        <!--change this to an imageview -->
-        <ImageView
-            android:id="@+id/dragons_hockey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/dragons_hockey_team_logo"
-            android:src="@drawable/ic_dragon_eye_red"
-            android:textAppearance="@android:style/TextAppearance.Material.Large"
-            app:layout_constraintLeft_toLeftOf="@+id/content_home"
-            app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toTopOf="@+id/content_home" />
+            <!--change this to an imageview -->
+            <ImageView
+                android:id="@+id/dragons_hockey"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/dragons_hockey_team_logo"
+                android:src="@drawable/dragons_hockey_logo"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                app:layout_constraintLeft_toLeftOf="@+id/content_home"
+                app:layout_constraintRight_toRightOf="@+id/content_home"
+                app:layout_constraintTop_toTopOf="@+id/content_home" />
 
-        <TextView
-            android:id="@+id/record_key_header_win"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/win_header"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            app:layout_constraintHorizontal_bias=".42"
-            app:layout_constraintLeft_toLeftOf="@+id/content_home"
-            app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/dragons_hockey" />
+            <TextView
+                android:id="@+id/record_key_header_win"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/win_header"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:layout_constraintHorizontal_bias=".42"
+                app:layout_constraintLeft_toLeftOf="@+id/content_home"
+                app:layout_constraintRight_toRightOf="@+id/content_home"
+                app:layout_constraintTop_toBottomOf="@+id/dragons_hockey" />
 
-        <TextView
-            android:id="@+id/record_key_header_loss"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/loss_header"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            app:layout_constraintBottom_toBottomOf="@id/record_key_header_win"
-            app:layout_constraintLeft_toRightOf="@id/record_key_header_win" />
+            <TextView
+                android:id="@+id/record_key_header_loss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/loss_header"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:layout_constraintBottom_toBottomOf="@id/record_key_header_win"
+                app:layout_constraintLeft_toRightOf="@id/record_key_header_win" />
 
-        <TextView
-            android:id="@+id/record_key_header_otl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/otl_header"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            app:layout_constraintBottom_toBottomOf="@id/record_key_header_loss"
-            app:layout_constraintLeft_toRightOf="@id/record_key_header_loss" />
+            <TextView
+                android:id="@+id/record_key_header_otl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/otl_header"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:layout_constraintBottom_toBottomOf="@id/record_key_header_loss"
+                app:layout_constraintLeft_toRightOf="@id/record_key_header_loss" />
 
-        <TextView
-            android:id="@+id/record_key_header_tie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/tie_header"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            app:layout_constraintBottom_toBottomOf="@id/record_key_header_otl"
-            app:layout_constraintLeft_toRightOf="@id/record_key_header_otl" />
+            <TextView
+                android:id="@+id/record_key_header_tie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/tie_header"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:layout_constraintBottom_toBottomOf="@id/record_key_header_otl"
+                app:layout_constraintLeft_toRightOf="@id/record_key_header_otl" />
 
-        <TextView
-            android:id="@+id/record_win"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:alpha="0"
-            android:text="@{item.wins}"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintLeft_toLeftOf="@+id/record_key_header_win"
-            app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
-            app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
-            tools:alpha="1"
-            tools:text="2" />
+            <TextView
+                android:id="@+id/record_win"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:alpha="0"
+                android:text="@{item.wins}"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintLeft_toLeftOf="@+id/record_key_header_win"
+                app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
+                app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
+                tools:alpha="1"
+                tools:text="2" />
 
-        <TextView
-            android:id="@+id/record_loss"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:text="@{item.losses}"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintBottom_toBottomOf="@id/record_win"
-            app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
-            app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
-            tools:alpha="1"
-            tools:text="1" />
+            <TextView
+                android:id="@+id/record_loss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0"
+                android:text="@{item.losses}"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintBottom_toBottomOf="@id/record_win"
+                app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
+                app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
+                tools:alpha="1"
+                tools:text="1" />
 
-        <TextView
-            android:id="@+id/record_otl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:text="@{item.overtimeLosses}"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintBottom_toBottomOf="@id/record_win"
-            app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
-            app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
-            tools:alpha="1"
-            tools:text="0" />
+            <TextView
+                android:id="@+id/record_otl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0"
+                android:text="@{item.overtimeLosses}"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintBottom_toBottomOf="@id/record_win"
+                app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
+                app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
+                tools:alpha="1"
+                tools:text="0" />
 
-        <TextView
-            android:id="@+id/record_tie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:text="@{item.ties}"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintBottom_toBottomOf="@id/record_win"
-            app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
-            app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
-            tools:alpha="1"
-            tools:text="1" />
+            <TextView
+                android:id="@+id/record_tie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0"
+                android:text="@{item.ties}"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintBottom_toBottomOf="@id/record_win"
+                app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
+                app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
+                tools:alpha="1"
+                tools:text="1" />
 
-        <TextView
-            android:id="@+id/last_game_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:alpha="0"
-            android:text="@string/last_game"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
-            android:visibility="@{item.showLastGameInfo()}"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintLeft_toLeftOf="@+id/content_home"
-            app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/record_win"
-            tools:alpha="1" />
+            <TextView
+                android:id="@+id/last_game_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:alpha="0"
+                android:text="@string/last_game"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                android:visibility="@{item.showLastGameInfo()}"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintLeft_toLeftOf="@+id/content_home"
+                app:layout_constraintRight_toRightOf="@+id/content_home"
+                app:layout_constraintTop_toBottomOf="@+id/record_win"
+                tools:alpha="1" />
 
-        <TextView
-            android:id="@+id/next_game_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:alpha="0"
-            android:text="@string/next_game"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintLeft_toLeftOf="@+id/content_home"
-            app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/last_game_score"
-            tools:alpha="1" />
+            <TextView
+                android:id="@+id/next_game_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:alpha="0"
+                android:text="@string/next_game"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintLeft_toLeftOf="@+id/content_home"
+                app:layout_constraintRight_toRightOf="@+id/content_home"
+                app:layout_constraintTop_toBottomOf="@+id/last_game_score"
+                tools:alpha="1" />
 
-        <TextView
-            android:id="@+id/next_game_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="0"
-            android:text="@{item.getNextGameTime(context)}"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintLeft_toLeftOf="@+id/content_home"
-            app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/next_game_header"
-            tools:alpha="1"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="0"
-            tools:text="12/24/16 8:00pm (H)" />
+            <TextView
+                android:id="@+id/next_game_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:alpha="0"
+                android:text="@{item.getNextGameTime(context)}"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintLeft_toLeftOf="@+id/content_home"
+                app:layout_constraintRight_toRightOf="@+id/content_home"
+                app:layout_constraintTop_toBottomOf="@+id/next_game_header"
+                tools:alpha="1"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="0"
+                tools:text="12/24/16 8:00pm (H)" />
 
-        <TextView
-            android:id="@+id/next_game_opponent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="0"
-            android:text="@{@string/opponent_versus(item.getNextGameOpponent())}"
-            android:visibility="@{item.nextGameInfoVisible}"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintLeft_toLeftOf="@+id/content_home"
-            app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/next_game_date"
-            tools:alpha="1"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="0"
-            tools:text="vrs Panthers" />
+            <TextView
+                android:id="@+id/next_game_opponent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:alpha="0"
+                android:text="@{@string/opponent_versus(item.getNextGameOpponent())}"
+                android:visibility="@{item.nextGameInfoVisible}"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintLeft_toLeftOf="@+id/content_home"
+                app:layout_constraintRight_toRightOf="@+id/content_home"
+                app:layout_constraintTop_toBottomOf="@+id/next_game_date"
+                tools:alpha="1"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="0"
+                tools:text="vrs Panthers" />
 
-        <TextView
-            android:id="@+id/next_game_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="0"
-            android:text="@{item.rink}"
-            android:visibility="@{item.nextGameInfoVisible}"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintLeft_toLeftOf="@+id/content_home"
-            app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/next_game_opponent"
-            tools:alpha="1"
-            tools:text="West Rink" />
+            <TextView
+                android:id="@+id/next_game_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:alpha="0"
+                android:text="@{item.rink}"
+                android:visibility="@{item.nextGameInfoVisible}"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintLeft_toLeftOf="@+id/content_home"
+                app:layout_constraintRight_toRightOf="@+id/content_home"
+                app:layout_constraintTop_toBottomOf="@+id/next_game_opponent"
+                tools:alpha="1"
+                tools:text="West Rink" />
 
 
-        <TextView
-            android:id="@+id/last_game_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="0"
-            android:text="@{item.getLastGameResult(context)}"
-            android:visibility="@{item.showLastGameInfo()}"
-            app:fadeInView="@{item.isDataReady}"
-            app:layout_constraintLeft_toLeftOf="@+id/content_home"
-            app:layout_constraintRight_toRightOf="@+id/content_home"
-            app:layout_constraintTop_toBottomOf="@+id/last_game_header"
-            tools:alpha="1"
-            tools:text="Dragons 8  Oranges 5" />
+            <TextView
+                android:id="@+id/last_game_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:alpha="0"
+                android:text="@{item.getLastGameResult(context)}"
+                android:visibility="@{item.showLastGameInfo()}"
+                app:fadeInView="@{item.isDataReady}"
+                app:layout_constraintLeft_toLeftOf="@+id/content_home"
+                app:layout_constraintRight_toRightOf="@+id/content_home"
+                app:layout_constraintTop_toBottomOf="@+id/last_game_header"
+                tools:alpha="1"
+                tools:text="Dragons 8  Oranges 5" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/next_game_location"/>
 
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

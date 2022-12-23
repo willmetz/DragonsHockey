@@ -34,6 +34,6 @@ class NotificationManager(private val context: Context) {
         val intent = NotificationBroadcast.createIntent(context, game)
 
         //need to use a broadcast service here as android 8 has restrictions on services started while the app is in the background
-        return PendingIntent.getBroadcast(context, NOTIFICATION_ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getBroadcast(context, NOTIFICATION_ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
     }
 }

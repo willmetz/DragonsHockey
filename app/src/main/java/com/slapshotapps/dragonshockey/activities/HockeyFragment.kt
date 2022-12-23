@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.FirebaseDatabase
@@ -43,7 +44,7 @@ abstract class HockeyFragment : Fragment(), CoroutineScope {
         super.onResume()
 
         if(FirebaseAuth.getInstance().currentUser == null){
-            launch { checkUserAuth() }
+            lifecycleScope.launch { checkUserAuth() }
         }else{
             onResumeWithCredentials()
         }

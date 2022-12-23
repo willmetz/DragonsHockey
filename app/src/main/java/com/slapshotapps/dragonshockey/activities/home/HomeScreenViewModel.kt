@@ -110,6 +110,6 @@ class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
     }
 
     fun showLastGameInfo(): Int {
-        return if (homeContents.lastGame == null) View.INVISIBLE else View.VISIBLE
+        return if (homeContents.lastGame == null) View.GONE else View.VISIBLE
     }
 }

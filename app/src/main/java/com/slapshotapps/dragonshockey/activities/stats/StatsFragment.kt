@@ -4,9 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
@@ -15,6 +13,7 @@ import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM
 import com.slapshotapps.dragonshockey.activities.stats.adapters.StatsAdapter
+import com.slapshotapps.dragonshockey.databinding.ActivityStatsBinding
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection
 import com.slapshotapps.dragonshockey.dialogs.StatsSortDialogFragment
 import com.slapshotapps.dragonshockey.managers.UserPrefsManager
@@ -27,18 +26,13 @@ import rx.schedulers.Schedulers
 
 class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, StatsSortDialogFragment.StatsSortSelectionListener {
 
-    private var recyclerView: RecyclerView? = null
-    private var errorLoading: TextView? = null
-
     private var statsSubscription: Subscription? = null
-
     private var statsSortDialogFragment: StatsSortDialogFragment? = null
-
     private var adapter: StatsAdapter? = null
-
     private lateinit var prefsManager: UserPrefsManager
 
-    private var progressBar: ProgressBar? = null
+    private var _binding : ActivityStatsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -53,14 +47,14 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { players -> StatsObserver.getPlayerStats(firebaseDatabase, players) }
                 .subscribe({ this.showStats(it) }, { _ ->
-                    errorLoading!!.animate().alpha(1f)
-                    ProgressBarUtils.hideProgressBar(progressBar!!)
+                    binding.progressBar.animate().alpha(1f)
+                    ProgressBarUtils.hideProgressBar(binding.progressBar)
                 })
     }
 
     override fun noCredentialsOnResume() {
-        errorLoading!!.animate().alpha(1f)
-        ProgressBarUtils.hideProgressBar(progressBar!!)
+        binding.progressBar.animate().alpha(1f)
+        ProgressBarUtils.hideProgressBar(binding.progressBar)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,34 +65,30 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.activity_stats, container, false)
+        _binding = ActivityStatsBinding.inflate(inflater, container, false)
 
-        prefsManager = UserPrefsManager(context!!)
+        prefsManager = UserPrefsManager(requireContext())
 
-        recyclerView = view.findViewById(R.id.stats_recycler_view)
-        errorLoading = view.findViewById(R.id.unable_to_load)
-        progressBar = view.findViewById(R.id.progress_bar)
-
-        val manager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        recyclerView!!.layoutManager = manager
+        val manager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        binding.statsRecyclerView.layoutManager = manager
 
         setHasOptionsMenu(true)
 
-        return view
+        return binding.root
     }
 
     override fun onResume() {
-        ProgressBarUtils.displayProgressBar(progressBar!!)
+        ProgressBarUtils.displayProgressBar(binding.progressBar)
         super.onResume()
     }
 
     private fun showStats(playerStats: List<PlayerStats>) {
-        errorLoading!!.alpha = 0f
-        ProgressBarUtils.hideProgressBar(progressBar!!)
+        binding.progressBar.alpha = 0f
+        ProgressBarUtils.hideProgressBar(binding.progressBar)
         adapter = StatsAdapter(playerStats, this@StatsFragment)
 
         adapter!!.updateSortOrder(prefsManager.statSortPreference)
-        recyclerView!!.adapter = adapter
+        binding.statsRecyclerView.adapter = adapter
     }
 
     override fun onPause() {
@@ -128,15 +118,14 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
 
     override fun onViewPLayerStats(playerStats: PlayerStats) {
         val action = StatsFragmentDirections.actionStatsFragmentToCareerStatsFragment(playerStats)
-        findNavController(this).navigate(action)
+        findNavController().navigate(action)
     }
 
     private fun showSortOptionsDialog() {
-        val fragmentManager = fragmentManager
         statsSortDialogFragment = StatsSortDialogFragment.newInstance(prefsManager.statSortPreference)
         statsSortDialogFragment!!.setListener(this)
 
-        statsSortDialogFragment!!.show(fragmentManager!!, "tag")
+        statsSortDialogFragment!!.show(childFragmentManager, "tag")
     }
 
     override fun onSortOptionSelected(sortSelection: StatSortSelection) {
@@ -147,5 +136,10 @@ class StatsFragment : HockeyFragment(), PlayerStatsVM.PlayerStatsVMListener, Sta
         if (adapter != null) {
             adapter!!.updateSortOrder(sortSelection)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
