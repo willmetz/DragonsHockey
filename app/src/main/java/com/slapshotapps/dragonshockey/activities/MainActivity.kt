@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.auth.FirebaseAuth
 import com.slapshotapps.dragonshockey.AnalyticEventListener
 import com.slapshotapps.dragonshockey.Config
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.logAnalyticEvent
 import com.slapshotapps.dragonshockey.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListener {

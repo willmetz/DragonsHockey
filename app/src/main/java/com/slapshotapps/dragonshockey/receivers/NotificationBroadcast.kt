@@ -10,9 +10,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.SCHEDULE_CHANNEL_ID
-import com.slapshotapps.dragonshockey.Utils.DateFormatter
-import com.slapshotapps.dragonshockey.Utils.logAnalyticEvent
+import com.slapshotapps.dragonshockey.utils.DateFormatter
+import com.slapshotapps.dragonshockey.utils.SCHEDULE_CHANNEL_ID
+import com.slapshotapps.dragonshockey.utils.areNotificationsEnabled
+import com.slapshotapps.dragonshockey.utils.logAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.MainActivity
 import com.slapshotapps.dragonshockey.models.Game
@@ -28,7 +29,10 @@ const val GAME_HOME_EXTRA = "HOME_GAME_EXTRA"
 
 class NotificationBroadcast : BroadcastReceiver() {
 
+
     override fun onReceive(context: Context, intent: Intent) {
+
+        if(areNotificationsEnabled(context).not()) return
 
         val gameTime = intent.getLongExtra(GAME_TIME_EXTRA, 0L)
         val homeGame = intent.getBooleanExtra(GAME_HOME_EXTRA, false)
@@ -61,7 +65,7 @@ class NotificationBroadcast : BroadcastReceiver() {
 
 
         val intent = Intent(context, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
         val notification = NotificationCompat.Builder(context, SCHEDULE_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_schedule)

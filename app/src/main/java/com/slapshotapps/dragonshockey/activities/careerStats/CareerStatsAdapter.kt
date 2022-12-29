@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.BaseDataBindingAdapter
+import com.slapshotapps.dragonshockey.utils.BaseDataBindingAdapter
 import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter
 import com.slapshotapps.dragonshockey.models.PlayerPosition
 import java.util.*

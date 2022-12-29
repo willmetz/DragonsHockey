@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.slapshotapps.dragonshockey.Config;
-import com.slapshotapps.dragonshockey.Utils.StatsUtils;
+import com.slapshotapps.dragonshockey.utils.StatsUtils;
 import com.slapshotapps.dragonshockey.models.GameStats;
 import com.slapshotapps.dragonshockey.models.Player;
 import com.slapshotapps.dragonshockey.models.PlayerPosition;

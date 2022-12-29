@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
+import com.slapshotapps.dragonshockey.utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.activities.admin.adapter.AdminScheduleAdapter;
 import com.slapshotapps.dragonshockey.activities.admin.listeners.AdminClickListener;
 import com.slapshotapps.dragonshockey.models.Game;

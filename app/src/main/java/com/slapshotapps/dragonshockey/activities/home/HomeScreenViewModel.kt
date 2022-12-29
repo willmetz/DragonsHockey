@@ -8,8 +8,8 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.slapshotapps.dragonshockey.BR
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.DateFormatter
-import com.slapshotapps.dragonshockey.Utils.FormattingUtils
+import com.slapshotapps.dragonshockey.utils.DateFormatter
+import com.slapshotapps.dragonshockey.utils.FormattingUtils
 import com.slapshotapps.dragonshockey.models.HomeContents
 import java.util.*
 

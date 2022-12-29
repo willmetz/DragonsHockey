@@ -1,8 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-  ext.kotlin_version = '1.6.0'
-  ext.nav_version = "2.4.2"
+  ext.kotlin_version = '1.7.20'
+  ext.nav_version = "2.5.3"
 
   repositories {
     mavenCentral()
@@ -10,8 +10,8 @@ buildscript {
     maven { url 'https://maven.fabric.io/public' }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.5.4'
-    classpath 'com.google.gms:google-services:4.3.10'
+    classpath 'com.android.tools.build:gradle:7.2.2'
+    classpath 'com.google.gms:google-services:4.3.14'
 
     //latest version can be found here: https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
     classpath 'io.fabric.tools:gradle:1.28.1'
@@ -25,7 +25,8 @@ buildscript {
 
 allprojects {
   repositories {
-    jcenter()
+    mavenCentral()
+    google()
   }
 }
 

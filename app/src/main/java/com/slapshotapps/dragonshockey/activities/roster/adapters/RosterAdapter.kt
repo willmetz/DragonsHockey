@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.RosterUtils
+import com.slapshotapps.dragonshockey.utils.RosterUtils
 import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter
 import com.slapshotapps.dragonshockey.models.Player
 import java.util.*

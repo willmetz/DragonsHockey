@@ -3,7 +3,7 @@ package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 import android.content.Context;
 
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DateFormatter;
+import com.slapshotapps.dragonshockey.utils.DateFormatter;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameResult;
 

@@ -6,8 +6,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.slapshotapps.dragonshockey.Config;
-import com.slapshotapps.dragonshockey.Utils.HomeScreenUtils;
-import com.slapshotapps.dragonshockey.Utils.ScheduleUtils;
+import com.slapshotapps.dragonshockey.utils.HomeScreenUtils;
+import com.slapshotapps.dragonshockey.utils.ScheduleUtils;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameResult;
 import com.slapshotapps.dragonshockey.models.HomeContents;
@@ -15,6 +15,7 @@ import com.slapshotapps.dragonshockey.models.SeasonSchedule;
 
 import java.util.Date;
 
+import androidx.annotation.NonNull;
 import rx.Observable;
 import rx.subscriptions.Subscriptions;
 
@@ -38,7 +39,7 @@ public class HomeScreenObserver {
             final ValueEventListener listener =
                     query.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             HomeContents homeContents = new HomeContents();
                             homeContents.setLastGame(lastGame);

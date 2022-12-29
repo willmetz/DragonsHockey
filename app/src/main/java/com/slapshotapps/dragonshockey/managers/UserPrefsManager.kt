@@ -10,6 +10,8 @@ class UserPrefsManager(private val context: Context) {
     private val SORT_SELECTION_KEY = "sortSelection"
     private val NOTIFICATIONS_ENABLED_KEY = "notificationsEnabled"
     private val NOTIFICATIONS_DAYS_BEFORE_GAME_KEY = "notificationsDayBeforeGame"
+    private val NOTIFICATION_SATE_KEY = "notificationState"
+
     var statSortPreference: StatSortSelection
         get() {
             val sortIndex = userPrefs.getInt(SORT_SELECTION_KEY, StatSortSelection.Points.index)
@@ -42,4 +44,20 @@ class UserPrefsManager(private val context: Context) {
     var notificationsDaysBeforeGame
         get() = userPrefs.getInt(NOTIFICATIONS_DAYS_BEFORE_GAME_KEY, 0)
         set(value) = userPrefs.edit().putInt(NOTIFICATIONS_DAYS_BEFORE_GAME_KEY, value).apply()
+
+    var notificationState : NotificationState
+        get() =
+            when(userPrefs.getInt(NOTIFICATION_SATE_KEY, 0)){
+                1 -> NotificationState.DAY_BEFORE_GAME
+                2 -> NotificationState.DAY_OF_GAME
+                else -> NotificationState.DISABLED
+            }
+
+    set(value) =
+        when(value){
+            NotificationState.DAY_BEFORE_GAME -> userPrefs.edit().putInt(NOTIFICATION_SATE_KEY, 1).apply()
+            NotificationState.DAY_OF_GAME -> userPrefs.edit().putInt(NOTIFICATION_SATE_KEY, 2).apply()
+            else -> userPrefs.edit().putInt(NOTIFICATION_SATE_KEY, 0).apply()
+        }
+
 }

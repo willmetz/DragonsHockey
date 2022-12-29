@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents;
+import com.slapshotapps.dragonshockey.utils.DragonsHockeyIntents;
 
 import java.util.Locale;
 

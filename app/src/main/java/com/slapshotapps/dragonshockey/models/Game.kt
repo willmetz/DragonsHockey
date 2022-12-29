@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.firebase.database.Exclude
-import com.slapshotapps.dragonshockey.Utils.DateFormatter
+import com.slapshotapps.dragonshockey.utils.DateFormatter
 import java.util.*
 
 /**

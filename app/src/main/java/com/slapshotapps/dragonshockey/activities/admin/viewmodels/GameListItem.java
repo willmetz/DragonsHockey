@@ -1,8 +1,8 @@
 package com.slapshotapps.dragonshockey.activities.admin.viewmodels;
 
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.DateFormatter;
-import com.slapshotapps.dragonshockey.Utils.FormattingUtils;
+import com.slapshotapps.dragonshockey.utils.DateFormatter;
+import com.slapshotapps.dragonshockey.utils.FormattingUtils;
 import com.slapshotapps.dragonshockey.models.Game;
 
 import androidx.annotation.NonNull;
