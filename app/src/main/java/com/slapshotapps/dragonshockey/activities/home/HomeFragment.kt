@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.FirebaseDatabase
@@ -27,18 +28,15 @@ class HomeFragment : HockeyFragment() {
     private var hockeyScheduleSubscription: Subscription? = null
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.activity_home, container, false)
 
-        setupMenu()
-
         val listener = actionBarListener
         listener?.setTitle(getString(R.string.dragons_hockey))
 
-        auth = FirebaseAuth.getInstance()
+        setupMenu()
 
         return binding.root
     }
@@ -59,7 +57,7 @@ class HomeFragment : HockeyFragment() {
                 }
 
             }
-        })
+        }, viewLifecycleOwner,Lifecycle.State.RESUMED)
     }
 
 

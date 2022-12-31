@@ -1,7 +1,9 @@
 package com.slapshotapps.dragonshockey.workers
 
 import android.content.Context
+import androidx.lifecycle.lifecycleScope
 import androidx.work.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.slapshotapps.dragonshockey.utils.ScheduleUtils
 import com.slapshotapps.dragonshockey.managers.NotificationState
@@ -9,21 +11,47 @@ import com.slapshotapps.dragonshockey.managers.UserPrefsManager
 import com.slapshotapps.dragonshockey.models.Game
 import com.slapshotapps.dragonshockey.models.SeasonSchedule
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
-    : Worker(appContext, workerParams) {
+    : CoroutineWorker(appContext, workerParams) {
+    private val userPrefsManager = UserPrefsManager(applicationContext)
 
-    override fun doWork(): Result {
-        val userPrefsManager = UserPrefsManager(applicationContext)
-
+    override suspend fun doWork(): Result {
         val notificationState = userPrefsManager.notificationState
         if (notificationState == NotificationState.DISABLED) {
             return Result.success()
         }
 
+        if(!authenticateUser()) return Result.failure()
+
+        val schedule = getSeasonSchedule()
+
+        val seasonSchedule = schedule ?: return Result.failure()
+        checkForNextGame(seasonSchedule)
+
+        return Result.success()
+    }
+
+    private suspend fun authenticateUser() : Boolean  {
+
+        //user is already authenticated
+        if(FirebaseAuth.getInstance().currentUser != null) return true
+
+        //try to authenticate
+        val signInResult = FirebaseAuth.getInstance().signInAnonymously().await();
+
+        return signInResult?.user != null
+    }
+
+    private fun getSeasonSchedule(): SeasonSchedule?{
         var schedule: SeasonSchedule? = null
         ScheduleObserver.getHockeySchedule(FirebaseDatabase.getInstance())
                 .subscribe({ seasonSchedule: SeasonSchedule? ->
@@ -32,16 +60,21 @@ class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
                     Timber.e("Error retrieving schedule")
                 })
 
+        //as this is happening on a different thread we need to wait a bit here
+        //should really update this to use coroutines...
         var waitCount = 50
         while (schedule == null && waitCount-- > 0) {
-            kotlin.runCatching { Thread.sleep(200) }
+            kotlin.runCatching { Thread.sleep(100) }
         }
 
-        val seasonSchedule = schedule ?: return Result.failure()
+        return schedule
+    }
 
+    private fun checkForNextGame(seasonSchedule: SeasonSchedule){
         val nextGame = ScheduleUtils.getGameAfterDate(Date(), seasonSchedule.allGames)
-                ?: return Result.success()
+                ?: return
 
+        val notificationState = userPrefsManager.notificationState
 
         nextGame.gameTimeToDate()?.let { nextGameTime ->
             val gameTime = Calendar.getInstance()
@@ -65,9 +98,6 @@ class UpcomingGameChecker(appContext: Context, workerParams: WorkerParameters)
                 }
             }
         }
-
-
-        return Result.success()
     }
 
     private fun createNotificationDisplayWorker(game: Game, notificationTime: Date) {
