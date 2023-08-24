@@ -1,7 +1,7 @@
 package com.slapshotapps.dragonshockey.activities.stats.adapters
 
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.BaseDataBindingAdapter
+import com.slapshotapps.dragonshockey.utils.BaseDataBindingAdapter
 import com.slapshotapps.dragonshockey.dialogs.StatSortSelection
 import com.slapshotapps.dragonshockey.models.PlayerPosition
 import com.slapshotapps.dragonshockey.models.PlayerStats

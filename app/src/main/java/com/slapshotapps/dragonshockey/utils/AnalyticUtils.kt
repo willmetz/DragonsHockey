@@ -1,4 +1,4 @@
-package com.slapshotapps.dragonshockey.Utils
+package com.slapshotapps.dragonshockey.utils
 
 import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics

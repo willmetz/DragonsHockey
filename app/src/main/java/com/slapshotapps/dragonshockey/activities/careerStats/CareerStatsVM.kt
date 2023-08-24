@@ -1,6 +1,6 @@
 package com.slapshotapps.dragonshockey.activities.careerStats
 
-import com.slapshotapps.dragonshockey.Utils.RosterUtils
+import com.slapshotapps.dragonshockey.utils.RosterUtils
 import com.slapshotapps.dragonshockey.models.Player
 import com.slapshotapps.dragonshockey.models.PlayerStats
 import com.slapshotapps.dragonshockey.models.SeasonStats

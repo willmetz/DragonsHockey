@@ -1,7 +1,7 @@
 package com.slapshotapps.dragonshockey.activities.admin.adapter;
 
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.Utils.BaseDataBindingAdapter;
+import com.slapshotapps.dragonshockey.utils.BaseDataBindingAdapter;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminStatsViewModel;
 import com.slapshotapps.dragonshockey.models.PlayerPosition;
 

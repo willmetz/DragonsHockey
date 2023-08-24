@@ -4,47 +4,62 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
+import androidx.lifecycle.Lifecycle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.FirebaseDatabase
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.DragonsHockeyIntents
+import com.slapshotapps.dragonshockey.utils.DragonsHockeyIntents
 import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.databinding.ActivityHomeBinding
 import com.slapshotapps.dragonshockey.observables.HomeScreenObserver
 import com.slapshotapps.dragonshockey.observables.ScheduleObserver
-import kotlinx.coroutines.*
-import kotlinx.coroutines.tasks.await
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import timber.log.Timber
 import java.util.*
-import kotlin.coroutines.CoroutineContext
 
 
 class HomeFragment : HockeyFragment() {
 
     private var hockeyScheduleSubscription: Subscription? = null
-    private lateinit var binding: ActivityHomeBinding
-    private lateinit var auth: FirebaseAuth
+    private var _binding: ActivityHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.activity_home, container, false)
-
-        setHasOptionsMenu(true)
+                              savedInstanceState: Bundle?): View {
+        _binding = DataBindingUtil.inflate(inflater, R.layout.activity_home, container, false)
 
         val listener = actionBarListener
         listener?.setTitle(getString(R.string.dragons_hockey))
 
-        auth = FirebaseAuth.getInstance()
+        setupMenu()
 
         return binding.root
     }
+
+    private fun setupMenu(){
+        activity?.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_home, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_admin -> {
+                        startActivity(DragonsHockeyIntents.createAdminAuthIntent(context))
+                        true
+                    }
+                    else -> false
+                }
+
+            }
+        }, viewLifecycleOwner,Lifecycle.State.RESUMED)
+    }
+
 
     override fun onResumeWithCredentials() {
         updateData()
@@ -82,7 +97,9 @@ class HomeFragment : HockeyFragment() {
         hockeyScheduleSubscription = ScheduleObserver.getHockeySchedule(firebaseDatabase)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap { games -> HomeScreenObserver.getHomeScreen(firebaseDatabase, games, Date()) }
+                .flatMap { games ->
+                    HomeScreenObserver.getHomeScreen(firebaseDatabase, games, Date())
+                }
                 .subscribe({ homeContents ->
                     binding.item = HomeScreenViewModel(homeContents)
                     listener?.hideProgressBar()
@@ -96,27 +113,12 @@ class HomeFragment : HockeyFragment() {
 
     override fun onPause() {
         super.onPause()
-
-        if (hockeyScheduleSubscription != null) {
-            hockeyScheduleSubscription!!.unsubscribe()
-            hockeyScheduleSubscription = null
-        }
+        hockeyScheduleSubscription?.unsubscribe()
+        hockeyScheduleSubscription = null
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_home, menu)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.getItemId()) {
-            R.id.action_admin -> {
-                startActivity(DragonsHockeyIntents.createAdminAuthIntent(context))
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-
 }

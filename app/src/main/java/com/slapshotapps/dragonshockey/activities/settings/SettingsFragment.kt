@@ -1,23 +1,25 @@
 package com.slapshotapps.dragonshockey.activities.settings
 
 
-import android.content.ComponentName
+import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.work.*
-import com.slapshotapps.dragonshockey.R
+import com.slapshotapps.dragonshockey.utils.NotificationUtil
 import com.slapshotapps.dragonshockey.activities.HockeyAnalyticEvent
 import com.slapshotapps.dragonshockey.activities.HockeyFragment
 import com.slapshotapps.dragonshockey.databinding.FragmentSettingsBinding
 import com.slapshotapps.dragonshockey.managers.NotificationManager
+import com.slapshotapps.dragonshockey.managers.NotificationState
 import com.slapshotapps.dragonshockey.managers.UserPrefsManager
-import com.slapshotapps.dragonshockey.receivers.NotificationBroadcast
-import com.slapshotapps.dragonshockey.receivers.RecreateAlarmOnDeviceBoot
 import com.slapshotapps.dragonshockey.workers.UpcomingGameChecker
 import java.util.concurrent.TimeUnit
 
@@ -32,13 +34,65 @@ const val NOTIFICATION_SCHEDULE_CHECKER_TASK = "NotificationScheduleTester"
  */
 class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelListener {
 
-    lateinit var binding: FragmentSettingsBinding
+    var binding: FragmentSettingsBinding? = null
+
+    private val viewModel: SettingsViewModel by lazy{
+        SettingsViewModel(UserPrefsManager(requireContext()), this, NotificationManager(requireContext()))
+    }
+
+    private val requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+                if (isGranted) {
+                    continueEnablingNotifications()
+                } else {
+                    binding?.notificationOptionsGroup?.check(com.slapshotapps.dragonshockey.R.id.notifications_disabled)
+                    showNotificationPrompt()
+                }
+            }
+
+    private fun showNotificationPrompt() {
+        AlertDialog.Builder(requireContext())
+                .setTitle("Notification Permission Required")
+                .setMessage("To show game notifications permission is required.")
+                .setPositiveButton("Ok", null)
+                .show()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
+        binding = FragmentSettingsBinding.inflate(inflater, container,false)
 
-        return binding.root
+        setNotificationOption(viewModel.getNotificationState())
+
+        binding?.notificationOptionsGroup?.setOnCheckedChangeListener{ _, checkedID ->
+            when(checkedID){
+                com.slapshotapps.dragonshockey.R.id.day_of_game -> {
+                    viewModel.onRequestNotificationsEnabled()
+                }
+                com.slapshotapps.dragonshockey.R.id.day_before_game-> {
+                    viewModel.onRequestNotificationsEnabled()
+                }
+                else -> {
+                    viewModel.onDisableNotifications()
+                }
+            }
+        }
+
+        return binding?.root
+    }
+
+    private fun setNotificationOption(option: NotificationState){
+        when(option){
+            NotificationState.DISABLED -> {
+                binding?.notificationOptionsGroup?.check(com.slapshotapps.dragonshockey.R.id.notifications_disabled)
+            }
+            NotificationState.DAY_OF_GAME -> {
+                binding?.notificationOptionsGroup?.check(com.slapshotapps.dragonshockey.R.id.day_of_game)
+            }
+            NotificationState.DAY_BEFORE_GAME -> {
+                binding?.notificationOptionsGroup?.check(com.slapshotapps.dragonshockey.R.id.day_before_game)
+            }
+        }
     }
 
     override fun onResumeWithCredentials() {
@@ -49,76 +103,77 @@ class SettingsFragment : HockeyFragment(), SettingsViewModel.SettingsViewModelLi
         //no-op
     }
 
-    override fun onResume() {
-        super.onResume()
 
-        val viewModel = SettingsViewModel(UserPrefsManager(context!!), this, NotificationManager(context!!))
-        binding.item = viewModel
-        lifecycle.addObserver(viewModel)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
-    override fun onEnableNotifications() {
+
+    private fun continueEnablingNotifications() {
+        NotificationUtil.createNotificationChannel(requireContext())
 
         analyticEventListener?.logContentSelectedEvent(HockeyAnalyticEvent.NOTIFICATIONS_ENABLED)
 
+        setupWorkManagerForSchedulePolling()
+        viewModel.onNotificationsEnabled(binding?.dayOfGame?.isChecked == true)
+    }
 
+    private fun setupWorkManagerForSchedulePolling(){
         val constraints = Constraints.Builder()
                 .setRequiresBatteryNotLow(true)
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
 
-        val notificationWork = PeriodicWorkRequestBuilder<UpcomingGameChecker>(24L, TimeUnit.HOURS)
+        val notificationWork = PeriodicWorkRequestBuilder<UpcomingGameChecker>(GAME_SCHEDULE_CHECKING_FREQUENCY_HOURS, TimeUnit.HOURS)
                 .setConstraints(constraints)
                 .addTag(NOTIFICATION_SCHEDULE_CHECKER_TASK)
                 .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
                 .build()
 
-        val workManager = WorkManager.getInstance()
-        cancelNotificationWork(workManager)
-        workManager.enqueue(notificationWork)
+        val workManager = WorkManager.getInstance(requireContext())
+        cancelNotificationWork()
+        workManager.enqueueUniquePeriodicWork(SCHEDULE_FETCH_JOB_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
 
-        enableBroadcastReceivers(true)
     }
 
-    override fun onDisableNotifications() {
+    private fun cancelNotificationWork() {
+        WorkManager.getInstance(requireContext()).apply {
+            cancelUniqueWork(SCHEDULE_FETCH_JOB_NAME)
+            cancelUniqueWork(UpcomingGameChecker.DISPLAY_NOTIFICATION_WORK_JOB)
+        }
+    }
+
+    override fun onRequestNotificationsEnabled() {
+        if(checkNotificationPermissionRequired()){
+            when(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS)){
+                PackageManager.PERMISSION_GRANTED -> continueEnablingNotifications()
+                PackageManager.PERMISSION_DENIED -> {
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        }else{
+            continueEnablingNotifications()
+        }
+    }
+
+    private fun checkNotificationPermissionRequired() : Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+    }
+
+
+    override fun onNotificationsDisabled() {
         analyticEventListener?.logContentSelectedEvent(HockeyAnalyticEvent.NOTIFICATIONS_DISABLED)
 
-        cancelNotificationWork(WorkManager.getInstance())
-
-        enableBroadcastReceivers(false)
+        cancelNotificationWork()
     }
 
-    private fun cancelNotificationWork(workManager: WorkManager) {
-        workManager.cancelAllWorkByTag(NOTIFICATION_SCHEDULE_CHECKER_TASK)
+    override fun onEnableNotificationOptions() {
+        onRequestNotificationsEnabled()
     }
-
-    private fun enableBroadcastReceivers(enabled: Boolean) {
-        val bootBroadcastReceiver = ComponentName(context!!, RecreateAlarmOnDeviceBoot::class.java)
-
-        context?.packageManager?.setComponentEnabledSetting(
-                bootBroadcastReceiver,
-                if (enabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-        )
-
-        val notificationBroadcastReceiver = ComponentName(context!!, NotificationBroadcast::class.java)
-        context?.packageManager?.setComponentEnabledSetting(
-                notificationBroadcastReceiver,
-                if (enabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-        )
-    }
-
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment.
-         *
-         * @return A new instance of fragment SettingsFragment.
-         */
-        @JvmStatic
-        fun newInstance() =
-                SettingsFragment()
+        const val SCHEDULE_FETCH_JOB_NAME = "scheduleFetchingJob"
+        const val GAME_SCHEDULE_CHECKING_FREQUENCY_HOURS = 24L
     }
 }

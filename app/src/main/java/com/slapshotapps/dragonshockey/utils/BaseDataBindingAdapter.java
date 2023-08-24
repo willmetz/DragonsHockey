@@ -1,4 +1,4 @@
-package com.slapshotapps.dragonshockey.Utils;
+package com.slapshotapps.dragonshockey.utils;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

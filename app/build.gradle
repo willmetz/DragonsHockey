@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: "com.google.firebase.crashlytics"
 
 repositories {
-  maven { url 'https://maven.google.com/' }
   google()
+  maven { url 'https://maven.google.com/' }
 }
 
 
@@ -37,13 +37,13 @@ android {
     jvmTarget = JavaVersion.VERSION_1_8
   }
 
-  compileSdkVersion 31
+  compileSdkVersion 33
   defaultConfig {
     applicationId "com.slapshotapps.dragonshockey"
     minSdkVersion 23
-    targetSdkVersion 31
-    versionCode 28
-    versionName "2.40"
+    targetSdkVersion 33
+    versionCode 32
+    versionName "2.51"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
@@ -80,6 +80,10 @@ android {
   }
 }
 
+configurations.implementation {
+  exclude group: 'com.google.android.gms', module: 'play-services-ads-identifier'
+}
+
 dependencies {
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -89,20 +93,22 @@ dependencies {
   implementation "androidx.navigation:navigation-ui:$nav_version" // For Kotlin use navigation-ui-ktx
 
   //android x
-  implementation 'androidx.appcompat:appcompat:1.4.0'
+  implementation 'androidx.appcompat:appcompat:1.5.1'
   implementation 'androidx.cardview:cardview:1.0.0'
-  implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
   implementation "androidx.work:work-runtime-ktx:2.7.1"
-  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1'
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.1'
+  implementation "com.google.android.gms:play-services-auth:20.4.0"
 
   //firebase
-  implementation "com.google.firebase:firebase-database:20.0.5"
-  implementation "com.google.android.gms:play-services-auth:20.2.0"
-  implementation "com.google.firebase:firebase-auth:21.0.5"
-  implementation "com.google.firebase:firebase-core:21.0.0"
+  implementation platform('com.google.firebase:firebase-bom:31.1.1')
+  implementation "com.google.firebase:firebase-database"
+  implementation "com.google.firebase:firebase-auth"
+  implementation 'com.google.firebase:firebase-core:21.1.1'
+  implementation 'com.google.firebase:firebase-crashlytics'
 
   //android
-  implementation 'com.google.android.material:material:1.6.0'
+  implementation 'com.google.android.material:material:1.7.0'
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   kapt "com.android.databinding:compiler:3.3.1"
 

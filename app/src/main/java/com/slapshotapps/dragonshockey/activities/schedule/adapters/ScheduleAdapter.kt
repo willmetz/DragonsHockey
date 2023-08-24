@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.Utils.DateFormatter
-import com.slapshotapps.dragonshockey.Utils.FormattingUtils
+import com.slapshotapps.dragonshockey.utils.DateFormatter
+import com.slapshotapps.dragonshockey.utils.FormattingUtils
 import com.slapshotapps.dragonshockey.models.SeasonSchedule
 import java.util.*
 

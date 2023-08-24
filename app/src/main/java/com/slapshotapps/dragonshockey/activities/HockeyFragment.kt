@@ -76,10 +76,10 @@ abstract class HockeyFragment : Fragment(), CoroutineScope {
 
         firebaseDatabase = FirebaseDatabase.getInstance()
 
-        try {
-            firebaseDatabase!!.setPersistenceEnabled(true)
-        } catch (exception: DatabaseException) {
-            Timber.e("Unable to set persistance for Firebase")
-        }
+//        try {
+//            firebaseDatabase!!.setPersistenceEnabled(true)
+//        } catch (exception: DatabaseException) {
+//            Timber.e("Unable to set persistance for Firebase")
+//        }
     }
 }

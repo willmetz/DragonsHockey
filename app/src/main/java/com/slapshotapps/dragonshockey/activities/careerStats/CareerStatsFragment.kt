@@ -22,7 +22,8 @@ import rx.schedulers.Schedulers
 class CareerStatsFragment : HockeyFragment() {
 
     private var careerStatsVM: CareerStatsVM? = null
-    private lateinit var binding: FragmentCareerStatsBinding
+    private var _binding: FragmentCareerStatsBinding? = null
+    private val binding get() = _binding!!
 
     private var careerStatsSubscription: Subscription? = null
     private var careerStatsAdapter: CareerStatsAdapter? = null
@@ -32,16 +33,16 @@ class CareerStatsFragment : HockeyFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        actionBarListener!!.setTitle("Career Stats")
+        actionBarListener?.setTitle("Career Stats")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
-        binding = DataBindingUtil.inflate(inflater,
+        _binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_career_stats, container, false)
 
-        currentSeasonStats = CareerStatsFragmentArgs.fromBundle(arguments!!).currentSeasonStats
+        currentSeasonStats = CareerStatsFragmentArgs.fromBundle(requireArguments()).currentSeasonStats
 
         careerStatsAdapter = CareerStatsAdapter()
         binding.careerStats.adapter = careerStatsAdapter
@@ -87,5 +88,10 @@ class CareerStatsFragment : HockeyFragment() {
         careerStatsSubscription?.unsubscribe()
 
         actionBarListener!!.hideProgressBar()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

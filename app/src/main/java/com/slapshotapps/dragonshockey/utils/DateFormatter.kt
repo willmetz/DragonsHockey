@@ -1,4 +1,4 @@
-package com.slapshotapps.dragonshockey.Utils
+package com.slapshotapps.dragonshockey.utils
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
