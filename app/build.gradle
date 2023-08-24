@@ -78,6 +78,7 @@ android {
   dataBinding {
     enabled = true
   }
+    namespace 'com.slapshotapps.dragonshockey'
 }
 
 configurations.implementation {
