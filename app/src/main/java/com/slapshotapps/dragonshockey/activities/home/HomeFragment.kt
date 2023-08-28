@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.MenuProvider
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.FirebaseDatabase
 import com.slapshotapps.dragonshockey.R
@@ -31,7 +29,7 @@ class HomeFragment : HockeyFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.activity_home, container, false)
+        _binding = ActivityHomeBinding.inflate(inflater, container, false)
 
         val listener = actionBarListener
         listener?.setTitle(getString(R.string.dragons_hockey))
@@ -101,10 +99,10 @@ class HomeFragment : HockeyFragment() {
                     HomeScreenObserver.getHomeScreen(firebaseDatabase, games, Date())
                 }
                 .subscribe({ homeContents ->
-                    binding.item = HomeScreenViewModel(homeContents)
+                    //binding.item = HomeScreenViewModel(homeContents)
                     listener?.hideProgressBar()
                 }, {
-                    binding.item = HomeScreenViewModel(null)
+                    //binding.item = HomeScreenViewModel(null)
                     listener?.hideProgressBar()
                     Toast.makeText(this@HomeFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
                             .show()

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.slapshotapps.dragonshockey.R
 import com.slapshotapps.dragonshockey.ViewUtils.itemdecoration.RecyclerViewDivider
@@ -32,15 +31,13 @@ class CareerStatsFragment : HockeyFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         actionBarListener?.setTitle("Career Stats")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        _binding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_career_stats, container, false)
+        _binding = FragmentCareerStatsBinding.inflate(inflater, container, false)
 
         currentSeasonStats = CareerStatsFragmentArgs.fromBundle(requireArguments()).currentSeasonStats
 
@@ -64,7 +61,9 @@ class CareerStatsFragment : HockeyFragment() {
 
                     careerStatsVM = CareerStatsVM(careerStatsData.player, currentSeasonStats,
                             careerStatsData.seasonStats)
-                    binding.stats = careerStatsVM
+                    //binding.careerStats.
+
+                   // binding.stats = careerStatsVM
                     careerStatsAdapter?.updateStats(careerStatsVM!!.stats,
                             careerStatsData.player.getPlayerPosition())
 

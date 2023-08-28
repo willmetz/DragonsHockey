@@ -3,7 +3,6 @@ package com.slapshotapps.dragonshockey.activities
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.slapshotapps.dragonshockey.AnalyticEventListener
@@ -17,13 +16,13 @@ class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setSupportActionBar(binding!!.toolbar);
 
 
         val navController = findNavController(this, R.id.fragment_container)
         NavigationUI.setupWithNavController(binding!!.navigationView, navController)
-
+        setContentView(binding!!.root)
     }
 
     override fun onSupportNavigateUp() =

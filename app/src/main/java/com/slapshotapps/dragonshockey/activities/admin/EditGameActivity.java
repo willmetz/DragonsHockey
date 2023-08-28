@@ -12,21 +12,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.slapshotapps.dragonshockey.Config;
 import com.slapshotapps.dragonshockey.R;
-import com.slapshotapps.dragonshockey.utils.DragonsHockeyIntents;
 import com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener;
 import com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminGameViewModel;
 import com.slapshotapps.dragonshockey.databinding.ActivityEditGameAuthBinding;
 import com.slapshotapps.dragonshockey.models.Game;
 import com.slapshotapps.dragonshockey.models.GameUpdateKeys;
 import com.slapshotapps.dragonshockey.observables.AdminObserver;
+import com.slapshotapps.dragonshockey.utils.DragonsHockeyIntents;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -56,8 +54,8 @@ public class EditGameActivity extends AppCompatActivity
             refreshData = true;
         }
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_game_auth);
-        binding.setListener(this);
+        binding = ActivityEditGameAuthBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,7 +69,7 @@ public class EditGameActivity extends AppCompatActivity
 
         if (!refreshData) {
             getDataKeys(originalGame.getGameID());
-            binding.setData(new AdminGameViewModel(originalGame));
+            //binding.setData(new AdminGameViewModel(originalGame));
         } else {
             //get the game ID
             Game game = getIntent().getParcelableExtra(DragonsHockeyIntents.EXTRA_GAME);
@@ -83,7 +81,7 @@ public class EditGameActivity extends AppCompatActivity
                         @Override
                         public void call(Game game) {
                             originalGame = game;
-                            binding.setData(new AdminGameViewModel(originalGame));
+                         //   binding.setData(new AdminGameViewModel(originalGame));
 
                             getDataKeys(game.getGameID());
                         }
@@ -106,71 +104,71 @@ public class EditGameActivity extends AppCompatActivity
             subscription = null;
         }
 
-        AdminGameViewModel model = binding.getData();
-        if (model.hasChanged()) {
-            saveUpdates(model);
-            refreshData = true;
-        }
+//        AdminGameViewModel model = binding.getData();
+//        if (model.hasChanged()) {
+//            saveUpdates(model);
+//            refreshData = true;
+//        }
     }
 
     @Override
     public void onDateClick(Date gameDate) {
 
-        AdminGameViewModel model = binding.getData();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(model.getGameDate());
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog dialog = new DatePickerDialog(this, this, year, month, dayOfMonth);
-        dialog.show();
+//        AdminGameViewModel model = binding.getData();
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(model.getGameDate());
+//        final int year = calendar.get(Calendar.YEAR);
+//        final int month = calendar.get(Calendar.MONTH);
+//        final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//        DatePickerDialog dialog = new DatePickerDialog(this, this, year, month, dayOfMonth);
+//        dialog.show();
     }
 
     @Override
     public void onTimeClick(Date gameDate) {
-        AdminGameViewModel model = binding.getData();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(model.getGameDate());
-
-        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        final int minute = calendar.get(Calendar.MINUTE);
-
-        TimePickerDialog dialog = new TimePickerDialog(this, this, hour, minute, false);
-        dialog.show();
+//        AdminGameViewModel model = binding.getData();
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(model.getGameDate());
+//
+//        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//        final int minute = calendar.get(Calendar.MINUTE);
+//
+//        TimePickerDialog dialog = new TimePickerDialog(this, this, hour, minute, false);
+//        dialog.show();
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        AdminGameViewModel model = binding.getData();
-        Date originalGameDate = model.getGameDate();
-
-        Calendar newGameDate = Calendar.getInstance();
-        newGameDate.setTime(originalGameDate);
-
-        newGameDate.set(Calendar.YEAR, year);
-        newGameDate.set(Calendar.MONTH, month);
-        newGameDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-        model.setGameDate(newGameDate.getTime());
-
-        binding.setData(model);
+//        AdminGameViewModel model = binding.getData();
+//        Date originalGameDate = model.getGameDate();
+//
+//        Calendar newGameDate = Calendar.getInstance();
+//        newGameDate.setTime(originalGameDate);
+//
+//        newGameDate.set(Calendar.YEAR, year);
+//        newGameDate.set(Calendar.MONTH, month);
+//        newGameDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//
+//        model.setGameDate(newGameDate.getTime());
+//
+//        binding.setData(model);
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        AdminGameViewModel model = binding.getData();
-        Date originalGameDate = model.getGameDate();
-
-        Calendar newGameDate = Calendar.getInstance();
-        newGameDate.setTime(originalGameDate);
-
-        newGameDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        newGameDate.set(Calendar.MINUTE, minute);
-
-        model.setGameDate(newGameDate.getTime());
-
-        binding.setData(model);
+//        AdminGameViewModel model = binding.getData();
+//        Date originalGameDate = model.getGameDate();
+//
+//        Calendar newGameDate = Calendar.getInstance();
+//        newGameDate.setTime(originalGameDate);
+//
+//        newGameDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//        newGameDate.set(Calendar.MINUTE, minute);
+//
+//        model.setGameDate(newGameDate.getTime());
+//
+//        binding.setData(model);
     }
 
     @Override

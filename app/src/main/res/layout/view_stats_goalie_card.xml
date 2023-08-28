@@ -1,184 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
 
-    <data>
-
-        <import type="com.slapshotapps.dragonshockey.activities.stats.adapters.PlayerStatsVM"/>
-
-        <variable
-            name="item"
-            type="PlayerStatsVM"/>
-    </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/player_stats"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:elevation="2dp"
+        app:cardCornerRadius="4dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/player_stats"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:elevation="2dp"
-            android:onClick="@{() -> item.onStatsClicked()}"
-            app:cardCornerRadius="4dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_height="match_parent">
 
 
-                <TextView
-                    android:id="@+id/player_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@{item.getPlayerName()}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="John Doe"
-                    style="@style/TextAppearance.AppCompat.Medium"/>
+            <TextView
+                android:id="@+id/player_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="John Doe"
+                style="@style/TextAppearance.AppCompat.Medium"/>
 
-                <TextView
-                    android:id="@+id/player_position"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toEndOf="@id/player_name"
-                    app:layout_constraintBottom_toBottomOf="@id/player_name"
-                    android:text="(G)"
-                    style="@style/TextAppearance.AppCompat.Medium"/>
+            <TextView
+                android:id="@+id/player_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/player_name"
+                app:layout_constraintBottom_toBottomOf="@id/player_name"
+                android:text="(G)"
+                style="@style/TextAppearance.AppCompat.Medium"/>
 
-                <TextView
-                    android:id="@+id/games_played_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/games"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="0.05"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/games_played_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/games"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.55"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-                <TextView
-                    android:id="@+id/games_played"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@{item.getGamesPlayed()}"
-                    app:layout_constraintStart_toStartOf="@id/games_played_header"
-                    app:layout_constraintEnd_toEndOf="@id/games_played_header"
-                    app:layout_constraintTop_toBottomOf="@id/games_played_header"
-                    tools:text="7"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/games_played"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@id/games_played_header"
+                app:layout_constraintEnd_toEndOf="@id/games_played_header"
+                app:layout_constraintTop_toBottomOf="@id/games_played_header"
+                tools:text="7"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-                <TextView
-                    android:id="@+id/goals_against_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="GA"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="0.25"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/goals_against_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GA"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.55"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-                <TextView
-                    android:id="@+id/goals_against"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{item.goalsAgainst()}"
-                    app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintStart_toStartOf="@id/goals_against_header"
-                    app:layout_constraintEnd_toEndOf="@id/goals_against_header"
-                    tools:text="25"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/goals_against"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@id/games_played"
+                app:layout_constraintStart_toStartOf="@id/goals_against_header"
+                app:layout_constraintEnd_toEndOf="@id/goals_against_header"
+                tools:text="25"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-                <TextView
-                    android:id="@+id/goals_against_average_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="GAA"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="0.45"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/goals_against_average_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GAA"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.55"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-                <TextView
-                    android:id="@+id/goals_against_average"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{item.goalsAgainstAverage()}"
-                    app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintStart_toStartOf="@id/goals_against_average_header"
-                    app:layout_constraintEnd_toEndOf="@id/goals_against_average_header"
-                    tools:text="2.35"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/goals_against_average"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@id/games_played"
+                app:layout_constraintStart_toStartOf="@id/goals_against_average_header"
+                app:layout_constraintEnd_toEndOf="@id/goals_against_average_header"
+                tools:text="2.35"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-                <TextView
-                    android:id="@+id/shutout_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SO"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="0.65"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/shutout_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SO"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.65"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.55"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-                <TextView
-                    android:id="@+id/shutouts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{item.shutouts()}"
-                    app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintStart_toStartOf="@id/shutout_header"
-                    app:layout_constraintEnd_toEndOf="@id/shutout_header"
-                    tools:text="1"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/shutouts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@id/games_played"
+                app:layout_constraintStart_toStartOf="@id/shutout_header"
+                app:layout_constraintEnd_toEndOf="@id/shutout_header"
+                tools:text="1"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-                <TextView
-                    android:id="@+id/penalty_minutes_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/PIM_label"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="0.85"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/penalty_minutes_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/PIM_label"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.85"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.55"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-                <TextView
-                    android:id="@+id/penalty_minutes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{item.penaltyMinutes}"
-                    app:layout_constraintBaseline_toBaselineOf="@id/games_played"
-                    app:layout_constraintStart_toStartOf="@id/penalty_minutes_header"
-                    app:layout_constraintEnd_toEndOf="@id/penalty_minutes_header"
-                    tools:text="20"
-                    style="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/penalty_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@id/games_played"
+                app:layout_constraintStart_toStartOf="@id/penalty_minutes_header"
+                app:layout_constraintEnd_toEndOf="@id/penalty_minutes_header"
+                tools:text="20"
+                style="@style/TextAppearance.AppCompat.Small"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.cardview.widget.CardView>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</layout>
+    </androidx.cardview.widget.CardView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

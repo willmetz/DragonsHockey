@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: "com.google.firebase.crashlytics"
@@ -29,21 +28,21 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
   }
 
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_1_8
-  }
+//  kotlinOptions {
+//    jvmToolchain(11)
+//  }
 
-  compileSdkVersion 33
+  compileSdk 34
   defaultConfig {
     applicationId "com.slapshotapps.dragonshockey"
     minSdkVersion 23
-    targetSdkVersion 33
-    versionCode 32
-    versionName "2.51"
+    targetSdkVersion 34
+    versionCode 33
+    versionName "3.00"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
@@ -75,9 +74,6 @@ android {
     viewBinding true
   }
 
-  dataBinding {
-    enabled = true
-  }
     namespace 'com.slapshotapps.dragonshockey'
 }
 
@@ -94,12 +90,12 @@ dependencies {
   implementation "androidx.navigation:navigation-ui:$nav_version" // For Kotlin use navigation-ui-ktx
 
   //android x
-  implementation 'androidx.appcompat:appcompat:1.5.1'
+  implementation 'androidx.appcompat:appcompat:1.6.1'
   implementation 'androidx.cardview:cardview:1.0.0'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-  implementation "androidx.work:work-runtime-ktx:2.7.1"
-  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.1'
-  implementation "com.google.android.gms:play-services-auth:20.4.0"
+  implementation "androidx.work:work-runtime-ktx:2.8.1"
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
+  implementation "com.google.android.gms:play-services-auth:20.6.0"
 
   //firebase
   implementation platform('com.google.firebase:firebase-bom:31.1.1')
@@ -109,14 +105,9 @@ dependencies {
   implementation 'com.google.firebase:firebase-crashlytics'
 
   //android
-  implementation 'com.google.android.material:material:1.7.0'
+  implementation 'com.google.android.material:material:1.9.0'
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   kapt "com.android.databinding:compiler:3.3.1"
-
-
-  //wharton
-  implementation 'com.jakewharton:butterknife:8.8.1'
-
 
   //RX Java
   implementation 'io.reactivex:rxjava:1.2.2'

@@ -1,202 +1,173 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.slapshotapps.dragonshockey.activities.admin.EditGameActivity"
-    tools:showIn="@layout/activity_edit_game_auth">
+    tools:showIn="@layout/activity_edit_game_auth"
+    android:id="@+id/content_edit_game_auth"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <data>
+    <TextView
+        android:id="@+id/game_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Game ID: 1"/>
 
-        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminGameViewModel"/>
+    <TextView
+        android:id="@+id/game_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintTop_toBottomOf="@+id/game_id"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:text="Game Date: "/>
 
-        <import type="com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/game_date_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/game_date_label"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginStart="8dp"
+        android:text="@{data.getGameDateAsString}"
+        tools:text="01/01/2016"/>
 
-        <variable
-            name="data"
-            type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminGameViewModel"/>
+    <TextView
+        android:id="@+id/game_time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintTop_toBottomOf="@+id/game_date_label"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:text="Game Date: "/>
 
-        <variable
-            name="listener"
-            type="EditGameClickListener"/>
-    </data>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/game_time_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/game_time_label"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginStart="8dp"
+        android:text="@{data.getGameTimeAsString}"
+        tools:text="7:00 PM"/>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/game_opponent_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/game_time_label"
+        app:layout_constraintLeft_toLeftOf="parent">
 
-        android:id="@+id/content_edit_game_auth"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <TextView
-            android:id="@+id/game_id"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/game_opponent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@{data.getGameID(context)}"
-            tools:text="Game ID: 1"/>
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:hint="@string/opponent_hint"/>
 
-        <TextView
-            android:id="@+id/game_date_label"
-            android:layout_width="wrap_content"
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dragons_score_container"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintDimensionRatio="3"
+        app:layout_constraintTop_toBottomOf="@+id/game_opponent_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dragons_score"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintTop_toBottomOf="@+id/game_id"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:text="Game Date: "/>
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:hint="Dragons Score"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/game_date_label"
-            app:layout_constraintBaseline_toBaselineOf="@+id/game_date_label"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_marginStart="8dp"
-            android:onClick="@{() -> listener.onDateClick(data.getGameDate)}"
-            android:text="@{data.getGameDateAsString}"
-            tools:text="01/01/2016"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/game_time_label"
-            android:layout_width="wrap_content"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/opponent_score_container"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintDimensionRatio="3"
+        app:layout_constraintTop_toBottomOf="@+id/dragons_score_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/opponent_score"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintTop_toBottomOf="@+id/game_date_label"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:text="Game Date: "/>
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:hint="Opponents Score"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/game_time_label"
-            app:layout_constraintBaseline_toBaselineOf="@+id/game_time_label"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_marginStart="8dp"
-            android:onClick="@{() -> listener.onTimeClick(data.getGameDate)}"
-            android:text="@{data.getGameTimeAsString}"
-            tools:text="7:00 PM"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/game_opponent_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/game_time_label"
-            app:layout_constraintLeft_toLeftOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/game_opponent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:text="@={data.opponentName}"
-                android:hint="@string/opponent_hint"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+    <CheckBox
+        android:id="@+id/otl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/opponent_score_container"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:text="Overtime Loss"/>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dragons_score_container"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintDimensionRatio="3"
-            app:layout_constraintTop_toBottomOf="@+id/game_opponent_container">
+    <Button
+        android:id="@+id/clear_game_result_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/stats_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/borderless_button_ripple"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:text="Clear Game Result"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dragons_score"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:text="@={data.dragonsScore}"
-                android:selectAllOnFocus="true"
-                android:inputType="number"
-                android:hint="Dragons Score"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/opponent_score_container"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintDimensionRatio="3"
-            app:layout_constraintTop_toBottomOf="@+id/dragons_score_container">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/opponent_score"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:text="@={data.opponentScore}"
-                android:inputType="number"
-                android:selectAllOnFocus="true"
-                android:hint="Opponents Score"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/stats_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/borderless_button_ripple"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:text="Edit Stats"/>
 
 
-        <CheckBox
-            android:id="@+id/otl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/opponent_score_container"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="16dp"
-            android:checked="@={data.OTL}"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:text="Overtime Loss"/>
-
-
-        <Button
-            android:id="@+id/clear_game_result_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/stats_button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@color/colorPrimary"
-            android:background="@drawable/borderless_button_ripple"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:onClick="@{() -> listener.onClearGameClick()}"
-            android:text="Clear Game Result"/>
-
-        <Button
-            android:id="@+id/stats_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@color/colorPrimary"
-            android:background="@drawable/borderless_button_ripple"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:onClick="@{() -> listener.onEditStatsClick()}"
-            android:text="Edit Stats"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

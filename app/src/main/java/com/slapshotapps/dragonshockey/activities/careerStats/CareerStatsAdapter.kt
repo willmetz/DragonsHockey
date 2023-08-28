@@ -2,14 +2,14 @@ package com.slapshotapps.dragonshockey.activities.careerStats
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
-import com.slapshotapps.dragonshockey.utils.BaseDataBindingAdapter
 import com.slapshotapps.dragonshockey.ViewUtils.interfaces.StickyHeaderAdapter
 import com.slapshotapps.dragonshockey.models.PlayerPosition
 import java.util.*
 
-class CareerStatsAdapter : BaseDataBindingAdapter(), StickyHeaderAdapter<CareerStatsAdapter.HeaderView> {
+class CareerStatsAdapter : RecyclerView.Adapter<CareerStatsAdapter.CareerStatViewHolder>(), StickyHeaderAdapter<CareerStatsAdapter.HeaderView> {
 
     private val playerSeasonStats: ArrayList<PlayerSeasonStatsVM>
     private var playerPosition: PlayerPosition? = null
@@ -26,12 +26,20 @@ class CareerStatsAdapter : BaseDataBindingAdapter(), StickyHeaderAdapter<CareerS
         notifyDataSetChanged()
     }
 
-    override fun getObjForPosition(position: Int): Any {
-        return playerSeasonStats[position]
+//    override fun getObjForPosition(position: Int): Any {
+//        return playerSeasonStats[position]
+//    }
+//
+//    override fun getLayoutIdForPosition(position: Int): Int {
+//        return if (playerPosition == PlayerPosition.GOALIE) R.layout.list_goalie_season_stats else R.layout.list_player_season_stats
+//    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CareerStatViewHolder {
+        TODO("Not yet implemented")
     }
 
-    override fun getLayoutIdForPosition(position: Int): Int {
-        return if (playerPosition == PlayerPosition.GOALIE) R.layout.list_goalie_season_stats else R.layout.list_player_season_stats
+    override fun onBindViewHolder(holder: CareerStatViewHolder, position: Int) {
+        TODO("Not yet implemented")
     }
 
     override fun getItemCount(): Int {
@@ -58,5 +66,9 @@ class CareerStatsAdapter : BaseDataBindingAdapter(), StickyHeaderAdapter<CareerS
 
         val contentView: View
             get() = itemView
+    }
+
+    class CareerStatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
     }
 }

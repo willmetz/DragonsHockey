@@ -1,9 +1,5 @@
 package com.slapshotapps.dragonshockey.activities.settings
 
-import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import com.slapshotapps.dragonshockey.managers.NotificationManager
 import com.slapshotapps.dragonshockey.managers.NotificationState
 import com.slapshotapps.dragonshockey.managers.UserPrefsManager

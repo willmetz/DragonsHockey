@@ -1,48 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+ xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.slapshotapps.dragonshockey.activities.admin.EditGameActivity">
 
-    <data>
-
-        <import type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminGameViewModel"/>
-
-        <import type="com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener"/>
-
-        <variable
-            name="data"
-            type="com.slapshotapps.dragonshockey.activities.admin.viewmodels.AdminGameViewModel"/>
-
-        <variable
-            name="listener"
-            type="EditGameClickListener"/>
-    </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context="com.slapshotapps.dragonshockey.activities.admin.EditGameActivity">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+    <include layout="@layout/content_edit_game_auth" />
 
-        <include
-            layout="@layout/content_edit_game_auth"
-            app:listener="@{listener}"
-            app:data="@{data}"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

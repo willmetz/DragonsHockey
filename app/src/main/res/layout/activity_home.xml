@@ -1,17 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <import type="com.slapshotapps.dragonshockey.activities.home.HomeScreenViewModel" />
-
-        <variable
-            name="item"
-            type="HomeScreenViewModel" />
-    </data>
 
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,9 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:alpha="0"
-                android:text="@{item.wins}"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintLeft_toLeftOf="@+id/record_key_header_win"
                 app:layout_constraintRight_toRightOf="@+id/record_key_header_win"
                 app:layout_constraintTop_toBottomOf="@+id/record_key_header_win"
@@ -97,9 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0"
-                android:text="@{item.losses}"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintBottom_toBottomOf="@id/record_win"
                 app:layout_constraintLeft_toLeftOf="@id/record_key_header_loss"
                 app:layout_constraintRight_toRightOf="@id/record_key_header_loss"
@@ -111,9 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0"
-                android:text="@{item.overtimeLosses}"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintBottom_toBottomOf="@id/record_win"
                 app:layout_constraintLeft_toLeftOf="@id/record_key_header_otl"
                 app:layout_constraintRight_toRightOf="@id/record_key_header_otl"
@@ -125,9 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0"
-                android:text="@{item.ties}"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintBottom_toBottomOf="@id/record_win"
                 app:layout_constraintLeft_toLeftOf="@id/record_key_header_tie"
                 app:layout_constraintRight_toRightOf="@id/record_key_header_tie"
@@ -142,8 +125,6 @@
                 android:alpha="0"
                 android:text="@string/last_game"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
-                android:visibility="@{item.showLastGameInfo()}"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintLeft_toLeftOf="@+id/content_home"
                 app:layout_constraintRight_toRightOf="@+id/content_home"
                 app:layout_constraintTop_toBottomOf="@+id/record_win"
@@ -157,7 +138,6 @@
                 android:alpha="0"
                 android:text="@string/next_game"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintLeft_toLeftOf="@+id/content_home"
                 app:layout_constraintRight_toRightOf="@+id/content_home"
                 app:layout_constraintTop_toBottomOf="@+id/last_game_score"
@@ -169,8 +149,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:alpha="0"
-                android:text="@{item.getNextGameTime(context)}"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintLeft_toLeftOf="@+id/content_home"
                 app:layout_constraintRight_toRightOf="@+id/content_home"
                 app:layout_constraintTop_toBottomOf="@+id/next_game_header"
@@ -186,9 +164,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:alpha="0"
-                android:text="@{@string/opponent_versus(item.getNextGameOpponent())}"
-                android:visibility="@{item.nextGameInfoVisible}"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintLeft_toLeftOf="@+id/content_home"
                 app:layout_constraintRight_toRightOf="@+id/content_home"
                 app:layout_constraintTop_toBottomOf="@+id/next_game_date"
@@ -204,9 +179,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:alpha="0"
-                android:text="@{item.rink}"
-                android:visibility="@{item.nextGameInfoVisible}"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintLeft_toLeftOf="@+id/content_home"
                 app:layout_constraintRight_toRightOf="@+id/content_home"
                 app:layout_constraintTop_toBottomOf="@+id/next_game_opponent"
@@ -220,9 +192,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:alpha="0"
-                android:text="@{item.getLastGameResult(context)}"
-                android:visibility="@{item.showLastGameInfo()}"
-                app:fadeInView="@{item.isDataReady}"
                 app:layout_constraintLeft_toLeftOf="@+id/content_home"
                 app:layout_constraintRight_toRightOf="@+id/content_home"
                 app:layout_constraintTop_toBottomOf="@+id/last_game_header"
@@ -238,4 +207,3 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-</layout>

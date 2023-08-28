@@ -4,9 +4,6 @@ import android.content.Context
 import android.text.format.DateUtils
 import android.view.View
 import androidx.annotation.Keep
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import com.slapshotapps.dragonshockey.BR
 import com.slapshotapps.dragonshockey.R
 import com.slapshotapps.dragonshockey.utils.DateFormatter
 import com.slapshotapps.dragonshockey.utils.FormattingUtils
@@ -15,15 +12,13 @@ import java.util.*
 
 
 @Keep
-class HomeScreenViewModel(contents: HomeContents?) : BaseObservable() {
+class HomeScreenViewModel(contents: HomeContents?) {
     private var homeContents: HomeContents
 
 
-    @get:Bindable
     var isDataReady: Boolean = false
         set(value) {
             field = value
-            notifyPropertyChanged(BR.dataReady);
         }
 
 

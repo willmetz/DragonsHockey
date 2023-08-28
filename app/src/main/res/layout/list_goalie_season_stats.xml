@@ -1,138 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
 
-    <data>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="4dp"/>
 
-        <import type="com.slapshotapps.dragonshockey.activities.careerStats.PlayerSeasonStatsVM"/>
+    <TextView
+        android:id="@+id/season"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_one"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Winter '17"/>
 
-        <variable
-            name="item"
-            type="PlayerSeasonStatsVM"/>
-    </data>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/games_played"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_three"
+        app:layout_constraintStart_toEndOf="@id/guideline_two"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="8"/>
 
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@{item.getBackgroundColor(context)}">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.35"/>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="4dp"/>
+    <TextView
+        android:id="@+id/goals_against"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_four"
+        app:layout_constraintStart_toEndOf="@id/guideline_three"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="33"/>
 
-        <TextView
-            android:id="@+id/season"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline_one"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@{item.seasonID}"
-            tools:text="Winter '17"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50"/>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.25"/>
+    <TextView
+        android:id="@+id/goals_against_average"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_four"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_five"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2.34"/>
 
-        <TextView
-            android:id="@+id/games_played"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{item.getGamesPlayedAsString()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_three"
-            app:layout_constraintStart_toEndOf="@id/guideline_two"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="8"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.60"/>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.35"/>
+    <TextView
+        android:id="@+id/shutouts"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_five"
+        app:layout_constraintEnd_toStartOf="@id/guideline_six"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1"/>
 
-        <TextView
-            android:id="@+id/goals_against"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{item.getGoalsAgainstAsString()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_four"
-            app:layout_constraintStart_toEndOf="@id/guideline_three"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="33"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75"/>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.50"/>
-
-        <TextView
-            android:id="@+id/goals_against_average"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{item.goalsAgainstAverage}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/guideline_four"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_five"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="2.34"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_five"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.60"/>
-
-        <TextView
-            android:id="@+id/shutouts"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{item.getShutoutsAsString()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/guideline_five"
-            app:layout_constraintEnd_toStartOf="@id/guideline_six"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_six"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.75"/>
-
-        <TextView
-            android:id="@+id/penalty_minutes"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/guideline_six"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@{item.getPenaltyMinutesAsString()}"
-            tools:text="20"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+    <TextView
+        android:id="@+id/penalty_minutes"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_six"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="20"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
