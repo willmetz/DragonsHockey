@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.slapshotapps.dragonshockey.R
+import com.slapshotapps.dragonshockey.databinding.ViewGameDetailsBinding
 import com.slapshotapps.dragonshockey.utils.DateFormatter
 import com.slapshotapps.dragonshockey.utils.FormattingUtils
 import com.slapshotapps.dragonshockey.models.SeasonSchedule
@@ -23,10 +24,9 @@ class ScheduleAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
 
-        val gameView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.view_game_details, parent, false)
+        val binding = ViewGameDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return GameViewHolder(gameView)
+        return GameViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
@@ -37,19 +37,7 @@ class ScheduleAdapter(
         holder.setGameResult(FormattingUtils.getGameScore(game.gameResult, game.opponent))
     }
 
-    class GameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val gameDay: TextView
-        private val gameTime: TextView
-        private val opponent: TextView
-        private val gameResult: TextView
-
-        init {
-
-            gameDay = itemView.findViewById<View>(R.id.game_day) as TextView
-            gameTime = itemView.findViewById<View>(R.id.game_time) as TextView
-            opponent = itemView.findViewById<View>(R.id.opponent) as TextView
-            gameResult = itemView.findViewById<View>(R.id.game_result) as TextView
-        }
+    class GameViewHolder(private val binding: ViewGameDetailsBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun setGameDate(gameDate: Date?) {
             val calendar = Calendar.getInstance()
@@ -62,17 +50,17 @@ class ScheduleAdapter(
                         + " "
                         + FormattingUtils.getValueWithSuffix(calendar.get(Calendar.DAY_OF_MONTH)))
 
-                gameDay.text = gameDayStr
-                gameTime.text = DateFormatter.getGameTime(gameDate)
+                binding.gameDay.text = gameDayStr
+                binding.gameTime.text = DateFormatter.getGameTime(gameDate)
             }
         }
 
         fun setGameOpponent(opponent: String?) {
-            this.opponent.text = opponent
+            binding.opponent.text = opponent
         }
 
         fun setGameResult(result: String) {
-            gameResult.text = result
+            binding.gameResult.text = result
         }
     }
 }

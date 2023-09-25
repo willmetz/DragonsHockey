@@ -117,6 +117,12 @@
                 tools:alpha="1"
                 tools:text="1" />
 
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/last_game_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="last_game_header,last_game_score"/>
+
             <TextView
                 android:id="@+id/last_game_header"
                 android:layout_width="wrap_content"
@@ -129,6 +135,12 @@
                 app:layout_constraintRight_toRightOf="@+id/content_home"
                 app:layout_constraintTop_toBottomOf="@+id/record_win"
                 tools:alpha="1" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/next_game_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="next_game_header,next_game_date, next_game_location, next_game_opponent"/>
 
             <TextView
                 android:id="@+id/next_game_header"

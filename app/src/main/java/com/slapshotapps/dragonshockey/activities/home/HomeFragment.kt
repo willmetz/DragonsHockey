@@ -99,10 +99,20 @@ class HomeFragment : HockeyFragment() {
                     HomeScreenObserver.getHomeScreen(firebaseDatabase, games, Date())
                 }
                 .subscribe({ homeContents ->
-                    //binding.item = HomeScreenViewModel(homeContents)
+                    val viewModel = HomeScreenViewModel(homeContents)
+                    binding.recordWin.text = "${homeContents.seasonRecord.wins}"
+                    binding.recordLoss.text = "${homeContents.seasonRecord.losses}"
+                    binding.recordOtl.text = "${homeContents.seasonRecord.overtimeLosses}"
+                    binding.recordTie.text = "${homeContents.seasonRecord.ties}"
+                    binding.lastGameGroup.visibility = viewModel.showLastGameInfo()
+                    binding.lastGameScore.text = viewModel.getLastGameResult(requireContext())
+
+                    binding.nextGameDate.text = viewModel.getNextGameTime(requireContext())
+                    binding.nextGameGroup.visibility = viewModel.nextGameInfoVisible
+                    binding.nextGameLocation.text = viewModel.rink
+                    binding.nextGameOpponent.text = "Vrs ${viewModel.getNextGameOpponent()}"
                     listener?.hideProgressBar()
                 }, {
-                    //binding.item = HomeScreenViewModel(null)
                     listener?.hideProgressBar()
                     Toast.makeText(this@HomeFragment.context, R.string.error_loading, Toast.LENGTH_LONG)
                             .show()

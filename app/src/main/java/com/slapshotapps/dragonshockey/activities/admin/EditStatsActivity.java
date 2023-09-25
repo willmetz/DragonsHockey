@@ -87,7 +87,7 @@ public class EditStatsActivity extends AppCompatActivity {
 
         if (adminEditsStatsAdapter.statsChanged()) {
 
-            ArrayList<AdminStatsViewModel> viewModel = adminEditsStatsAdapter.getStats();
+            ArrayList<AdminStatsViewModel> viewModel = adminEditsStatsAdapter.getPlayerStats();
 
             if (playerGameStats.isKeyValid()) {
                 firebaseDatabase.getReference()

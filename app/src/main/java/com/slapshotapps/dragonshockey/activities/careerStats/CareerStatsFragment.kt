@@ -41,14 +41,15 @@ class CareerStatsFragment : HockeyFragment() {
 
         currentSeasonStats = CareerStatsFragmentArgs.fromBundle(requireArguments()).currentSeasonStats
 
-        careerStatsAdapter = CareerStatsAdapter()
-        binding.careerStats.adapter = careerStatsAdapter
+        val adapter = CareerStatsAdapter()
+        binding.careerStats.adapter = adapter
         binding.careerStats.layoutManager = LinearLayoutManager(context)
         binding.careerStats.addItemDecoration(
                 RecyclerViewDivider(context, R.drawable.schedule_divider))
         binding.careerStats.addItemDecoration(
-                StaticHeaderDecoration(careerStatsAdapter, binding.careerStats))
+                StaticHeaderDecoration(adapter, binding.careerStats))
 
+        careerStatsAdapter = careerStatsAdapter
         return binding.root
     }
 
@@ -61,9 +62,10 @@ class CareerStatsFragment : HockeyFragment() {
 
                     careerStatsVM = CareerStatsVM(careerStatsData.player, currentSeasonStats,
                             careerStatsData.seasonStats)
-                    //binding.careerStats.
+                    binding.playerName.text = careerStatsVM?.playerName.orEmpty()
+                    binding.playerNumber.text = careerStatsVM?.playerNumber.orEmpty()
+                    binding.playerPosition.text = careerStatsVM?.playerPosition.orEmpty()
 
-                   // binding.stats = careerStatsVM
                     careerStatsAdapter?.updateStats(careerStatsVM!!.stats,
                             careerStatsData.player.getPlayerPosition())
 
