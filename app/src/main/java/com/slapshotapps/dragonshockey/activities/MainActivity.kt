@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.slapshotapps.dragonshockey.AnalyticEventListener
 import com.slapshotapps.dragonshockey.Config
@@ -17,12 +18,13 @@ class MainActivity : AppCompatActivity(), ActionBarListener, AnalyticEventListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setSupportActionBar(binding!!.toolbar);
-
-
-        val navController = findNavController(this, R.id.fragment_container)
-        NavigationUI.setupWithNavController(binding!!.navigationView, navController)
         setContentView(binding!!.root)
+
+        setSupportActionBar(binding!!.toolbar);
+        (supportFragmentManager.findFragmentById(R.id.fragment_container) as? NavHostFragment)?.let {
+            NavigationUI.setupWithNavController(binding!!.navigationView, it.navController)
+        }
+
     }
 
     override fun onSupportNavigateUp() =

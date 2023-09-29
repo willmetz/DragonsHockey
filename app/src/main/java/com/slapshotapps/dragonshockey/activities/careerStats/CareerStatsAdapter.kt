@@ -61,9 +61,9 @@ class CareerStatsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
 
     override fun onCreateViewBinding(parent: RecyclerView): ViewBinding {
         return if(playerPosition == PlayerPosition.GOALIE){
-            ListSeasonStatsGoalieHeaderBinding.inflate(LayoutInflater.from(parent!!.context), parent, false)
+            ListSeasonStatsGoalieHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         }else{
-            ListSeasonStatsHeaderBinding.inflate(LayoutInflater.from(parent!!.context), parent, false)
+            ListSeasonStatsHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         }
     }
 

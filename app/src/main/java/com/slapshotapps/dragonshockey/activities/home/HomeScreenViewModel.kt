@@ -92,7 +92,7 @@ class HomeScreenViewModel(contents: HomeContents?) {
 
         val lastGame = homeContents.lastGame
 
-        if (lastGame != null && lastGame.gameResult != null) {
+        if (lastGame?.gameResult != null) {
             val gameResultString = FormattingUtils.getGameResultAsString(lastGame.gameResult)
             return String.format(context.getString(R.string.last_game_score),
                     lastGame.gameResult?.dragonsScore, lastGame.opponent,
