@@ -39,7 +39,7 @@
     <string name="opponent_hint">Opponent</string>
     <string name="edit_game_game_id">Game ID: %d</string>
     <string name="title_activity_edit_stats_auth">EditStatsAuthActivity</string>
-    <string name="admin_access_email">slapshotapps2@gmail.com</string>
+    <string name="admin_access_email">slapshotapps2+1@gmail.com</string>
     <string name="connection_failed">Connection Failed</string>
     <string name="google_services_unavailable">Unable to connect to google services, please try later</string>
     <string name="invalid_login">Invalid login</string>

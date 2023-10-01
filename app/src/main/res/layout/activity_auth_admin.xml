@@ -43,23 +43,43 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/sign_in_with_google"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_input_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:text="Please sign in with Google"/>
+                android:paddingHorizontal="8dp"
+                android:hint="User Name">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.gms.common.SignInButton
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_input_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:layout_marginTop="8dp"
+                app:passwordToggleEnabled="true"
+                android:hint="Password">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
                 android:id="@+id/sign_in_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_gravity="center_horizontal"/>
+                android:text="Sign In"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:enabled="false"/>
+
         </LinearLayout>
 
 
