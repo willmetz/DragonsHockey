@@ -25,7 +25,7 @@ class AdminScheduleAdapter(schedule: SeasonSchedule, private val listener: Admin
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
         val binding = ViewAdminGameCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ScheduleViewHolder(binding)
+        return ScheduleViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
@@ -40,12 +40,15 @@ class AdminScheduleAdapter(schedule: SeasonSchedule, private val listener: Admin
         return items[position].layoutID
     }
 
-    class ScheduleViewHolder(private val binding: ViewAdminGameCardBinding) : RecyclerView.ViewHolder(binding.root){
+    class ScheduleViewHolder(private val binding: ViewAdminGameCardBinding, private val listener: AdminClickListener) : RecyclerView.ViewHolder(binding.root){
         fun onBind(data: GameListItem){
             binding.gameDate.text = data.gameDate
             binding.gameId.text = data.gameID
             binding.gameOpponent.text = data.gameOpponent
             binding.gameResult.text = data.gameResult
+            binding.root.setOnClickListener {
+                listener.onGameClick(data.game)
+            }
         }
     }
 }

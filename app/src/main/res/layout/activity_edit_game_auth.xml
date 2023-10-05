@@ -21,6 +21,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_edit_game_auth" />
+    <include
+        android:id="@+id/game_content"
+        layout="@layout/content_edit_game_auth" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
