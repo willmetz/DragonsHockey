@@ -8,6 +8,7 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.google.firebase.database.FirebaseDatabase
 import com.slapshotapps.dragonshockey.Config
 import com.slapshotapps.dragonshockey.activities.admin.listeners.EditGameClickListener
@@ -40,9 +41,11 @@ class EditGameActivity : AppCompatActivity(){
             keys = null
             refreshData = true
         }
-        binding = ActivityEditGameAuthBinding.inflate(layoutInflater)
-        setContentView(binding!!.root)
-        setSupportActionBar(binding!!.toolbar)
+        ActivityEditGameAuthBinding.inflate(layoutInflater).let {
+            setContentView(it.root)
+            setSupportActionBar(it.toolbar)
+            binding = it
+        }
         database = FirebaseDatabase.getInstance()
         setClickListeners()
     }
@@ -96,6 +99,18 @@ class EditGameActivity : AppCompatActivity(){
             originalGame?.let {
                 startActivity(DragonsHockeyIntents.createEditGameStatsIntent(this, it.gameID))
             }
+        }
+
+        binding?.gameContent?.dragonsScore?.addTextChangedListener {
+            gameViewModel?.dragonsScore = it?.toString()
+        }
+
+        binding?.gameContent?.opponentScore?.addTextChangedListener {
+            gameViewModel?.opponentScore = it?.toString()
+        }
+
+        binding?.gameContent?.otl?.setOnCheckedChangeListener { _, _ ->
+            gameViewModel?.oTL = binding?.gameContent?.otl?.isChecked == true
         }
     }
 

@@ -21,6 +21,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_edit_stats_auth"/>
+    <include
+        android:id="@+id/edit_stats_container"
+        layout="@layout/content_edit_stats_auth"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

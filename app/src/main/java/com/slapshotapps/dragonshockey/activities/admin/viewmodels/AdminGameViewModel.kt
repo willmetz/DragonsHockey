@@ -75,7 +75,7 @@ class AdminGameViewModel(val game: Game) {
         get() = getGameTime(game.gameTimeToDate()!!)
 
     fun hasChanged(): Boolean {
-        return !originalGame!!.equals(game)
+        return originalGame != game
     }
 
     var oTL: Boolean

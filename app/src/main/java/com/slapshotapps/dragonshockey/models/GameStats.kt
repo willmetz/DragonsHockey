@@ -14,7 +14,7 @@ class GameStats {
 
     @JvmField
     @PropertyName("stats")
-    var gameStats: List<Stats>? = null
+    var gameStats: ArrayList<Stats>? = null
 
     @Keep
     class Stats {
