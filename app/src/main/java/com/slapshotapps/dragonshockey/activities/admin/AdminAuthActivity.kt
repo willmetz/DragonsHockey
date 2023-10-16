@@ -3,11 +3,16 @@ package com.slapshotapps.dragonshockey.activities.admin
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.slapshotapps.dragonshockey.Config
-import com.slapshotapps.dragonshockey.R
 import com.slapshotapps.dragonshockey.databinding.ActivityAuthAdminBinding
 import com.slapshotapps.dragonshockey.utils.DragonsHockeyIntents
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 class AdminAuthActivity : AppCompatActivity() {
     private var firebaseAuth: FirebaseAuth? = null
@@ -34,10 +39,12 @@ class AdminAuthActivity : AppCompatActivity() {
             firebaseAuth?.signOut()
         }
 
-        if (doesUserHaveAdminAccess()) {
-            launchAuthenticatedActivity()
-        } else {
-            configureUnauthenticatedUser()
+        lifecycleScope.launch {
+            if (doesUserHaveAdminAccess()) {
+                launchAuthenticatedActivity()
+            } else {
+                configureUnauthenticatedUser()
+            }
         }
     }
 
@@ -65,8 +72,10 @@ class AdminAuthActivity : AppCompatActivity() {
         firebaseAuth?.signInWithEmailAndPassword(email, password)
                 ?.addOnCompleteListener {
                     if(it.isSuccessful){
-                        if(doesUserHaveAdminAccess()){
-                            launchAuthenticatedActivity()
+                        lifecycleScope.launch {
+                            if(doesUserHaveAdminAccess()){
+                                launchAuthenticatedActivity()
+                            }
                         }
                         showProgressBar(false)
                     }else{
@@ -81,12 +90,17 @@ class AdminAuthActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun doesUserHaveAdminAccess(): Boolean {
-        firebaseAuth?.currentUser?.apply {
-            this.email?.takeIf { it == getString(R.string.admin_access_email) }?.run { return true }
-                    ?: firebaseAuth?.signOut()
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private suspend fun doesUserHaveAdminAccess(): Boolean = suspendCancellableCoroutine { cont ->
+        FirebaseDatabase.getInstance().reference.run {
+            child("test").setValue("test").addOnCompleteListener { canWrite ->
+                if(canWrite.isSuccessful){
+                    cont.isActive.takeIf { it }?.run { cont.resume(true) }
+                }else{
+                    cont.isActive.takeIf { it }?.run { cont.resume(false) }
+                }
+            }
         }
-        return false
     }
 
     private fun showProgressBar(show: Boolean) {
