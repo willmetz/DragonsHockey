@@ -50,8 +50,13 @@ class CareerStatsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = playerSeasonStats[position]
-        if(holder is GoalieViewHolder){
-            holder
+        when(holder){
+            is GoalieViewHolder -> {
+                holder.bind(item)
+            }
+            is PlayerStatViewHolder -> {
+                holder.bind(item)
+            }
         }
     }
 

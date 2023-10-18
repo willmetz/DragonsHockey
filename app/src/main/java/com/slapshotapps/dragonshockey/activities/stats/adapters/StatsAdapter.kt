@@ -14,7 +14,7 @@ import com.slapshotapps.dragonshockey.models.PlayerStats
  * Recyclerview adapter for player stats
  */
 class StatsAdapter(stats: List<PlayerStats>,
-                   listener: PlayerStatsVM.PlayerStatsVMListener) :
+                   private val listener: PlayerStatsVM.PlayerStatsVMListener) :
         RecyclerView.Adapter<ViewHolder>() {
 
     private var playerStats = arrayListOf<PlayerStatsVM>()
@@ -80,6 +80,8 @@ class StatsAdapter(stats: List<PlayerStats>,
             binding.assists.text = model.assists
             binding.points.text = model.points
             binding.penaltyMinutes.text = model.penaltyMinutes
+
+            binding.playerStats.setOnClickListener { listener.onViewPLayerStats(model.playerStats) }
         }
     }
 
@@ -95,6 +97,8 @@ class StatsAdapter(stats: List<PlayerStats>,
             binding.goalsAgainstAverage.text = model.goalsAgainstAverage()
             binding.shutouts.text = model.shutouts()
             binding.penaltyMinutes.text = model.penaltyMinutes
+
+            binding.playerStats.setOnClickListener { listener.onViewPLayerStats(model.playerStats) }
         }
     }
 
