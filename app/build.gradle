@@ -32,10 +32,6 @@ android {
     targetCompatibility JavaVersion.VERSION_17
   }
 
-//  kotlinOptions {
-//    jvmToolchain(11)
-//  }
-
   compileSdk 34
   defaultConfig {
     applicationId "com.slapshotapps.dragonshockey"
