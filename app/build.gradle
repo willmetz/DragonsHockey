@@ -37,7 +37,7 @@ android {
     applicationId "com.slapshotapps.dragonshockey"
     minSdkVersion 23
     targetSdkVersion 34
-    versionCode 33
+    versionCode 34
     versionName "3.00"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -61,8 +61,14 @@ android {
     }
 
     dev {
+      minifyEnabled false
       productFlavors.cert.signingConfig signingConfigs.certConfig
       productFlavors.prod.signingConfig signingConfigs.prodConfig
+    }
+
+    debug{
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
 
